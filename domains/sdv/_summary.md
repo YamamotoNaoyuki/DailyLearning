@@ -1,7 +1,7 @@
 # 🚗 SDV（Software Defined Vehicle） 分野サマリー
 
-**最終更新**: 2026-03-05
-**エントリ数**: 3
+**最終更新**: 2026-03-06
+**エントリ数**: 4
 
 **分野の方針**: Eclipse SDVを中心としたオープンソースのSoftware Defined Vehicleエコシステムを学ぶ。最終目標はEclipse SDVのオープンソースプロジェクトを活用した電気自動車の作成。車両アーキテクチャ、Vehicle Signal Specification、コンテナ化、ワークロードオーケストレーション、車両アプリ開発を横断的に学ぶ。
 
@@ -33,6 +33,11 @@
 - **SOME/IP-SD（Service Discovery）**: Offer Service、Find Service、Subscribe Eventgroup、Subscribe Ack。動的サービス発見
 - **vsomeip**: COVESA提供のオープンソース実装。kuksa-someip-providerがKuksa DatabrokerへのSOME/IPブリッジ
 - **3層アーキテクチャ**: SOME/IP（通信）→ VSS（データモデル）→ Kuksa（データブローカー）がEclipse SDVの車内通信骨格
+- **100BASE-T1**: IEEE 802.3bw(2017)。元BroadR-Reach。1ペアUTPで100Mbps全二重。車載Ethernetの物理層
+- **PAM3+エコーキャンセレーション**: 3値信号と自分の送信信号の差し引きで1ペア全二重を実現
+- **車載メリット**: 重量30%減、コスト最大80%減、帯域100倍（vs CAN）。IT業界のツール（Wireshark等）が利用可能
+- **1000BASE-T1**: IEEE 802.3bp。1Gbps。カメラ映像・LiDAR用。ゾーンアーキテクチャのバックボーン
+- **フルスタック**: 100BASE-T1(物理)→TCP/UDP(トランスポート)→SOME/IP(ミドルウェア)→VSS(データモデル)→Kuksa(ブローカー)→Velocitas(アプリ)
 
 ---
 
@@ -43,6 +48,6 @@
 - Linuxがサーバーを変えたように、Eclipse SDVは2030年代の車載ソフトウェアの標準を狙う
 
 ## 未解決の疑問
-- Automotive Ethernet（100BASE-T1）——SOME/IPの物理層としての特性
 - DBC（Database CAN）ファイルの書き方とKuksa Feederの設定
-- ara::com（Adaptive AUTOSAR Communication Management）——SOME/IPの上位抽象化
+- TSN（Time-Sensitive Networking）——車載Ethernetのリアルタイム性保証
+- ゾーンアーキテクチャ——ドメインECUからゾーンECUへの移行

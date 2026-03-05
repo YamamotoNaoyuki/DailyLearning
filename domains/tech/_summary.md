@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-03-05
-**エントリ数**: 6
+**最終更新**: 2026-03-06
+**エントリ数**: 7
 
 ---
 
@@ -29,6 +29,10 @@
 - **A2A vs MCP**: 垂直（MCP: エージェント↔ツール）vs 水平（A2A: エージェント↔エージェント）。競合ではなく補完関係
 - **A2A技術スタック**: HTTP + JSON-RPC + SSE。v0.3でgRPCサポート追加。Linux Foundation傘下、Apache 2.0
 - **A2AとAAIF**: A2AとAI Agent Interoperability Framework（Linux Foundation）が競合的な立場に
+- **ACP（Agent Communication Protocol）**: 2025年5月IBM発表。BeeAIプラットフォームの通信基盤。JSON-RPC over HTTP/WebSockets
+- **ACP→A2A統合**: 2025年9月にACPチームとA2Aチームが統合を発表。事実上ACPがA2Aに合流
+- **2軸体制への収斂**: MCP（垂直: エージェント↔ツール）+ A2A（水平: エージェント↔エージェント）の2軸体制に市場が収斂
+- **プロトコル統合の教訓**: エコシステムの厚さとオープンガバナンスが勝敗を決める。技術的優位性より採用の広さ
 
 ---
 
@@ -38,6 +42,6 @@
 - 「どのパターンを使うか」より「いつパターンを切り替えるか」が鍵
 
 ## 未解決の疑問
-- ACP（Agent Communication Protocol）——A2A, MCPに次ぐ第3のプロトコル
-- 分散型識別子（DID）の技術的仕組み
-- エンタープライズにおけるMCP + A2Aの統合アーキテクチャパターン
+- 分散型識別子（DID）の技術的仕組み——エージェント認証の基盤
+- MCP + A2Aの統合アーキテクチャパターン——エンタープライズでの実践
+- AAIF（AI Agent Interoperability Framework）の全体像
