@@ -1,7 +1,7 @@
 # 🚗 SDV（Software Defined Vehicle） 分野サマリー
 
 **最終更新**: 2026-03-05
-**エントリ数**: 1
+**エントリ数**: 2
 
 **分野の方針**: Eclipse SDVを中心としたオープンソースのSoftware Defined Vehicleエコシステムを学ぶ。最終目標はEclipse SDVのオープンソースプロジェクトを活用した電気自動車の作成。車両アーキテクチャ、Vehicle Signal Specification、コンテナ化、ワークロードオーケストレーション、車両アプリ開発を横断的に学ぶ。
 
@@ -20,6 +20,12 @@
 - **Eclipse Zenoh**: 高性能pub/sub/queryプロトコル。Rust製。v1.1.0。ITU-TがV2Xに最適と認定
 - **Eclipse BlueChi**: Red Hat貢献。C製。マルチノードsystemdサービスコントローラー。機能安全対応
 - **SDV Hackathon 2025**: 102名参加。CarByte Engineeringが3層アーキテクチャ+音声インターフェースで1位
+- **CAN bus**: 1983年Bosch開発。2本のツイストペア(CAN-H/CAN-L)による差動信号。ノイズ耐性が高い
+- **アービトレーション**: IDが小さいほど高優先度。非破壊的——衝突してもデータが失われない
+- **通信速度**: 125kbps(500m)〜1Mbps(40m)のトレードオフ。データフレーム最大8バイト
+- **CAN FD**: 2012年Bosch開発。データ64バイト、最大8Mbps。BRS(Bit Rate Switch)で後方互換性維持
+- **OBD-II**: CANの上位層プロトコル。車載診断規格
+- **KUKSA DBC Feeder**: CAN生データ→DBCファイルで解釈→VSS変換。ハードウェアとソフトウェアの翻訳層
 
 ---
 
@@ -30,8 +36,6 @@
 - Linuxがサーバーを変えたように、Eclipse SDVは2030年代の車載ソフトウェアの標準を狙う
 
 ## 未解決の疑問
-- COVESA VSSのEV専用ブランチ（ElectricMotor, TractionBattery）の詳細
-- Eclipse Leda + Raspberry PiでのSDV環境構築ハンズオン
-- Kuksa DatabrokerのRust/gRPCアーキテクチャ詳細
-- CAN busプロトコルの基礎——車両ネットワークの物理層
-- S-CORE v1.0ロードマップとQNX統合
+- DBC（Database CAN）ファイルの書き方とKuksa Feederの設定
+- Automotive Ethernet（100BASE-T1）——CAN busの次世代
+- SOME/IPプロトコル——サービス指向通信の基礎
