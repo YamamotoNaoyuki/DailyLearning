@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch"
+      "WebSearch",
+      "Bash(gh gist create \"_integrations/2026-03-04_デイリーレポート2.md\" --desc \"🌀 影分身デイリーレポート 2026-03-04（第2回）\" --public)"
     ]
   }
 }
