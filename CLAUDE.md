@@ -16,7 +16,9 @@ kage-bunshin/
 │   │   ├── _summary.md          ← 分野サマリー（常に最新を維持）
 │   │   └── YYYY-MM-DD_タイトル.md ← 日次エントリ
 │   ├── music/
+│   ├── piano/
 │   ├── golf/
+│   ├── anatomy/
 │   ├── bread/
 │   ├── philosophy/
 │   ├── house-hunting/
@@ -110,8 +112,10 @@ kage-bunshin/
 | フォルダ名 | 分野 | 説明 |
 |-----------|------|------|
 | `tech` | テクノロジー | Claude Code、AI、開発全般 |
-| `music` | 音楽 | クラシック音楽、ピアノ分析 |
+| `music` | 音楽 | クラシック音楽の鑑賞・分析・歴史 |
+| `piano` | ピアノ演奏 | 演奏技法、奏法、練習法、身体の使い方 |
 | `golf` | ゴルフ | バイオメカニクス、スイング |
+| `anatomy` | 解剖学 | 筋骨格系、関節可動域、日常動作・演奏・スポーツの身体最適化 |
 | `bread` | パン | サワードウ、発酵 |
 | `philosophy` | 哲学・美学 | 侘び寂び、思想 |
 | `house-hunting` | 家探し | 横浜エリア、不動産市場 |
