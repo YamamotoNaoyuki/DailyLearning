@@ -22,6 +22,7 @@ kage-bunshin/
 │   ├── bread/
 │   ├── philosophy/
 │   ├── house-hunting/
+│   ├── sdv/
 │   └── other/
 ├── _integrations/               ← 統合レポート（本体の知恵）
 │   └── YYYY-MM-DD_統合.md
@@ -119,6 +120,7 @@ kage-bunshin/
 | `bread` | パン | サワードウ、発酵 |
 | `philosophy` | 哲学・美学 | 侘び寂び、思想 |
 | `house-hunting` | 家探し | 横浜エリア、不動産市場 |
+| `sdv` | SDV | Eclipse SDV、Software Defined Vehicle、オープンソースEV開発 |
 | `other` | その他（セレンディピティ枠） | 毎回ランダムな分野・トピックを選び、新しい興味の種を探す |
 
 新しい分野が必要なら「〇〇分野を追加して」と言ってください。
