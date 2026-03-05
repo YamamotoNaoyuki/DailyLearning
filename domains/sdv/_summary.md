@@ -1,7 +1,7 @@
 # 🚗 SDV（Software Defined Vehicle） 分野サマリー
 
 **最終更新**: 2026-03-05
-**エントリ数**: 2
+**エントリ数**: 3
 
 **分野の方針**: Eclipse SDVを中心としたオープンソースのSoftware Defined Vehicleエコシステムを学ぶ。最終目標はEclipse SDVのオープンソースプロジェクトを活用した電気自動車の作成。車両アーキテクチャ、Vehicle Signal Specification、コンテナ化、ワークロードオーケストレーション、車両アプリ開発を横断的に学ぶ。
 
@@ -26,6 +26,13 @@
 - **CAN FD**: 2012年Bosch開発。データ64バイト、最大8Mbps。BRS(Bit Rate Switch)で後方互換性維持
 - **OBD-II**: CANの上位層プロトコル。車載診断規格
 - **KUKSA DBC Feeder**: CAN生データ→DBCファイルで解釈→VSS変換。ハードウェアとソフトウェアの翻訳層
+- **SOME/IP**: BMW開発（2011年）。サービス指向の車載ミドルウェア。AUTOSAR標準。TCP/UDP over Ethernet
+- **CAN vs SOME/IP**: 信号ベース(8B) vs サービスベース(無制限)。1Mbps vs 100Mbps-10Gbps。固定的 vs 動的発見
+- **SOME/IPメッセージ**: 16バイト固定ヘッダー + 可変長ペイロード。Service ID + Method ID + Client ID + Session ID
+- **4つの通信パターン**: Request/Response(RPC)、Fire & Forget、Event Notification(Pub/Sub)、Field(Getter/Setter/Notifier)
+- **SOME/IP-SD（Service Discovery）**: Offer Service、Find Service、Subscribe Eventgroup、Subscribe Ack。動的サービス発見
+- **vsomeip**: COVESA提供のオープンソース実装。kuksa-someip-providerがKuksa DatabrokerへのSOME/IPブリッジ
+- **3層アーキテクチャ**: SOME/IP（通信）→ VSS（データモデル）→ Kuksa（データブローカー）がEclipse SDVの車内通信骨格
 
 ---
 
@@ -36,6 +43,6 @@
 - Linuxがサーバーを変えたように、Eclipse SDVは2030年代の車載ソフトウェアの標準を狙う
 
 ## 未解決の疑問
+- Automotive Ethernet（100BASE-T1）——SOME/IPの物理層としての特性
 - DBC（Database CAN）ファイルの書き方とKuksa Feederの設定
-- Automotive Ethernet（100BASE-T1）——CAN busの次世代
-- SOME/IPプロトコル——サービス指向通信の基礎
+- ara::com（Adaptive AUTOSAR Communication Management）——SOME/IPの上位抽象化

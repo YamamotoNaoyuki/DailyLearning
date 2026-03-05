@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
 **最終更新**: 2026-03-05
-**エントリ数**: 5
+**エントリ数**: 6
 
 ---
 
@@ -24,6 +24,11 @@
 - **ゼロトラスト for AI**: 従来のIAMはエフェメラルな委任チェーンに対応不足。全インタラクションに認証・認可を要求
 - **ARIA**: Agent Relationship-based Identity and Authorization。委任関係を暗号的に検証可能なグラフで管理
 - **DID + VC**: 分散型識別子と検証可能クレデンシャルによる新フレームワークが登場
+- **Google A2A（Agent-to-Agent）**: 2025年4月発表。異なるフレームワーク・ベンダーのAIエージェント間の相互運用プロトコル。50+パートナー
+- **Agent Card**: JSON形式のケイパビリティ記述。「何ができるか」を機械可読で公開。OpenAPIスキーマに相当
+- **A2A vs MCP**: 垂直（MCP: エージェント↔ツール）vs 水平（A2A: エージェント↔エージェント）。競合ではなく補完関係
+- **A2A技術スタック**: HTTP + JSON-RPC + SSE。v0.3でgRPCサポート追加。Linux Foundation傘下、Apache 2.0
+- **A2AとAAIF**: A2AとAI Agent Interoperability Framework（Linux Foundation）が競合的な立場に
 
 ---
 
@@ -33,6 +38,6 @@
 - 「どのパターンを使うか」より「いつパターンを切り替えるか」が鍵
 
 ## 未解決の疑問
-- Google A2Aプロトコルの詳細とMCPとの比較
+- ACP（Agent Communication Protocol）——A2A, MCPに次ぐ第3のプロトコル
 - 分散型識別子（DID）の技術的仕組み
-- AIエージェントの「人格」と説明可能性の関係
+- エンタープライズにおけるMCP + A2Aの統合アーキテクチャパターン
