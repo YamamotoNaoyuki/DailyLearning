@@ -1,7 +1,7 @@
 # 🚗 SDV（Software Defined Vehicle） 分野サマリー
 
-**最終更新**: 2026-03-06
-**エントリ数**: 4
+**最終更新**: 2026-03-07
+**エントリ数**: 5
 
 **分野の方針**: Eclipse SDVを中心としたオープンソースのSoftware Defined Vehicleエコシステムを学ぶ。最終目標はEclipse SDVのオープンソースプロジェクトを活用した電気自動車の作成。車両アーキテクチャ、Vehicle Signal Specification、コンテナ化、ワークロードオーケストレーション、車両アプリ開発を横断的に学ぶ。
 
@@ -38,6 +38,14 @@
 - **車載メリット**: 重量30%減、コスト最大80%減、帯域100倍（vs CAN）。IT業界のツール（Wireshark等）が利用可能
 - **1000BASE-T1**: IEEE 802.3bp。1Gbps。カメラ映像・LiDAR用。ゾーンアーキテクチャのバックボーン
 - **フルスタック**: 100BASE-T1(物理)→TCP/UDP(トランスポート)→SOME/IP(ミドルウェア)→VSS(データモデル)→Kuksa(ブローカー)→Velocitas(アプリ)
+- **ゾーンアーキテクチャ**: ドメイン（機能別）からゾーン（物理位置別）へのE/E再編。ゾーンECU（I/Oゲートウェイ）+ HPC（集中計算）構成
+- **ゾーンECU**: Mixed-Criticality対応（ハイパーバイザーによるASIL分離）。CAN/LIN→Ethernet変換ゲートウェイ機能。AUTOSAR Classic + Adaptive共存
+- **HPC**: 車両に1〜3台。数百TOPS級SoC。ADAS・統合ボディ制御・インフォテインメントのアプリケーションロジックを集約
+- **ワイヤーハーネス削減**: Tesla Model S→Model 3で3km→1.5km（50%減）。VW SSPで40%削減・ECU50%以上削減目標
+- **10BASE-T1S**: IEEE 802.3-2022。マルチドロップ（バス型）Ethernet。PLCA（物理層衝突回避）。ゾーン内ラストマイルでCAN/LIN代替
+- **OEM動向**: Tesla（5年以上リード、モジュラーワイヤリング特許）、VW SSP（2026冬季テスト→2027量産、Rivian提携）、ハイブリッド型の段階的移行が主流
+- **Ankaios×ゾーン**: サーバー(HPC)/エージェント(ゾーンECU)モデルがゾーンアーキテクチャと同型。宣言的ワークロード管理
+- **Eclipse SDV×ゾーン**: Kuksa（ゾーン透過的データアクセス）、uProtocol（異種通信統合）、Leda（ゾーンECU向けOS候補）
 
 ---
 
@@ -49,5 +57,8 @@
 
 ## 未解決の疑問
 - DBC（Database CAN）ファイルの書き方とKuksa Feederの設定
-- TSN（Time-Sensitive Networking）——車載Ethernetのリアルタイム性保証
-- ゾーンアーキテクチャ——ドメインECUからゾーンECUへの移行
+- TSN（Time-Sensitive Networking）——車載Ethernetのリアルタイム性保証。IEEE 802.1Qbv Time-Aware Shaperの動作
+- Ankaiosマルチノード構成の実践——HPC + ゾーンECU 4台をQEMU/Dockerで再現
+- AUTOSAR Adaptive ara::comとSOME/IP-SDの関係
+- ゾーンECU向けSoC比較——NXP S32G、Renesas R-Car S4、Qualcomm Ride Flex
+- VW SSP + Rivian提携のソフトウェアプラットフォーム技術選択
