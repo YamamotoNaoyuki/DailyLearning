@@ -1,7 +1,7 @@
 # 🚗 SDV（Software Defined Vehicle） 分野サマリー
 
-**最終更新**: 2026-03-07
-**エントリ数**: 5
+**最終更新**: 2026-03-09
+**エントリ数**: 6
 
 **分野の方針**: Eclipse SDVを中心としたオープンソースのSoftware Defined Vehicleエコシステムを学ぶ。最終目標はEclipse SDVのオープンソースプロジェクトを活用した電気自動車の作成。車両アーキテクチャ、Vehicle Signal Specification、コンテナ化、ワークロードオーケストレーション、車両アプリ開発を横断的に学ぶ。
 
@@ -46,6 +46,15 @@
 - **OEM動向**: Tesla（5年以上リード、モジュラーワイヤリング特許）、VW SSP（2026冬季テスト→2027量産、Rivian提携）、ハイブリッド型の段階的移行が主流
 - **Ankaios×ゾーン**: サーバー(HPC)/エージェント(ゾーンECU)モデルがゾーンアーキテクチャと同型。宣言的ワークロード管理
 - **Eclipse SDV×ゾーン**: Kuksa（ゾーン透過的データアクセス）、uProtocol（異種通信統合）、Leda（ゾーンECU向けOS候補）
+- **TSN（Time-Sensitive Networking）**: IEEE 802.1標準群の総称。ベストエフォートEthernetに決定論的通信を付与。元AVB（2012年改称）
+- **IEEE 802.1Qbv（Time-Aware Shaper）**: GCL（Gate Control List）でタイムスロットごとにキューのゲートを開閉。車載実測で97μs/σ0.7μsの確定的レイテンシ
+- **IEEE 802.1AS-Rev（gPTP）**: TSN全体の基盤となる時刻同期。64ホップで1μs精度。PHYレベルタイムスタンプで最高精度
+- **IEEE 802.1Qci（PSFP）**: Stream Filter→Stream Gate→Flow Meterの3段構造。ストリーム単位のフィルタリングとポリシング。車載セキュリティ層
+- **IEEE 802.1CB（FRER）**: フレーム複製・冗長送信・重複排除でゼロ切替時間の冗長化。ASIL-D要求のSteer-by-Wire等に必須
+- **IEEE 802.1DG-2025**: 車載専用TSNプロファイル標準（2025年発行）。TSN標準群から車載に必要な機能と推奨設定値を規定。相互運用性の鍵
+- **TSN vs FlexRay**: FlexRayのTDMA確定性をEthernet帯域（100Mbps〜10Gbps）で再実装。FlexRayの実質的後継
+- **Zetta Auto × TSN**: Eclipse Zenoh商用版がTSN統合を明示サポート。TTTech Autoと提携。Zenoh pub/sub→TSNストリームの自然なマッピング
+- **uProtocol × TSN**: トランスポート非依存のためTSN対応Ethernetを下位層に配置可能。QoS設定→802.1Qbvトラフィッククラスへのマッピング
 
 ---
 
@@ -57,7 +66,11 @@
 
 ## 未解決の疑問
 - DBC（Database CAN）ファイルの書き方とKuksa Feederの設定
-- TSN（Time-Sensitive Networking）——車載Ethernetのリアルタイム性保証。IEEE 802.1Qbv Time-Aware Shaperの動作
+- ~~TSN（Time-Sensitive Networking）——車載Ethernetのリアルタイム性保証。IEEE 802.1Qbv Time-Aware Shaperの動作~~ → 2026-03-09に解決
+- 802.1Qccストリーム予約プロトコル（CUC/CNC）とSOME/IP-SDの連携アーキテクチャ
+- TSN対応スイッチIC比較（Marvell 88Q5072、NXP SJA1110、Broadcom BCM8957X）
+- AUTOSAR Adaptive上のTSNスタック（ara::com E2E ProtectionとFRERの責任分担）
+- Linux TSNスタック（tc-taprio、ptp4l）のEclipse Leda上での動作
 - Ankaiosマルチノード構成の実践——HPC + ゾーンECU 4台をQEMU/Dockerで再現
 - AUTOSAR Adaptive ara::comとSOME/IP-SDの関係
 - ゾーンECU向けSoC比較——NXP S32G、Renesas R-Car S4、Qualcomm Ride Flex

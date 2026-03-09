@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-03-07
-**エントリ数**: 8
+**最終更新**: 2026-03-09
+**エントリ数**: 9
 
 ---
 
@@ -40,6 +40,16 @@
 - **レイヤードアーキテクチャ**: Layer1 MCP(ツール接続) → Layer2 Gateway(セキュリティ) → Layer3 A2A(オーケストレーション) → Layer4 ビジネスロジック
 - **Agent Discovery問題**: エージェントの発見・命名・解決メカニズムが未成熟。DNS的な分散発見の確立が次のマイルストーン
 - **A2A採用拡大**: 支持企業50社(2025/4)→100社超(2026/2)。ServiceNowが両プロトコル統合を実装
+- **Agent Card発見**: .well-known/agent-card.json（RFC 8615準拠）。2025年4月にIANA登録。A2A RC v1.0は2026年1月
+- **Agent Card限界**: 受動的発見（ドメイン既知前提）のみ。能動的発見（能力ベース検索）には別メカニズムが必要
+- **ANS（Agent Name Service）**: OWASP GenAI Security Project。PKIベースの分散発見。ANSNameで能力・プロバイダー・バージョンをエンコード
+- **DNS-AID / BANDAID**: IETF Draft（Infoblox）。既存DNS（SVCB/HTTPSレコード）を拡張。新レコードタイプ不要。_agents.example.comリーフゾーン規約
+- **agentregistry（Solo.io）**: Agent Registry + Agent Naming Service + Agent Gatewayの3層。KubeCon 2025/2026で発表、OSS寄贈
+- **5つのレジストリ方式**: MCP Registry（中央集権）/ A2A Agent Cards（分散）/ AGNTCY（IPFS DHT）/ Entra Agent ID（エンタープライズ）/ NANDA Index（暗号検証型）
+- **AAIF**: 2025年12月Linux Foundation傘下設立。Anthropic/OpenAI/Block創設。MCP+Goose+AGENTS.md統合
+- **Kong MCP Registry**: AAIF準拠。Kong Konnect上でMCPサーバー一元管理。エージェントの動的発見+ポリシー制御
+- **Gemini Enterprise（旧Agentspace）**: Agent Engine + マーケットプレイス + Cloud API Registry。プラットフォーム内発見の完結型
+- **発見の収斂方向**: 短期=.well-known+プラットフォーム内、中期=DNS標準化+能力ベース発見、長期=分散/中央ハイブリッド
 
 ---
 
@@ -51,6 +61,8 @@
 ## 未解決の疑問
 - 分散型識別子（DID）の技術的仕組み——エージェント認証の基盤。Entra Agent ID、AWS AgentCore Policyとの関連
 - AgentGatewayの実装詳細——Rust実装のソースコード分析、プロキシ設定のベストプラクティス
-- Agent Discovery問題の解決案——分散発見メカニズム、DNS的アプローチの可能性
-- AAIF（AI Agent Interoperability Framework）の全体像
+- BANDAID IETF Draftの詳細——SVCBレコードのカスタムパラメータ仕様、実際のDNSクエリ例
+- AGNTCY Agent Directory——IPFS Kademlia DHTベースの完全分散型発見の実装詳細
+- NANDA Index AgentFacts——プライバシー保護型発見の暗号学的仕組み、選択的開示
+- Agent Discovery + DID統合——DIDDocumentとAgent Cardの関係
 - WebMCPの動向——ブラウザベースMCP拡張、プロトコル戦争の第3の軸
