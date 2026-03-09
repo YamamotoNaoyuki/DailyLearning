@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
 **最終更新**: 2026-03-09
-**エントリ数**: 9
+**エントリ数**: 10
 
 ---
 
@@ -50,6 +50,15 @@
 - **Kong MCP Registry**: AAIF準拠。Kong Konnect上でMCPサーバー一元管理。エージェントの動的発見+ポリシー制御
 - **Gemini Enterprise（旧Agentspace）**: Agent Engine + マーケットプレイス + Cloud API Registry。プラットフォーム内発見の完結型
 - **発見の収斂方向**: 短期=.well-known+プラットフォーム内、中期=DNS標準化+能力ベース発見、長期=分散/中央ハイブリッド
+- **W3C DID v1.0**: 2022年7月W3C Recommendation。v1.1は2026年2月Working Draft公開。AIエージェントIDシステムへの対応を明記
+- **DIDの基本構造**: `did:method:method-specific-id`。DIDドキュメントにverificationMethod、authentication、service等を記載
+- **did:web**: 既存DNS+HTTPSを利用。`.well-known/did.json`に解決。導入障壁最低だが完全な分散ではない
+- **did:key**: 公開鍵そのものがDID。レジストリ不要。エフェメラルなエージェント向き。鍵ローテーション不可
+- **did:ion**: Bitcoin L2のSidetreeプロトコル。Microsoft主導。完全分散+鍵ローテーション両立
+- **Verifiable Credentials（VC）**: 発行者がDIDで識別された主体について暗号署名付き主張を行うデジタル証明書
+- **Selective Disclosure**: ZKPベースのVPで必要な属性のみ証明。エージェントの能力証明に応用可能
+- **Microsoft Entra Agent ID**: Azure AD拡張。did:webベースでエージェント認証。マネージドID+VC
+- **DID+Agent Discovery**: Agent Card（何ができるか）+ DIDドキュメント（誰がそれを証明するか）の二重構造で信頼チェーン確立
 
 ---
 
@@ -59,7 +68,7 @@
 - 「どのパターンを使うか」より「いつパターンを切り替えるか」が鍵
 
 ## 未解決の疑問
-- 分散型識別子（DID）の技術的仕組み——エージェント認証の基盤。Entra Agent ID、AWS AgentCore Policyとの関連
+- ~~分散型識別子（DID）の技術的仕組み~~ → 2026-03-09に学習済み
 - AgentGatewayの実装詳細——Rust実装のソースコード分析、プロキシ設定のベストプラクティス
 - BANDAID IETF Draftの詳細——SVCBレコードのカスタムパラメータ仕様、実際のDNSクエリ例
 - AGNTCY Agent Directory——IPFS Kademlia DHTベースの完全分散型発見の実装詳細
