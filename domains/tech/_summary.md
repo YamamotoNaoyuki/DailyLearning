@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-03-09
-**エントリ数**: 10
+**最終更新**: 2026-03-11
+**エントリ数**: 11
 
 ---
 
@@ -59,6 +59,12 @@
 - **Selective Disclosure**: ZKPベースのVPで必要な属性のみ証明。エージェントの能力証明に応用可能
 - **Microsoft Entra Agent ID**: Azure AD拡張。did:webベースでエージェント認証。マネージドID+VC
 - **DID+Agent Discovery**: Agent Card（何ができるか）+ DIDドキュメント（誰がそれを証明するか）の二重構造で信頼チェーン確立
+- **WebMCP（W3C Draft, 2026/2 公開）**: navigator.modelContext API。宣言的API（HTMLフォーム属性）+命令的API（JS）
+- **3層プロトコルスタック**: MCP（バックエンド）+A2A（エージェント間）+WebMCP（フロントエンド）
+- **Chrome 146 Canary早期プレビュー**: WebMCPの初期実装
+- **同意境界（Consent Boundary）**: WebMCPのセキュリティモデル
+- **Agent Invocation Tracking**: エージェント呼び出しの追跡機構
+- **トークン効率89%改善**: WebMCP導入による効率化
 
 ---
 
@@ -74,4 +80,7 @@
 - AGNTCY Agent Directory——IPFS Kademlia DHTベースの完全分散型発見の実装詳細
 - NANDA Index AgentFacts——プライバシー保護型発見の暗号学的仕組み、選択的開示
 - Agent Discovery + DID統合——DIDDocumentとAgent Cardの関係
-- WebMCPの動向——ブラウザベースMCP拡張、プロトコル戦争の第3の軸
+- ~~WebMCPの動向~~ → 2026-03-11に学習済み
+- WebMCP Chrome実装の詳細——Service Worker統合、オフライン対応
+- 3層統合アーキテクチャ——MCP+A2A+WebMCPの実運用パターン
+- Firefox/Safari対応方針——WebMCP標準化のブラウザベンダー動向
