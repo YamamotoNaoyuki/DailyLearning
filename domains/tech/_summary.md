@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-03-11
-**エントリ数**: 11
+**最終更新**: 2026-03-12
+**エントリ数**: 12
 
 ---
 
@@ -65,6 +65,14 @@
 - **同意境界（Consent Boundary）**: WebMCPのセキュリティモデル
 - **Agent Invocation Tracking**: エージェント呼び出しの追跡機構
 - **トークン効率89%改善**: WebMCP導入による効率化
+- **エージェントの二重構造**: A2Aサーバー（能力公開）+ MCPクライアント（ツール接続）が実装パターンとして確立
+- **LangGraph v0.2**: A2AとMCPを「first-class protocol targets」としてサポート（2026年1月）
+- **Google ADK**: A2A・MCP両方のfirst-classサポート。Vertex AI Agent Engine上のリファレンスアーキテクチャ
+- **Salesforce Agentforce**: MCPクライアント+A2A通信の統合実装。MuleSoft経由で3,200+のエンタープライズコネクター
+- **ServiceNow**: Tokyo Release（2026）でMCP+A2A両方を統合。ITSMエージェントがMCPでServiceNow APIに接続しA2Aで他エージェントと通信
+- **AgentGateway SessionManager**: MCPのステートフル管理。ただしローカルインプロセスストアのため水平スケール時にセッションアフィニティ課題
+- **セキュリティ非対称性**: MCP=OAuth 2.1義務化 vs A2A=宣言型。AgentGatewayでOPA/Regoポリシーによる統一化
+- **開発者ワークフロー**: Step1 MCPサーバー構築→Step2 Agent Card公開→Step3 Gateway設定→Step4 統合テスト
 
 ---
 
@@ -82,5 +90,7 @@
 - Agent Discovery + DID統合——DIDDocumentとAgent Cardの関係
 - ~~WebMCPの動向~~ → 2026-03-11に学習済み
 - WebMCP Chrome実装の詳細——Service Worker統合、オフライン対応
-- 3層統合アーキテクチャ——MCP+A2A+WebMCPの実運用パターン
+- ~~3層統合アーキテクチャ——MCP+A2A+WebMCPの実運用パターン~~ → 2026-03-12に学習済み
 - Firefox/Safari対応方針——WebMCP標準化のブラウザベンダー動向
+- AgentGatewayのセッションアフィニティ問題——水平スケール時のステートフルMCP管理
+- A2A Agent Card v2の動向——能力ベースの動的発見
