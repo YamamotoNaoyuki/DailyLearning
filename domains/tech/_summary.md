@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-03-12
-**エントリ数**: 12
+**最終更新**: 2026-03-14
+**エントリ数**: 13
 
 ---
 
@@ -74,6 +74,22 @@
 - **セキュリティ非対称性**: MCP=OAuth 2.1義務化 vs A2A=宣言型。AgentGatewayでOPA/Regoポリシーによる統一化
 - **開発者ワークフロー**: Step1 MCPサーバー構築→Step2 Agent Card公開→Step3 Gateway設定→Step4 統合テスト
 
+- **LLM推論最適化**: 量子化・蒸留・投機的デコーディングの3本柱。各レイヤーの最適化は乗算的に積み重なる
+- **量子化手法**: GPTQ（MSE最小化、GPU向け）、AWQ（活性化認識、重要チャネル特定）、GGUF（CPU向けデファクト標準）
+- **量子化精度**: FP8=事実上ロスレス、INT8=1-3%劣化、INT4=W8A8-INT同程度。7Bモデル: FP32 28GB→INT4 3.5GB
+- **Blackwell世代**: ネイティブFP4テンソルコア。フォーマットハイブリッド化（Attention=FP8, MLP=INT4）が主流化
+- **DeepSeek-R1蒸留**: 80万件CoTサンプル生成→Qwen/Llamaをファインチューニング。7Bで医療USMLE 92%超
+- **逆転蒸留（ACL 2025）**: ドメイン特化の小モデルがLLMの教師になる逆方向の知識移転
+- **投機的デコーディング**: ドラフトモデルが5-8トークン予測→ターゲットモデルが並列検証。出力品質は数学的に同一
+- **Mirror SD（Apple）**: 14B-66Bで2.8-5.8xスピードアップ。EAGLE3比30%改善
+- **Speculative Speculative Decoding（ICLR 2026）**: 投機的デコーディング自体を再帰的に投機する手法
+- **PagedAttention（vLLM）**: OS仮想メモリ着想。KVキャッシュ無駄を60-80%→4%未満に削減。2-4x容量改善
+- **Continuous Batching**: 動的バッチ混合でGPUアイドル排除。同一HWで3-10xスループット
+- **FlashAttention-3**: H100でFP16時740TFLOPS（FA2比1.5-2x）、FP8時1.2PFLOPS。GPU利用率35%→75%
+- **FlashAttention-4**: CuTeDSL記述、Hopper/Blackwell最適化。FP4で4倍スループット
+- **Groq LPU**: 推論専用HW。Llama 2 70Bで300tok/s（H100の10x）。メモリ帯域幅ボトルネック排除
+- **Apple MLX + M5**: GPU Neural Acceleratorで14B TTFT<10秒。M4比4x高速化。vllm-mlxでllama.cpp比21-87%高スループット
+
 ---
 
 ## キーコンセプト
@@ -82,6 +98,7 @@
 - 「どのパターンを使うか」より「いつパターンを切り替えるか」が鍵
 
 ## 未解決の疑問
+- ~~LLM推論最適化（量子化・蒸留・投機的デコーディング）~~ → 2026-03-14に学習済み
 - ~~分散型識別子（DID）の技術的仕組み~~ → 2026-03-09に学習済み
 - AgentGatewayの実装詳細——Rust実装のソースコード分析、プロキシ設定のベストプラクティス
 - BANDAID IETF Draftの詳細——SVCBレコードのカスタムパラメータ仕様、実際のDNSクエリ例
@@ -94,3 +111,7 @@
 - Firefox/Safari対応方針——WebMCP標準化のブラウザベンダー動向
 - AgentGatewayのセッションアフィニティ問題——水平スケール時のステートフルMCP管理
 - A2A Agent Card v2の動向——能力ベースの動的発見
+- LoRA/QLoRA——量子化＋低ランク適応によるファインチューニング効率化の詳細
+- MoE推論最適化——DeepSeek-V3 671Bの効率的サービング手法
+- SGLang vs vLLM——次世代推論エンジンの詳細比較（RadixAttention等）
+- エッジデバイスLLM——Gemini Nano、Apple Intelligenceの技術的詳細

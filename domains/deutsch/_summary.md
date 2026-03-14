@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-03-12
-**エントリ数**: 4
-**フレーズ数**: 16
+**最終更新**: 2026-03-14
+**エントリ数**: 5
+**フレーズ数**: 20
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -13,6 +13,7 @@
 - **2026-03-09**: 予定を立てる（Pläne machen / Verabredungen treffen）
 - **2026-03-11**: Modalpartikeln（心態詞: doch, ja, mal, eigentlich）
 - **2026-03-12**: schon, halt, eben（「諦め」と「自己確信」の心態詞）
+- **2026-03-14**: 体調を伝える・医者に行く（Gesundheit / Arztbesuch）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -31,6 +32,10 @@
 - „Das stimmt schon, aber..." — schon=譲歩（部分的同意→反論）
 - „Ich hab's dir eben gesagt." — eben=断定的な自己確信（北ドイツ）
 - „Das wird schon klappen." — schon=楽観的な保証・励まし
+- „Mich hat's voll erwischt." — 風邪ひいた/やられた（非人称es構文、口語）
+- „Ich bräuchte einen Termin, möglichst zeitnah." — 早めの予約を取りたい（Konjunktiv IIの丁寧表現）
+- „Ich hab so ein Kratzen im Hals und der Kopf brummt." — 喉イガイガ＋頭ズキズキ（擬音動詞で症状描写）
+- „Kann ich mir das auch ohne Rezept in der Apotheke holen?" — 処方箋なしで買える？（sich holen構文）
 
 ## 重要文法パターン
 - **enttäuscht von + Dat.**: ～に失望した（über + Akk.も可だがvonが自然）
@@ -43,6 +48,14 @@
 - **fest einplanen**: 確定的に予定に入れる（分離動詞。fest machenも同義）
 - **passen**: ①合う ②都合がいい ③パスする/見送る（多義語、カードゲーム由来）
 - **wie wär's mit + Dat.**: ～はいかがでしょう（代替案の丁寧な提示）
+- **Dativ der betroffenen Person**: Mir ist schlecht / Mir tut der Kopf weh — 身体の不調はDativ構文で表現
+- **身体部位は定冠詞**: Der Kopf tut mir weh（mein Kopfではなく、Dativで所有者が明確なため定冠詞）
+- **動詞の名詞化**: kratzen → das Kratzen（中性名詞、症状の描写に多用）
+- **擬音動詞による症状描写**: stechen（刺痛）, ziehen（鈍痛）, pochen（脈打つ痛み）, brummen（ぼんやり痛い）, brennen（ヒリヒリ）, kribbeln（しびれ）
+- **ohne + Akkusativ**: ohneは常に4格支配
+- **sich etwas holen**: kaufenより口語的な「手に入れる」
+- **möglichst + 形容詞/副詞**: 「できるだけ～」（möglichst schnell, möglichst bald）
+- **Termin vs Verabredung**: Termin=公式な予約、Verabredung=私的な約束
 - **Modalpartikelnの位置**: 常にMittelfeld（文中域）に配置
 - **イントネーションによる意味変化**: ja（上昇=驚き、下降=確認）
 - **日本語終助詞との類似性**: doch≒よね、ja≒ね、mal≒ちょっと、eigentlich≒そういえば、halt≒しょうがないよ、eben≒だから言ったでしょ、schon≒まあね/大丈夫だって
@@ -66,3 +79,6 @@
 - Modalpartikeln組み合わせパターン——doch mal, ja schon等の複合使用
 - WhatsApp/SMSでのドイツ語略語
 - ビジネスドイツ語の予定表現（Termin vereinbaren等）
+- 薬局ドイツ語（Nebenwirkungen, Beipackzettelの読み方）
+- Krankenhaus（病院）での緊急時フレーズ
+- Beschwerden描写の形容詞（dumpf, stechend, pochend等）
