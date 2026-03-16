@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-03-14
-**エントリ数**: 5
-**フレーズ数**: 20
+**最終更新**: 2026-03-16
+**エントリ数**: 6
+**フレーズ数**: 24
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -14,6 +14,7 @@
 - **2026-03-11**: Modalpartikeln（心態詞: doch, ja, mal, eigentlich）
 - **2026-03-12**: schon, halt, eben（「諦め」と「自己確信」の心態詞）
 - **2026-03-14**: 体調を伝える・医者に行く（Gesundheit / Arztbesuch）
+- **2026-03-16**: 食事・レストラン（Essen bestellen / Im Restaurant）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -36,6 +37,10 @@
 - „Ich bräuchte einen Termin, möglichst zeitnah." — 早めの予約を取りたい（Konjunktiv IIの丁寧表現）
 - „Ich hab so ein Kratzen im Hals und der Kopf brummt." — 喉イガイガ＋頭ズキズキ（擬音動詞で症状描写）
 - „Kann ich mir das auch ohne Rezept in der Apotheke holen?" — 処方箋なしで買える？（sich holen構文）
+- „Ich hätte gerne die Rinderroulade, und dazu bitte den Hauswein." — 注文の基本形（hätte gerne + dazuで繋ぐ自然な流れ）
+- „Geht das auch ohne Milch? Ich vertrage nämlich keine Laktose." — 食材変更リクエスト（gehenの非人称用法＋nämlichで理由補足）
+- „Zusammen oder getrennt? — Getrennt, bitte." — 会計時の定番やり取り（省略表現）
+- „Stimmt so." — チップを含めて「そのままで」（2語で完結する慣用表現）
 
 ## 重要文法パターン
 - **enttäuscht von + Dat.**: ～に失望した（über + Akk.も可だがvonが自然）
@@ -62,6 +67,13 @@
 - **halt vs eben**: haltは南ドイツ/オーストリア（柔らかい諦め）、ebenは北ドイツ（断定的確信）。意味はほぼ同じだが情緒的ニュアンスと地域性が異なる
 - **schonの二面性**: 時間副詞（もう）と心態詞（譲歩/励まし）で全く異なる意味。文脈とイントネーションで判別
 - **認識的スタンス**: 6つのModalpartikeln（doch/ja/mal/eigentlich/schon/halt/eben）を認識的スタンスの枠組みで整理可能
+- **hätte gerne vs möchte**: レストラン注文はhätte gerneが標準。möchteは教科書的でやや子どもっぽい
+- **dazu（追加注文）**: メインと飲み物・サイドを繋ぐ接続表現。und dazu bitte...が自然な流れ
+- **gehenの非人称用法**: Geht das...?＝「それは可能ですか？」万能フレーズ
+- **vertragen + Akk.**: 体質的に合う/耐えられる。否定形（Ich vertrage kein/e/en...）が食事場面で重要
+- **nämlich（理由の後付け）**: weil節より口語的。副詞なのでVerb-Zweit語順を保つ
+- **レストラン会話の省略パターン**: Einmal die Suppe / Für mich das Steak / Stimmt so — 文脈が明確なら動詞を省略するのが自然
+- **stimmen**: 「合っている」の万能動詞。Stimmt so（チップ表現）、Das stimmt（その通り）、Stimmt's?（合ってる？）
 
 ---
 
@@ -82,3 +94,7 @@
 - 薬局ドイツ語（Nebenwirkungen, Beipackzettelの読み方）
 - Krankenhaus（病院）での緊急時フレーズ
 - Beschwerden描写の形容詞（dumpf, stechend, pochend等）
+- Kneipe（居酒屋）でのカジュアルな注文表現
+- Bäckerei（パン屋）での注文ドイツ語
+- Beschwerden im Restaurant（レストランでのクレーム表現）
+- ドイツ料理の名前の語源（Schnitzel, Knödel, Strudel等）

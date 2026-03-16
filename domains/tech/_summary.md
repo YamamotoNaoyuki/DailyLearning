@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-03-14
-**エントリ数**: 13
+**最終更新**: 2026-03-16
+**エントリ数**: 14
 
 ---
 
@@ -90,6 +90,20 @@
 - **Groq LPU**: 推論専用HW。Llama 2 70Bで300tok/s（H100の10x）。メモリ帯域幅ボトルネック排除
 - **Apple MLX + M5**: GPU Neural Acceleratorで14B TTFT<10秒。M4比4x高速化。vllm-mlxでllama.cpp比21-87%高スループット
 
+- **オブザーバビリティ3本柱**: トレース（経路追跡）・メトリクス（集約数値）・ログ（個別イベント）。相互補完的に機能
+- **OpenTelemetry（OTel）**: CNCF第2位のアクティブPJ。OpenTracing+OpenCensus統合（2019年）。トレース・メトリクス・ログGA済、プロファイリング開発中
+- **OTelアーキテクチャ**: API（計装IF）+ SDK（処理）+ Collector（中継）+ OTLP（転送プロトコル）。APIとSDKの分離が設計の核心
+- **分散トレーシング**: スパン（処理単位）→トレース（スパンのDAG）。W3C Trace Context（traceparentヘッダー）で伝搬
+- **サンプリング戦略**: Head-based（開始時確率決定）/ Tail-based（完了後全体判定、エラー確実捕捉）/ Adaptive（動的調整）
+- **OTelのデカップリング効果**: 計装の投資を保護。バックエンド（Jaeger/Tempo/Datadog等）を切替えてもアプリコード不変
+- **自動計装 vs 手動計装**: 自動でベースライン確保→手動でビジネスコンテキスト強化が実践的アプローチ
+- **OTel Collector**: Receivers→Processors→Exportersパイプライン。Agent（サイドカー）+Gateway（中央集約）の2層構成が一般的
+- **REDメソッド**: Rate/Error/Duration（サービス視点）。USEメソッド: Utilization/Saturation/Errors（リソース視点）
+- **Exemplar**: メトリクス→トレースへのリンク。Resource attributesとTrace ID injectionで3シグナルを横断相関
+- **OTel Profiling**: 第4のシグナル。トレースのスパンとプロファイルを紐付け、サービス→関数レベルまで一気通貫
+- **eBPF計装**: カーネルレベルで言語非依存のゼロ計装。Grafana Beyla、Odigos、Cilium Hubbleが代表例
+- **AI/LLMオブザーバビリティ**: gen_ai.*セマンティック規約（Experimental）。トークン数・レイテンシ・モデル名の標準属性定義
+
 ---
 
 ## キーコンセプト
@@ -115,3 +129,8 @@
 - MoE推論最適化——DeepSeek-V3 671Bの効率的サービング手法
 - SGLang vs vLLM——次世代推論エンジンの詳細比較（RadixAttention等）
 - エッジデバイスLLM——Gemini Nano、Apple Intelligenceの技術的詳細
+- OTel + Kubernetes——Collector Operator、Pod自動注入、Helm Chart構成
+- Grafana LGTMスタック——Loki+Grafana+Tempo+Mirirの統合構成
+- gen_ai.*セマンティック規約——LLMオブザーバビリティの標準属性定義詳細
+- eBPF計装の技術詳細——Grafana BeylaやOdigosのカーネルプローブ実装
+- SLOとオブザーバビリティ——エラーバジェット、バーンレート、SLI定義
