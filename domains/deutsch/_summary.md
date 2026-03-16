@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-03-16
-**エントリ数**: 6
-**フレーズ数**: 24
+**最終更新**: 2026-03-17
+**エントリ数**: 7
+**フレーズ数**: 28
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -15,6 +15,7 @@
 - **2026-03-12**: schon, halt, eben（「諦め」と「自己確信」の心態詞）
 - **2026-03-14**: 体調を伝える・医者に行く（Gesundheit / Arztbesuch）
 - **2026-03-16**: 食事・レストラン（Essen bestellen / Im Restaurant）
+- **2026-03-17**: 天気について話す（Über das Wetter sprechen）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -41,6 +42,10 @@
 - „Geht das auch ohne Milch? Ich vertrage nämlich keine Laktose." — 食材変更リクエスト（gehenの非人称用法＋nämlichで理由補足）
 - „Zusammen oder getrennt? — Getrennt, bitte." — 会計時の定番やり取り（省略表現）
 - „Stimmt so." — チップを含めて「そのままで」（2語で完結する慣用表現）
+- „Was für ein Hundewetter heute!" — ひどい天気だな！（Hund+Wetter合成名詞、感嘆文）
+- „Draußen schüttet es wie aus Eimern — hast du 'nen Schirm dabei?" — 外は土砂降り、傘ある？（非人称es構文、口語短縮'nen）
+- „Laut Wetterbericht soll's am Wochenende richtig schön werden." — 天気予報では週末いい天気らしい（伝聞のsollen）
+- „Es ist so schwül, dass man kaum Luft kriegt!" — ムシムシして息もできない！（so...dass結果構文、schwül）
 
 ## 重要文法パターン
 - **enttäuscht von + Dat.**: ～に失望した（über + Akk.も可だがvonが自然）
@@ -74,6 +79,15 @@
 - **nämlich（理由の後付け）**: weil節より口語的。副詞なのでVerb-Zweit語順を保つ
 - **レストラン会話の省略パターン**: Einmal die Suppe / Für mich das Steak / Stimmt so — 文脈が明確なら動詞を省略するのが自然
 - **stimmen**: 「合っている」の万能動詞。Stimmt so（チップ表現）、Das stimmt（その通り）、Stimmt's?（合ってる？）
+- **非人称es構文（天気）**: es regnet / es schneit / es schüttet / es nieselt — 天気動詞は全てesが主語
+- **Was für ein + 名詞!（感嘆文）**: 名詞の性に合わせてein/eine/einを変化（Was für ein Hundewetter! / Was für eine Hitze!）
+- **伝聞のsollen**: 「～らしい」（情報源がある伝聞）。Es soll morgen regnen. wollen（本人の主張）と使い分け
+- **so ... dass（結果構文）**: 「あまりに～なので…」。soの後に形容詞、dassで結果の副文
+- **laut + Dat.**: 「～によると」。laut Wetterbericht / laut Nachrichten（Genitivも可だがDativが口語的）
+- **aushalten（分離動詞）**: 「耐える」。Ich halte das nicht aus!（否定形が頻出）。ertragenより口語的
+- **kriegen = bekommen**: 口語ではkriegenが圧倒的。Luft kriegen（息をする）、einen Termin kriegen（予約を取る）
+- **richtig（口語の強調副詞）**: 本来「正しい」→口語で「本当に、すごく」= echt / wirklich
+- **口語の短縮形**: 'nen = einen, 'ne = eine, 'nem = einem, soll's = soll es — 会話では必ず短縮される
 
 ---
 
@@ -98,3 +112,7 @@
 - Bäckerei（パン屋）での注文ドイツ語
 - Beschwerden im Restaurant（レストランでのクレーム表現）
 - ドイツ料理の名前の語源（Schnitzel, Knödel, Strudel等）
+- Wetter-Idiome体系整理（Rückenwind bekommen, den Wind aus den Segeln nehmen等）
+- Bauernregeln（農民の天気格言）
+- 季節ごとのSmalltalk表現（Frühling/Sommer/Herbst/Winter）
+- 地域別天気ステレオタイプ（Hamburg=雨、München=Föhn等）

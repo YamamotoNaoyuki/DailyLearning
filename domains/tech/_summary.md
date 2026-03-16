@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-03-16
-**エントリ数**: 14
+**最終更新**: 2026-03-17
+**エントリ数**: 15
 
 ---
 
@@ -104,6 +104,21 @@
 - **eBPF計装**: カーネルレベルで言語非依存のゼロ計装。Grafana Beyla、Odigos、Cilium Hubbleが代表例
 - **AI/LLMオブザーバビリティ**: gen_ai.*セマンティック規約（Experimental）。トークン数・レイテンシ・モデル名の標準属性定義
 
+- **WebAssembly（Wasm）**: ポータブル・安全・高速・コンパクトなバイナリ命令フォーマット。2026年はブラウザ外が最大成長領域
+- **Wasm 3.0（2025年9月）**: Memory64、Multiple Memories、Exception Handling、WasmGC（struct/array型）
+- **WASI（WebAssembly System Interface）**: Wasm向けOS抽象層。POSIXに代わる新システムインターフェース標準
+- **WASI 0.2.0（Preview 2）**: Component Model統合、WIT導入。WASI 0.3.0: ネイティブ非同期I/O（stream<T>/future<T>）
+- **WASI 1.0**: 2026年末〜2027年初リリース目標
+- **コンポーネントモデル**: 言語非依存のWasmモジュール合成。WIT（IDL）で型安全なFFI。プラグインシステムに最適
+- **主要ランタイム**: Wasmtime（CM実装最先端）、Wasmer（AOT/JIT最適化）、WasmEdge（エッジ特化、8MB/1.5ms）
+- **エッジ採用**: Cloudflare Workers（330+拠点）、Fastly Compute、Akamai（Fermyon買収、4000+拠点）
+- **Fermyon Spin**: Wasm開発者体験の抽象化。SpinKube（CNCF Sandbox）でK8s統合
+- **Docker+Wasm**: containerd shimでWasmとLinuxコンテナのハイブリッドデプロイ。「置換」ではなく「共存」
+- **性能**: ネイティブの80-95%。JS比8-10x高速。コールドスタートはマイクロ秒単位（コンテナのミリ秒〜秒と桁違い）
+- **セキュリティ**: ケイパビリティベース（allow-list型）。コンテナのdeny-list型と根本的に異なる。リソースは明示的付与が必要
+- **言語サポート**: Rust（最成熟）、C/C++（高）、Go/TinyGo（高）、Python/C#/Kotlin（中）。40+言語対応
+- **Wasm+AI推論**: wasi-nn（標準ML推論API）、WebLLM（ブラウザ内LLM）、SaaSのクライアントサイド推論シフト
+
 ---
 
 ## キーコンセプト
@@ -134,3 +149,7 @@
 - gen_ai.*セマンティック規約——LLMオブザーバビリティの標準属性定義詳細
 - eBPF計装の技術詳細——Grafana BeylaやOdigosのカーネルプローブ実装
 - SLOとオブザーバビリティ——エラーバジェット、バーンレート、SLI定義
+- SpinKubeの実践——KubernetesでWasmワークロードを運用するアーキテクチャパターン
+- コンポーネントモデル実装——cargo-componentでRustコンポーネントを作りWITで合成する手順
+- WASI 0.3の非同期モデル——stream<T>/future<T>とTokio等の既存非同期ランタイムとの関係
+- MCP × Wasm——MCPサーバーをWasmコンポーネントとして配布・実行するアーキテクチャ
