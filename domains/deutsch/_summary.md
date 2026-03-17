@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-03-17
-**エントリ数**: 7
-**フレーズ数**: 28
+**最終更新**: 2026-03-18
+**エントリ数**: 8
+**フレーズ数**: 32
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -16,6 +16,7 @@
 - **2026-03-14**: 体調を伝える・医者に行く（Gesundheit / Arztbesuch）
 - **2026-03-16**: 食事・レストラン（Essen bestellen / Im Restaurant）
 - **2026-03-17**: 天気について話す（Über das Wetter sprechen）
+- **2026-03-18**: お金と金融（Geld und Finanzen）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -46,6 +47,10 @@
 - „Draußen schüttet es wie aus Eimern — hast du 'nen Schirm dabei?" — 外は土砂降り、傘ある？（非人称es構文、口語短縮'nen）
 - „Laut Wetterbericht soll's am Wochenende richtig schön werden." — 天気予報では週末いい天気らしい（伝聞のsollen）
 - „Es ist so schwül, dass man kaum Luft kriegt!" — ムシムシして息もできない！（so...dass結果構文、schwül）
+- „Das geht ganz schön ins Geld." — けっこうお金かかる（ins Geld gehen慣用句、ganz schönの口語的強調）
+- „Lass uns getrennt zahlen." — 別々に払おう（lass uns+不定詞、ドイツの割り勘文化）
+- „Ich muss diesen Monat etwas kürzertreten." — 今月は節約しないと（kürzertreten分離動詞、Akkusativ時間表現）
+- „Dafür kriege ich doch keine Gehaltserhöhung." — そんなことじゃ昇給もらえない（doch=不満のModalpartikel、複合名詞Fugen-s）
 
 ## 重要文法パターン
 - **enttäuscht von + Dat.**: ～に失望した（über + Akk.も可だがvonが自然）
@@ -88,6 +93,12 @@
 - **kriegen = bekommen**: 口語ではkriegenが圧倒的。Luft kriegen（息をする）、einen Termin kriegen（予約を取る）
 - **richtig（口語の強調副詞）**: 本来「正しい」→口語で「本当に、すごく」= echt / wirklich
 - **口語の短縮形**: 'nen = einen, 'ne = eine, 'nem = einem, soll's = soll es — 会話では必ず短縮される
+- **前置詞なしのAkkusativ時間表現**: diesen Monat, jeden Tag, letzten Sommer, das ganze Jahr — 期間・時点を前置詞なしで4格表現。金融の話題で頻出
+- **金融分野の分離動詞**: kürzertreten（節約する）, ausgeben（支出する）, einsparen（節約する）, anlegen（投資する）, abheben（引き出す）— 金融語彙は分離動詞が集中
+- **ins Geld gehen（慣用句）**: in + das（Akk.）＝方向・変化を示す。ganz schön ins Geld gehenで「かなりお金がかかる」
+- **ganz schön（意味転用）**: 本来「とても素敵に」→口語で「かなり（ネガティブ寄り）」。皮肉的ニュアンスを含む頻出の強調副詞
+- **複合名詞のFugen-s**: Gehalt+s+erhöhung。連結音素sが入る複合名詞パターン。文法的性は最後の要素が決定
+- **etwas（副詞用法）**: 「何か」ではなく「ちょっと、少し」= ein bisschen。etwas kürzertretenのように動詞を修飾
 
 ---
 
@@ -116,3 +127,6 @@
 - Bauernregeln（農民の天気格言）
 - 季節ごとのSmalltalk表現（Frühling/Sommer/Herbst/Winter）
 - 地域別天気ステレオタイプ（Hamburg=雨、München=Föhn等）
+- Wohnungssuche（部屋探し）のフレーズ
+- Reklamation（クレーム・返品）のフレーズ
+- ドイツの保険制度用語（Krankenversicherung, Haftpflicht）

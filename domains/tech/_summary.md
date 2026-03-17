@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-03-17
-**エントリ数**: 15
+**最終更新**: 2026-03-18
+**エントリ数**: 16
 
 ---
 
@@ -119,12 +119,31 @@
 - **言語サポート**: Rust（最成熟）、C/C++（高）、Go/TinyGo（高）、Python/C#/Kotlin（中）。40+言語対応
 - **Wasm+AI推論**: wasi-nn（標準ML推論API）、WebLLM（ブラウザ内LLM）、SaaSのクライアントサイド推論シフト
 
+- **eBPF**: Linuxカーネル内のプログラマブル仮想マシン。検証器（静的解析）+JITコンパイルで安全かつネイティブ並みの性能
+- **eBPF検証器**: メモリ安全性・終了保証・レジスタ状態追跡。意図的なチューリング不完全性が安全性の源泉
+- **eBPFフック**: kprobe/tracepoint/XDP/tc/BPF LSM/sched_ext。多様なカーネルイベントにアタッチ
+- **BPFマップ**: カーネル・ユーザ空間の共有データ構造。Ring Bufferは64コアノードでも7%オーバーヘッド
+- **カーネル新機能**: BPF Token（非特権eBPF）、BPF Arena（共有メモリ）、sched_ext（カスタムスケジューラ）、BPF Exceptions
+- **CO-RE**: Compile Once – Run Everywhere。BTF情報でカーネルバージョン差異を吸収。ディストリビューション標準出荷が進む
+- **Cilium**: eBPFベースK8s CNI。本番環境60%+採用。iptablesのO(n)→BPFマップO(1)でNetworkPolicy評価を根本改善
+- **Cilium 1.19**: IPsec/WireGuardストリクトモード、Ztunnel統合、Hubble強化。AWS EKS/Azure AKS/GKEが採用
+- **XDP**: NICドライバ直後のパケット処理。Cloudflareが3.8Tbps DDoS自動緩和。秒速1,000万パケットドロップ
+- **Falco**: eBPFでsyscall監視。10,000+イベント/秒、CPU5%未満。CNCFの卒業プロジェクト
+- **Tetragon**: 高レベルポリシー→eBPFエンフォースメントコード変換。カーネル内リアルタイムポリシー適用
+- **BPF LSM**: ランタイムでプログラマブルにセキュリティフックを追加。SELinux/AppArmorの動的版
+- **OBI（OpenTelemetry eBPF Instrumentation）**: Grafana Beyla寄贈。プロトコルレベルのゼロ計装。2026年に1.0目標
+- **eBPF vs Wasm**: カーネル空間 vs ユーザ空間、チューリング不完全 vs 完全、静的検証 vs ケイパビリティベース。競合ではなく異なる層
+- **Aya（Rust）**: RustネイティブのeBPFフレームワーク。所有権システムとeBPF安全性モデルの高い親和性
+- **eBPF+AI**: LLMサービング・AIトレーニングクラスターのネットワーク計測にeBPF活用拡大。Microsoft/Google/TikTokが大規模運用
+
 ---
 
 ## キーコンセプト
 - コンテキスト管理＝「限られた机の上の資料配置」
 - 標準化による接続コストの劇的削減
 - 「どのパターンを使うか」より「いつパターンを切り替えるか」が鍵
+- 意図的な制約（チューリング不完全性）が安全性を生む——eBPF検証器の設計哲学
+- O(n)→O(1)のデータ構造選択がアーキテクチャレベルの問題を解決する（iptables→BPFマップ）
 
 ## 未解決の疑問
 - ~~LLM推論最適化（量子化・蒸留・投機的デコーディング）~~ → 2026-03-14に学習済み
@@ -147,9 +166,15 @@
 - OTel + Kubernetes——Collector Operator、Pod自動注入、Helm Chart構成
 - Grafana LGTMスタック——Loki+Grafana+Tempo+Mirirの統合構成
 - gen_ai.*セマンティック規約——LLMオブザーバビリティの標準属性定義詳細
-- eBPF計装の技術詳細——Grafana BeylaやOdigosのカーネルプローブ実装
+- ~~eBPF計装の技術詳細——Grafana BeylaやOdigosのカーネルプローブ実装~~ → 2026-03-18に学習済み
 - SLOとオブザーバビリティ——エラーバジェット、バーンレート、SLI定義
 - SpinKubeの実践——KubernetesでWasmワークロードを運用するアーキテクチャパターン
 - コンポーネントモデル実装——cargo-componentでRustコンポーネントを作りWITで合成する手順
 - WASI 0.3の非同期モデル——stream<T>/future<T>とTokio等の既存非同期ランタイムとの関係
 - MCP × Wasm——MCPサーバーをWasmコンポーネントとして配布・実行するアーキテクチャ
+- eBPF on Windows——Microsoftが進めるWindows向けeBPF実装の技術的詳細と互換性
+- sched_ext実践——eBPFカスタムスケジューラの実装パターンとユースケース
+- XDPプログラミング——XDPによるDDoS緩和・ロードバランサーの実装手順
+- Tetragon深掘り——高レベルポリシーからeBPFエンフォースメントコードへの変換メカニズム
+- eBPF + AI推論パス——LLMサービングのネットワークパスをeBPFで最適化・計測する手法
+- BPF Token + コンテナ——非特権eBPFの実践的なコンテナセキュリティアーキテクチャ
