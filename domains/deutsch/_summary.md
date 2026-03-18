@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-03-18
-**エントリ数**: 8
-**フレーズ数**: 32
+**最終更新**: 2026-03-19
+**エントリ数**: 9
+**フレーズ数**: 36
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -17,6 +17,7 @@
 - **2026-03-16**: 食事・レストラン（Essen bestellen / Im Restaurant）
 - **2026-03-17**: 天気について話す（Über das Wetter sprechen）
 - **2026-03-18**: お金と金融（Geld und Finanzen）
+- **2026-03-19**: 意見表明（Meinungen äußern）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -51,6 +52,10 @@
 - „Lass uns getrennt zahlen." — 別々に払おう（lass uns+不定詞、ドイツの割り勘文化）
 - „Ich muss diesen Monat etwas kürzertreten." — 今月は節約しないと（kürzertreten分離動詞、Akkusativ時間表現）
 - „Dafür kriege ich doch keine Gehaltserhöhung." — そんなことじゃ昇給もらえない（doch=不満のModalpartikel、複合名詞Fugen-s）
+- „Da bin ich voll bei dir." — 完全に同意（bei+Dat.で賛同、vollの口語的強調）
+- „Naja, ich weiß nicht so recht..." — うーん、どうかなぁ（najaのクッション効果、so rechtの否定用法）
+- „Ich find's ehrlich gesagt ziemlich übertrieben." — 正直かなり大げさだと思う（ehrlich gesagt挿入句、find's口語短縮）
+- „Ich würde eher sagen, dass..." — どちらかと言えば〜だと思うけど（Konjunktiv IIの丁寧な意見表明、eherで方向転換）
 
 ## 重要文法パターン
 - **enttäuscht von + Dat.**: ～に失望した（über + Akk.も可だがvonが自然）
@@ -99,6 +104,12 @@
 - **ganz schön（意味転用）**: 本来「とても素敵に」→口語で「かなり（ネガティブ寄り）」。皮肉的ニュアンスを含む頻出の強調副詞
 - **複合名詞のFugen-s**: Gehalt+s+erhöhung。連結音素sが入る複合名詞パターン。文法的性は最後の要素が決定
 - **etwas（副詞用法）**: 「何か」ではなく「ちょっと、少し」= ein bisschen。etwas kürzertretenのように動詞を修飾
+- **Konjunktiv IIによる意見の丁寧化**: Ich sage（断定）→ Ich würde sagen（丁寧）→ Ich würde eher sagen（さらに控えめ）。段階的な距離感を作る
+- **挿入句（Einschub）**: ehrlich gesagt, meiner Meinung nach, unter uns gesagt — 意見の前に置くクッション。副詞句なのでV2語順に影響しない
+- **bei + Dativ（賛同）**: bei dir sein =「君の側にいる」→「君に賛成」。物理的位置→比喩的賛同への意味拡張
+- **eher（方向転換）**: 反論ではなく別角度の提示。相手の意見を受け止めた上で使う戦略的副詞
+- **so recht（否定文）**: nicht so recht =「いまいち〜ない」。recht（正しく）+ so で「ちゃんと」、否定で「確信が持てない」
+- **意見の強度スペクトラム**: voll bei dir（強い賛成）→ Das sehe ich auch so（賛成）→ Naja, ich weiß nicht（曖昧）→ Ich würde eher sagen（控えめな反対）→ Das halte ich für Quatsch（強い反対）
 
 ---
 
@@ -130,3 +141,7 @@
 - Wohnungssuche（部屋探し）のフレーズ
 - Reklamation（クレーム・返品）のフレーズ
 - ドイツの保険制度用語（Krankenversicherung, Haftpflicht）
+- Argumentieren（論証）のフレーズ——erstens/zweitens, dazu kommt, außerdem
+- wohl——推量と不確実性のModalpartikel
+- Höfliche Ablehnung（丁寧な拒否）の自然な表現
+- Diskussionen am Arbeitsplatz（職場での議論フレーズ）

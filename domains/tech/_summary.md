@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-03-18
-**エントリ数**: 16
+**最終更新**: 2026-03-19
+**エントリ数**: 17
 
 ---
 
@@ -136,6 +136,20 @@
 - **Aya（Rust）**: RustネイティブのeBPFフレームワーク。所有権システムとeBPF安全性モデルの高い親和性
 - **eBPF+AI**: LLMサービング・AIトレーニングクラスターのネットワーク計測にeBPF活用拡大。Microsoft/Google/TikTokが大規模運用
 
+- **Protocol Buffers**: スキーマファーストIDL+バイナリシリアライゼーション。フィールド番号ベースのワイヤフォーマットでJSON比最大10x圧縮
+- **proto2→proto3→Editions**: フィールドプレゼンスの暗黙/明示、required廃止、packedデフォルト化。Editions（2023〜）で二項対立を解消しフィーチャー単位制御へ
+- **gRPC**: HTTP/2上のRPCフレームワーク。Channel→RPC（ストリーム）→Messageの3層階層。多重化で単一コネクション上に数百のRPC並行
+- **gRPC 4パターン**: Unary / Server Streaming / Client Streaming / Bidirectional Streaming。双方向ストリームは完全独立動作
+- **デッドライン伝播**: 絶対時刻→タイムアウト変換で経過時間を差し引いて伝播。サービスチェーン全体のカスケード障害防止
+- **インターセプタ**: クライアント/サーバー両側のミドルウェア。認証・ログ・メトリクス・トレーシングの横断的関心事を分離
+- **gRPC vs REST vs GraphQL**: 内部通信=gRPC、外部API=REST、フロントエンド駆動=GraphQL。実務では組み合わせが標準
+- **L4 vs L7 LB問題**: HTTP/2長寿命コネクション多重化でL4 LBが機能不全（負荷3000倍偏り）。L7でストリーム単位分散が必須
+- **Envoy/Istio**: サイドカープロキシでgRPC L7 LBを透過的に解決。least-requestモデル+自動リトライ+サーキットブレーカー
+- **gRPC-Web**: ブラウザはHTTP/2フレームレベル制御不可。Server Streamingのみ対応。プロキシ経由の変換が必要
+- **Connectプロトコル**: Buf社。HTTPトレーラ廃止+JSONエラー+curl互換。HTTP/1.1/2/3対応。gRPC互換を維持しつつデバッガビリティ回復
+- **MCP gRPCトランスポート**: Google提案（2026/2）。既存gRPCインフラでMCPサーバー運用。Protobufでペイロード10x圧縮
+- **eBPF+gRPC計装**: Grafana Beylaがコード変更なしでgRPCトレース/メトリクス自動収集。カーネルレベルのプロトコル解析で言語非依存
+
 ---
 
 ## キーコンセプト
@@ -144,6 +158,8 @@
 - 「どのパターンを使うか」より「いつパターンを切り替えるか」が鍵
 - 意図的な制約（チューリング不完全性）が安全性を生む——eBPF検証器の設計哲学
 - O(n)→O(1)のデータ構造選択がアーキテクチャレベルの問題を解決する（iptables→BPFマップ）
+- スキーマファースト（IDL定義→コード生成）は長期的な型安全性とスキーマ進化の基盤
+- ある層の革新（HTTP/2多重化）が別の層に新課題を押し出す（L4 LB問題→サービスメッシュの必要性）
 
 ## 未解決の疑問
 - ~~LLM推論最適化（量子化・蒸留・投機的デコーディング）~~ → 2026-03-14に学習済み
@@ -178,3 +194,8 @@
 - Tetragon深掘り——高レベルポリシーからeBPFエンフォースメントコードへの変換メカニズム
 - eBPF + AI推論パス——LLMサービングのネットワークパスをeBPFで最適化・計測する手法
 - BPF Token + コンテナ——非特権eBPFの実践的なコンテナセキュリティアーキテクチャ
+- gRPCリフレクション——Protobuf記述子を使ったランタイムサービス定義取得（grpcurl/Postman）
+- Protobuf Editions実践——Edition 2024のフィーチャーフラグ設定とproto3からの移行
+- Connect + Next.js/Remix——ConnectプロトコルによるフルスタックTypeScript実装パターン
+- HTTP/3（QUIC）上のgRPC——UDPベースQUICによるHead-of-Line Blocking解決
+- Buf Schema Registry——Protobufスキーマのバージョン管理・互換性チェック・コード生成
