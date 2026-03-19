@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-03-19
-**エントリ数**: 9
-**フレーズ数**: 36
+**最終更新**: 2026-03-20
+**エントリ数**: 10
+**フレーズ数**: 40
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -18,6 +18,7 @@
 - **2026-03-17**: 天気について話す（Über das Wetter sprechen）
 - **2026-03-18**: お金と金融（Geld und Finanzen）
 - **2026-03-19**: 意見表明（Meinungen äußern）
+- **2026-03-20**: 近所付き合い（Nachbarschaft / Nachbarn）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -52,6 +53,10 @@
 - „Lass uns getrennt zahlen." — 別々に払おう（lass uns+不定詞、ドイツの割り勘文化）
 - „Ich muss diesen Monat etwas kürzertreten." — 今月は節約しないと（kürzertreten分離動詞、Akkusativ時間表現）
 - „Dafür kriege ich doch keine Gehaltserhöhung." — そんなことじゃ昇給もらえない（doch=不満のModalpartikel、複合名詞Fugen-s）
+- „Na, auch unterwegs? Schönes Wetter heute, oder?" — 階段ですれ違う隣人への軽い挨拶（Na+省略文のSmalltalk）
+- „Könnten Sie vielleicht ab zehn die Musik etwas leiser drehen?" — 騒音への丁寧な苦情（Konjunktiv II+vielleicht+leiser drehen）
+- „Ich fahr morgen zum Baumarkt — soll ich dir was mitbringen?" — 隣人への助け合い申し出（soll ich+mitbringen分離動詞）
+- „Und, haben Sie sich schon eingelebt?" — 新しい隣人へのSmalltalk（sich einleben再帰+分離動詞）
 - „Da bin ich voll bei dir." — 完全に同意（bei+Dat.で賛同、vollの口語的強調）
 - „Naja, ich weiß nicht so recht..." — うーん、どうかなぁ（najaのクッション効果、so rechtの否定用法）
 - „Ich find's ehrlich gesagt ziemlich übertrieben." — 正直かなり大げさだと思う（ehrlich gesagt挿入句、find's口語短縮）
@@ -110,6 +115,12 @@
 - **eher（方向転換）**: 反論ではなく別角度の提示。相手の意見を受け止めた上で使う戦略的副詞
 - **so recht（否定文）**: nicht so recht =「いまいち〜ない」。recht（正しく）+ so で「ちゃんと」、否定で「確信が持てない」
 - **意見の強度スペクトラム**: voll bei dir（強い賛成）→ Das sehe ich auch so（賛成）→ Naja, ich weiß nicht（曖昧）→ Ich würde eher sagen（控えめな反対）→ Das halte ich für Quatsch（強い反対）
+- **du vs Sie（隣人編）**: 最初はSie、年上/先住者がduzenを提案。"Wir können uns ruhig duzen."が切り替え合図
+- **Treppenhausの省略文**: 主語・動詞を省略した短い会話が自然。Auch unterwegs? / Schönes Wetter! / Na, alles klar?
+- **leiser/lauter drehen**: 音量の上げ下げ。drehen（回す）が自然、machenは教科書的
+- **sich einleben（再帰+分離）**: 新環境に馴染む。Haben Sie sich eingelebt? 現在完了で使うことが多い
+- **soll ich...?（申し出）**: 隣人への助け合い。Kann ich...?より能動的で「お願いしやすい空気」を作る
+- **Ruhezeiten**: 22:00〜6:00（夜間）+ 日曜祝日終日。Hausordnung（建物規則）とKehrwoche（清掃当番）がドイツ近隣文化の核
 
 ---
 
@@ -145,3 +156,5 @@
 - wohl——推量と不確実性のModalpartikel
 - Höfliche Ablehnung（丁寧な拒否）の自然な表現
 - Diskussionen am Arbeitsplatz（職場での議論フレーズ）
+- Beschwerdebrief（苦情の手紙）の書き方
+- Mülltrennung（ゴミ分別）用語——Restmüll, Biomüll, Gelber Sack等

@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-03-19
-**エントリ数**: 17
+**最終更新**: 2026-03-20
+**エントリ数**: 18
 
 ---
 
@@ -150,6 +150,22 @@
 - **MCP gRPCトランスポート**: Google提案（2026/2）。既存gRPCインフラでMCPサーバー運用。Protobufでペイロード10x圧縮
 - **eBPF+gRPC計装**: Grafana Beylaがコード変更なしでgRPCトレース/メトリクス自動収集。カーネルレベルのプロトコル解析で言語非依存
 
+- **OCI 3仕様**: Runtime Spec（実行方法）+ Image Spec（イメージ形式）+ Distribution Spec（配布プロトコル）。コンテナの「USB-C」
+- **ランタイム2層構造**: 高レベル（containerd/CRI-O: CRI準拠、イメージ管理）→ 低レベル（runc/crun/youki: OCI準拠、カーネル機能で隔離）
+- **runcの隔離機構**: 8名前空間（pid/net/mnt/uts/ipc/user/cgroup/time）+ cgroups（リソース制限）+ seccomp（syscallフィルタ）+ pivot_root + capabilities
+- **crun/youki**: crun（C製、runcより高速・省メモリ、RHEL 9デフォルト）、youki（Rust製、runc比44%高速、CNCF Sandbox申請中）
+- **containerdアーキテクチャ**: スマートクライアント設計。Shim（プロセス分離・デーモン非依存）+ Snapshotter（レイヤー実体化、overlayfs）+ Content Store（コンテンツアドレッサブル）
+- **containerd 2.0**: Transfer Service・Sandbox Service安定化。NRI・CDIデフォルト有効。Runtime V1/AUFS/CRI v1alpha2削除。config v3
+- **Docker進化**: モノリス→containerd抽出(2016)→CNCF寄贈(2017)→CRIプラグイン化(containerd 1.1)→dockershim削除(K8s 1.24)
+- **gVisor**: ユーザー空間Linuxカーネル再実装（Go製Sentry）。SECCOMP_RET_TRAPでsyscall傍受。Gofer（9Pプロトコル）でファイルアクセス。GKE Sandbox本番運用
+- **Kata Containers**: 軽量VM（QEMU/Cloud-Hypervisor/Firecracker）でハードウェアレベル隔離。OCI互換shimでK8s透過統合
+- **Firecracker**: Rust製VMM。KVM利用。起動125ms未満、メモリ5MiB未満、150 microVM/秒。AWS Lambda/Fargateの基盤
+- **隔離強度トレードオフ**: runc(名前空間) < gVisor(ユーザー空間カーネル) < Kata/Firecracker(HW仮想化)。強度↑=オーバーヘッド↑
+- **ルートレスコンテナ**: ユーザー名前空間でUID 0→非特権UIDマッピング。K8s 1.30でユーザー名前空間サポート導入
+- **runc CVE-2025**: masked path悪用・/dev/consoleマウントレースコンディションによるコンテナエスケープ。深層防御の重要性
+- **runwasi**: containerdサブプロジェクト。Wasm shimでK8s上のWasmワークロード実行。runcを介さずWasmランタイム直接呼び出し
+- **eBPF+コンテナ**: Falco(syscall監視)・Cilium/Hubble(ネットワーク可視化)・Tetragon(ランタイムエンフォースメント)・Beyla(ゼロ計装)
+
 ---
 
 ## キーコンセプト
@@ -160,6 +176,9 @@
 - O(n)→O(1)のデータ構造選択がアーキテクチャレベルの問題を解決する（iptables→BPFマップ）
 - スキーマファースト（IDL定義→コード生成）は長期的な型安全性とスキーマ進化の基盤
 - ある層の革新（HTTP/2多重化）が別の層に新課題を押し出す（L4 LB問題→サービスメッシュの必要性）
+- 標準化の連鎖（OCI→CRI→shim）が「それ以外の部分での多様なイノベーション」を促進する
+- 隔離強度はトレードオフ——ワークロードの信頼レベルに応じたランタイム選択が本質
+- モノリスの分解→標準インターフェース確立→エコシステム拡大は技術進化の普遍的パターン
 
 ## 未解決の疑問
 - ~~LLM推論最適化（量子化・蒸留・投機的デコーディング）~~ → 2026-03-14に学習済み
@@ -199,3 +218,9 @@
 - Connect + Next.js/Remix——ConnectプロトコルによるフルスタックTypeScript実装パターン
 - HTTP/3（QUIC）上のgRPC——UDPベースQUICによるHead-of-Line Blocking解決
 - Buf Schema Registry——Protobufスキーマのバージョン管理・互換性チェック・コード生成
+- containerd snapshotter深掘り——overlayfs・stargz・nydusの比較、lazy pullingの実装
+- Kata Containers + Firecracker実践——Kubernetes RuntimeClassを使ったマルチランタイム構成
+- Podman/Buildah/Skopeo——デーモンレスコンテナワークフローの詳細
+- コンテナネットワーキング——CNI、Ciliumデータプレーン、Service Meshの実装
+- イメージビルド最適化——BuildKit・kaniko・Chainguard Wolfiによるdistrolessイメージ
+- Supply Chain Security——Sigstore・cosign・SBOMによるコンテナイメージの署名と検証
