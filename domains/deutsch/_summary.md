@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-03-20
-**エントリ数**: 10
-**フレーズ数**: 40
+**最終更新**: 2026-03-21
+**エントリ数**: 11
+**フレーズ数**: 44
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -19,6 +19,7 @@
 - **2026-03-18**: お金と金融（Geld und Finanzen）
 - **2026-03-19**: 意見表明（Meinungen äußern）
 - **2026-03-20**: 近所付き合い（Nachbarschaft / Nachbarn）
+- **2026-03-21**: 電話とメッセージ（Telefonieren und Nachrichten）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -61,6 +62,10 @@
 - „Naja, ich weiß nicht so recht..." — うーん、どうかなぁ（najaのクッション効果、so rechtの否定用法）
 - „Ich find's ehrlich gesagt ziemlich übertrieben." — 正直かなり大げさだと思う（ehrlich gesagt挿入句、find's口語短縮）
 - „Ich würde eher sagen, dass..." — どちらかと言えば〜だと思うけど（Konjunktiv IIの丁寧な意見表明、eherで方向転換）
+- „Ich wollte nur kurz Bescheid sagen, dass ich mich etwas verspäte." — 遅れるって伝えたかっただけ（wollteの丁寧ニュアンス、Bescheid sagen慣用表現）
+- „Könnten Sie mich bitte mit der Buchhaltung verbinden?" — 経理部におつなぎいただけますか（ビジネス電話の取り次ぎ定番）
+- „Ich ruf dich nachher nochmal an, bin gerade schlecht dran." — あとでかけ直す、今タイミング悪い（口語の-e脱落、主語省略、schlecht dran sein）
+- „Hast du meine Nachricht überhaupt gelesen? Da standen alle Infos drin." — メッセージちゃんと読んだ？（überhaupt=苛立ちの強調、drinstehen分離動詞）
 
 ## 重要文法パターン
 - **enttäuscht von + Dat.**: ～に失望した（über + Akk.も可だがvonが自然）
@@ -120,6 +125,15 @@
 - **leiser/lauter drehen**: 音量の上げ下げ。drehen（回す）が自然、machenは教科書的
 - **sich einleben（再帰+分離）**: 新環境に馴染む。Haben Sie sich eingelebt? 現在完了で使うことが多い
 - **soll ich...?（申し出）**: 隣人への助け合い。Kann ich...?より能動的で「お願いしやすい空気」を作る
+- **wollteの丁寧用法**: 直説法過去と接続法IIが同形。Ich wollte nur...で「〜したかっただけなのですが」と柔らかくなる
+- **Bescheid sagen/geben**: 知らせる。kurz Bescheid sagenで「手短に連絡する」
+- **verbinden + mit + Dat.**: 電話を回す。Könnten Sie mich mit ... verbinden?がビジネス定番
+- **schlecht/gut dran sein**: 都合が悪い/良い。dran = daran の口語縮約
+- **口語の-e脱落**: ich rufe → ich ruf, ich habe → ich hab。話し言葉・メッセージでは標準
+- **主語ichの省略**: bin gerade..., hab schon... など。チャット・電話での超カジュアル表現
+- **überhaupt（疑問文）**: 「そもそも〜したの？」疑念・苛立ちの強調。Hast du überhaupt...?
+- **drinstehen（分離動詞）**: 中に書いてある。drin = darin の口語形。da...drin構文で頻出
+- **da(r)-系縮約形**: drin, dran, drauf, drüber, drunter — ネイティブ感の分かれ目となる口語必須表現
 - **Ruhezeiten**: 22:00〜6:00（夜間）+ 日曜祝日終日。Hausordnung（建物規則）とKehrwoche（清掃当番）がドイツ近隣文化の核
 
 ---
@@ -158,3 +172,6 @@
 - Diskussionen am Arbeitsplatz（職場での議論フレーズ）
 - Beschwerdebrief（苦情の手紙）の書き方
 - Mülltrennung（ゴミ分別）用語——Restmüll, Biomüll, Gelber Sack等
+- 留守番電話（Mailbox / Anrufbeantworter）のメッセージ定型表現
+- ドイツ語の電話番号読み上げ方（2桁ずつ読む独特のルール）
+- ビジネスメールの書き出しと締めのバリエーション
