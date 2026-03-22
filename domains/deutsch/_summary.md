@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-03-22
-**エントリ数**: 12
-**フレーズ数**: 48
+**最終更新**: 2026-03-23
+**エントリ数**: 13
+**フレーズ数**: 52
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -21,6 +21,7 @@
 - **2026-03-20**: 近所付き合い（Nachbarschaft / Nachbarn）
 - **2026-03-21**: 電話とメッセージ（Telefonieren und Nachrichten）
 - **2026-03-22**: 旅行と休暇（Reisen und Urlaub）
+- **2026-03-23**: 買い物と返品・クレーム（Einkaufen und Reklamation）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -148,7 +149,19 @@
 - **Verspätung haben**: 交通機関の遅延。ドイツ人の日常語彙。Der Zug hat X Minuten Verspätung.
 - **weg sein**: 状態のsein + weg。なくなっている・消えている。Mein Koffer ist weg.
 - **前置詞+定冠詞の融合形**: aufs（auf das）、ans（an das）、ins（in das）、fürs（für das）、ums（um das）
+- **umtauschen vs zurückgeben vs reklamieren**: umtauschen=交換、zurückgeben=返品返金、reklamieren=欠陥クレーム。目的で動詞を使い分け
+- **sich beschweren über + Akk.**: 苦情を申し立てる。beklagen（嘆く）と異なり行動・対応を求めるニュアンス
+- **entgegenkommen + Dat.**: 歩み寄る→値引きに応じる。Rabatt gebenより婉曲的な交渉表現
+- **immer noch nicht vs noch nicht**: immer noch nichtは苛立ち・期待外れの感情を含む強調否定
+- **Kassenbon / Quittung / Kassenzettel**: レシートの呼び方。口語ではBonが最も一般的
+- **nix = nichts**: 南ドイツ起源だが全ドイツ語圏の口語に浸透。nix mehr, nix los, nix zu machen
+- **das Teil（口語の「もの」）**: 本来「部品」→口語で商品・物全般を指す。das Ding, das Zeugと同類
+- **hat mich zum letzten Mal gesehen**: 主語を店に転換する決別表現。「この店が私を見たのはこれが最後」＝二度と来ない
 - **falls vs wenn（条件）**: fallsはより仮定的・不確実。wennは一般的条件。Falls eins frei ist = もし空いていれば（期待薄のニュアンス）
+- „Ich würde das gerne umtauschen — ich hab den Kassenbon noch da." — 交換したい（würde gerne+umtauschen、返品交渉の基本形）
+- „Entschuldigung, das hier hat 'nen Kratzer — können Sie mir da entgegenkommen?" — 傷があるので値引きを（entgegenkommen=歩み寄る、婉曲的値引き交渉）
+- „Ich möchte mich beschweren — ich hab das Teil vor zwei Wochen bestellt und es ist immer noch nicht da." — 苦情を申し立てる（sich beschweren再帰動詞、immer noch nicht=苛立ちの強調）
+- „Wisst ihr was, ich kauf hier nix mehr — der Laden hat mich zum letzten Mal gesehen!" — 二度と来ない！（nix=nichts口語、主語転換による決別表現）
 
 ---
 
@@ -178,7 +191,7 @@
 - 季節ごとのSmalltalk表現（Frühling/Sommer/Herbst/Winter）
 - 地域別天気ステレオタイプ（Hamburg=雨、München=Föhn等）
 - Wohnungssuche（部屋探し）のフレーズ
-- Reklamation（クレーム・返品）のフレーズ
+- ~~Reklamation（クレーム・返品）のフレーズ~~ → 2026-03-23に学習済み
 - ドイツの保険制度用語（Krankenversicherung, Haftpflicht）
 - Argumentieren（論証）のフレーズ——erstens/zweitens, dazu kommt, außerdem
 - wohl——推量と不確実性のModalpartikel
@@ -194,3 +207,7 @@
 - ドイツ人の休暇文化（Urlaubsanspruch, Brückentag）
 - 方向・道案内のフレーズ（Wegbeschreibung）
 - ドイツの交通機関の種類と略語（ICE, IC, RE, RB, S-Bahn, U-Bahn）
+- Beschwerdebrief / Beschwerdemail（苦情の手紙・メール）の書き方テンプレート
+- Garantie vs Gewährleistung（保証 vs 瑕疵担保）の法的用語
+- Markt / Flohmarkt（市場・蚤の市）での値段交渉フレーズ
+- Supermarktでの日常会話（レジ、袋、ポイントカード等）
