@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-03-21
-**エントリ数**: 11
-**フレーズ数**: 44
+**最終更新**: 2026-03-22
+**エントリ数**: 12
+**フレーズ数**: 48
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -20,6 +20,7 @@
 - **2026-03-19**: 意見表明（Meinungen äußern）
 - **2026-03-20**: 近所付き合い（Nachbarschaft / Nachbarn）
 - **2026-03-21**: 電話とメッセージ（Telefonieren und Nachrichten）
+- **2026-03-22**: 旅行と休暇（Reisen und Urlaub）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -134,7 +135,20 @@
 - **überhaupt（疑問文）**: 「そもそも〜したの？」疑念・苛立ちの強調。Hast du überhaupt...?
 - **drinstehen（分離動詞）**: 中に書いてある。drin = darin の口語形。da...drin構文で頻出
 - **da(r)-系縮約形**: drin, dran, drauf, drüber, drunter — ネイティブ感の分かれ目となる口語必須表現
+- „Wir haben kurzfristig noch was Günstiges gefunden — ab nächste Woche geht's los!" — 直前でお得なの見つけた！（was+形容詞名詞化、ab+Akk.時間表現）
+- „Könnten Sie mir vielleicht ein Zimmer mit Blick aufs Meer geben?" — 海の見える部屋を（Konjunktiv II+vielleichtの丁寧ダブル技）
+- „Ich brauch dringend mal Tapetenwechsel." — 気分転換が必要（Tapetenwechsel慣用表現、-e脱落）
+- „Der Flug hatte zwei Stunden Verspätung, und dann war der Koffer auch noch weg." — フライト遅延+荷物紛失（auch noch=追い打ち表現）
 - **Ruhezeiten**: 22:00〜6:00（夜間）+ 日曜祝日終日。Hausordnung（建物規則）とKehrwoche（清掃当番）がドイツ近隣文化の核
+- **was + 形容詞名詞化**: etwas Günstiges → was Günstiges。不定代名詞に続く形容詞は強変化-es。was Schönes, was Leckeres, nichts Besonderesなど
+- **ab + Akk./Dat.（時間）**: 口語ではAkkusativ優勢。ab nächste Woche / ab morgen
+- **Tapetenwechsel（慣用表現）**: 壁紙の張り替え → 気分転換。ドイツのDIY文化と直結した比喩
+- **jemandem fällt die Decke auf den Kopf**: 閉塞感・息が詰まる。Dat. + Nom. + auf + Akk.構文
+- **auch noch（追い打ち表現）**: 不幸の連鎖を語る。und dann ... auch noch ...が愚痴話の定番構文
+- **Verspätung haben**: 交通機関の遅延。ドイツ人の日常語彙。Der Zug hat X Minuten Verspätung.
+- **weg sein**: 状態のsein + weg。なくなっている・消えている。Mein Koffer ist weg.
+- **前置詞+定冠詞の融合形**: aufs（auf das）、ans（an das）、ins（in das）、fürs（für das）、ums（um das）
+- **falls vs wenn（条件）**: fallsはより仮定的・不確実。wennは一般的条件。Falls eins frei ist = もし空いていれば（期待薄のニュアンス）
 
 ---
 
@@ -175,3 +189,8 @@
 - 留守番電話（Mailbox / Anrufbeantworter）のメッセージ定型表現
 - ドイツ語の電話番号読み上げ方（2桁ずつ読む独特のルール）
 - ビジネスメールの書き出しと締めのバリエーション
+- Bahnhof / Flughafen（駅・空港）でのアナウンスフレーズ
+- Hotelでの苦情表現（Beschwerde im Hotel）
+- ドイツ人の休暇文化（Urlaubsanspruch, Brückentag）
+- 方向・道案内のフレーズ（Wegbeschreibung）
+- ドイツの交通機関の種類と略語（ICE, IC, RE, RB, S-Bahn, U-Bahn）
