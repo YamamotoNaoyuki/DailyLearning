@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-03-23
-**エントリ数**: 21
+**最終更新**: 2026-03-24
+**エントリ数**: 22
 
 ---
 
@@ -150,6 +150,19 @@
 - **MCP gRPCトランスポート**: Google提案（2026/2）。既存gRPCインフラでMCPサーバー運用。Protobufでペイロード10x圧縮
 - **eBPF+gRPC計装**: Grafana Beylaがコード変更なしでgRPCトレース/メトリクス自動収集。カーネルレベルのプロトコル解析で言語非依存
 
+- **GraphQL起源**: 2012年Facebook。Nick Schrock/Dan Schafer/Lee ByronがNews Feed向けに開発。REST Over-fetching/Under-fetching/N+1問題の構造的解決
+- **GraphQLの核心**: 「データ形態の決定権をサーバーからクライアントに移す」。サーバーは利用可能なものを宣言、クライアントが必要なものを指定
+- **スキーマファースト（GraphQL）**: SDLで型定義が契約。イントロスペクションで自己文書化。@deprecatedで非破壊的進化。Protobufとは目的が異なる（クエリ検証 vs ワイヤ効率）
+- **リゾルバ+DataLoader**: フィールドごとのリゾルバが関心分離を実現。DataLoaderがリクエストスコープでバッチ化しN+1を解消。リクエストごとに新規作成（認可境界保護）
+- **GraphQL Subscriptions**: WebSocket上Pub/Sub。graphql-wsが推奨。アーキテクチャ複雑性が大幅に増加（接続管理・再接続・認証）
+- **Apollo Federation**: サブグラフ＋Router構成。クライアント1リクエスト→Router調整→複数サブグラフ呼び出し→統一レスポンス
+- **GraphQL Mesh**: REST/SOAP/gRPC等を Federation互換サブグラフに変換。既存API維持のまま統合
+- **Composite Schema WG**: Apollo/ChilliCream/Hasura/Netflix/The Guild参加のFederation公式標準化
+- **GraphQLセキュリティ**: クエリ深度制限、複雑度分析（コスト重み）、永続化クエリ（セーフリスト）、レートリミット、タイムアウト。OWASPチートシートが体系化
+- **GraphQLを使うべきでない場合**: 単純CRUD、HTTPキャッシュ重要、ファイルアップロード、サーバー間通信（gRPC優位）、小規模チーム
+- **@defer/@stream**: Incremental Delivery。遅いフィールドを後送り/リストを逐次配信。multipart/mixed over HTTP。graphql-js v17 alpha実装。Stage 1 Proposal
+- **APIパラダイム使い分け**: REST=サーバー決定・外部API、GraphQL=クライアント決定・フロントエンド駆動、gRPC=IDL合意・内部通信。組み合わせが標準
+
 - **OCI 3仕様**: Runtime Spec（実行方法）+ Image Spec（イメージ形式）+ Distribution Spec（配布プロトコル）。コンテナの「USB-C」
 - **ランタイム2層構造**: 高レベル（containerd/CRI-O: CRI準拠、イメージ管理）→ 低レベル（runc/crun/youki: OCI準拠、カーネル機能で隔離）
 - **runcの隔離機構**: 8名前空間（pid/net/mnt/uts/ipc/user/cgroup/time）+ cgroups（リソース制限）+ seccomp（syscallフィルタ）+ pivot_root + capabilities
@@ -226,6 +239,8 @@
 - テストへの投資は配備スケールに比例する——1兆インスタンスではMC/DCカバレッジは必然
 - 競合相手の正確な認識が戦略を決定する——SQLiteは「RDBMSの代替」ではなく「fopen()の代替」
 - 「状態」と「履歴」の関係は逆転可能——イベントソーシングでは履歴が本体、状態が導出。複式簿記と同じ原理
+- 「誰がデータの形を決めるか」がAPIパラダイムの本質的な分岐点——REST=サーバー、gRPC=IDL合意、GraphQL=クライアント。権限の所在が適用領域を決定する
+- 柔軟性とセキュリティは反比例する——GraphQLの永続化クエリは「開発時の自由度と本番の安全性」を分離する現実的妥協点
 - CmRDT（操作ベースCRDT）とイベントソーシングは構造的に類似——操作の記録・伝播・順序管理が共通の設計課題
 - 不変性の帰結として「忘れられない」——GDPR対応にはCrypto-Shredding等の設計初期からの組み込みが必要
 - CQRSはトップレベルアーキテクチャではない——Bounded Context単位で「必要な場所にだけ」適用する

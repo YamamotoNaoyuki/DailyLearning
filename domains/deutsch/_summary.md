@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-03-23
-**エントリ数**: 13
-**フレーズ数**: 52
+**最終更新**: 2026-03-24
+**エントリ数**: 14
+**フレーズ数**: 56
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -22,6 +22,7 @@
 - **2026-03-21**: 電話とメッセージ（Telefonieren und Nachrichten）
 - **2026-03-22**: 旅行と休暇（Reisen und Urlaub）
 - **2026-03-23**: 買い物と返品・クレーム（Einkaufen und Reklamation）
+- **2026-03-24**: 感情を表現する（Gefühle ausdrücken）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -136,6 +137,15 @@
 - **überhaupt（疑問文）**: 「そもそも〜したの？」疑念・苛立ちの強調。Hast du überhaupt...?
 - **drinstehen（分離動詞）**: 中に書いてある。drin = darin の口語形。da...drin構文で頻出
 - **da(r)-系縮約形**: drin, dran, drauf, drüber, drunter — ネイティブ感の分かれ目となる口語必須表現
+- **sich freuen auf + Akk. vs über + Akk.**: auf=未来の楽しみ、über=現在・過去の喜び。前置詞で時制感覚が変わる
+- **machen + Akk. + Adj.（結果構成）**: Das macht mich fertig/traurig/glücklich。状態変化の万能構文
+- **fertigmachen（多義語）**: ①仕上げる ②疲弊させる ③やっつける。文脈で意味が激変
+- **Konjunktiv II完了（非現実の過去）**: hätte + 過去分詞。Das hätte ich nie gedacht=思いもしなかった
+- **sich Sorgen machen um + Akk.**: Sorgenは常に複数形。sich=Dativ再帰（Akk.目的語Sorgenが別にあるため）
+- **um + Akk.（関心の対象）**: sich kümmern um, sich bemühen um, bitten um — 関心・配慮の動詞群
+- **感情の強調副詞**: riesig > wahnsinnig > unglaublich > echt > wirklich > ziemlich — 口語の強度スケール
+- **驚きの間投詞**: Ach du meine Güte（全世代）/ Oh mein Gott（OMG世代）/ Krass!（若者語）— 世代で語彙が異なる
+- **nie vs niemals vs noch nie**: nie=一般否定、niemals=強調否定、noch nie=経験否定
 - „Wir haben kurzfristig noch was Günstiges gefunden — ab nächste Woche geht's los!" — 直前でお得なの見つけた！（was+形容詞名詞化、ab+Akk.時間表現）
 - „Könnten Sie mir vielleicht ein Zimmer mit Blick aufs Meer geben?" — 海の見える部屋を（Konjunktiv II+vielleichtの丁寧ダブル技）
 - „Ich brauch dringend mal Tapetenwechsel." — 気分転換が必要（Tapetenwechsel慣用表現、-e脱落）
@@ -162,6 +172,10 @@
 - „Entschuldigung, das hier hat 'nen Kratzer — können Sie mir da entgegenkommen?" — 傷があるので値引きを（entgegenkommen=歩み寄る、婉曲的値引き交渉）
 - „Ich möchte mich beschweren — ich hab das Teil vor zwei Wochen bestellt und es ist immer noch nicht da." — 苦情を申し立てる（sich beschweren再帰動詞、immer noch nicht=苛立ちの強調）
 - „Wisst ihr was, ich kauf hier nix mehr — der Laden hat mich zum letzten Mal gesehen!" — 二度と来ない！（nix=nichts口語、主語転換による決別表現）
+- „Ich freu mich riesig darauf!" — めちゃくちゃ楽しみ！（sich freuen auf+Akk.、riesigの口語強調、-e脱落）
+- „Das macht mich echt fertig." — ほんとに参る（fertigmachen多義語、machen+Akk.+Adj.結果構成）
+- „Ach du meine Güte, das hätte ich nie gedacht!" — 思いもしなかった！（間投詞句、Konjunktiv II完了）
+- „Ich mach mir echt Sorgen um dich." — 君のこと心配してる（sich Sorgen machen um+Akk.、Dativ再帰）
 
 ---
 
@@ -211,3 +225,7 @@
 - Garantie vs Gewährleistung（保証 vs 瑕疵担保）の法的用語
 - Markt / Flohmarkt（市場・蚤の市）での値段交渉フレーズ
 - Supermarktでの日常会話（レジ、袋、ポイントカード等）
+- Emotionale Redewendungen（感情の慣用句）: vor Freude platzen, aus allen Wolken fallen等
+- Schimpfwörter（罵倒語）の強度スケール
+- Trost spenden（慰めの表現）: Das wird schon, Kopf hoch等
+- Gefühle im Beruf（職場の感情表現）
