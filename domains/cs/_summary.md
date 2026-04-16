@@ -1,9 +1,21 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 6
-**最終更新日**: 2026-03-24
+**エントリ数**: 7
+**最終更新日**: 2026-04-17
 
 ## 蓄積された知識
+
+### 公開鍵暗号 — RSA と ECC（2026-04-17）
+- **公開鍵暗号史**: Diffie-Hellman 1976（鍵交換概念）、RSA 1977（IFP）、Koblitz/Miller 1985（ECC、ECDLP）の系譜
+- **RSA 数学**: N=pq（典型2048-4096b）, e=65537が標準, d=e⁻¹ mod φ(N)。CRT 復号で4倍高速化。安全性は GNFS（準指数 L_N[1/3]）の困難性
+- **楕円曲線の代数**: y²=x³+ax+b 上の点の加法は無限遠点 O を含む群を成す。点の k倍算は Double-and-add で O(log k)
+- **ECDLP**: 「P=kG から k を求める」最良汎用は Pollard's rho、O(√n)。指数より大幅高速な手法は未知
+- **鍵長効率**: 128bit安全性で RSA 3072 vs ECC 256（12倍）、256bit で RSA 15360 vs ECC 512（30倍）
+- **主要曲線**: NIST P-256（WebAuthn 標準だが NSA 関与疑惑あり）、secp256k1（Bitcoin、y²=x³+7）、Curve25519（Bernstein, 安全性・性能・実装シンプルさで最良、Signal/TLS1.3/SSH/WireGuard 採用）、Ed25519（EdDSA、決定論的署名）
+- **サイドチャネル攻撃**: タイミング・電力消費・電磁波からの鍵漏洩。RSA は CRT 操作時間差（Bleichenbacher）、ECC は条件分岐 unsafe double-and-add。Curve25519 は constant-time 容易な設計
+- **ECDSA k 値再使用の致命性**: PlayStation 3（2010）が k 固定で完全クラック。Ed25519 は決定論的で構造的に排除
+- **量子脅威と PQC**: Shor アルゴリズムで RSA・ECC は多項式時間で破られる。NIST 2024年標準化＝ML-KEM（旧 Kyber, 鍵交換）、ML-DSA（旧 Dilithium, 署名）、SLH-DSA（旧 SPHINCS+）。「Harvest Now, Decrypt Later」攻撃に長期機密データは PQC 対応必要
+- **ハイブリッド PQC**: TLS の X25519+ML-KEM 鍵交換が Cloudflare/Google で2024-2025展開。20年に一度の暗号インフラ大転換が進行中
 
 ### 正規表現とオートマトン（2026-03-24）
 - Kleeneの定理 (1956): 正規表現・NFA・DFAの三者が等価であることの証明。RE→NFA（Thompson's construction）、NFA→DFA（べき集合構成）、DFA→RE（状態除去法）の3変換で成立
@@ -87,7 +99,7 @@
 | 分散システム | 1 |
 | 計算理論 | 1 |
 | コンピュータアーキテクチャ | 1 |
-| セキュリティ | 0 |
+| セキュリティ | 1 |
 
 ## キーコンセプト
 
@@ -111,6 +123,9 @@
 - **宣言と実行の等価性**: 正規表現（宣言的）とオートマトン（実行的）の等価性がKleeneの定理で数学的に保証。SQL/クエリ計画、HTML/レンダリングと同じパターンだが、等価性の証明がある点が特異
 - **非決定性の圧縮力**: NFA→DFA変換の指数爆発は、非決定性が本質的に計算記述をコンパクトにする能力を持つことの証拠。P≠NP予想と同構造
 - **表現力と決定可能性のトレードオフ**: Chomsky階層の各レベルで表現力を得るたびに決定可能な性質を失う。正規言語は等価性判定可能、文脈自由言語では不能
+- **数学的精緻さと実装の責任のトレードオフ**: RSA（直感的・教育的）から ECC（複雑・効率的）への移行。鍵長 1/10 と性能優位が決定的で、現代暗号インフラは ECC 中心に再構築された
+- **Curve25519 の設計哲学**: 「実装者を信用しない設計」。あらゆる入力で constant-time 実装可能、nothing up my sleeve、scalar 検証不要。「数学的に安全」より「現実に安全」を優先する転換
+- **不可逆な未来計画としての PQC 移行**: 量子コンピュータの実用化時期は不明だが、実用化即座に既存暗号崩壊。この非対称性ゆえ「10年がかりの移行」が現在進行中
 
 ## 未解決の疑問
 
@@ -142,3 +157,8 @@
 - IOMMU: デバイスDMAに対する仮想メモリ保護
 - Persistent Memory（PMEM）とDAX: mmapとNVDIMMの組み合わせ
 - Linux MGLRU（Multi-Generation LRU）: kernel 6.1の改良ページ置換の設計思想
+- **格子ベース暗号（Lattice-based）の数学**: LWE（Learning With Errors）と Module-LWE の構造、ML-KEM/ML-DSA の内部
+- **ペアリング暗号（Pairing-based）**: BLS 署名、Identity-based encryption、ゼロ知識証明（zk-SNARKs）の数学的基礎
+- **同型暗号（Homomorphic Encryption）**: BFV/CKKS スキーム、暗号化されたデータ上での演算
+- **TLS 1.3 のハンドシェイク詳細**: ECDHE_X25519 + AEAD-ChaCha20-Poly1305 の組み合わせ
+- **量子鍵配送（QKD）**: BB84プロトコル、無条件安全性の物理的根拠

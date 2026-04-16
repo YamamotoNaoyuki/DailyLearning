@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-03-24
-**エントリ数**: 22
+**最終更新**: 2026-04-17
+**エントリ数**: 23
 
 ---
 
@@ -206,6 +206,13 @@
 - **Litestream**: WALベース連続レプリケーション。チェックポイント乗っ取り+シャドウWALでS3にストリーミング
 - **エッジDB**: Fly.io提唱。各エッジノードにSQLite配置+Litestreamレプリケーション。「DBをアプリの隣に置く」
 
+- **Passkeys / WebAuthn / FIDO2**: パスワードレス認証のメインストリーム化。CTAP2（Authenticator）+ WebAuthn（Browser API）の組合せで、サイトごとに ECDSA P-256 鍵ペア生成。秘密鍵は認証器に封入、サーバーには公開鍵のみ
+- **Synced vs Device-bound Passkeys**: 二系統に分化。Synced=iCloud/Google/Microsoft同期で利便性高、Device-bound=YubiKey等FIPS 140-3 Level 3でエンタープライズ向け。Attestation強制でSynced排除可能
+- **CDA / Hybrid Transport / caBLE**: スマホとデスクトップ間のクロスデバイス認証。QR表示→Bluetooth近接性検証→暗号化トンネル。秘密鍵は移動しない。Bluetooth proximity要求がリモート攻撃を構造的に排除
+- **Passkeys普及（2026/4）**: Google 8億超アカウント、Amazon 1.75億ユーザー、Top100サイトの48%対応。NIST SP 800-63改訂でSyncedをPhishing-resistant AALに公式承認
+- **エンタープライズ効果**: パスワードリセット32%減、SMS OTPコスト削減、ログイン成功率改善。Workforce=Device-bound、Consumer=Syncedのハイブリッド戦略が主流
+- **Passkeysと「秘密をサーバーに預けない」哲学**: SHA-256+saltやbcryptでも限界がある低エントロピー秘密の問題を構造的に解消。AI自動フィッシング時代への構造的防御
+
 - **イベントソーシング**: 状態変更を不変イベントとしてappend-onlyストアに記録。現在状態はイベント再生で導出。「記録の源泉」がイベントログ自体
 - **イベントストア設計**: ストリーム（集約単位）、不変性（補償イベントで修正）、楽観的同時実行制御（バージョン番号）、スナップショット（再生コスト削減）
 - **CQRS**: Greg Youngが体系化。コマンドモデル（書き込み・ビジネスロジック）とクエリモデル（読み取り・表示最適化）の分離。トップレベルアーキテクチャではなくBounded Context単位で適用
@@ -244,6 +251,8 @@
 - CmRDT（操作ベースCRDT）とイベントソーシングは構造的に類似——操作の記録・伝播・順序管理が共通の設計課題
 - 不変性の帰結として「忘れられない」——GDPR対応にはCrypto-Shredding等の設計初期からの組み込みが必要
 - CQRSはトップレベルアーキテクチャではない——Bounded Context単位で「必要な場所にだけ」適用する
+- 認証アーキテクチャの根本転換——「ユーザーの記憶可能な秘密」を放棄し「物理デバイスに封入された鍵+局所的生体認証」へ。20年のデータ漏洩史への構造的応答
+- 物理近接性をセキュリティに組み込む設計——caBLEのBluetooth proximity要求は、純粋な暗号プロトコルだけでは不可能な「リモート攻撃者の物理的排除」を実現する珍しい例
 
 ## 未解決の疑問
 - ~~LLM推論最適化（量子化・蒸留・投機的デコーディング）~~ → 2026-03-14に学習済み
@@ -298,3 +307,7 @@
 - Outbox Pattern——イベントストア書き込みとメッセージブローカー発行のトランザクション保証
 - KurrentDB v26.0——Kafka統合アーキテクチャ、イベントストアとストリーミングの融合
 - イベントソーシング+AI/LLM——イベントログからの自然言語状態要約、コンテキスト活用
+- WebAuthn Level 3新機能——条件付きUI、バックアップフラグ、Largeblobストレージ
+- Passkey Provider間ポータビリティ——Apple↔Google↔Microsoftの相互エクスポート標準化
+- Post-Quantum WebAuthn——ML-DSA/Falcon等PQC署名方式の認証器組み込み
+- Enterprise SSOとPasskey統合——SAML/OIDC↔WebAuthnフェデレーション設計

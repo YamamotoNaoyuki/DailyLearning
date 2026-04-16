@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-03-24
-**エントリ数**: 14
-**フレーズ数**: 56
+**最終更新**: 2026-04-17
+**エントリ数**: 15
+**フレーズ数**: 60
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -23,6 +23,7 @@
 - **2026-03-22**: 旅行と休暇（Reisen und Urlaub）
 - **2026-03-23**: 買い物と返品・クレーム（Einkaufen und Reklamation）
 - **2026-03-24**: 感情を表現する（Gefühle ausdrücken）
+- **2026-04-17**: 趣味と余暇（Hobby und Freizeit）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -229,3 +230,12 @@
 - Schimpfwörter（罵倒語）の強度スケール
 - Trost spenden（慰めの表現）: Das wird schon, Kopf hoch等
 - Gefühle im Beruf（職場の感情表現）
+- **„Ich lass mich einfach treiben"** — 流れに任せる（週末の予定なし表現）
+- **„Der innere Schweinehund"** — 内なる怠け者（運動継続の困難を表すドイツ的慣用句）
+- **„Bin total drin"** — どっぷりハマっている（ドラマ・本などへの没頭）
+- **„Versuche mich am Klavierspielen, eher mehr Krach als Musik"** — 自虐的謙遜（ドイツ的 Understatement と Selbstironie）
+- **口語省略パターン**: hab（habe）、treff（treffe）、gucke、drin（darin）、rum（herum）、am（an dem）。リスニング向上に必須
+- **Schweinehund 等の文化的キーワード**: Feierabend、Gemütlichkeit、Wanderlust 同様、英訳不可能な文化語
+- 北独 vs 南独：gucken vs schauen、Tschüss vs Servus/Pfiat di
+- ドイツ独特のVerein文化の語彙——Mitglied、Vorstand、Stammtisch
+- Du-Sie の境界——Duzen の儀式
