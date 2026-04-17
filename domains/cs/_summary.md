@@ -1,7 +1,7 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 7
-**最終更新日**: 2026-04-17
+**エントリ数**: 8
+**最終更新日**: 2026-04-18
 
 ## 蓄積された知識
 
@@ -162,3 +162,21 @@
 - **同型暗号（Homomorphic Encryption）**: BFV/CKKS スキーム、暗号化されたデータ上での演算
 - **TLS 1.3 のハンドシェイク詳細**: ECDHE_X25519 + AEAD-ChaCha20-Poly1305 の組み合わせ
 - **量子鍵配送（QKD）**: BB84プロトコル、無条件安全性の物理的根拠
+
+---
+
+### ガベージコレクションアルゴリズム（2026-04-18）
+- **GC の基本問題**: 動的確保メモリのうち「今後アクセスされない」ものの自動解放。手動管理（malloc/free）のバグ（UAF/double-free/leak）を構造的に排除
+- **到達可能性解析**: Root Set（スタック・グローバル・レジスタ）から有向パスで到達可能なオブジェクトを生存、残りをガベージ
+- **古典アルゴリズム**: 参照カウント（循環参照問題）、Mark-Sweep（断片化）、Mark-Compact（移動コスト）、Copying/Cheney（ヒープ半分利用）
+- **世代別仮説（Weak Generational Hypothesis）**: 「多くのオブジェクトは若くして死ぬ」。Young（Minor GC頻繁）・Old（Major GC稀）で分離管理
+- **Card Table / Remembered Set**: Old→Young 参照の追跡機構。世代間参照の高速走査を可能にする
+- **三色マーキング（Dijkstra 1978）**: 白（未訪問）・灰（訪問済・子未完）・黒（完了）。**Strong Tri-Color Invariant**: 黒→白直接参照の禁止
+- **Write Barrier**: Mutator 動作中の参照変化を捕捉。Dijkstra Insert（白を灰化）、Yuasa Delete（削除前に灰化）、Go Hybrid
+- **Go GC**: 並行三色 + Pacer（GOGC環境変数で次サイクルタイミング制御）。STW 500μs以下目標をGo 1.12で達成
+- **G1GC（Java 9+ デフォルト）**: ヒープを等サイズリージョン（1-32MB）に分割、ガベージ密度高リージョン優先。MaxGCPauseMillis で停止目標設定
+- **ZGC（低レイテンシ）**: Colored Pointer（64bit に mark/remap メタデータビット埋込）+ Load Barrier + self-healing。**TB級ヒープで 1ms 未満 pause**
+- **Shenandoah**: Brooks Pointer による forwarding、ZGC の代替設計
+- **最新動向**: Generational ZGC (Java 21)、Project Lilliput（64bit ヘッダ化）、Far Memory GC（CXL/RDMA）
+- **GC vs 静的解析**: Rust の所有権・借用・ライフタイムは**コンパイル時に解放タイミング決定**。動的GC と対極のアプローチで同問題を解く
+- **「停止時間 vs スループット」は本質的トレードオフ**: リアルタイム（低レイテンシ優先）vs バッチ（高スループット優先）で選択が反転

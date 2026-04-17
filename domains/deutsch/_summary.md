@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-04-17
-**エントリ数**: 15
-**フレーズ数**: 60
+**最終更新**: 2026-04-18
+**エントリ数**: 16
+**フレーズ数**: 64
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -24,6 +24,7 @@
 - **2026-03-23**: 買い物と返品・クレーム（Einkaufen und Reklamation）
 - **2026-03-24**: 感情を表現する（Gefühle ausdrücken）
 - **2026-04-17**: 趣味と余暇（Hobby und Freizeit）
+- **2026-04-18**: 職場と同僚（Arbeitsplatz und Kollegen）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -177,6 +178,17 @@
 - „Das macht mich echt fertig." — ほんとに参る（fertigmachen多義語、machen+Akk.+Adj.結果構成）
 - „Ach du meine Güte, das hätte ich nie gedacht!" — 思いもしなかった！（間投詞句、Konjunktiv II完了）
 - „Ich mach mir echt Sorgen um dich." — 君のこと心配してる（sich Sorgen machen um+Akk.、Dativ再帰）
+- „Ich hänge gerade voll drin — kann ich mich später bei dir melden?" — 今バタバタしてる、後で連絡する（voll drin hängen慣用句、sich melden bei+Dat.）
+- „Können wir das kurz unter uns besprechen?" — 二人だけで話せる？（unter uns=内々に、besprechen他動詞）
+- „Das ist nicht mein Bier, aber..." — 私の管轄じゃないけど（mein Bier=自分の問題、ドイツ職場定番の責任範囲明確化表現）
+- „Feierabend! Endlich geschafft." — 終業！やっと終わった（Feierabend=ドイツ独特の概念、geschafft受動的完了）
+- **Feierabend（ドイツ労働文化キーワード）**: 「仕事後の自由時間」を示す単独名詞。英語・日本語に一語対応なし。Schönen Feierabend! は職場の基本挨拶
+- **unter uns / unter vier Augen**: 二人だけ・内々で。職場での機密会話の前置き
+- **Das ist (nicht) mein Bier.**: 所有/責任の比喩慣用句。ドイツ文化でビールは個人所有の象徴
+- **voll drin hängen**: 仕事に深くはまり込む。空間前置詞（drin）を多用するドイツ語の思考パターン
+- **sich melden bei + Dat.**: 連絡する・返事する・顔を出す の汎用動詞。英語 "get back to you" に相当
+- **言語レジスタの切替**: umgangssprachlich（Das ist nicht mein Bier.）⇔ formal（Das fällt nicht in meinen Zuständigkeitsbereich.）の意識的使い分けが B1 以上で重要
+- **Duzen/Siezen の職場での問題**: 最初 Sie、関係深化で du に切替。切替は通常上位者・先輩からの提案
 
 ---
 

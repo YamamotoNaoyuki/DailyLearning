@@ -1,7 +1,7 @@
 # ⛳ ゴルフ 分野サマリー
 
-**最終更新**: 2026-04-17
-**エントリ数**: 24
+**最終更新**: 2026-04-18
+**エントリ数**: 25
 
 **分野の方針転換（2026-03-05）**: 身体の使い方・バイオメカニクスは解剖学分野に統合。今後はコースマネジメント、クラブ選択、戦略、ルール、メンタルゲーム、プロツアーの分析など「ゴルフというゲーム」の理解に焦点を当てる。
 
@@ -257,3 +257,18 @@
 - 女子メジャー（5大会）の特性比較——ANA Inspiration、US Women's Open、KPMG Women's PGA、Evian、AIG Women's Open
 - メジャー会場のターフサイエンス——ベントグラス・バミューダ・フェスキューの選択理由
 - メジャー大会のコース改造史——技術進化に対するコース側の応答（Augusta延長、Tiger-proofing論争）
+
+---
+
+## Strokes Gained 統計革命（2026-04-18）
+- **発案者**: Mark Broadie（コロンビア大学ビジネススクール教授、クオンツ）。2011年論文で提唱
+- **ShotLink データ基盤**: PGAツアー 2003年以降レーザー測距で全ショット記録。Strokes Gained の生データ源
+- **Strokes Gained の定義**: $\text{SG} = B_{\text{before}} - B_{\text{after}} - 1$（Benchmark は平均PGAプロがその位置からカップインまでの期待打数）
+- **4カテゴリ**: SG Off-the-Tee（OTT）、SG Approach（APP）、SG Around-the-Green（ARG）、SG Putting（PUTT）。合計が SG Total
+- **最重要結論**: スコアの分散の **約2/3 は Long Game（100ヤード以上）** で説明される。「Drive for show, putt for dough」神話の破壊
+- **カテゴリ寄与**: Approach 35-40%、OTT 20-25%、ARG 10-15%、Putting 約15%
+- **PGAツアー公式採用**: 2011年5月に SG Putting、後に SG: Total と分解カテゴリが全て採用
+- **DataGolf.com**: 民間SG提供サイト、2026年現在のプロ統計の標準ツール
+- **アマチュアへの示唆**: 上達は基本的に Long Game の改善に依存。練習時間配分をパット偏重から Approach・ドライバーにシフトすべき
+- **SG の限界**: 風・雨・ピン位置のコンディション差を平均化、戦術的レイアップは負SG になるがスコア有益
+- **Arccos・Shot Scope**: アマチュア向けセンサーで独自SG 計算、上達度測定
