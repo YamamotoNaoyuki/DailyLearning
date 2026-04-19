@@ -1,9 +1,21 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 8
-**最終更新日**: 2026-04-18
+**エントリ数**: 9
+**最終更新日**: 2026-04-20
 
 ## 蓄積された知識
+
+### CPUパイプラインと分岐予測（2026-04-20）
+- **パイプライン深度の最適化点**: 5段RISC → Pentium 4 Prescott 31段（失敗）→ 現代 Golden Cove/Zen 5 の 14-19段 + スーパースケーラ幅 6-8 uop/cycle。深度×幅×予測精度の3変数最適化
+- **ハザード三分類**: 構造（資源競合・Harvard型分離で解決）、データ（RAW/WAR/WAW・フォワーディングで1cycle化）、制御（分岐予測の存在理由）
+- **分岐予測進化**: 2-bit saturating (Smith 1981, 80-90%) → 2-level adaptive/gshare (Yeh & Patt 1991, 95%+) → **TAGE** (Seznec 2006, 幾何級数履歴長+部分タグマッチ, CBP優勝) → **Perceptron** (Jiménez & Lin 2001, 履歴長に線形資源)
+- **現代プロセッサ**: Intel Golden Cove = 3レベルBTB・128+エントリ・2 taken branch/cycle。AMD Zen 5 = **2-ahead TAGE** (Seznec 1996の30年越しの工業化)。ARM Neoverse V2 = 12K BTB + 8-table TAGE
+- **Tomasulo (1967)**: Reservation Station + CDB + Register Renaming (論理16本→物理224本) + ROB (Zen 5で448、Golden Coveで512)。"in-order issue, out-of-order execute, in-order commit"で精密例外と投機実行を両立
+- **Spectre/Meltdown (2018-01)**: μarch状態≠arch状態の抽象化漏れが30年越しに露呈。Meltdown=ユーザ空間からカーネル投機読出 (Intel/Apple)、Spectre=予測器訓練による越境投機 (全OoO CPU)
+- **緩和策コスト**: KPTI 5-30%、Retpoline 4-8% (OLTP)、IBPB/STIBP (コンテキスト切替・SMT兄弟スレッド間の予測器分離)
+- **分岐ミスペナルティ**: 現代CPUで15-20cycle、IPC=4なら60-80命令分損失。予測精度95%でも1000命令中750cycleロス — 予測器にトランジスタ数万を割く経済的根拠
+- **コード側対策**: cmov等のbranch-free化、PGOによるBBレイアウト、__builtin_expect/[[likely]] (予測器訓練ではなくコード配置に効く)
+- **投機幅**: Golden Cove ~512命令窓、BOOM 128程度。ROB/PRFサイズが投機深度上限
 
 ### 公開鍵暗号 — RSA と ECC（2026-04-17）
 - **公開鍵暗号史**: Diffie-Hellman 1976（鍵交換概念）、RSA 1977（IFP）、Koblitz/Miller 1985（ECC、ECDLP）の系譜
@@ -98,7 +110,7 @@
 | コンパイラ・言語処理系 | 0 |
 | 分散システム | 1 |
 | 計算理論 | 1 |
-| コンピュータアーキテクチャ | 1 |
+| コンピュータアーキテクチャ | 2 |
 | セキュリティ | 1 |
 
 ## キーコンセプト
@@ -126,6 +138,9 @@
 - **数学的精緻さと実装の責任のトレードオフ**: RSA（直感的・教育的）から ECC（複雑・効率的）への移行。鍵長 1/10 と性能優位が決定的で、現代暗号インフラは ECC 中心に再構築された
 - **Curve25519 の設計哲学**: 「実装者を信用しない設計」。あらゆる入力で constant-time 実装可能、nothing up my sleeve、scalar 検証不要。「数学的に安全」より「現実に安全」を優先する転換
 - **不可逆な未来計画としての PQC 移行**: 量子コンピュータの実用化時期は不明だが、実用化即座に既存暗号崩壊。この非対称性ゆえ「10年がかりの移行」が現在進行中
+- **マルチスケール履歴活用**: TAGEの幾何級数履歴長は「どの時間スケールの相関が効くか事前不明」問題へのマルチバンド対応。FFT/CNNの多層受容野と同構造
+- **抽象化漏れとしてのサイドチャネル**: Spectre/Meltdownは「ISAの逐次意味論」と「μarchの投機」の間の抽象化漏れ。キャッシュ/予測器/TLBは観測可能で副作用を残す現実が30年経って露呈
+- **投機機構の普遍性**: 分岐予測・キャッシュ・TCP輻輳制御・GC write barrier・TAGE予測 — 全てが「過去観測から未来推測、外れたらロールバック」の同一パターン。性能を得るために不確実性に賭け、ハザード時に代償を払う構造
 
 ## 未解決の疑問
 
@@ -162,6 +177,13 @@
 - **同型暗号（Homomorphic Encryption）**: BFV/CKKS スキーム、暗号化されたデータ上での演算
 - **TLS 1.3 のハンドシェイク詳細**: ECDHE_X25519 + AEAD-ChaCha20-Poly1305 の組み合わせ
 - **量子鍵配送（QKD）**: BB84プロトコル、無条件安全性の物理的根拠
+- **TAGE-SC-L**: CBP-5優勝の Statistical Corrector + Loop predictor の構造
+- **Transient Execution Attacks系譜**: L1TF/Foreshadow、MDS/ZombieLoad、LVI、Retbleed、Inception (Zen 3/4)
+- **Intel eIBRS / AMD AutoIBRS**: ハードウェア側投機実行保護の詳細
+- **VLIW/EPIC (Itanium) 敗北の教訓**: 静的スケジューリングが動的OoOに負けた根本理由
+- **Apple M シリーズの分岐予測器**: リバースエンジニアリング知見
+- **Memory Disambiguation Predictor**: Load/Store Queue での依存投機
+- **DSB (Decoded Stream Buffer)**: uop cache と分岐予測の連携
 
 ---
 

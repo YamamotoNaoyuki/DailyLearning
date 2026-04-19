@@ -1,11 +1,19 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-04-18
-**エントリ数**: 24
+**最終更新**: 2026-04-20
+**エントリ数**: 25
 
 ---
 
 ## 蓄積された知識
+- **ActivityPubとFediverse**——W3C Recommendation 2018、Actor Model（Person/Service/Group）、inbox/outbox/followers/followingの4 collection、Activity Streams 2.0のJSON-LD、"動詞をデータ化する"哲学
+- **連合の実装**——WebFinger(RFC 7033)でactor discovery、HTTP Signatures(RSA-SHA256)でメッセージ単位の出所保証、sharedInboxでfan-out集約、FEP(Fediverse Enhancement Proposals)が実装規範
+- **主要実装**——Mastodon(Ruby/Sidekiq)、Misskey(Node.js)、Pleroma(Elixir/BEAM)、Lemmy(Rust/Reddit型)、PeerTube/Mobilizon/BookWyrmが同一プロトコルで異種サービス連合
+- **Threads連合**——2024 Meta参入、非対称フォロー(DM非対応、検索非連合)、大規模連合のEmbrace-Extend-Extinguishリスク
+- **スケーリング課題**——Fan-out爆発(10万フォロワー=10万POST)、モデレーション共通DBなし、DoS耐性は実装依存
+- **Nomadic Identity比較**——Nostr(secp256k1鍵=identity、multi-homing)、AT Protocol(DID+PDS+Relay+AppView 4層)、Zot/Streams(nomadic=同時クローン)
+- **E2EE非対応**——ActivityPub仕様に存在せず、FEP-5bf0等草案段階、Signal/Matrix移植にforward secrecy+multi-device鍵管理の壁
+- **哲学的本質**——server-centric(sysadmin権威) vs key-centric(Nostr) vs DID-centric(AT Proto)のトレードオフ、emailのstore-and-forward類似、"exit の権利"の技術的保障
 - **コンテキストウィンドウ戦略**: RAG、プロンプトキャッシング、チャンク戦略、要約の階層化
 - **Lost in the Middle問題**: コンテキスト中央部の情報は見落とされやすい
 - **MCP（Model Context Protocol）**: AI統合のオープンスタンダード。「AIのUSB-C」。N×M→N+M

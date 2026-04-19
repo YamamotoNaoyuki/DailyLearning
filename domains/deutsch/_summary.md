@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-04-18
-**エントリ数**: 16
-**フレーズ数**: 64
+**最終更新**: 2026-04-20
+**エントリ数**: 17
+**フレーズ数**: 68
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -25,6 +25,7 @@
 - **2026-03-24**: 感情を表現する（Gefühle ausdrücken）
 - **2026-04-17**: 趣味と余暇（Hobby und Freizeit）
 - **2026-04-18**: 職場と同僚（Arbeitsplatz und Kollegen）
+- **2026-04-20**: 役所・ビザ・書類（Bürokratie und Behörden）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -189,6 +190,17 @@
 - **sich melden bei + Dat.**: 連絡する・返事する・顔を出す の汎用動詞。英語 "get back to you" に相当
 - **言語レジスタの切替**: umgangssprachlich（Das ist nicht mein Bier.）⇔ formal（Das fällt nicht in meinen Zuständigkeitsbereich.）の意識的使い分けが B1 以上で重要
 - **Duzen/Siezen の職場での問題**: 最初 Sie、関係深化で du に切替。切替は通常上位者・先輩からの提案
+- „Hätten Sie vielleicht doch noch einen früheren Termin? Ich bräuchte das eigentlich ziemlich dringend." — 早い予約枠を懇願（Konjunktiv II+doch noch、交渉向け）
+- „Reicht das so, oder brauchen Sie noch irgendeinen Nachweis von mir?" — 書類の過不足確認（reichenの自動詞用法、Nachweis役所語彙）
+- „Also ehrlich, ich warte jetzt schon seit drei Monaten auf den Bescheid – das kann doch nicht sein." — 処理遅延への不満（also ehrlich愚痴導入、auf+Akk. warten）
+- „Und das war's dann? Muss ich sonst noch irgendwo hin oder wird das direkt weitergeleitet?" — 手続き完了確認（das war's口語完了、oder二択で曖昧回避）
+- **Termin ist heilig**: ドイツ役所の絶対原則。Bürgeramt予約は3ヶ月待ち常態
+- **Papier schlägt Wort**: 書面が口頭に勝つ。"Kann ich das schriftlich bekommen?"が重要手続き後の定型
+- **Beamtendeutsch**: 役所ドイツ語。名詞化、受動態、`gemäß §〜`のラテン系前置詞多用。対応策は自分は平易な口語で返すこと
+- **Fiktionsbescheinigung**: 暫定在留証明。Aufenthaltstitel期限切れ直前の救済措置
+- **Bescheid**: 通知書・決定書。Steuerbescheid/Ablehnungsbescheid等官僚文書の根幹語彙
+- **Nachweis**: 証明書。Einkommensnachweis/Meldenachweis等複合語で爆発的に増える
+- **接続法IIの丁寧機能**: Hätten Sie, bräuchte, hätte bekommen müssen——全て「断定を避ける・押し付けない」。直説法は要求・命令に聞こえる
 
 ---
 
