@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-04-20
-**エントリ数**: 17
-**フレーズ数**: 68
+**最終更新**: 2026-04-21
+**エントリ数**: 18
+**フレーズ数**: 72
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -26,6 +26,7 @@
 - **2026-04-17**: 趣味と余暇（Hobby und Freizeit）
 - **2026-04-18**: 職場と同僚（Arbeitsplatz und Kollegen）
 - **2026-04-20**: 役所・ビザ・書類（Bürokratie und Behörden）
+- **2026-04-21**: 交通・公共交通機関（Verkehr und öffentliche Verkehrsmittel）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -201,6 +202,20 @@
 - **Bescheid**: 通知書・決定書。Steuerbescheid/Ablehnungsbescheid等官僚文書の根幹語彙
 - **Nachweis**: 証明書。Einkommensnachweis/Meldenachweis等複合語で爆発的に増える
 - **接続法IIの丁寧機能**: Hätten Sie, bräuchte, hätte bekommen müssen——全て「断定を避ける・押し付けない」。直説法は要求・命令に聞こえる
+- „Die S-Bahn hat mal wieder Verspätung – typisch Deutsche Bahn, ey." — S-Bahnまた遅延、いつものドイツ鉄道（mal wieder=諦め交じり、typisch+名詞=皮肉構文、ey=北独口語感嘆詞）
+- „Entschuldigung, muss ich am Hauptbahnhof umsteigen, oder fährt die Sechs durch?" — 中央駅で乗り換え？6番は直通？（定冠詞+数詞で系統指示、umsteigen分離動詞、durchfahren）
+- „Lohnt sich das Deutschlandticket für dich eigentlich noch, wo's jetzt 63 Euro kostet?" — Deutschlandticket値上げ後も元取れる？（sich lohnen再帰、wo's=口語的理由接続詞、eigentlich話題転換）
+- „Ups, 'tschuldigung – wollen Sie sich setzen? Ich steig eh gleich aus." — 座りますか、どうせすぐ降りる（'tschuldigung短縮、sich setzen再帰、eh=sowieso南独、aussteigen分離動詞）
+- **交通手段の前置詞 mit + Dativ**: mit dem Bus/der Bahn/dem Auto。唯一の例外は zu Fuß（前置詞なし）。per + 無冠詞名詞（per Bahn）は書き言葉的代替
+- **乗降3兄弟 (分離動詞)**: einsteigen in + Akk.（方向）、aussteigen aus + Dat.（起点）、umsteigen von + Dat. in + Akk.（乗換）。方向感覚が格支配に反映
+- **定冠詞+数詞で系統指示**: die Sechs（Tram 6）、der Einser（U1）。性は地域差あり（南独=男性、北独=女性）。使えば地元民感
+- **Deutsche Bahn定時性の定義**: 5分59秒まで pünktlich、+6分から公式 Verspätung。Pünktlichkeitsquote は長距離ICE で約62%（2025年）
+- **典型的遅延理由アナウンス**: Personen im Gleis（線路内人）、Signalstörung（信号故障）、Witterungsbedingungen（気象）、Polizeieinsatz（警察出動）
+- **Deutschlandticket政治史**: 2023年5月49€導入 → 2025年58€ → 2026年63€。気候政策と負担増のトレードオフが政治的争点。2027年以降はコスト指数連動
+- **口語の「また」**: mal wieder（諦め）vs schon wieder（苛立ち）。感情強度で使い分け
+- **ruhig（Modalpartikel）**: 命令文で「遠慮なく」。Setzen Sie sich ruhig. 相手を安心させる粒子
+- **謝罪語のレジスタ**: 'tschuldigung（軽微）< Entschuldigung（注意喚起）< Verzeihung（最フォーマル）
+- **eh（南独/オーストリア口語）**: sowieso の代替。eh gleich, eh schon wissen
 
 ---
 

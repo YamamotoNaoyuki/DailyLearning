@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-04-20
-**エントリ数**: 25
+**最終更新**: 2026-04-21
+**エントリ数**: 26
 
 ---
 
@@ -243,6 +243,22 @@
 - **Marten**: .NET+PostgreSQLベースのドキュメントDB兼イベントストア。JSONB活用。v8.0でStream Compacting追加
 - **適用判断**: 監査証跡・競合最小化・状態復元が必要な複雑ドメインに有効。シンプルCRUD・即座の一貫性必須・低競合システムには不適
 
+- **WebRTC 3層API**: `getUserMedia`（カメラ/マイク）+ `RTCPeerConnection`（P2P接続）+ `RTCDataChannel`（任意データ転送）。RFC 8825が全体のオーバービュー
+- **シグナリング非標準化**: WebRTC仕様はSDP交換方法を一切規定しない。既存のWebSocket/Matrix/SIP等を自由に利用可能という柔軟性重視の設計判断
+- **SDP Offer/Answerモデル**: RFC 8866。発呼側`createOffer()`→`setRemoteDescription()`→受信側`createAnswer()`。BUNDLE/rtcp-mux/trickle ICEなどモダン属性を積載
+- **NATの種類**: Full Cone/Restricted/Port Restricted/Symmetric（RFC 3489）。現代はEIM（Endpoint-Independent Mapping）vs EDM軸での分類（RFC 5780/4787）が主流
+- **ホールパンチング限界**: EIM NAT同士なら成立、Symmetric NAT（CGN等）は宛先ごと異ポートで構造的に直接通信不可能
+- **STUN（RFC 8489）**: Bindingリクエストで自分のパブリックアドレスをXOR-MAPPED-ADDRESSとして受信。エコー機能のみの極めてシンプルなプロトコル
+- **TURN（RFC 8656）**: Symmetric NAT間のリレーサーバ。最後の砦、実運用の10-20%がTURN経由。帯域・レイテンシコスト大
+- **ICE（RFC 8445）**: ローカル/サーバリフレクティブ/リレー候補を収集→総当たりペア→優先度順にSTUN Bindingで接続性チェック。priority=(2^24)*type+(2^8)*local+...
+- **Trickle ICE（RFC 8838）**: 候補収集完了を待たずインクリメンタル送信。セッション確立時間を数秒短縮
+- **DTLS-SRTP強制（RFC 5764）**: 平文メディア禁止。DTLSハンドシェイク→派生鍵でSRTPがAES-128暗号化。フィンガープリントはSDP経由
+- **Google Congestion Control（GCC）**: 遅延勾配検知+ロス率の並列観測。バッファブロート下でも早期検知可能。Probingで帯域上限を能動探査
+- **SFU vs MCU**: SFU（選択的転送、現在主流、5+参加者向け）vs MCU（中央合成、ブロードキャスト向け、負荷重）。2026年はハイブリッド構成がデフォルト
+- **WebRTC遅延の限界**: 一般的な100-300ms遅延は会話用、リモートアンサンブル演奏（20-30ms要求）には不足。JackTrip等の極低遅延独自プロトコルが別解
+- **P2Pの幻想**: シグナリング+STUN+TURN+SFUの中央集権層が必須。真の端末直結は実運用で30-50%のみ
+- **MoQ/WebTransport**: IETF moq WG、WebTransport+WebCodecsで配信を分離。WebRTC代替ではなく補完関係（2026年時点）
+
 ---
 
 ## キーコンセプト
@@ -271,6 +287,8 @@
 - 物理近接性をセキュリティに組み込む設計——caBLEのBluetooth proximity要求は、純粋な暗号プロトコルだけでは不可能な「リモート攻撃者の物理的排除」を実現する珍しい例
 - 「純粋関数」という数学概念を OS 管理に適用する発想の衝撃——Nix はパッケージ管理を「入力ハッシュ→出力ハッシュ」の関数として扱うことで副作用まみれの問題を数学的に扱える領域に持ち込んだ
 - 制約を受け入れて冪等性を得る戦略——CRDT（合流収束）、Nix（関数型ビルド）、Passkeys（物理デバイス封入）は同じ設計哲学の異なる応用
+- 「何を標準化し、何を標準化しないか」の鋭い線引き——WebRTCはメディア層を完全標準化しシグナリングを完全非標準化することで、既存アプリへの後付け導入を可能にした
+- インターネットは破綻した前提（IPv4枯渇→NAT蔓延）を置き換えず上に層を積む——ICE/STUN/TURNは端点原理への裏切りを受容して迂回路を規約化した実践的諦めの産物
 
 ## 未解決の疑問
 - ~~LLM推論最適化（量子化・蒸留・投機的デコーディング）~~ → 2026-03-14に学習済み
@@ -329,3 +347,8 @@
 - Passkey Provider間ポータビリティ——Apple↔Google↔Microsoftの相互エクスポート標準化
 - Post-Quantum WebAuthn——ML-DSA/Falcon等PQC署名方式の認証器組み込み
 - Enterprise SSOとPasskey統合——SAML/OIDC↔WebAuthnフェデレーション設計
+- Media over QUIC（MoQ）——IETF moq WGの次世代配信プロトコル、WebTransport+WebCodecs活用
+- SFU内部実装——LiveKit/Janus/mediasoup/Pion SFU比較、シミュルキャスト・SVCによる適応的レイヤー選択
+- E2EE for group calls——Insertable Streams APIによるSFU通過後のメディア暗号化、Signal/WhatsApp/Zoom実装差
+- WHIP/WHEP——WebRTC-HTTP Ingestion/Egress Protocol、RTMP置換プロトコル
+- WebCodecs+WebTransport+Wasm——ブラウザで独自低遅延通信を組む新潮流（Zoom実用化）

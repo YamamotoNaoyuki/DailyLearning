@@ -1,9 +1,26 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 9
-**最終更新日**: 2026-04-20
+**エントリ数**: 10
+**最終更新日**: 2026-04-21
 
 ## 蓄積された知識
+
+### LSMツリーとログ構造化ストレージ（2026-04-21）
+- **B木の限界とLSMの動機**: B木はランダムなインプレース更新が必須で、HDDシーク（~10ms、シーケンシャルの約1000倍）と SSD write amplification（NAND P/Eサイクル寿命消耗）の両方でボトルネック化。書き込み支配ワークロード（時系列DB, KVS, ログ集約）では致命的
+- **LSMの核心（O'Neil et al. 1996, Acta Informatica）**: インプレース更新を放棄し追記のみに。全ディスク書き込みをシーケンシャル化
+- **構造**: MemTable（メモリ内ソート済、skip list/赤黒木）→ WAL（耐障害性）→ Immutable SSTable（キー順ソート、スパースindex付き）→ 指数的サイズのLevel階層（典型 T=10）→ Compactionで下層へ
+- **SSTable (Sorted String Table)**: 不変のキー順ソートファイル。ブロック分割、末尾にインデックス・Bloom Filter・メタデータ。不変性が並行性・耐障害性・スナップショット全てを単純化
+- **Compaction 3戦略のトレードオフ**:
+  - **Size-Tiered (Cassandra)**: 同サイズSSTableを複数集めてマージ。write amp低 O(log N)、read amp高、space amp悪（最悪2倍）
+  - **Leveled (LevelDB/RocksDB)**: L1以下でキー範囲非重複の不変条件。read amp最小、space amp小（~1.1倍）、write amp大（~5L where L=レベル数）
+  - **Hybrid (RocksDB実装)**: L0 Tiered + L1以下Leveled。小レベルでは書き込み優先、大レベルでは空間効率優先
+- **RUM Conjecture (Athanassoulis 2016)**: Read/Update/Memory amplification の3つを同時最適化不能。CAP定理と並ぶ「不可能性の三角形」。B木（読み最適）、LSM（書き最適）、Hash（点最適）を統一的に説明
+- **定量**: RocksDB Leveled で WA≈20-30/RA≈1-2/SA≈1.1、Tieredで WA≈5-10/RA≈10+/SA≈1.5-2
+- **Bloom Filter**: m bit配列+k個ハッシュ、最適 k=(m/n)ln2 で FPR=(1-e^(-kn/m))^k。RocksDB デフォルト10 bits/key で1% FPR。存在しないキーのディスク読みを実質ゼロ化、数百倍高速化
+- **Ribbon Filter (Dillinger 2021)**: Bloomの後継、同FPRで30%メモリ削減（7 bits/key for 1%）。構築コスト高いため長生きする大レベルのみ適用
+- **SSD時代でもLSMが優位な理由**: (1) NAND P/Eサイクル寿命を物理書込削減が直接延ばす、(2) FTL内GCと協調、(3) シーケンシャル書き込みはQD=1でも数倍高速
+- **実システム**: LevelDB (Google, Dean/Ghemawat 2011), RocksDB (Meta 2012, MyRocks/TiKV/CockroachDB/Flink/Kafka Streams基盤), Cassandra/ScyllaDB（分散）, HBase (BigTable実装), ClickHouse MergeTree（OLAP特化）
+- **WAL パターンの共通性**: LSM の WAL = Raft のログレプリケーション = B木の redo log ＝「操作を先にログし後で状態反映」
 
 ### CPUパイプラインと分岐予測（2026-04-20）
 - **パイプライン深度の最適化点**: 5段RISC → Pentium 4 Prescott 31段（失敗）→ 現代 Golden Cove/Zen 5 の 14-19段 + スーパースケーラ幅 6-8 uop/cycle。深度×幅×予測精度の3変数最適化
@@ -106,12 +123,13 @@
 | アルゴリズム・データ構造 | 1 |
 | オペレーティングシステム | 1 |
 | コンピュータネットワーク | 1 |
-| データベース | 1 |
+| データベース | 2 |
 | コンパイラ・言語処理系 | 0 |
 | 分散システム | 1 |
 | 計算理論 | 1 |
 | コンピュータアーキテクチャ | 2 |
 | セキュリティ | 1 |
+| ストレージシステム | 1 |
 
 ## キーコンセプト
 
@@ -141,6 +159,10 @@
 - **マルチスケール履歴活用**: TAGEの幾何級数履歴長は「どの時間スケールの相関が効くか事前不明」問題へのマルチバンド対応。FFT/CNNの多層受容野と同構造
 - **抽象化漏れとしてのサイドチャネル**: Spectre/Meltdownは「ISAの逐次意味論」と「μarchの投機」の間の抽象化漏れ。キャッシュ/予測器/TLBは観測可能で副作用を残す現実が30年経って露呈
 - **投機機構の普遍性**: 分岐予測・キャッシュ・TCP輻輳制御・GC write barrier・TAGE予測 — 全てが「過去観測から未来推測、外れたらロールバック」の同一パターン。性能を得るために不確実性に賭け、ハザード時に代償を払う構造
+- **インプレース更新排除の生産性**: LSM, Event Sourcing, Git, 関数型、Rust所有権 — 自己課した「不変性」という一つの制約が、並行性・耐障害性・スナップショット・レプリケーション全てを連鎖的に単純化する。制約が自由をもたらすパターンの最強例
+- **compactionとGCの構造的同型性**: LSM compaction = Mark-Compact GC（生データを集めて古領域解放）、レベル階層 = 世代別GC、tombstone = 弱参照。両者はストレージとメモリという異なる階層で同じ問題を解く双子のアルゴリズムファミリー
+- **ハードウェア特性が複数世代で有効なデータ構造**: LSMはHDDのシーク回避で設計され、SSDのP/Eサイクル寿命・FTL GC・シーケンシャル書き込み優位性にも整合。「追記のみ」という抽象的性質が複数世代のストレージに残存する理由
+- **確率的早期リジェクトパターン**: Bloom/Ribbon/Cuckoo Filter, count-min sketch, 分岐予測のBTB, TLB - 全て「正確性の一部を速度と引き換える」設計。Negative検出を高速化する確率的構造はCS全体に浸透
 
 ## 未解決の疑問
 
@@ -184,6 +206,12 @@
 - **Apple M シリーズの分岐予測器**: リバースエンジニアリング知見
 - **Memory Disambiguation Predictor**: Load/Store Queue での依存投機
 - **DSB (Decoded Stream Buffer)**: uop cache と分岐予測の連携
+- **RocksDB詳細チューニング**: `level_compaction_dynamic_level_bytes`, `compaction_pri`, `target_file_size_multiplier`, MyRocks本番パラメータ
+- **Bε-tree / Fractal Tree Index (TokuDB/PerconaFT)**: B木のノードにバッファを持つ中間設計、RUM空間での位置付け
+- **WiscKey (FAST 2016)**: Key-Value分離によるwrite amp削減手法
+- **Learned Index / Learned Bloom Filter**: MLでインデックス・フィルタを置換する研究
+- **ClickHouse MergeTree**: Primary key sparse index、skip indexの独自設計
+- **Shard-per-core アーキテクチャ (ScyllaDB/Seastar)**: mutex地獄を避けた設計
 
 ---
 
