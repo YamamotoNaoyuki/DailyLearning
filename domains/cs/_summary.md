@@ -1,7 +1,7 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 10
-**最終更新日**: 2026-04-21
+**エントリ数**: 11
+**最終更新日**: 2026-04-22
 
 ## 蓄積された知識
 
@@ -230,3 +230,15 @@
 - **最新動向**: Generational ZGC (Java 21)、Project Lilliput（64bit ヘッダ化）、Far Memory GC（CXL/RDMA）
 - **GC vs 静的解析**: Rust の所有権・借用・ライフタイムは**コンパイル時に解放タイミング決定**。動的GC と対極のアプローチで同問題を解く
 - **「停止時間 vs スループット」は本質的トレードオフ**: リアルタイム（低レイテンシ優先）vs バッチ（高スループット優先）で選択が反転
+
+---
+
+### KademliaとDHT（2026-04-22）
+- **DHTが解く問題**: 中央サーバなしで数百万のノードに分散した `key→value` を O(log N) でルックアップし、ノードの頻繁な出入り（churn）に耐え、全ノードが対等である——3条件の同時達成
+- **DHT系譜**: Chord（2001 MIT、円形IDリング+フィンガーテーブル）→ Pastry/Tapestry（プレフィックスルーティング）→ **Kademlia（2002 NYU、Maymounkov & Mazières）**。Kademliaは BitTorrent DHT / IPFS / Ethereum Discovery / Tor hidden services の基盤となり事実上の業界標準
+- **XOR距離メトリック**: `distance(a,b) = a XOR b`（整数解釈）。メトリック公理を満たし、さらに**unidirectional**（任意のxと距離Dに対しyが唯一）、**abelian group**（可換群）で数学分析が閉じる。計算はCPU 1サイクル
+- **k-buckets**: 160個の距離バケット（距離2^i以上2^(i+1)未満のノードを最大k=20個保持）。LRU置換ポリシーが**Sybil攻撃耐性の核心**——古いノード優先で「滞在時間を攻撃コストに変換」。暗号に頼らず時間を通貨化する設計
+- **ルックアップアルゴリズム**: α=3並列でFIND_NODE、各応答から近いノードに再帰、収束まで。各イテレーションでkeyとの最長一致プレフィックスが1ビット以上伸びるためO(log₂ N)ホップ
+- **4つのRPCで完結**: PING / STORE / FIND_NODE / FIND_VALUE。keyは最近接k個に冗長複製、1時間ごとrepublish、24時間expire。シンプルさの極致
+- **実装実例**: BitTorrent Mainline DHT（数百万ノード）、IPFS/libp2p（CID）、Ethereum Node Discovery v5、Tor v3 hidden services
+- **設計思想の普遍性**: 「距離の定義を変える」だけでアルゴリズムの美しさが一変。Chord（リング距離）→ Pastry（プレフィックス）→ Kademlia（XOR）。**「LRUが攻撃耐性になる」**という素朴設計の逆説——滞在時間を攻撃者のコストに変換する時間経済学

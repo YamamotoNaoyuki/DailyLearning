@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-04-21
-**エントリ数**: 18
-**フレーズ数**: 72
+**最終更新**: 2026-04-22
+**エントリ数**: 19
+**フレーズ数**: 76
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -278,3 +278,15 @@
 - 北独 vs 南独：gucken vs schauen、Tschüss vs Servus/Pfiat di
 - ドイツ独特のVerein文化の語彙——Mitglied、Vorstand、Stammtisch
 - Du-Sie の境界——Duzen の儀式
+
+---
+
+## Komplimente und Lob（褒め言葉と賞賛、2026-04-22）
+- **フレーズ1（Meisterleistung）**: `Hut ab vor dir! Das war echt eine Meisterleistung.` — 脱帽!見事な出来栄えだった。`Hut ab vor + 3格`は「帽子を脱ぐ」身体動作が残る固定句。`Meisterleistung`＝達人の仕事
+- **フレーズ2（似合うの褒め）**: `Boah, das sieht dir echt gut aus! Wo hast du das her?` — うわーすごい似合う!どこで手に入れたの?。`jemandem gut aussehen`は3格支配、`aussehen`は分離動詞、`her`は「こちらへの方向」副詞
+- **フレーズ3（プロセスの尊敬）**: `Respekt, dass du das so ruhig durchgezogen hast.` — 敬服するよ、あんなに落ち着いてやり通したなんて。`durchziehen`は分離動詞で「最後まで完遂する」根気を含意。dass節内動詞は文末
+- **フレーズ4（見習い慣用句）**: `Von dir kann ich mir echt eine Scheibe abschneiden.` — 君を見習いたい。直訳「君から一切れ切り取りたい」。パン文化のメタファー。反射動詞`sich(3) eine Scheibe abschneiden`
+- **ドイツ文化の褒めルール**: お世辞（Schleimerei）嫌い。具体的根拠付きで褒める。プロセス（durchziehen型）vs 結果（Meisterleistung型）を語彙レベルで区別
+- **返答の自然形**: `Danke, das freut mich!` / `Nicht der Rede wert.` / `Das ist aber lieb von dir.`。日本的強い謙遜 `Nein, nein, das ist nicht so.` はドイツ語では不自然
+- **地方的異形**: `Chapeau!`（フランス語借用）、`Alle Achtung!`、`starker Move!`（若者口語）、`stramme Leistung!`、`sauber!`
+- **言語メタファーの文化性**: `eine Scheibe abschneiden`はパン文化、英語`take a leaf out of your book`は書物文化、フランス語`prendre de la graine`は種文化。**言語は文化の主食を無意識に露呈する**

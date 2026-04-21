@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-04-21
-**エントリ数**: 26
+**最終更新**: 2026-04-22
+**エントリ数**: 27
 
 ---
 
@@ -258,6 +258,12 @@
 - **WebRTC遅延の限界**: 一般的な100-300ms遅延は会話用、リモートアンサンブル演奏（20-30ms要求）には不足。JackTrip等の極低遅延独自プロトコルが別解
 - **P2Pの幻想**: シグナリング+STUN+TURN+SFUの中央集権層が必須。真の端末直結は実運用で30-50%のみ
 - **MoQ/WebTransport**: IETF moq WG、WebTransport+WebCodecsで配信を分離。WebRTC代替ではなく補完関係（2026年時点）
+
+- **WebGPU（2026-04-22）**: W3C仕様。WebGLの後継としてモダンGPUをブラウザから直接扱う。2024年GA。Vulkan/Metal/D3D12の共通抽象。macOS Tahoe 26/iOS 26/Chrome/Firefoxで標準サポート
+- **設計思想**: 明示的APIへの転換。コマンドバッファ方式（GPUCommandEncoder→submit）、バインドグループ、パイプラインステートオブジェクト（PSO）。WebGLの暗黙的state machineからの脱却
+- **WGSL**: WebGPU Shading Language。Rust風の静的型。SPIR-V直接採用を避けセキュリティ・移植性を確保。storage/uniform/workgroup/private/functionのアドレス空間を型に露出
+- **コンピュートシェーダ**: GPUComputePipeline + dispatchWorkgroups。ワークグループ内の共有メモリ・バリア同期がGEMMタイル化に必須。2026年でサブグループ操作が標準化間近でAttention高速化を支える
+- **Q2 2026性能**: 計算集約的タスクでWebGPU vs WebGL = 3-5倍。WebLLM・Transformers.jsがブラウザ内LLM推論を実現し「推論のエッジ移動」パラダイムを決定的にした
 
 ---
 
