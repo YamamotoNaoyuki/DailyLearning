@@ -1,9 +1,26 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 11
-**最終更新日**: 2026-04-22
+**エントリ数**: 12
+**最終更新日**: 2026-04-23
 
 ## 蓄積された知識
+
+### ロックフリーデータ構造とCAS・ABA問題（2026-04-23）
+- **mutexの構造的限界**: クリティカルセクション中のスレッド停止(プリエンプト/ページフォルト/GC)が他スレッド全てを無限阻害。優先度逆転・デッドロック・コンボイ効果の根
+- **進捗条件の階層(Herlihy 1991, JPDC)**: Wait-free(全スレッド有界ステップ) > Lock-free(system-wide progress) > Obstruction-free(isolated実行で進む) > Blocking。**表現力ではなく耐故障性の階層**
+- **CAS(Compare-And-Swap)**: atomic RMW命令。x86 `LOCK CMPXCHG`(MESI Modified遷移)、ARM/RISC-V LL/SC(`LDXR/STXR`, `LR/SC`)。uncontended 10-40サイクル、cross-socket ~100ns
+- **Treiber stack(1986, IBM)**: `push`はCASで安全。`pop`には**ABA問題**が潜む
+- **ABA問題**: T1が`top=A`観測→プリエンプト→T2がpop(A)/push(C)/pop(D)/push(新A同アドレス)→T1のCAS(&top, A, A.next)が成功して破綻。**「ポインタ同一性 ≠ 状態同一性」**。GC言語は自動回避
+- **ABA解決策**: (1) **タグ付きポインタ**(CMPXCHG16B、64bit tagで事実上安全)、(2) **Hazard Pointers**(Michael 2004、スレッドごとに参照中ポインタをpublish、portableだが20-50%オーバヘッド)、(3) **Epoch-Based Reclamation**(Fraser 2004、クリティカルセクション停止でunbounded memory、crossbeam-epoch基盤)、(4) **RCU**(Linux kernel、read性能ネイティブポインタloadレベル、write/reclaim重い、read-heavy支配)
+- **Michael-Scott queue(1996, PODC)**: lock-free FIFO、`java.util.concurrent.ConcurrentLinkedQueue`の基盤。**cooperative helping**(他スレッドが詰まったtail更新を自分が代行)が lock-free progress の本質
+- **メモリモデル**: x86-TSO(強、store→load以外は順序保持)vs ARM/POWER(弱、全並び替え可)。C++11 `memory_order_relaxed / acquire / release / acq_rel / seq_cst`。典型ペア `store(release) + load(acquire)` → happens-before確立
+- **線形化可能性(Herlihy & Wing 1990, TOPLAS)**: 各操作が「invocation-response間の単一時点で瞬間効果」+ **real-time order整合**。Sequential consistencyより強い。**compositional**(部品を組合せても成立)
+- **Consensus Hierarchy(Herlihy 1991)**: 通常register=consensus number 1、FIFO queue/stack=2、**CAS/LL-SC=∞**。CAS の universality = 現代CPUがCASを持つ理論的正当化
+- **FLP impossibility(1985)**: 非同期分散+1故障+決定性の合意は不可能。共有メモリ版(Herlihy)とは設定違うが「非同期性と耐故障性の緊張」の同主題
+- **性能**: uncontended CAS 10-40ns(mutex 25-50nsと大差なし)、contended CASは O(N²) retry爆発→exponential backoff必須、cache line ping-pong(MESI thrashing)、false sharing防止に `alignas(64)`
+- **実世界**: JVM(`j.u.c.atomic`, `ConcurrentLinkedQueue`)、Linux kernel(RCU massive, 数万コールサイト)、Rust(`std::sync::atomic` + crossbeam)、**RocksDB MemTable lock-free skip list**(LSM前回記事とつながる)、Memcached/Redis
+- **使わない判断**: 低競合(mutex同等+単純)、複雑不変条件(TM/mutex)、非クリティカルパス。「Lock-free ≠ 自動的に速い」
+- **核心洞察**: (1) 進捗条件は耐故障性の階層、(2) **メモリ回収こそが本質問題**(GCはロックフリーの隠れた土台)、(3) CASユニバーサリティが命令セット設計を正当化、(4) **ヘルプパターン**(他スレッドの詰まりを自分が解消しながら進む collectivism)
 
 ### LSMツリーとログ構造化ストレージ（2026-04-21）
 - **B木の限界とLSMの動機**: B木はランダムなインプレース更新が必須で、HDDシーク（~10ms、シーケンシャルの約1000倍）と SSD write amplification（NAND P/Eサイクル寿命消耗）の両方でボトルネック化。書き込み支配ワークロード（時系列DB, KVS, ログ集約）では致命的
@@ -125,11 +142,12 @@
 | コンピュータネットワーク | 1 |
 | データベース | 2 |
 | コンパイラ・言語処理系 | 0 |
-| 分散システム | 1 |
+| 分散システム | 2 |
 | 計算理論 | 1 |
 | コンピュータアーキテクチャ | 2 |
 | セキュリティ | 1 |
 | ストレージシステム | 1 |
+| 並行性・同期 | 1 |
 
 ## キーコンセプト
 
@@ -163,6 +181,11 @@
 - **compactionとGCの構造的同型性**: LSM compaction = Mark-Compact GC（生データを集めて古領域解放）、レベル階層 = 世代別GC、tombstone = 弱参照。両者はストレージとメモリという異なる階層で同じ問題を解く双子のアルゴリズムファミリー
 - **ハードウェア特性が複数世代で有効なデータ構造**: LSMはHDDのシーク回避で設計され、SSDのP/Eサイクル寿命・FTL GC・シーケンシャル書き込み優位性にも整合。「追記のみ」という抽象的性質が複数世代のストレージに残存する理由
 - **確率的早期リジェクトパターン**: Bloom/Ribbon/Cuckoo Filter, count-min sketch, 分岐予測のBTB, TLB - 全て「正確性の一部を速度と引き換える」設計。Negative検出を高速化する確率的構造はCS全体に浸透
+- **進捗条件は耐故障性の直交軸**: Wait-free/Lock-free/Obstruction-free/Blocking の階層は「表現力」ではなく「スレッド停止に対する免疫強度」の階層。従来の性能軸と独立な設計次元
+- **メモリ回収はGCとロックフリーの共通の核**: ハザードポインタ=分散並行GC、RCU grace period=並行mark、LSM compaction=Mark-Compact GC。ストレージ/メモリ/ロックフリーの3スケールで同一問題が出現
+- **CAS のユニバーサリティ**: Herlihyの consensus hierarchy で CAS が ∞-consensus オブジェクトであることが、現代全CPUが CAS を持つ理論的正当化。命令セット設計への数学的ガイダンスが機能した稀なケース
+- **ヘルプパターン(cooperative helping)**: MS-queue の tail ヘルプ、RCU、分散合意の Byzantine helping — 「他人が詰まったら自分が代行」。individualism ではなく collectivism が lock-free progress の本質
+- **不可能性結果は設計指針**: FLP、Herlihy consensus hierarchy、CAP、RUM予想 — 全て「何を諦めるか」を示す。ネガティブ結果がポジティブ設計を駆動するパターン
 
 ## 未解決の疑問
 

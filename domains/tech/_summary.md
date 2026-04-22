@@ -1,11 +1,18 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-04-22
-**エントリ数**: 27
+**最終更新**: 2026-04-23
+**エントリ数**: 28
 
 ---
 
 ## 蓄積された知識
+- **ポスト量子暗号とTLS 1.3**——NIST FIPS 203/204/205（2024-08-13発行、ML-KEM/ML-DSA/SLH-DSA）、HQC第5アルゴリズム選定（2025-03）、X25519MLKEM768（codepoint 0x11EC）、draft-ietf-tls-ecdhe-mlkem、Module-LWE on Z_q[x]/(x^256+1) q=3329
+- **ハイブリッド構成の哲学**——"belt and suspenders"、連結KEMでもIND-CCA2保存（Bindel 2019）、新規algo欠陥への保険、KyberSlashタイミング攻撃への防御、ハイブリッドは一時策でなく永続的設計
+- **ClientHelloサイズ問題**——key_share 1216バイト、ClientHello 1500バイト超、TCP initcwnd 10・ミドルボックス単一パケット検査・QUIC MTU制約に衝突、Traefik SNIルーティング失敗、bot検知に副次利用、layer violation cascade
+- **展開実績**——Cloudflare経由の人間Web traffic 35%超がPQC保護（2025-03）、Chrome 124/Edge 124/Firefox 132/Safari 18.2がデフォルト、FIPSモードは例外、AWS KMS/GCP LBも対応
+- **署名側の停滞とMTC**——ML-DSA-44は公開鍵1312+署名2420バイト、cert chainで12倍膨張、50-70%レイテンシ増、Merkle Tree Certificates（David Benjamin）がCAバッチ発行+inclusion proof 736バイトで解決、Cloudflare+Chrome 2025-10実験
+- **HNDL脅威モデル**——NSA CNSA 2.0で2027新規義務・2035完全移行、CRQC出現予測2029-2033、forward secrecyがHNDLには無効なので鍵交換PQC化が署名より先行、時間非対称の暗号戦
+- **クロスプロトコル**——OpenSSH 9.9（2024-09）mlkem768x25519-sha256、IKEv2 RFC 9370、Signal PQXDH（Level 2, ratchetは古典的）、iMessage PQ3（Level 3, 50 epochごとML-KEM再注入でPQ-PCS達成）
 - **ActivityPubとFediverse**——W3C Recommendation 2018、Actor Model（Person/Service/Group）、inbox/outbox/followers/followingの4 collection、Activity Streams 2.0のJSON-LD、"動詞をデータ化する"哲学
 - **連合の実装**——WebFinger(RFC 7033)でactor discovery、HTTP Signatures(RSA-SHA256)でメッセージ単位の出所保証、sharedInboxでfan-out集約、FEP(Fediverse Enhancement Proposals)が実装規範
 - **主要実装**——Mastodon(Ruby/Sidekiq)、Misskey(Node.js)、Pleroma(Elixir/BEAM)、Lemmy(Rust/Reddit型)、PeerTube/Mobilizon/BookWyrmが同一プロトコルで異種サービス連合

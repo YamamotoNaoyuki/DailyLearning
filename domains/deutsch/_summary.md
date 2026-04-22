@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-04-22
-**エントリ数**: 19
-**フレーズ数**: 76
+**最終更新**: 2026-04-23
+**エントリ数**: 20
+**フレーズ数**: 80
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -27,6 +27,8 @@
 - **2026-04-18**: 職場と同僚（Arbeitsplatz und Kollegen）
 - **2026-04-20**: 役所・ビザ・書類（Bürokratie und Behörden）
 - **2026-04-21**: 交通・公共交通機関（Verkehr und öffentliche Verkehrsmittel）
+- **2026-04-22**: 褒め言葉と賞賛（Komplimente und Lob）
+- **2026-04-23**: 料理・レシピ（Kochen und Rezepte）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -290,3 +292,17 @@
 - **返答の自然形**: `Danke, das freut mich!` / `Nicht der Rede wert.` / `Das ist aber lieb von dir.`。日本的強い謙遜 `Nein, nein, das ist nicht so.` はドイツ語では不自然
 - **地方的異形**: `Chapeau!`（フランス語借用）、`Alle Achtung!`、`starker Move!`（若者口語）、`stramme Leistung!`、`sauber!`
 - **言語メタファーの文化性**: `eine Scheibe abschneiden`はパン文化、英語`take a leaf out of your book`は書物文化、フランス語`prendre de la graine`は種文化。**言語は文化の主食を無意識に露呈する**
+
+## Kochen und Rezepte（料理・レシピ、2026-04-23）
+- **フレーズ1（レシピ送信依頼）**: `Sag mal, magst du mir das Rezept nachher mal rüberschicken? Ich krieg das zu Hause bestimmt nicht so hin.` — あとでレシピ送ってくれない? うちでやっても絶対こうならないから。`rüberschicken`は`herüberschicken`の口語縮約、`hinkriegen`=うまく仕上げる(口語)、`magst du...?`は`möchtest du...?`より砕けた依頼
+- **フレーズ2（台所で手伝い依頼）**: `Kannst du mal eben die Zwiebeln kleinschneiden, während ich das Fleisch anbrate? Aber wirklich klein, ja?` — 玉ねぎ細かく切ってくれる?その間にお肉焼くから。`mal eben`は最強の依頼軽量化コンビ、`während`従属節で並列作業説明、`anbraten`(強火焼き付け)は料理動詞の精密階層の一角
+- **フレーズ3（味の評価）**: `Also die Soße ist dir heute ein Gedicht geworden — aber die Klöße, ehrlich, die sind mir leider etwas misslungen.` — 今日のソース絶品、ただ団子は失敗だった。`jemandem ist etwas gelungen/misslungen`は料理評価の核心構文(料理が主語、料理人がDativ)、`ein Gedicht sein/werden`=絶品の上品な褒め、`werden`で過程→結果の時間性
+- **フレーズ4（目分量・代用）**: `Keine Ahnung, wie viel genau — ich mach das immer Pi mal Daumen. Wenn die Soße zu dünn ist, kippst du halt noch 'nen Schluck Sahne rein. Kommt eh drauf an, wie groß die Zwiebeln sind.` — 目分量でやってる、緩けりゃ生クリーム足せばいい、玉ねぎの大きさ次第。`Pi mal Daumen`=π×親指=目分量(数学慣用句)、`kippen`は雑に注ぐ動詞、`halt`/`eh`で諦観+状況依存、`kommt drauf an`万能クッション
+- **料理動詞の精密階層**: anbraten(強火焼付) > scharf anbraten(高温) > braten(焼く) > schmoren(蒸し煮) > köcheln lassen(煮込む) > ziehen lassen(味馴染み)。注ぎ方も einrühren < unterheben < dazugeben < reinschütten < reinkippen の精密勾配
+- **被害者構文 Dativ der betroffenen Person（料理編）**: `Die Klöße sind mir misslungen.`=料理が主語、料理人は3格(被害者)。失敗の自己責任を薄める文法。同じ構造=`Mir ist kalt.`、`Mir tut der Kopf weh.`
+- **料理会話のModalpartikel支配**: `mal eben`(依頼軽量化)、`halt`/`eh`(諦観+代用案)、`ja?`(念押し)、`ehrlich`(正直評価導入)、`also`(切り出し)。粒子を抜くと料理指示が軍隊的に聞こえる
+- **da(r)-/her-系口語縮約**: rüber(herüber)、drauf(darauf)、drin(darin)、'nen(einen)。B1/B2の分水嶺となる必須短縮
+- **ドイツ家庭料理の非定量性**: 家庭料理=`Pi mal Daumen`、パン製法=g単位の精密主義。Hausmannskost と Backkunst の言語レジスタの対照が同言語内に共存
+- **料理評価の上品な最上級**: `ein Gedicht sein`、`ein Traum`、`ein Genuss`、`göttlich`(年配向け)vs `bombastisch`、`mega gut`、`krass lecker`(若者向け)
+- **地域料理語彙**: Klöße(北) vs Knödel(南)、Brezel(北) vs Brezn(南)、Pfannkuchen vs Palatschinke、Aprikose vs Marille。食卓の語で出身地が分かる
+- **代用の定型表現**: `Wenn du X nicht hast, tut's auch Y.` / `Nimmst halt stattdessen Y.` / `Hauptsache, es schmeckt.` — 代用を許容し結果主義に着地する

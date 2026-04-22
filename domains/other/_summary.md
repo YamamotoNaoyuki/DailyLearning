@@ -1,7 +1,7 @@
 # 📦 その他 分野サマリー
 
-**最終更新**: 2026-04-22
-**エントリ数**: 27
+**最終更新**: 2026-04-23
+**エントリ数**: 28
 
 ---
 
@@ -350,3 +350,19 @@
 - **マルチプロキシ原則**: 単一法依存せず、独立手法の交差検証で年代を絞る。縄文遺跡ではC14+TL+火山灰層序、人類進化ではK-Ar+OSL+ESR
 - **AMS革命**: 数グラム→数ミリグラムへの試料縮小で、壁画顔料・絹1繊維・人骨小片での測定可能に。トリノ聖骸布（1988年、中世由来判定）はAMSなしには不可能だった。**分析精度進化が倫理選択肢を変える**
 - **時間を物質に埋め込む**: 放射性崩壊は温度・圧力・化学反応に非依存の量子力学的時計。「時計を発明したと思ったが、自然界にずっと精密な時計があった」
+
+## 印欧祖語とグリムの法則（2026-04-23）
+- **比較言語学の起源**: Sir William Jones 1786年カルカッタ講演「サンスクリット・ギリシャ・ラテンは偶然ではありえない類似 → 共通祖先」。Rasmus Rask (1814/1818懸賞論文) と Franz Bopp (1816形態論) が独立に体系化。Jacob Grimm『Deutsche Grammatik』第2版 (1822) が子音推移を定式化
+- **印欧祖語 (PIE)**: 前4500–2500年頃話された未記録言語。比較再建のみで知られる。10大分岐（アナトリア・インドイラン・ギリシャ・イタリック・ケルト・ゲルマン・バルトスラヴ・アルメニア・アルバニア・トカラ）
+- **Kurgan仮説 (Gimbutas 1956)**: ポントス・カスピ海ステップ起源。Haak et al. 2015 (Nature)・Allentoft 2015 のヤムナヤ古代DNA研究で大規模な遺伝的置換として確証。対する Anatolian 仮説 (Renfrew 1987) は少数派。Heggarty et al. 2023 (Science) はハイブリッドモデルを提案、根を8,000–9,000年前と推定
+- **新文法学派 (Junggrammatiker)**: 1870s ライプツィヒ (Brugmann, Osthoff, Leskien, Delbrück)。「Die Lautgesetze wirken ausnahmslos (音法則は例外なく作用)」Leskien 1876。言語学を厳密科学へ
+- **グリムの法則 (Erste Lautverschiebung)**: PIE→ゲルマン祖語の三段階連鎖子音推移。(1) 無声閉鎖音 p,t,k,kʷ → 無声摩擦音 f,θ,x/h,xʷ; (2) 有声閉鎖音 b,d,g,gʷ → 無声閉鎖音 p,t,k,kʷ; (3) 有声有気音 bʰ,dʰ,gʰ,gʷʰ → 有声閉鎖音 b,d,g,gʷ。push chain/drag chain 論争
+- **Verner の法則 (1875)**: PIE アクセントが先行音節になかった場合、無声摩擦音が有声化。father/brother の t の差を説明。「文法的交替 (grammatischer Wechsel)」として動詞強変化に残存。新文法学派テーゼの実証的勝利
+- **喉音理論**: Saussure 1879『Mémoire sur le système primitif des voyelles』で純粋内的再構から3つの喉音 *h₁, *h₂, *h₃ を予言。1915年 Hrozný によるヒッタイト同定と1920年代の *h₂ = ḫ 発見が40年後に確証。理論予測と実証の劇的一致
+- **母音交替 (Ablaut)**: *e/*o/*ø 交替。ギリシャ語 leípō/léloipa/élipon (現在・完了・アオリスト)、英語 strong verb (sing/sang/sung) が遺産
+- **再建された PIE 社会**: *h₁éḱwos (馬)、*kʷékʷlos (車輪、*kʷel- 回転の重複)、*yugóm (軛)、*gʷṓus (牛)、*medʰu (蜂蜜)。金属語彙 *h₂éyos (銅/青銅) あり・鉄なし。地中海動植物語彙なし → カルコリシック〜初期青銅器ステップ牧畜民像
+- **音対応の実例**: *ph₂tḗr → skt pitā́ / gr patḗr / lat pater / 英 father / 独 Vater。*dékm̥ → skt dáśa / gr déka / lat decem / 英 ten / 独 zehn。ラテン p/英 f、ラテン d/英 t、ラテン c(k)/英 h が系統的対応
+- **Schleicher の寓話 (1868)**: 完全な再建 PIE で書かれた『羊と馬』。Hirt 1939, Lehmann-Zgusta 1979, Kortlandt 2007 と改訂され続け、150年の学問進化を可視化
+- **計算的系統推定**: Gray & Atkinson 2003 (Nature)、Heggarty et al. 2023 (Science) のベイズ系統推定。PIE 根は8,120年前 (95% HPD 6,740–9,610) 推定。考古学+計算言語学+古代DNA の三者対話の時代
+- **洞察**: 「例外なき規則性」は CS 的主張 → 有限状態変換器で音変化を合成的にモデル化可能 (Kaplan & Kay 1994)。言語はタイムマシン — 未記録祖語を三角測量で復元。Saussure の喉音予言は Dirac の陽電子予言に匹敵。DNA と言語学の独立収束は強い科学的確証
+- **音法則と第2次子音推移**: 高地ドイツ語子音推移 (6–8世紀) が英独差異の大半を説明。英 p→独 pf/f (ship/Schiff)、英 t→独 ts/s (water/Wasser)、英 k→独 ch (make/machen)。Benrath 線・Speyer 線の方言境界
