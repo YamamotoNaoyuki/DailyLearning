@@ -1,11 +1,16 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-04-23
-**エントリ数**: 28
+**最終更新**: 2026-04-24
+**エントリ数**: 29
 
 ---
 
 ## 蓄積された知識
+- **Cloudflare Durable Objectsとエッジアクター**——グローバルに一意なIDで"shard of one"、同一エンティティの全リクエストが単一インスタンスに集約される設計、"calcul＋状態の物理的共配置"、2026年GAのSQLiteはDOと同一プロセス・同一スレッドでレイテンシ実質ゼロ
+- **Input/Output Gate**——単一スレッド・協調マルチタスクでデータ競合を防ぐDO独自の仕組み、Input Gateが同期実行中の新イベントをブロック、Output Gateがストレージ永続化前の外部副作用を保留、外部的一貫性をプラットフォームが保証
+- **DO Alarms/Hibernatable WebSockets**——at-least-once保証付き永続タイマー（指数バックオフ最大6回リトライ）、WebSocket接続維持したままDOをメモリから降ろせる設計でアイドル時コスト激減
+- **Durable Object Facets（2026）**——監督DOが配下の多数子DO（各々独立SQLite）を動的生成、AI生成アプリごとに独立DBの階層アーキテクチャ
+- **アクターモデルの復権**——Erlangが理論優位だったアクター（独立状態＋メッセージ）がHTTP世界に翻訳、永続化と地理分散をCloudflareが解決、"everything is a small server"
 - **ポスト量子暗号とTLS 1.3**——NIST FIPS 203/204/205（2024-08-13発行、ML-KEM/ML-DSA/SLH-DSA）、HQC第5アルゴリズム選定（2025-03）、X25519MLKEM768（codepoint 0x11EC）、draft-ietf-tls-ecdhe-mlkem、Module-LWE on Z_q[x]/(x^256+1) q=3329
 - **ハイブリッド構成の哲学**——"belt and suspenders"、連結KEMでもIND-CCA2保存（Bindel 2019）、新規algo欠陥への保険、KyberSlashタイミング攻撃への防御、ハイブリッドは一時策でなく永続的設計
 - **ClientHelloサイズ問題**——key_share 1216バイト、ClientHello 1500バイト超、TCP initcwnd 10・ミドルボックス単一パケット検査・QUIC MTU制約に衝突、Traefik SNIルーティング失敗、bot検知に副次利用、layer violation cascade
