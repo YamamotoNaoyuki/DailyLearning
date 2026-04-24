@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-04-24
-**エントリ数**: 21
-**フレーズ数**: 84
+**最終更新**: 2026-04-25
+**エントリ数**: 22
+**フレーズ数**: 88
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -30,7 +30,7 @@
 - **2026-04-22**: 褒め言葉と賞賛（Komplimente und Lob）
 - **2026-04-23**: 料理とレシピ（Kochen und Rezepte）
 - **2026-04-24**: 謝罪と対立解消（Entschuldigung und Konfliktlösung）
-- **2026-04-23**: 料理・レシピ（Kochen und Rezepte）
+- **2026-04-25**: パーティーでの雑談（Smalltalk auf Partys）
 
 ## 蓄積された知識
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
@@ -308,3 +308,15 @@
 - **料理評価の上品な最上級**: `ein Gedicht sein`、`ein Traum`、`ein Genuss`、`göttlich`(年配向け)vs `bombastisch`、`mega gut`、`krass lecker`(若者向け)
 - **地域料理語彙**: Klöße(北) vs Knödel(南)、Brezel(北) vs Brezn(南)、Pfannkuchen vs Palatschinke、Aprikose vs Marille。食卓の語で出身地が分かる
 - **代用の定型表現**: `Wenn du X nicht hast, tut's auch Y.` / `Nimmst halt stattdessen Y.` / `Hauptsache, es schmeckt.` — 代用を許容し結果主義に着地する
+
+## Smalltalk auf Partys（パーティーでの雑談、2026-04-25）
+- **フレーズ1（初対面）**: `Na, du — wir kennen uns noch gar nicht. Ich bin Jonas, und du hältst's mit dem Gastgeber wie?` — やあ、まだ面識ないよね、主催者との関係は？`es halten mit + 3格`=「〜派である、〜との関係がどうか」の熟語的表現、共通知人（ホスト）を軸にすると話が広がる
+- **フレーズ2（話を掘り下げる）**: `Ach, echt? Das klingt spannend — erzähl mal mehr, wie kam's dazu?` — へぇ、それ面白そう、どうしてそうなったの？`spannend`= interesting+exciting、`wie kam's dazu?` で結果でなく経緯を聞くのがドイツ流
+- **フレーズ3（近況）**: `Bei mir läuft's gerade ganz gut — hab letzten Monat den Job gewechselt, und ich merke, das war längst überfällig.` — 最近うまくいってる、先月転職した、もっと早くすべきだった。`Bei mir läuft's...` = 自己開示の定型、`längst überfällig` で後悔なく変化を肯定する成熟した自己表現
+- **フレーズ4（去り際）**: `So, ich mach mich dann mal langsam auf den Weg. War echt nett, dich kennenzulernen — bleiben wir doch in Kontakt.` — そろそろ出るね、知り合えてよかった、連絡取り合おう。`sich auf den Weg machen`＝出発、"Irish goodbye" はドイツで重大マナー違反
+- **ドイツ Smalltalk の "深さ優先"**: 英語圏の幅優先（多数の浅話題）と逆、1 話題 15-30 分深入り。浅く続く会話は "insubstantial" と感じられる。深くいける話題を 3-4 個持つのが実用的
+- **Gast-Gastgeber 契約**: ホスト=紹介・補充・孤立回避、ゲスト=手ぶら不可・お礼 2 回以上・自発的挨拶。共通軸としてのホスト
+- **Du/Sie のパーティー作法**: 若者中心=全員 du、職場関連=年長者合わせ、迷ったら Sie で始める。du 提案は年長者側から
+- **タブー話題**: 具体的金額、党派政治、宗教、ナチス時代、個人健康、他参加者の批判。許容=仕事内容、街、旅行、料理、音楽、ペット、天気
+- **Verabschiedung の重要性**: 必ずホストにお礼 → 会話相手各人に挨拶 → 握手/頬キス/ハグ → Machs gut! / Bis bald!。5-10 分の儀式
+- **Konjunktiv II で控えめに誘う**: `Es wäre schön, in Kontakt zu bleiben.` / `Ich würde gerne mal mit dir einen Kaffee trinken.` — 断られても面子を保てる

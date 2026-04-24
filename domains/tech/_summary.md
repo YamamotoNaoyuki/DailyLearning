@@ -1,11 +1,16 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-04-24
-**エントリ数**: 29
+**最終更新**: 2026-04-25
+**エントリ数**: 30
 
 ---
 
 ## 蓄積された知識
+- **Confidential Computing と TEE（2026-04-25）**——"Data in use" の暗号化という第三の柱。Intel SGX (enclave, プロセス内) → AMD SEV/SEV-ES (VM単位, lift-and-shift) → Intel TDX/SEV-SNP (integrity保証, RMP, MKTME) の3世代進化。信頼の根を CPU シリコンに押し下げる設計哲学
+- **Remote Attestation（CC の核心）**——Measurement (MRTD/MRENCLAVE) → Quote (CPU秘密鍵で署名) → Verification (Intel PCS/AMD KDS の証明書チェーン) → Secret Provisioning。"CPU ベンダを信じる" 代わりにフルスピードで秘匿計算
+- **TEE.Fail 攻撃（2025後半）**——DDR5 メモリバスへのインターポーザで SGX/TDX/SEV-SNP から秘密抽出。物理アクセスは CC の脅威モデル外という本質的限界を示した
+- **CC と ZKP の棲み分け**——TEE=CPU 信頼でフルスピード、ZKP=完全だが遅い。実用は "TEE で計算し ZKP で重要部分だけ検証" のハイブリッドが主流
+- **実用例**——Signal (SGX 連絡先発見)、Azure Confidential VM (SEV-SNP GA, TDX preview)、GCP Confidential Space、AWS Nitro Enclaves (独自)、NVIDIA H100 GPU TEE
 - **Cloudflare Durable Objectsとエッジアクター**——グローバルに一意なIDで"shard of one"、同一エンティティの全リクエストが単一インスタンスに集約される設計、"calcul＋状態の物理的共配置"、2026年GAのSQLiteはDOと同一プロセス・同一スレッドでレイテンシ実質ゼロ
 - **Input/Output Gate**——単一スレッド・協調マルチタスクでデータ競合を防ぐDO独自の仕組み、Input Gateが同期実行中の新イベントをブロック、Output Gateがストレージ永続化前の外部副作用を保留、外部的一貫性をプラットフォームが保証
 - **DO Alarms/Hibernatable WebSockets**——at-least-once保証付き永続タイマー（指数バックオフ最大6回リトライ）、WebSocket接続維持したままDOをメモリから降ろせる設計でアイドル時コスト激減
