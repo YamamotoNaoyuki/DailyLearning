@@ -1,11 +1,17 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-04-25
-**エントリ数**: 30
+**最終更新**: 2026-04-26
+**エントリ数**: 31
 
 ---
 
 ## 蓄積された知識
+- **Linux io_uring と非同期I/O革命（2026-04-26）**——Jens Axboe が Linux 5.1（2019）で導入。既存3モデル（Linux AIO の O_DIRECT 限定・libaio コピーコスト、POSIX AIO の fake AIO、epoll の readiness 通知 2-syscall）を一気に解消。proactor 型完了通知、バッファ I/O 対応、ソケット・ファイル統一、0または1 syscall、スレッド不要
+- **SQ/CQ Ring アーキテクチャ**——3領域 mmap（SQ ring + SQE 配列 + CQ ring）の SPSC 共有メモリ。SQE/CQE 分離は「完了が提出順序と異なるため SQE を in-flight 中に上書きしない」設計。memory barrier は liburing が抽象化。SQPOLL モードでは syscall 完全排除
+- **モード別フラグ**——SQPOLL（kernel polling thread、CPU 1 コア消費）、IOPOLL（NVMe block layer polling、O_DIRECT 必須）、DEFER_TASKRUN（task_work を io_uring_enter まで遅延、Dylan Yudaken/Meta、SINGLE_ISSUER 必須）。Linked SQEs / Registered files+buffers / Multishot ops（accept/recv/poll で1提出多完了）
+- **採用事例と性能**——PostgreSQL 18 (2025) に io_method=io_uring が着地（pgbench で sync 比 2.6倍）、ScyllaDB/Seastar、Cloudflare ソケット I/O、QEMU virtio-blk、systemd-journald。Zero-copy send (SEND_ZC) + kTLS で plaintext copy 排除
+- **セキュリティ史**——Google が kCTF 提出エクスプロイトの 60% が io_uring 起因と判断、ChromeOS/Android/production server 全面無効化（2023）。CVE-2022-29582/2023-2598/2024-0582 など UAF・OOB read。**seccomp 構造的限界**: io_uring_enter 許可で任意 opcode 実行可能、`read` 禁止しても `OP_READ` で迂回。Docker/containerd デフォルト seccomp で除外推奨
+- **他OS 比較**——IOCP（Win NT、proactor 親戚だがバッチ提出無）、kqueue（reactor 拡張、completion でない）、SPDK（NVMe 専用 userspace polling、ジョブ ≤10 で io_uring を 9-16% 上回る）。io_uring NVMe passthrough (5.19+) で SPDK 領域を侵食中
 - **Confidential Computing と TEE（2026-04-25）**——"Data in use" の暗号化という第三の柱。Intel SGX (enclave, プロセス内) → AMD SEV/SEV-ES (VM単位, lift-and-shift) → Intel TDX/SEV-SNP (integrity保証, RMP, MKTME) の3世代進化。信頼の根を CPU シリコンに押し下げる設計哲学
 - **Remote Attestation（CC の核心）**——Measurement (MRTD/MRENCLAVE) → Quote (CPU秘密鍵で署名) → Verification (Intel PCS/AMD KDS の証明書チェーン) → Secret Provisioning。"CPU ベンダを信じる" 代わりにフルスピードで秘匿計算
 - **TEE.Fail 攻撃（2025後半）**——DDR5 メモリバスへのインターポーザで SGX/TDX/SEV-SNP から秘密抽出。物理アクセスは CC の脅威モデル外という本質的限界を示した

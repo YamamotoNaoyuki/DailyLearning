@@ -1,11 +1,23 @@
 # 📦 その他 分野サマリー
 
-**最終更新**: 2026-04-25
-**エントリ数**: 30
+**最終更新**: 2026-04-26
+**エントリ数**: 31
 
 ---
 
 ## 蓄積された知識
+- **調香化学とフレグランス芸術（2026-04-26、化学×芸術×生理学×規制）**——揮発性は分子量だけでなく H 結合・分子のかさ高さで決まる（バニリン MW 152 でもベース、Iso E Super も 4 環骨格でベース）。トップ＝リモネン/リナロール/脂肪族アルデヒド C8-C12、ハート＝ジャスミン (benzyl acetate+indole+lactone) / ローズ (β-damascenone は閾値 0.009 ppb の最強分子)、ベース＝ムスク/ウッド/アンバー
+- **合成香料史**——Coumarin (1868 Perkin)→Fougère Royale (1882)、Vanillin (1874 Tiemann/Haarmann)→Jicky (1889) モダンオリエンタル、脂肪族アルデヒド (Beaux 1921 Chanel No.5)、**Hedione = methyl dihydrojasmonate** (Demole 1962 Firmenich, Roudnitska の Eau Sauvage 1966, CK One 18%)、**Iso E Super** (Hall 1973 IFF, Geza Schoen Escentric 01 で 65%、Gladwell *New Yorker* 2010)
+- **固定剤の化学**——天然: ambergris (抹香鯨腸 ambrein → 紫外線酸化で ambroxan)、labdanum、oakmoss (atranol/chloratranol、IFRA 49 で 2020 年実質禁止)、civetone、benzoin / 合成: Ambroxan (Schinz-Hinder 1950)、Galaxolide (HHCB)、Habanolide
+- **香調家系**——Fougère (lavender+coumarin+oakmoss+geranium, Houbigant 1882)、Chypre (bergamot+rose/jasmine+oakmoss+labdanum, Coty 1917、IFRA でジャンル瀕死、Evernyl で再構築)、Oriental, Floral, Citrus, Aromatic, Leather
+- **IFRA 規制**——自主規制だが Big 4 (Givaudan/IFF/Firmenich/Symrise) 遵守で事実上強制力。**Lilial (BMHCA) 2022 年 EU 全面禁止で J'adore 等が処方変更**、Lyral (HICC) 2017 IFRA 禁止、ニトロムスク段階禁止。「reformulated」現象の構造的背景
+- **嗅覚生物学（Buck-Axel 2004 Nobel）**——ヒト約 400 機能的 OR 遺伝子（ゲノム 3%）、組合せコードで 1 兆匂い (Bushdid 2014 *Science*)、糸球体収束 (Mombaerts 1996)、orthonasal vs retronasal は脳活動領域が別 (Small 2005 *Neuron*)
+- **立体異性と匂い**——(R)-(+)-リモネン=オレンジ vs (S)-(−)-リモネン=松、(R)-カルボン=スペアミント vs (S)-カルボン=キャラウェイ。OR は GPCR でキラル選別器
+- **濃度ティア**——Parfum 15-30%, EdP 10-20%, EdT 5-15%, EdC 2-5%。EdT/EdP は薄い濃いではなく**別処方**（同名でもトップ/ベース比率が変わる）
+- **マセレーション**——調合直後は平板、エステル交換平衡・酸化反応・H 結合再編で 40-60 日で安定。パンの長時間発酵・ワインの瓶熟成と同型
+- **ニッチ vs デザイナー**——Big 4 がデザイナー処方を担当、Frédéric Malle *Editions de Parfums* (2000) / Le Labo / CDG / Andy Tauer / Geza Schoen が auteur model 復権
+- **アンバーグリス形成**——抹香鯨深海でイカのくちばし腸壁刺激→ambrein 分泌→排出→数年〜数十年漂流で UV 酸化→ambroxan 等。1986 IWC モラトリアム以降合法は漂着拾得品のみ。1kg 15-35K USD
+- **香道（kōdō）**——西洋 wearing に対し日本は "聞く"。志野/御家流、沈香 (Aquilaria 樹脂)、伽羅は最高等級、六国五味は Edwards のフレグランスホイールに先行する分類学。Issey Miyake L'Eau d'Issey (1992 Cavallier) の Calone がアクアティック確立
 - **鳥の渡りとナビゲーション（2026-04-25、生物学・量子生物学）**——キョクアジサシは年間約40,000km往復、初年度渡り鳥でも遺伝的プログラムだけで正確に目的地に着く。150gの頭脳でコンパス+六分儀+海図+天測を実装
 - **4つのコンパス**——(1) 太陽コンパス（time-compensated、体内時計で時刻補正、Kramer 1950）、(2) 星コンパス（Emlen 1967、北極星周辺を "不動点" として学習）、(3) 磁気コンパス（伏角 inclination で極/赤道方向検知、Wiltschko 1960s）、(4) 偏光コンパス（夕暮れに磁気再調整）
 - **クリプトクロムとラジカル対機構**——網膜のクリプトクロムに青色光→ラジカル対生成→スピン量子重ね合わせ→地磁気がスピン歳差に影響→singlet/triplet 比変化→神経信号。常温・生体内でマイクロ秒単位のスピンコヒーレンス維持——**量子生物学の確立例**。Xu et al. 2021 で ErCRY4 単離

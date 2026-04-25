@@ -1,13 +1,19 @@
 # 🎹 ピアノ演奏 分野サマリー
 
-**最終更新**: 2026-04-25
-**エントリ数**: 28
+**最終更新**: 2026-04-26
+**エントリ数**: 29
 
 **分野の方針**: ピアノ演奏の身体技法・奏法・練習法に特化。音楽分野（クラシック音楽の鑑賞・分析・歴史）とは分離し、「弾く」ことに焦点を当てる。解剖学・バイオメカニクスとの接点を重視。
 
 ---
 
 ## 蓄積された知識
+- **前腕回旋とMatthay/Taubman（2026-04-26）**——橈骨が尺骨周りを2点支持で回転する独自運動。回外は biceps brachii（肘屈曲位の強力な supinator）+ supinator、回内は pronator teres + pronator quadratus。指伸筋（EDC）の単独収縮を肩代わりして傷害予防
+- **Matthay の Visible vs Invisible Rotation**——*The Visible and Invisible*（1932）。打鍵4要素 = finger-exertion / hand-exertion / arm-weight / forearm rotation-adjustment。**すべての音に常時 rotary stresses が調整されている**——オクターブで可視、単音でも不可視に存在
+- **Taubman/Golandsky 五本柱と Single/Double Rotation**——alignment / forearm rotation / in-out / walking arm / shaping。**Single** = 連続反復で片道スイング（前回動作で既に反対側）、**Double** = 中立位から始める音は反対方向に予備動作（カタパルト）してから打鍵。**Cardinal Rule**: 親指側の音は親指側へ、5指側は5指側へ回旋
+- **応用レパートリー**——Alberti bass、トリル（指交替の生理的限界 4-6Hz を、回旋振り子で 10-14Hz へ）、オクターブ、トレモロ（純粋に橈尺軸振動）、Scarlatti repeated notes、Chopin Op.10-1（回旋＋shaping）、Op.25-12 Ocean（double rotation 起動 + 転回点 micro reset）
+- **教育系譜の対立**——Czerny→Leschetizky の Finger school（軽い古鍵盤に最適化）vs Deppe→Breithaupt→Matthay の Weight/Rotation school（≈50g down weight の総鋳鉄フレーム時代に対応）。Otto Ortmann *Physiological Mechanics*（1929）が物理測定で回旋有効性を裏付け
+- **焦点性ジストニア対抗原理**——FHD は皮質マップの smearing と co-contraction が中核（Furuya & Altenmüller 2009）。回旋技法は指単独入力を減らし proximal muscle のセンサリーモータ統合を保つ。Sheila Paige の臨床応用
 - **声部バランスとボイシング（2026-04-25）**——10本の指で同時に異なる音量を出す技法。打鍵機構はハンマー速度しか変えられないのに、5指のメロディを強く親指を弱く鳴らす必要がある
 - **ボイシングの4つの物理原理**——(1) 打鍵速度の差分化（1-5ms 以内で同時着地かつ速度差）、(2) 指の剛性差分化（強声部の指を固める、腕の重みを集中）、(3) 鍵盤との事前接触（surface contact で弱音、持ち上げで強音）、(4) リリース制御（レガート vs スタッカートで持続時間差が声部分離を達成）
 - **練習法**——Method A: メロディ音を先に単独で打鍵→残りをサイレント沈降、Method B: 和音押さえ後にメロディ指のみ再打鍵 (ゴーストタッチ)、Method C: フーガ声部分離 (単独→ペア→4声へ段階)

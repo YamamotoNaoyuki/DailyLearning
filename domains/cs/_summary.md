@@ -1,9 +1,28 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 14
-**最終更新日**: 2026-04-25
+**エントリ数**: 15
+**最終更新日**: 2026-04-26
 
 ## 蓄積された知識
+
+### NP完全性とCook-Levin定理（2026-04-26）
+- **P, NP, coNP の精密定義**: NP は「Non-deterministic Polynomial」であり「Non-Polynomial」ではない。NTM定義 ≡ 検証者定義 ($\exists w\le p(n), V(x,w)=1$)。Edmonds 1965 暗黙、Cook 1971 明示
+- **Karp還元 vs Cook還元**: Karp ($\le_p^m$ 多対一) が完全性の標準。Cook ($\le_p^T$ Turing) は強すぎてNPとcoNPを区別できない可能性。**Karp の細粒度がNP, coNP, PSPACE を還元で閉じさせる**
+- **NP-hard ≠ NP-complete**: NP-hard は NP外でもよい（停止問題、EXPTIME完全な一般化チェス）。NPC = NP-hard ∧ NP内 = NPの中の最難クラス
+- **Cook-Levin定理 (1971/1973)**: SAT は NPC。**Tableau法**で証明——NTM の $p(n)\times p(n)$ 計算履歴を CNF に翻訳。変数 $x_{i,j,s}, y_{i,k}, z_{i,j}$、節は (1)整合性 one-hot、(2)初期配置、(3)$2\times 3$ ウィンドウ遷移正当性、(4)受理。**遷移の局所性**が多項式翻訳を可能にする鍵
+- **歴史**: Cook 1971 STOC（トロント大）、Levin 1973独立（モスクワ、ロシア語誌）。Karp 1972 が21問題リストでNPC連鎖反応を起こす
+- **哲学的含意**: SAT が NPC = 「効率的に検証可能な探索問題はすべて論理充足可能性に帰着」。**論理推論そのものが計算困難性の境界線**。最小表現力（AND/NOT）で全NPを符号化できる驚き
+- **3SAT が普遍出発点**: 2SAT は P（含意グラフSCC）、3SAT で一気にNPC——「3」が困難性閾値。長い節を補助変数 $y_i$ でチェーン分解（線形サイズ）。ガジェット還元は局所組合せ的になり設計しやすい
+- **Karpの21問題の還元playbook**: ガジェット = 論理変数や節を意図する問題のサブグラフで表現。3SAT→頂点被覆（変数2頂点+節三角形）、3SAT→ハミルトン閉路（左右経路ガジェット）
+- **Berman-Hartmanis 同型予想 (1977)**: 全NPCは多項式時間同型 ($p$-isomorphic)。表面差はエンコーディングだけ。帰結: 疎集合（多項式密度）はNPCになりえない（Mahaney 1982）。ランダム神託で偽（Kurtz-Mahaney-Royer 1995）、絶対真偽未解決
+- **Ladner定理 (1975)**: P≠NP なら NP \ P で非NPC な無限階層が存在（NP-中間）。対角化で証明。候補: **Graph Isomorphism**（Babai 2016 で準多項式 $\exp(O((\log n)^c))$、NPC なら多項式階層が第二レベルに崩壊するため非NPC が信じられる）、**素因数分解**（Shor で BQP）、**離散対数**
+- **NPC = 実用困難 は微妙**: (1) 最悪 vs 平均ケース乖離、(2) **ランダム3SAT相転移 (Mitchell-Selman-Levesque 1992)** 節/変数比 ≈ 4.267 で最困難領域、(3) **CDCLソルバー革命** (GRASP 1996, MiniSat 2003, Z3, KISSAT) で工業数百万変数を秒で解く、(4) **PCP定理 1992** + **Håstad 2001** で MAX-3SAT は 7/8+ε にNP-困難で近似不能、これは厳密最適
+- **Impagliazzo's Five Worlds (1995)**: Algorithmica / Heuristica / Pessiland / Minicrypt / Cryptomania の5世界モデル。我々は Cryptomania にいると信じる（公開鍵暗号成立）
+- **実務処方箋**: SAT/SMT (Z3, CVC5)、ILP (CPLEX, Gurobi)、近似 (PCP境界内、PTAS/FPTAS)、**パラメータ複雑性 (Downey-Fellows 1999)** でFPT、ヒューリスティクス
+- **障壁の三重壁**: (1) **相対化 (Baker-Gill-Solovay 1975)**——神託で両方向、(2) **自然証明 (Razborov-Rudich 1994/1997, Gödel賞2007)**——擬似乱数関数が存在すれば自然証明はP/poly超多項式下界を出せない、(3) **代数化 (Aaronson-Wigderson 2009)**。**「なぜ難しいか」自体が研究対象**のメタ理論段階
+- **Geometric Complexity Theory (Mulmuley)**: 表現論・代数幾何で永久式 vs 行列式に挑む50-100年プログラム
+- **量子角度**: NPC ⊄ BQP と信じる。**Grover (1996)** SAT に二次加速のみ ($O(\sqrt{2^n})$)、量子でも指数。**Shor (1994)** は因数分解をBQPに置くが因数分解はNP-中間と信じられる（NPCなら NP=coNP 崩壊）
+- **核心洞察**: (1) **論理 = 計算困難性の物差し**（Boolean最小表現力でNP全てを表す）、(2) **完全性は還元粒度に依存**（Karp の細かさを意図的選択）、(3) **NPC問題群は同型予想下で「同じ問題」**、(4) 最悪ケース理論は敵対的設計（暗号）に、平均ケース理論は実務最適化に役割分担、(5) 障壁の特定が現代複雑性理論の主戦場
 
 ### Shannon 情報理論とエントロピー符号化（2026-04-25）
 - **Shannon 1948 "A Mathematical Theory of Communication"**: 情報量 $I(x) = -\log_2 p(x)$、エントロピー $H(X) = -\sum p \log p$、相互情報量、通信路容量。20世紀最重要数学論文のひとつ
@@ -168,7 +187,7 @@
 | データベース | 2 |
 | コンパイラ・言語処理系 | 0 |
 | 分散システム | 2 |
-| 計算理論 | 1 |
+| 計算理論 | 2 |
 | コンピュータアーキテクチャ | 2 |
 | セキュリティ | 1 |
 | ストレージシステム | 1 |

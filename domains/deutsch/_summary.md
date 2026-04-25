@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-04-25
-**エントリ数**: 22
-**フレーズ数**: 88
+**最終更新**: 2026-04-26
+**エントリ数**: 23
+**フレーズ数**: 92
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -31,8 +31,13 @@
 - **2026-04-23**: 料理とレシピ（Kochen und Rezepte）
 - **2026-04-24**: 謝罪と対立解消（Entschuldigung und Konfliktlösung）
 - **2026-04-25**: パーティーでの雑談（Smalltalk auf Partys）
+- **2026-04-26**: 医者にかかる（Beim Arzt）
 
 ## 蓄積された知識
+- „Hätten Sie zufällig einen Termin in den nächsten Tagen frei? Ich bräuchte mal was Akutes." — 予約電話の Konjunktiv II 二連発、Akutsprechstunde 定番
+- „Es zieht mir hier so im Rücken — ich weiß auch nicht, was ich mir da verrenkt habe." — 無人称 es ＋ Pertinenzdativ（mir + im Rücken）。ゲルマン語の「身体は経験の場」という哲学が文法に
+- „Können Sie mich vielleicht für ein paar Tage krankschreiben? Ich brauche dann auch den gelben Schein für den Arbeitgeber." — 分離動詞 krankschreiben、gelber Schein は AU-Bescheinigung 通称（Entgeltfortzahlungsgesetz §5、3日以上欠勤で法的義務）
+- „Ich wollte das hier mal einlösen — geht das aufs Kassenrezept?" — 過去形 wollte の丁寧用法（Vergangenheitsform der Höflichkeit）。Kassenrezept (rosa) / Privatrezept (blau) / Grünes Rezept / eRezept
 - „Das kann doch nicht sein, dass..." — ありえないでしょう（クレームの定番構文）
 - „Ich finde es halt echt ärgerlich, dass..." — 正直腹立たしい（口語の愚痴表現、halt+echt）
 - „Ehrlich gesagt bin ich von ... ziemlich enttäuscht." — 正直失望しています（フォーマルな不満）

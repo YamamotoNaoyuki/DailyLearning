@@ -1,13 +1,25 @@
 # ⛳ ゴルフ 分野サマリー
 
-**最終更新**: 2026-04-25
-**エントリ数**: 31
+**最終更新**: 2026-04-26
+**エントリ数**: 32
 
 **分野の方針転換（2026-03-05）**: 身体の使い方・バイオメカニクスは解剖学分野に統合。今後はコースマネジメント、クラブ選択、戦略、ルール、メンタルゲーム、プロツアーの分析など「ゴルフというゲーム」の理解に焦点を当てる。
 
 ---
 
 ## 蓄積された知識
+- **コース設計の戦略性 / ゲームとしてのアーキテクチャ（2026-04-26）**——三学派の本質は「問いの構造の違い」: Penal=二値判定、Strategic=複数ルートの最適選択、Heroic=強制的一発決断。Joshua Crane vs MacKenzie 論争（1920s）で Strategic 派が勝利し Augusta が出発点に
+- **MacKenzie 13 原則の現代必須項目**——項目5「ホールの個性」、項目7「人工=自然」、項目8/9「上級者と初心者の両立」、項目13「改善の余地」。`Spirit of St Andrews` (1995) は MacKenzie 死後発見の遺稿で Behr 影響の一次資料
+- **Old Course の戦略構造**——ダブルグリーン7個で同じ平面が2ホールに、ポットバンカー112個の情報非対称性、風向きで8通りの「コース」。17番 Road Hole は安全側選択が次打を難しくする Strategic 純粋形態
+- **Donald Ross の反転 Strategic**——Pinehurst No.2 turtleback は「角度」ではなく「弾道とスピン」を要求。2010 Coore/Crenshaw 改修でラフ→native wiregrass、フェアウェイ拡張で Ross の意図に回帰
+- **Pete Dye の deception 学派**——視覚情報の歪みでプレーヤーの判断装置を攻撃。レールロードタイの直線化、コントラスト操作、stadium golf。MacKenzie の物理的カモフラージュに対する Dye の心理的カモフラージュ
+- **ミニマリスト復興方法論**——Coore/Crenshaw、Doak、Hanse 共通: Routing First（Sand Hills は調査2年）、Earthwork 最小化（Trent Jones Jr. の 1/20）、Recovery Architecture、Firmness > Length
+- **Doak Scale 0-10 と "interest > difficulty"**——`Confidential Guide` 5巻 2,500 コース。0=建てるべきでなかった、3=平均、7-10=旅行価値。9 つの加減点要因。MacKenzie 原則 13 の現代翻訳
+- **Behr の Line of Charm**——魅力線（bold）と迂回線（safe）の幾何学。Strategic 成立条件は「魅力線実行で次打に物理的利得（角度・距離・ライ）」。Augusta 13 番 Azalea が理想形（Rae's Creek 沿いで三重報酬、右逃げで三重不利）
+- **Strokes Gained が裏付けた角度**——Broadie データで「ラフでも近い角度」>「フェアウェイでも遠い悪角度」が成立。MacKenzie の wide-but-angled 思想を統計的に確証。プロのアマ化（角度の戦略価値消失）が現代設計の課題
+- **Short Grass トレンド = 21世紀のハザード**——グリーン周り fairway height 化で寄せのオプションが1→6に増加。Streamsong Black（Hanse）はグリーンとサラウンドを同草種同刈高で接続。判断負荷で戦略性向上＝CI 効果と同型
+- **バンカー配置論**——Cross（横断、決断強制）、Carry（ティーから一定、ハンディ別の機能）、Wing/Diagonal（攻めるほど狭く＝Old Course 型）、Greenside（角度強制）。「罰」ではなく「情報源」
+- **サステナビリティ転回**——Fine fescue（深根、低水・低肥料）が firm-and-fast を自然に実現。Erin Hills (2017 全米OP)、Chambers Bay (2015) で展開、PGR で除草剤制限下の競合管理
 - **ブロック vs ランダム練習と CI 効果（2026-04-25）**——Battig 1972 "Contextual Interference 効果"。ブロック練習は練習中のパフォーマンスは高いが retention と transfer が低い、ランダム練習は練習中下手だが retention/transfer が高い。"練習で良く見える練習が本番で効かない" パラドックスの正体
 - **Porter et al. 2017 パット研究**——3m/6m/9m のパットをランダム群が保持テストで優位、mental representation もランダム群がより構造化。Scientific Reports 2024 メタ分析で retention/transfer 中〜大の効果量確認
 - **3つの実装スタイル**——Pure Random（全ての球で変動）、Serial Variation（A→B→C→...）、Block+Transfer Phase（20% ブロック→80% ランダム）
