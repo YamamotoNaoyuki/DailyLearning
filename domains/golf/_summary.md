@@ -1,6 +1,6 @@
 # ⛳ ゴルフ 分野サマリー
 
-**最終更新**: 2026-04-26
+**最終更新**: 2026-04-27
 **エントリ数**: 32
 
 **分野の方針転換（2026-03-05）**: 身体の使い方・バイオメカニクスは解剖学分野に統合。今後はコースマネジメント、クラブ選択、戦略、ルール、メンタルゲーム、プロツアーの分析など「ゴルフというゲーム」の理解に焦点を当てる。
@@ -8,6 +8,11 @@
 ---
 
 ## 蓄積された知識
+- **Pelz の17インチ理論と Broadie 批判（2026-04-27）**——元 NASA エンジニア Dave Pelz が1970年代に確立。「ミスしたパットがホール17インチ (約43cm) 先で止まる速度」が捕獲確率最大。**lumpy donut**（プレー後半のスパイクマーク等の凹凸蓄積）への対処と、**capture diameter** が速度依存で減少する物理学的最適点
+- **Penner の物理モデル**——Canadian J. Physics 2002。ホール直径108mm に対し有効捕獲直径は速度1.5m/sで半減、2.0m/s以上で実質ゼロ。17インチ ≒ 接近速度1.0-1.3m/s。Hurrion 計測も整合 (Stimp 11 で1.4-1.6m/s)
+- **17インチは「目標」ではなく「平均」**——Pelz が繰り返し強調するが**読み手に誤読される**。下り傾斜では7-8inch、上りなら24-30inch が平均。誤読すると過攻撃→3-putt 増。Mangum の批判は Pelz 主張ではなく誤読への批判
+- **Mark Broadie の Strokes Gained**——Columbia Business School、PGA Tour の ShotLink (2003-) で SG-Putt = ベンチマーク打数 - 実際打数。距離別 in 確率 (3ft Tour 96%/Am 84%、8ft Tour 50%/Am 30%、15ft Tour 22%/Am 13%、20ft Tour 15%/Am 8%)
+- **Pelz vs Broadie は補完**——Pelz=個別パット物理、Broadie=戦略統計。Tour 一線級は両方を取り込み、Tiger "8-12 inches past dead center"、Spieth "good speed good line"。**3-foot circle drill** はスコアの43%が3ft 以内パットで決まる事実から
 - **コース設計の戦略性 / ゲームとしてのアーキテクチャ（2026-04-26）**——三学派の本質は「問いの構造の違い」: Penal=二値判定、Strategic=複数ルートの最適選択、Heroic=強制的一発決断。Joshua Crane vs MacKenzie 論争（1920s）で Strategic 派が勝利し Augusta が出発点に
 - **MacKenzie 13 原則の現代必須項目**——項目5「ホールの個性」、項目7「人工=自然」、項目8/9「上級者と初心者の両立」、項目13「改善の余地」。`Spirit of St Andrews` (1995) は MacKenzie 死後発見の遺稿で Behr 影響の一次資料
 - **Old Course の戦略構造**——ダブルグリーン7個で同じ平面が2ホールに、ポットバンカー112個の情報非対称性、風向きで8通りの「コース」。17番 Road Hole は安全側選択が次打を難しくする Strategic 純粋形態

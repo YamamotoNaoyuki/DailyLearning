@@ -1,13 +1,19 @@
 # 🎹 ピアノ演奏 分野サマリー
 
-**最終更新**: 2026-04-26
-**エントリ数**: 29
+**最終更新**: 2026-04-27
+**エントリ数**: 30
 
 **分野の方針**: ピアノ演奏の身体技法・奏法・練習法に特化。音楽分野（クラシック音楽の鑑賞・分析・歴史）とは分離し、「弾く」ことに焦点を当てる。解剖学・バイオメカニクスとの接点を重視。
 
 ---
 
 ## 蓄積された知識
+- **暗譜の4記憶と Chaffin の演奏キュー理論（2026-04-27）**——古典4分類 (聴覚/視覚/運動/分析) ＋第5の構造記憶。Roger Chaffin (UConn) の Imreh 縦断研究 (Bach イタリア協奏曲 Presto 10ヶ月記録) が**performance cues (PC)** を発見:Basic/Interpretive/Expressive/Structural の4階層
+- **PC = 「思考のランドマーク」**——意識的に注意を向けた小節は2年後の再演でも記憶残存、PC のない小節は忘却。**自動運動記憶の上に意識的キューを散りばめる**ことで長期記憶を保存。CHOP モデル（階層分節→アクセスポイント→bottom-up/top-down→意識的暗号化）
+- **Williamon の検索構造研究**——Cognitive Psychology 2002論文。専門ピアニストは**例外なく**最初に分析し retrieval structure を構築、非専門者はボトムアップ運動依存。プレッシャー下で**運動記憶のみ依存は破綻**
+- **Russian School の先駆性**——Neuhaus『The Art of Piano Playing』(1958):「**鍵盤に触れる前に頭で完全演奏できるまで弾くな**」。Richter は新曲を3週間スコアだけで暗譜。Chaffin の理論より50年早く実践的に到達
+- **二重記憶系**——Squire-Dede による海馬-内側側頭葉系（宣言的）vs 線条体-基底核-小脳系（非宣言的）。プレッシャー下で前頭前野が落ちると宣言的記憶アクセス困難——舞台での「**頭が真っ白**」の神経科学
+- **現代曲の特殊性**——Fonte-Williamon-Lisboa (2022) が示した、伝統的調性スキーマの不在で空間記憶・多重符号化への依存上昇。睡眠依存運動固定化 (Walker 2002)で、3日×3時間 > 1日10時間
 - **前腕回旋とMatthay/Taubman（2026-04-26）**——橈骨が尺骨周りを2点支持で回転する独自運動。回外は biceps brachii（肘屈曲位の強力な supinator）+ supinator、回内は pronator teres + pronator quadratus。指伸筋（EDC）の単独収縮を肩代わりして傷害予防
 - **Matthay の Visible vs Invisible Rotation**——*The Visible and Invisible*（1932）。打鍵4要素 = finger-exertion / hand-exertion / arm-weight / forearm rotation-adjustment。**すべての音に常時 rotary stresses が調整されている**——オクターブで可視、単音でも不可視に存在
 - **Taubman/Golandsky 五本柱と Single/Double Rotation**——alignment / forearm rotation / in-out / walking arm / shaping。**Single** = 連続反復で片道スイング（前回動作で既に反対側）、**Double** = 中立位から始める音は反対方向に予備動作（カタパルト）してから打鍵。**Cardinal Rule**: 親指側の音は親指側へ、5指側は5指側へ回旋

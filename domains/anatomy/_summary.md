@@ -1,7 +1,17 @@
 # 🦴 解剖学・身体最適化 分野サマリー
 
-**最終更新**: 2026-04-26
-**エントリ数**: 29
+**最終更新**: 2026-04-27
+**エントリ数**: 30
+
+### 筋膜とアナトミー・トレイン（2026-04-27）
+- **筋膜パラダイムの転換**: 20世紀末まで「ただの包装紙」扱いだった結合組織が、独立センサー器官・力伝達系・全身連続体として再発見。2007 Fascia Research Congress (Harvard) が分野確立点
+- **Tom Myers の Anatomy Trains**: Ida Rolf / Feldenkrais / Buckminster Fuller の影響、12の myofascial meridians (SBL, SFL, LL, SPL, DFL, Arm Lines×4, Functional Lines×3)。SBL = 足底筋膜→アキレス→腓腹筋→ハム→仙結節靭帯→脊柱起立筋→後頭筋→帽状腱膜
+- **Wilke 2016 系統的レビュー**: SBL は強い証拠 (14研究で全連結検証)、Spiral Line / Lateral Line は中程度、SFL は**証拠なし**。**部分的妥当性**——理論を捨てずに改訂する科学プロセスの典型
+- **Krause 2016 力伝達レビュー**: 隣接筋が筋膜介して力伝達を生体内・摘出組織で確認。腓腹筋→アキレス→足底筋膜、ハム→仙結節→腰仙筋膜→広背筋・反対側大殿筋
+- **Tensegrity (Buckminster Fuller → Levin biotensegrity)**: 圧縮要素 (骨) と張力要素 (筋膜) が相補。骨は浮島で筋膜ネットワークが空中に保持。**点の力学から場の力学へ**
+- **Stecco の Fascial Manipulation**: ヒアルロン酸凝集による筋膜層間滑走障害 → 摩擦的マッサージで解消。Carla Stecco『Functional Atlas of the Human Fascial System』(2015) が世界初の筋膜系解剖アトラス
+- **Deep Front Line (DFL)**: 横隔膜が後脛骨筋・内転筋・腸腰筋・心膜・舌骨下筋と連結。足アーチ低下と横隔膜機能不全、TMJ と骨盤底筋群が DFL 経由で関連——既習知識（前庭・腸腰筋・足アーチ・TMJ）の統合点
+- **動物への拡張**: 馬・犬の dissection で SBL 相当の連結を確認 (Wilke 2018)。哺乳類進化的に保存
 
 ### 肩甲胸郭関節と肩甲上腕リズム（2026-04-26）
 - **肩甲胸郭"関節"の特異性**: 滑膜関節ではなく機能的関節。subscapularis/serratus anterior 間の2層滑液包で滑走。体軸骨格との接続は鎖骨経由（SC→AC）のみ、胸郭上を「浮遊」する6自由度——Kapandji "the most mobile articulation"

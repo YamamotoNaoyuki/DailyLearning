@@ -1,11 +1,17 @@
 # 📦 その他 分野サマリー
 
-**最終更新**: 2026-04-26
-**エントリ数**: 31
+**最終更新**: 2026-04-27
+**エントリ数**: 32
 
 ---
 
 ## 蓄積された知識
+- **系外惑星検出法（2026-04-27、天文学）**——1992年 Wolszczan-Frail のパルサー惑星 PSR B1257+12 が初、1995年 Mayor-Queloz の 51 Peg b が主系列星周り初 (2019年ノーベル賞)。2026年で確認 5,800個超。検出別: transit 4,329 / radial velocity 1,096 / microlensing 232 / direct imaging 80 / astrometry 3 / pulsar timing 7
+- **5検出手法の物理**——(1) Radial Velocity: 9 cm/s 精度の分光器 (HARPS / ESPRESSO)、(2) Transit: 84 ppm の光度低下を Kepler / TESS / PLATO で長期連続観測、(3) Microlensing: 一般相対論的レンズ効果、再観測不可な一回性イベント (OGLE/MOA/KMTNet/Roman)、(4) Direct imaging: 10億:1コントラストをコロナグラフ+ADIで克服 (HR 8799, β Pic b, JWST)、(5) Astrometry: Gaia の3マイクロ秒角測位
+- **Kepler 革命**——15万星を4年連続観測、確認2,800+/候補4,000+。**主系列星の50%以上が惑星を持つ、地球型ハビタブル惑星は20%程度**——コペルニクス的脱中心化を続ける重要結果
+- **太陽系は「外れ値」**——Hot Jupiter (内向き軌道移動)、Super-Earth (最頻出だが太陽系に存在せず)、Tatooine 型周連星惑星、Diamond planet。**サンプル1で理論を構築する危険性**の宇宙物理学的教訓
+- **大気分光時代**——TESS + JWST transit spectroscopy で水蒸気・CO2・メタン・酸素検出。TRAPPIST-1 b は大気を持たない可能性 (Nature 2023)。バイオシグニチャー探索は2027年以降の HWO で本格化
+- **AI 機械学習**——AstroNet (Shallue-Vanderburg 2018), ExoMiner (NASA FDL 2022, 92%精度), Transformer-based (arXiv 2025)。**事実上、最初の "発見者" が AI** のケース誕生、科学的発見の主体性問題
 - **調香化学とフレグランス芸術（2026-04-26、化学×芸術×生理学×規制）**——揮発性は分子量だけでなく H 結合・分子のかさ高さで決まる（バニリン MW 152 でもベース、Iso E Super も 4 環骨格でベース）。トップ＝リモネン/リナロール/脂肪族アルデヒド C8-C12、ハート＝ジャスミン (benzyl acetate+indole+lactone) / ローズ (β-damascenone は閾値 0.009 ppb の最強分子)、ベース＝ムスク/ウッド/アンバー
 - **合成香料史**——Coumarin (1868 Perkin)→Fougère Royale (1882)、Vanillin (1874 Tiemann/Haarmann)→Jicky (1889) モダンオリエンタル、脂肪族アルデヒド (Beaux 1921 Chanel No.5)、**Hedione = methyl dihydrojasmonate** (Demole 1962 Firmenich, Roudnitska の Eau Sauvage 1966, CK One 18%)、**Iso E Super** (Hall 1973 IFF, Geza Schoen Escentric 01 で 65%、Gladwell *New Yorker* 2010)
 - **固定剤の化学**——天然: ambergris (抹香鯨腸 ambrein → 紫外線酸化で ambroxan)、labdanum、oakmoss (atranol/chloratranol、IFRA 49 で 2020 年実質禁止)、civetone、benzoin / 合成: Ambroxan (Schinz-Hinder 1950)、Galaxolide (HHCB)、Habanolide

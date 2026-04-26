@@ -1,11 +1,15 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-04-26
-**エントリ数**: 31
+**最終更新**: 2026-04-27
+**エントリ数**: 32
 
 ---
 
 ## 蓄積された知識
+- **eBPF カーネルプログラマビリティと verifier（2026-04-27）**——Steven McCanne の cBPF (1992) → Alexei Starovoitov の eBPF (Linux 3.18, 2014)。**カーネル内に組み込まれた汎用プログラマブル仮想マシン**。verifier は CFG 検証＋抽象解釈＋メモリ安全＋終了保証を組み合わせた静的検証器、**意図的なチューリング不完全性**で安全性を生む
+- **CO-RE (Compile Once – Run Everywhere)**——BTF (BPF Type Format) を `/sys/kernel/btf/vmlinux` に出力、libbpf がロード時にカーネル BTF と照合してフィールドアクセスを relocate。**カーネル間で配布可能なバイナリ**を実現、Cilium/Tetragon/Falco の業界採用基盤
+- **2024-2025 新機能**——sched_ext (6.12, スケジューラを BPF で完全置換、Steam Deck/Meta が活用)、BPF Arena (6.9, kernel/user 共有メモリでグラフ等の複雑データ構造)、BPF Token (6.9, 非特権 eBPF の delegation モデル)、Ring Buffer (5.8, 64-core で 7% 以下のオーバーヘッド)
+- **Cilium と XDP**——iptables → BPF map で NetworkPolicy が **O(n)→O(1)**、本番K8sの60%+採用。XDP で Cloudflare が 3.8 Tbps DDoS を秒速1000万PPS処理。Falco は CPU 5%未満で 10,000+ events/sec を監視
 - **Linux io_uring と非同期I/O革命（2026-04-26）**——Jens Axboe が Linux 5.1（2019）で導入。既存3モデル（Linux AIO の O_DIRECT 限定・libaio コピーコスト、POSIX AIO の fake AIO、epoll の readiness 通知 2-syscall）を一気に解消。proactor 型完了通知、バッファ I/O 対応、ソケット・ファイル統一、0または1 syscall、スレッド不要
 - **SQ/CQ Ring アーキテクチャ**——3領域 mmap（SQ ring + SQE 配列 + CQ ring）の SPSC 共有メモリ。SQE/CQE 分離は「完了が提出順序と異なるため SQE を in-flight 中に上書きしない」設計。memory barrier は liburing が抽象化。SQPOLL モードでは syscall 完全排除
 - **モード別フラグ**——SQPOLL（kernel polling thread、CPU 1 コア消費）、IOPOLL（NVMe block layer polling、O_DIRECT 必須）、DEFER_TASKRUN（task_work を io_uring_enter まで遅延、Dylan Yudaken/Meta、SINGLE_ISSUER 必須）。Linked SQEs / Registered files+buffers / Multishot ops（accept/recv/poll で1提出多完了）

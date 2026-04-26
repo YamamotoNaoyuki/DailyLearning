@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-04-26
-**エントリ数**: 23
-**フレーズ数**: 92
+**最終更新**: 2026-04-27
+**エントリ数**: 24
+**フレーズ数**: 96
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -32,8 +32,13 @@
 - **2026-04-24**: 謝罪と対立解消（Entschuldigung und Konfliktlösung）
 - **2026-04-25**: パーティーでの雑談（Smalltalk auf Partys）
 - **2026-04-26**: 医者にかかる（Beim Arzt）
+- **2026-04-27**: インターネットとSNS（Internet und Soziale Medien）
 
 ## 蓄積された知識
+- „Den Link schick ich dir gleich rüber, sobald ich wieder am Rechner bin." — Rechner vs Computer の世代・地域分布、`gleich` の5秒~30分の時間幅、`sobald` 副文構造
+- „Hab gelesen, dass die jetzt was ganz Neues angekündigt haben — irgendwo bei Insta oder so." — 完了形+dass の口語省略パターン、`die` 漠然指示、`oder so` の漠然語尾、Anglizismen の文法的「ドイツ化」（laggen, googeln, posten）
+- „Da musst du echt aufpassen, was du da preisgibst — ist alles datenschutzrechtlich heikel." — DSGVO 文化の言語化、`preisgeben` の文化的重み、`heikel` の意味場、4音節合成形容詞の口語使用
+- „Du, ich glaub, du laggst grad — ich seh dich, aber der Ton ruckelt total." — 英語動詞のドイツ語パラダイム統合、`ruckeln` の意味拡張、Diskursmarker としての `Du, ...`、Zoom時代の固定フレーズ
 - „Hätten Sie zufällig einen Termin in den nächsten Tagen frei? Ich bräuchte mal was Akutes." — 予約電話の Konjunktiv II 二連発、Akutsprechstunde 定番
 - „Es zieht mir hier so im Rücken — ich weiß auch nicht, was ich mir da verrenkt habe." — 無人称 es ＋ Pertinenzdativ（mir + im Rücken）。ゲルマン語の「身体は経験の場」という哲学が文法に
 - „Können Sie mich vielleicht für ein paar Tage krankschreiben? Ich brauche dann auch den gelben Schein für den Arbeitgeber." — 分離動詞 krankschreiben、gelber Schein は AU-Bescheinigung 通称（Entgeltfortzahlungsgesetz §5、3日以上欠勤で法的義務）

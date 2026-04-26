@@ -1,9 +1,20 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 15
-**最終更新日**: 2026-04-26
+**エントリ数**: 16
+**最終更新日**: 2026-04-27
 
 ## 蓄積された知識
+
+### MVCC とスナップショット分離（2026-04-27）
+- **2PL の限界**: 読み手と書き手が相互ブロックする並行制御の構造的問題。OLTP では致命的
+- **MVCC の核心**: 書き込みは新バージョンを作成、古い版は読み手のために保持。**読み手は書き手をブロックしない、書き手は読み手をブロックしない**。Bernstein-Goodman 1981 が理論基盤、InterBase 1984 が初の本格実装、PostgreSQL 1994、Oracle 7 (1992)
+- **PostgreSQL 実装**: 各タプルが xmin/xmax/cmin/cmax/ctid を持つ。UPDATE は新タプル INSERT + 古タプル xmax 設定（物理的に消去しない）。トランザクション開始時に snapshot {xmin, xmax, xip[]} を取得、可視性判定で「自分の snapshot に見えるか」を毎タプルで判定
+- **Snapshot Isolation (SI)**: 各トランザクションが開始時 snapshot のみ参照。Read は途中の他コミットを無視、Write は first-committer-wins。Berenson 1995 が ANSI 不備指摘し独立カテゴリ化
+- **Write Skew = SI の落とし穴**: doctors-on-call 例。同じ行への競合は検出するが、異なる行への論理依存は検出しない。SI と Serializable の本質的差異
+- **SSI (Serializable Snapshot Isolation)**: Cahill 2008 PhD。rw-conflict graph を実行時に追跡、Dangerous Structure 検出で abort。PostgreSQL 9.1 (2011) で実装、商用DBで本格 Serializable がスケールする初の例
+- **VACUUM 問題**: 死んだタプル累積でディスク・I/O・XID wraparound リスク。autovacuum が回収。Uber が 2016年に PostgreSQL → MySQL 移行した理由の一つ
+- **Oracle vs PostgreSQL**: Oracle は UNDO segment（読み手保護、ORA-01555 リスク）、PostgreSQL は inline 死蔵 + VACUUM（書き手保護）。**実装トレードオフが対照的**
+- **Spanner TrueTime**: 分散 SI を GPS+原子時計で実現（誤差7ms以下）。external consistency 達成。**ハードウェアで時間の不確実性を有界化**
 
 ### NP完全性とCook-Levin定理（2026-04-26）
 - **P, NP, coNP の精密定義**: NP は「Non-deterministic Polynomial」であり「Non-Polynomial」ではない。NTM定義 ≡ 検証者定義 ($\exists w\le p(n), V(x,w)=1$)。Edmonds 1965 暗黙、Cook 1971 明示
