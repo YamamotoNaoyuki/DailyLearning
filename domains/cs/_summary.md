@@ -1,9 +1,16 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 16
-**最終更新日**: 2026-04-27
+**エントリ数**: 17
+**最終更新日**: 2026-04-28
 
 ## 蓄積された知識
+
+### Bloom Filter と確率的データ構造（2026-04-28）
+- **基本構造**: Burton H. Bloom 1970。m ビット配列 + k 個のハッシュ関数。挿入で k ビットを 1 に、クエリは全 k ビットが 1 なら「含まれる可能性」、1つでも 0 なら「含まれない (確定)」。**偽陽性あり、偽陰性なし**——「いない」と確実に言える非対称性
+- **数学**: 偽陽性率 ε ≈ (1 - e^{-kn/m})^k、最適 k = (m/n) ln 2 ≈ 0.693 m/n。**1% 誤りで 9.6 ビット/要素**——要素サイズと無関係。Bose-Guo 2008 で「伝統式は strict lower bound」と判明、真の値はやや高い
+- **変種**: Counting BF (削除可、4倍メモリ)、Cuckoo Filter (Fan 2014, フィンガープリント、削除可、Bloom より高密度)、Quotient/Scalable/Stable BF。実装は MurmurHash3/xxHash + Kirsch-Mitzenmacher 2-hash テクニック (h_i = h_a + i*h_b)
+- **応用**: **LSM ツリー (LevelDB/RocksDB/Cassandra)** の SSTable ごとに保持し読み I/O 削減 (LSM 性能の根幹)、Chrome Safe Browsing/Firefox Tracking、Akamai/Cloudflare キャッシュ、PostgreSQL Bloom インデックス、Bitcoin SPV (プライバシーは弱い)
+- **設計哲学**: 「**不可逆性が圧縮を生む**」「**偽陽性を許す**」のは情報理論的に最小ビット数 1.44 bits/要素 (1% error) に近い。**100% 正確を諦めて効率を取る**——確率的レジリエンス設計の祖型
 
 ### MVCC とスナップショット分離（2026-04-27）
 - **2PL の限界**: 読み手と書き手が相互ブロックする並行制御の構造的問題。OLTP では致命的

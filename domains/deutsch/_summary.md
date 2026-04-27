@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-04-27
-**エントリ数**: 24
-**フレーズ数**: 96
+**最終更新**: 2026-04-28
+**エントリ数**: 25
+**フレーズ数**: 100
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -33,8 +33,17 @@
 - **2026-04-25**: パーティーでの雑談（Smalltalk auf Partys）
 - **2026-04-26**: 医者にかかる（Beim Arzt）
 - **2026-04-27**: インターネットとSNS（Internet und Soziale Medien）
+- **2026-04-28**: アポ取り（Termine vereinbaren）
 
 ## 蓄積された知識
+- „Guten Tag, hier spricht Tanaka. Ich hätte gern einen Termin in Ihrer Sprechstunde — möglichst zeitnah, falls etwas frei ist." — 医院予約 (formell)。`hier spricht...` 自己紹介定型、`Ich hätte gern` (Konjunktiv II) で安全な依頼、`Sprechstunde` ≠ `Termin` (時間枠 vs 個別予約)、`zeitnah` ビジネス頻出、`falls` (発生不確か) vs `wenn` (中立)
+- „Hey, hast du nächste Woche mal Zeit? Wir könnten was zusammen machen — Mittwoch oder Donnerstag wäre bei mir ideal." — 友人調整 (umgangssprachlich)。`mal` の依頼軽量化機能、`Wir könnten` ソフト提案、`bei mir` (主観領域表現)、`wäre ideal` Konjunktiv II の柔らかさ
+- „Können wir den Termin auf nächste Woche verschieben? Bei mir ist diese Woche leider alles dicht." — ビジネス再調整 (neutral)。`verschieben + auf + Akk.` (移動の終点を Akk.)、`alles dicht` (カレンダー埋まっている口語比喩)、`leider` の社交機能
+- „Sag mal, ich muss dir leider absagen für heute Abend — mir geht's echt nicht so gut, wir holen das nach, versprochen." — 当日キャンセル (umgangssprachlich)。`absagen` (完全キャンセル) vs `verschieben` (再設定確定)、`mir geht's nicht so gut` の二重ヘッジ、`nachholen` で社会的修復、`versprochen` 単独使い
+- **Konjunktiv II が「丁寧さ」を作る**: `hätte gern`, `wir könnten`, `wäre ideal` — ドイツ語の予約・提案文化は接続法第二式に深く依存。**距離感を動詞活用だけで表現**——日本語の「～していただけますか」と同型機能を音節レベルではなく形態素レベルで実装
+- **`bei mir` の万能語**: 「私の方では」「私の側では」の自己領域表明。`Bei mir geht's nicht`/`Bei mir wäre ideal`/`Bei mir alles dicht`——個人領域意識の文法的具現
+- **キャンセルの儀礼化**: ドイツでは `absagen` + `nachholen` (埋め合わせ提案) がワンセット。「verbindlich (拘束力ある)」が美徳の契約文化、曖昧な「また今度」を許さない
+- **カレンダー文化の言語化**: `den Termin verschieben`, `alles dicht`, `blocken im Kalender`——時間が「自然に流れる」のではなく「予約と実行で構造化される」という社会観の言語的反映
 - „Den Link schick ich dir gleich rüber, sobald ich wieder am Rechner bin." — Rechner vs Computer の世代・地域分布、`gleich` の5秒~30分の時間幅、`sobald` 副文構造
 - „Hab gelesen, dass die jetzt was ganz Neues angekündigt haben — irgendwo bei Insta oder so." — 完了形+dass の口語省略パターン、`die` 漠然指示、`oder so` の漠然語尾、Anglizismen の文法的「ドイツ化」（laggen, googeln, posten）
 - „Da musst du echt aufpassen, was du da preisgibst — ist alles datenschutzrechtlich heikel." — DSGVO 文化の言語化、`preisgeben` の文化的重み、`heikel` の意味場、4音節合成形容詞の口語使用

@@ -1,11 +1,13 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-04-27
-**エントリ数**: 32
+**最終更新**: 2026-04-28
+**エントリ数**: 33
 
 ---
 
 ## 蓄積された知識
+- **CXL (Compute Express Link) とメモリ・コンピュート分離（2026-04-28）**——PCIe PHY 共有 + 3プロトコル (CXL.io / .cache / .mem)。CXL 4.0 (2025-11) で 128 GT/s/lane、CXL 3.0 で memory **sharing** (複数ホスト同時 RW + ハードウェア coherence)、4096 デバイス/ポート fabric。Type 1=cache 参加、Type 2=自己メモリ + cache、Type 3=メモリ拡張モジュール
+- **AI のメモリの壁と CXL 階層**——HBM3 (80GB, 100ns) → DDR5 (76 GB/s/ch, 80ns) → CXL.mem (200ns) → SSD。LLM 推論で KV cache を階層オフロード (vLLM, DeepSpeed)、Linux 5.18 以降 CXL を NUMA 遠ノードとして扱い `numactl/mbind/DAMON` で制御。Meta Pond (ASPLOS 2023) で DRAM コスト 7%削減実証。「ハードウェアが分散システム化」して合意の物理半径が拡大、Raft の担当領域を浸食
 - **eBPF カーネルプログラマビリティと verifier（2026-04-27）**——Steven McCanne の cBPF (1992) → Alexei Starovoitov の eBPF (Linux 3.18, 2014)。**カーネル内に組み込まれた汎用プログラマブル仮想マシン**。verifier は CFG 検証＋抽象解釈＋メモリ安全＋終了保証を組み合わせた静的検証器、**意図的なチューリング不完全性**で安全性を生む
 - **CO-RE (Compile Once – Run Everywhere)**——BTF (BPF Type Format) を `/sys/kernel/btf/vmlinux` に出力、libbpf がロード時にカーネル BTF と照合してフィールドアクセスを relocate。**カーネル間で配布可能なバイナリ**を実現、Cilium/Tetragon/Falco の業界採用基盤
 - **2024-2025 新機能**——sched_ext (6.12, スケジューラを BPF で完全置換、Steam Deck/Meta が活用)、BPF Arena (6.9, kernel/user 共有メモリでグラフ等の複雑データ構造)、BPF Token (6.9, 非特権 eBPF の delegation モデル)、Ring Buffer (5.8, 64-core で 7% 以下のオーバーヘッド)
