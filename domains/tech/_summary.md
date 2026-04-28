@@ -1,11 +1,15 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-04-28
-**エントリ数**: 33
+**最終更新**: 2026-04-29
+**エントリ数**: 34
 
 ---
 
 ## 蓄積された知識
+- **Apache Iceberg とオープンテーブルフォーマット（2026-04-29）**——Netflix の Ryan Blue が 2017 年に開始。Hive table の限界（dirty read、S3 LIST 遅延、暗黙パーティションプルーニング不能、スキーマ進化脆弱性）を「メタデータをファイルとして管理」で解決。**三層メタデータツリー**: catalog → metadata.json → manifest list (snap-*.avro) → manifest file (*.avro) → data (Parquet)。各レイヤで段階的プルーニングし S3 LIST を回避
+- **スナップショットアイソレーションと楽観的並行制御**——書き込みは新メタデータファイルを作成し、catalog に対し v→v+1 の atomic CAS を発行。失敗時はリトライ。S3 自体はトランザクションを知らないが catalog の単点が serialization point
+- **Hidden Partitioning と Schema Evolution**——`PARTITIONED BY (days(event_ts))` で論理スキーマと物理レイアウトを完全分離。Parquet field-id ベースでカラム追加・削除・順序変更がデータ書き換え不要。**Partition spec evolution** で過去データを書き換えずパーティション戦略変更可能
+- **Time Travel と Iceberg vs Delta vs Hudi**——全スナップショットがメタデータ履歴で保持、`AS OF` で過去状態を読める。2024-2025 で Snowflake/Databricks が一級採用、Iceberg が業界標準に収束。Git のオブジェクトストアと commit pointer の構造的相同
 - **CXL (Compute Express Link) とメモリ・コンピュート分離（2026-04-28）**——PCIe PHY 共有 + 3プロトコル (CXL.io / .cache / .mem)。CXL 4.0 (2025-11) で 128 GT/s/lane、CXL 3.0 で memory **sharing** (複数ホスト同時 RW + ハードウェア coherence)、4096 デバイス/ポート fabric。Type 1=cache 参加、Type 2=自己メモリ + cache、Type 3=メモリ拡張モジュール
 - **AI のメモリの壁と CXL 階層**——HBM3 (80GB, 100ns) → DDR5 (76 GB/s/ch, 80ns) → CXL.mem (200ns) → SSD。LLM 推論で KV cache を階層オフロード (vLLM, DeepSpeed)、Linux 5.18 以降 CXL を NUMA 遠ノードとして扱い `numactl/mbind/DAMON` で制御。Meta Pond (ASPLOS 2023) で DRAM コスト 7%削減実証。「ハードウェアが分散システム化」して合意の物理半径が拡大、Raft の担当領域を浸食
 - **eBPF カーネルプログラマビリティと verifier（2026-04-27）**——Steven McCanne の cBPF (1992) → Alexei Starovoitov の eBPF (Linux 3.18, 2014)。**カーネル内に組み込まれた汎用プログラマブル仮想マシン**。verifier は CFG 検証＋抽象解釈＋メモリ安全＋終了保証を組み合わせた静的検証器、**意図的なチューリング不完全性**で安全性を生む

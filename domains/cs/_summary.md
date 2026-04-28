@@ -1,9 +1,20 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 17
-**最終更新日**: 2026-04-28
+**エントリ数**: 18
+**最終更新日**: 2026-04-29
 
 ## 蓄積された知識
+
+### Reed-Solomon と Erasure Coding（2026-04-29）
+- **問題設定**: n=k+m 個のブロックのうち**任意の k 個**で復元可能な MDS 性質を持つ符号。複製 3x→1.4x へストレージ効率を桁違いに改善 (k=10, m=4)
+- **数学的本質**: k 個のデータシンボルを多項式 P(x) の係数とし n 点で評価。ラグランジュ補間で**任意の k 点から多項式を一意再構成**可能。この代数的性質が MDS の根拠
+- **Galois Field GF(2⁸)**: バイトを既約多項式 mod の多項式環として演算。**加算 = XOR**、乗算は対数表/逆対数表で高速化、乗法逆元が常に存在。AES と同じ代数構造
+- **行列表現**: Vandermonde または Cauchy 行列を生成行列 G、`G·d = c` で systematic code 生成。復号は欠落していない k 行で部分行列の逆元計算
+- **ハードウェア最適化**: SSSE3 PSHUFB / AVX2 VPSHUFB で SIMD GF 乗算、PCLMULQDQ で carry-less multiplication。klauspost/reedsolomon (Go) や Intel ISA-L の実装で**数十倍の性能差**
+- **LRC (Locally Repairable Codes)**: Microsoft Azure (2012)、ローカルグループ + ローカルパリティ + グローバルパリティ。1 ノード故障の修復に k 個ではなく数個で済む。**修復帯域**最適化
+- **実装事例**: Backblaze RS-17-3、AWS S3 (推定 14+4 程度、11 nines)、HDFS RS-6-3/10-4、Ceph (RS/LRC/SHEC plugin)、Storj/Filecoin
+- **Fountain codes vs RS**: RS = MDS で n 固定、Fountain = 確率的で長さ無制限。ストレージは RS が好まれる
+- **抽象化の力**: 同じ Reed-Solomon が CD・QR コード・深宇宙通信・分散ストレージで使われる。"erasure" という抽象が物理的に異なる失敗モードを統一的に扱う
 
 ### Bloom Filter と確率的データ構造（2026-04-28）
 - **基本構造**: Burton H. Bloom 1970。m ビット配列 + k 個のハッシュ関数。挿入で k ビットを 1 に、クエリは全 k ビットが 1 なら「含まれる可能性」、1つでも 0 なら「含まれない (確定)」。**偽陽性あり、偽陰性なし**——「いない」と確実に言える非対称性

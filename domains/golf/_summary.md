@@ -1,13 +1,21 @@
 # ⛳ ゴルフ 分野サマリー
 
-**最終更新**: 2026-04-28
-**エントリ数**: 33
+**最終更新**: 2026-04-29
+**エントリ数**: 34
 
 **分野の方針転換（2026-03-05）**: 身体の使い方・バイオメカニクスは解剖学分野に統合。今後はコースマネジメント、クラブ選択、戦略、ルール、メンタルゲーム、プロツアーの分析など「ゴルフというゲーム」の理解に焦点を当てる。
 
 ---
 
 ## 蓄積された知識
+- **プレッシャー下の Choking とゴルフのメンタル科学（2026-04-29）**——Baumeister (1984) 古典的定義: 高インセンティブ下での実力からのネガティブ逸脱。Greg Norman 1996 マスターズ、Jean van de Velde 1999 全英、Sergio García の長年メジャー beforehand など歴史的事例
+- **二大理論**——Distraction Theory（注意分散、PFC のワーキングメモリ侵食）vs Explicit Monitoring Theory（明示的監視、自動化スキルへの過剰意識）。前者は計算など WM 依存タスクに、後者はパッティング等の運動スキルに該当
+- **Beilock & Carr (2001) の決定実験**——ゴルファーを 4 群に分け、self-consciousness 訓練（ビデオ撮影に慣れ）と sensory monitoring 訓練のみが choking を防いだ。dual-task 訓練は無効。**熟達運動スキルでは「自己観察への耐性」が鍵**
+- **Reinvestment Theory (Masters 1992)**——プレッシャー下で無意識スキルに「意識的注意を再投資」して流暢性が壊れる。"Paralysis by analysis"（分析による麻痺）の科学的基盤
+- **神経科学**——スポーツ不安傾向高い選手は ACC のエラーモニタリング暴走、choking 中は PFC 活性増・運動野活性減（"考える脳が動く脳を抑制"）
+- **対策**——Quiet Eye（Vickers, 2007、ターゲット長固視）、Pre-Shot Routine（決定論的状態制御）、Process Goal vs Outcome Goal、Holistic Cue（"smooth"等の抽象キュー、分解的キューを避ける）
+- **Yips（イップス）**——慢性化した choking、focal task-specific dystonia の一種。ピアニストの focal dystonia と同カテゴリ。Bernhard Langer 等。グリップ変更で動作の脳内表現リセット
+- **熟達 = 脆さ**——スキルが自動化されているからこそ意識観察が破壊的。skill fragility。最高の流暢性は同時に最大の脆弱性。禅の「無心」「不二」と process-orientation の構造的相似
 - **コース・レーティングとスロープ・レーティングの数学（2026-04-28）**——WHS 2020 の二軸: **Course Rating (CR)** = スクラッチが出すスコア（絶対基準）、**Slope Rating (SR)** = スクラッチとボギー間の相対傾き。Knuth が1981年に USGA で考案。CR = Yardage Rating + Obstacle Stroke Value、10属性 (起伏/フェアウェイ/グリーン狙い/recoverability/バンカー/cross/lateral/trees/green surface/psychological) を 0-10 評価
 - **SR 公式と 5.381 / 4.240**——SR (men) = (BR-CR) × 5.381、SR (women) = (BR-CR) × 4.240（小数切上げ）。範囲 55-155、標準 113。**経験的較正**（理論導出ではなく現実適合）。Course Handicap = HI × (SR/113) + (CR-Par)、WHS 2020 で (CR-Par) 項追加
 - **Score Differential と PCC**——SD = (113/SR) × (Adj. Gross - CR - PCC)、過去20のうち**最良 8 ラウンド平均**で Handicap Index 算出。**PCC** (Playing Conditions Calculation, -1〜+3) は当日の全プレイヤースコア分布から事後的に難度補正——**ベイズ更新の制度化**

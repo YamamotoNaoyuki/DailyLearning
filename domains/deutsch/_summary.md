@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-04-28
-**エントリ数**: 25
-**フレーズ数**: 100
+**最終更新**: 2026-04-29
+**エントリ数**: 26
+**フレーズ数**: 104
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -34,8 +34,17 @@
 - **2026-04-26**: 医者にかかる（Beim Arzt）
 - **2026-04-27**: インターネットとSNS（Internet und Soziale Medien）
 - **2026-04-28**: アポ取り（Termine vereinbaren）
+- **2026-04-29**: お金と財政（Geld und Finanzen II — pleite, ins Geld gehen, jeden Cent zweimal umdrehen, Haushalt durchforsten）
 
 ## 蓄積された知識
+- **Geld und Finanzen II（2026-04-29）**: `Ich bin diesen Monat ziemlich pleite.`（umgangssprachlich、軽い金欠）、`Das geht aber ganz schön ins Geld.`（neutral、痛い出費）、`Ich versuche gerade, jeden Cent zweimal umzudrehen.`（節約倹約のことわざ）、`Ich muss endlich mal meinen Haushalt durchforsten.`（家計の精査、`durchforsten` は分離動詞、Konjunktiv との接続なら不分離）
+- **`pleite` の語源と意味場**: 元はビジネス用語「倒産」、口語で「文無し」。`Ich bin pleite` は強いが軽い感覚。名詞 `die Pleite` で「失敗・倒産」全般
+- **`ins Geld gehen` の慣用句**: 主語はコスト発生源、「お金の中に入る」という比喩。`ganz schön` は皮肉的強調（「美しい」の意味は失われている）
+- **倹約のことわざ群**: `jeden Cent zweimal umdrehen`、`den Gürtel enger schnallen`、`Notgroschen zur Seite legen`、`unter die Lupe nehmen`——ドイツ語の経済表現は身体的・物理的比喩が豊富。**シュヴェービッシュの節約文化**の言語的反映
+- **`Haushalt` の意味の広さ**: 家計＋家事＋家庭＋（政治では）予算。家政の公私を貫通する語。`Bundeshaushalt` で連邦予算
+- **富裕層を表す口語の少なさ**: `pleite`/`knapse mich durch` などお金がない口語は豊富、富を表す口語は乏しい (`reich`/`gut betucht`/`im Geld schwimmen` 程度)。**富を誇示しない文化**の言語的反映
+
+
 - „Guten Tag, hier spricht Tanaka. Ich hätte gern einen Termin in Ihrer Sprechstunde — möglichst zeitnah, falls etwas frei ist." — 医院予約 (formell)。`hier spricht...` 自己紹介定型、`Ich hätte gern` (Konjunktiv II) で安全な依頼、`Sprechstunde` ≠ `Termin` (時間枠 vs 個別予約)、`zeitnah` ビジネス頻出、`falls` (発生不確か) vs `wenn` (中立)
 - „Hey, hast du nächste Woche mal Zeit? Wir könnten was zusammen machen — Mittwoch oder Donnerstag wäre bei mir ideal." — 友人調整 (umgangssprachlich)。`mal` の依頼軽量化機能、`Wir könnten` ソフト提案、`bei mir` (主観領域表現)、`wäre ideal` Konjunktiv II の柔らかさ
 - „Können wir den Termin auf nächste Woche verschieben? Bei mir ist diese Woche leider alles dicht." — ビジネス再調整 (neutral)。`verschieben + auf + Akk.` (移動の終点を Akk.)、`alles dicht` (カレンダー埋まっている口語比喩)、`leider` の社交機能
