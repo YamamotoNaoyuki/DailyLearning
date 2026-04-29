@@ -5,6 +5,17 @@
 
 ## 蓄積された知識
 
+### MESIキャッシュ整合性とメモリ整合性モデル（2026-04-30）
+- **Coherence vs Consistency の階層**: coherence = 同一アドレスの複数キャッシュ整合（MESIが扱う）、consistency = 異なるアドレス間の操作順序保証（memory model が扱う）。**両者は独立しつつ依存する** 多層保証
+- **MESI 4状態**: Modified (唯一所有・dirty)、Exclusive (唯一所有・clean、E→M は局所遷移可で性能向上)、Shared、Invalid。Illinois protocol (1984) 由来、x86/ARM/RISC-V 採用
+- **拡張**: MOESI (AMD, Owner で書き戻しコスト削減)、MESIF (Intel, Forward 指定キャッシュが応答役)
+- **Snooping vs Directory**: Snooping は O(N²)、distributed directory（Intel Mesh Interconnect、AMD Infinity Fabric）が現代主流。L3 スライスがアドレス範囲のディレクトリを保持
+- **False Sharing**: 64バイト粒度の MESI が論理独立変数を物理依存に変える性能罠。`alignas(64)`、`__cacheline_aligned`、Java `@Contended`、Rust `CachePadded<T>` で対処
+- **Memory Model 階層**: SC (Lamport 1979, 学術標準) → TSO (x86/SPARC, store→load の並び替えのみ許す) → WMO (ARM/RISC-V/POWER, ほぼ全並び替え許可)。Apple M1 のRosetta TSO mode は技術判断ではなく**社会的判断** (legacy x86 ソフトウェア保護)
+- **C++11 memory_order**: seq_cst / acquire / release / acq_rel / consume / relaxed。release-acquire ペアリング = mutex の基盤、lock-free データ構造の核心
+- **Data race UB の天才**: race を起こすプログラムを未定義動作と決めることでコンパイラ最適化を許容しつつ、正しく同期されたコードはハードウェア差異から守られる。Java は "out-of-thin-air values" 禁止でより安全側
+- **Russ Cox 整理**: hardware memory model と language memory model は別レイヤー、両者の "happens-before" 関係を正しく対応付けるのが言語仕様の核心
+
 ### Reed-Solomon と Erasure Coding（2026-04-29）
 - **問題設定**: n=k+m 個のブロックのうち**任意の k 個**で復元可能な MDS 性質を持つ符号。複製 3x→1.4x へストレージ効率を桁違いに改善 (k=10, m=4)
 - **数学的本質**: k 個のデータシンボルを多項式 P(x) の係数とし n 点で評価。ラグランジュ補間で**任意の k 点から多項式を一意再構成**可能。この代数的性質が MDS の根拠

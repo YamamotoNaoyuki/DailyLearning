@@ -1,11 +1,16 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-04-29
-**エントリ数**: 34
+**最終更新**: 2026-04-30
+**エントリ数**: 35
 
 ---
 
 ## 蓄積された知識
+- **WebAssembly Component Model とポリグロット合成（2026-04-30）**——Wasm Core 1.0/2.0 の3欠陥（型が貧弱、メモリ共有、動的合成不可）を解決する設計。**WIT (IDL) + Canonical ABI (型変換規則) + shared-nothing モデル**の三位一体。プロセス + RPC 的だがオーバーヘッドなし
+- **WIT 機能**——record / variant / enum / flags / list / option / result に加え **resource (opaque handle, 線形型)**。`canon lift / canon lower` 命令で線形メモリ↔WIT型の双方向変換、両コンポーネントの線形メモリは絶対に直接共有されない
+- **WASI 進化**——0.2.11 (2026-04-07) Stable、0.3 開発中（stream<T>/future<T> async I/O）、1.0 は 2026年末-2027年初目標。Wasmtime が Bytecode Alliance の Core Project に昇格
+- **エコシステム実装**——`cargo-component` で WIT→Rust 自動生成、`wasm-tools compose` で複数言語コンポーネントを静的合成。Cloudflare Workers / Fastly Compute / Akamai (Fermyon買収後) / SpinKube が採用、Docker は containerd shim でコンテナと併存
+- **設計哲学**——COM/CORBA は IDL コンパイラ実装に各言語ABIを任せて互換性破綻、Component Model は Canonical ABI を仕様の核に据える「**言語間FFIの数学的基礎**」。CRDT・Nix・Passkeys の「制約を受け入れて冪等性を得る」設計哲学と同型
 - **Apache Iceberg とオープンテーブルフォーマット（2026-04-29）**——Netflix の Ryan Blue が 2017 年に開始。Hive table の限界（dirty read、S3 LIST 遅延、暗黙パーティションプルーニング不能、スキーマ進化脆弱性）を「メタデータをファイルとして管理」で解決。**三層メタデータツリー**: catalog → metadata.json → manifest list (snap-*.avro) → manifest file (*.avro) → data (Parquet)。各レイヤで段階的プルーニングし S3 LIST を回避
 - **スナップショットアイソレーションと楽観的並行制御**——書き込みは新メタデータファイルを作成し、catalog に対し v→v+1 の atomic CAS を発行。失敗時はリトライ。S3 自体はトランザクションを知らないが catalog の単点が serialization point
 - **Hidden Partitioning と Schema Evolution**——`PARTITIONED BY (days(event_ts))` で論理スキーマと物理レイアウトを完全分離。Parquet field-id ベースでカラム追加・削除・順序変更がデータ書き換え不要。**Partition spec evolution** で過去データを書き換えずパーティション戦略変更可能

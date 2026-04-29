@@ -9,6 +9,12 @@
 ---
 
 ## カバー済みテーマ
+- **2026-04-30**: 部屋探しと賃貸（Wohnungssuche und Mieten）
+  - 内見問い合わせメール (Wären Sie so freundlich, mir mitzuteilen)
+  - Nebenkosten / Nachzahlungen への質問 (denn / drin / mit etw. rechnen)
+  - Selbstauskunft の準備 (gleich dabei haben)
+  - Übergabeprotokoll の提案 (Beim Einzug / Macken)
+  - 重要文法: Konjunktiv II 多用 (würde / hätte / wäre / könnte / müsste) で控えめな依頼・提案・距離設定
 - **2026-03-09**: 不満を伝える（Unzufriedenheit ausdrücken）
 - **2026-03-09**: 予定を立てる（Pläne machen / Verabredungen treffen）
 - **2026-03-11**: Modalpartikeln（心態詞: doch, ja, mal, eigentlich）
