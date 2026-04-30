@@ -1,9 +1,19 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 18
-**最終更新日**: 2026-04-29
+**エントリ数**: 19
+**最終更新日**: 2026-05-01
 
 ## 蓄積された知識
+
+### Curry-Howard 同型 — 命題は型、証明はプログラム (2026-05-01)
+- **核心**: 命題 ↔ 型、証明 ↔ プログラム（項）、証明の正規化 ↔ プログラム評価 (β-reduction)。論理体系と計算体系の同型
+- **歴史**: Curry 1934 (含意のみ) → Howard 1969 (自然演繹 ↔ STLC 完全対応) → Martin-Löf 1972 (依存型 ↔ 一階述語論理) → Wadler 2015 CACM "Propositions as Types"
+- **対応表**: ⊃→関数型→、∧→積×、∨→直和+、⊤→1、⊥→Void、∀→Π型、∃→Σ型、推論規則 ↔ 型付け規則
+- **MP は関数適用**: P⊃Q が真 + P 真 → Q 真 ⇄ f: P→Q + x: P → f(x): Q。「**証明は構成 (proof is construction)**」(Brouwer-Heyting-Kolmogorov)
+- **古典 vs 直観主義**: Curry-Howard は元来直観主義に対応。Griffin (1990) で **二重否定除去 ↔ call/cc**、排中律 ↔ continuation。Curry-Howard-Lambek 拡張で**圏論 (CCC)** との三項同型
+- **Martin-Löf 型理論と依存型**: Π型 = 依存関数 = ∀証明、Σ型 = 依存ペア = ∃証明、Id 型 = 等式。**Voevodsky の Univalence Axiom (2009)** で同型な型は等しい (HoTT)
+- **証明支援系**: Coq (1989, 4色定理 2005, Feit-Thompson 2012, CompCert)、Agda (2007)、**Lean (2014, mathlib)**、Idris (2011)
+- **言語機能との対応**: Linear Logic (Girard 1987) ↔ **Linear Types/Rust 所有権**、Hindley-Milner ↔ 直観主義含意・全称断片、Effects/Modal Types ↔ Modal Logic
 
 ### MESIキャッシュ整合性とメモリ整合性モデル（2026-04-30）
 - **Coherence vs Consistency の階層**: coherence = 同一アドレスの複数キャッシュ整合（MESIが扱う）、consistency = 異なるアドレス間の操作順序保証（memory model が扱う）。**両者は独立しつつ依存する** 多層保証

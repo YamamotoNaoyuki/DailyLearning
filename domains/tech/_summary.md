@@ -1,11 +1,17 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-04-30
-**エントリ数**: 35
+**最終更新**: 2026-05-01
+**エントリ数**: 36
 
 ---
 
 ## 蓄積された知識
+- **MLS (Messaging Layer Security) と大規模 E2EE グループ（2026-05-01）**——RFC 9420（2023-07）+ アーキテクチャ RFC 9750。Signal Double Ratchet を `O(log N)` 化したグループ E2EE プロトコル。Cisco Webex、Wire、Matrix、Discord 採用
+- **TreeKEM (Continuous Group Key Agreement)**——左右対称 binary tree のリーフにメンバー、各内部ノードに「サブツリー全員が共有する秘密」。更新時は `log N` 個のサブツリーへ HPKE (RFC 9180) で配布。PQ KEM への差し替えで PQ-MLS 可能
+- **Forward Secrecy & Post-Compromise Security**——epoch ごとに鍵破棄で FS。Update Commit でグループが「自己治癒」(PCS)。`O(log N)` でグループ全体に PCS は MLS の核心革新
+- **Epoch / Commit / Proposal**——離散時刻 epoch を Commit で進める。Add/Remove/Update は Proposal、Commit でまとめて Concurrent Commit は Delivery Service が serialization order 決定。楽観的並行制御
+- **Delivery Service vs Authentication Service**——DS は順序付け配信のみ・中身読めず・改ざんは epoch ハッシュで検出。AS は X.509 等の長期 Identity Key 配布で OIDC/Keytransparency と組合せる疎結合設計
+- **External Commit/Proposal、Quarantined-TreeKEM**——RFC 9420 の追加機能で外部参加者が KeyPackage で自己 Add。CISPA ETK (2025) が形式的安全性証明。ACM CCS 2024 Quarantined-TreeKEM が非アクティブメンバー問題を解消
 - **WebAssembly Component Model とポリグロット合成（2026-04-30）**——Wasm Core 1.0/2.0 の3欠陥（型が貧弱、メモリ共有、動的合成不可）を解決する設計。**WIT (IDL) + Canonical ABI (型変換規則) + shared-nothing モデル**の三位一体。プロセス + RPC 的だがオーバーヘッドなし
 - **WIT 機能**——record / variant / enum / flags / list / option / result に加え **resource (opaque handle, 線形型)**。`canon lift / canon lower` 命令で線形メモリ↔WIT型の双方向変換、両コンポーネントの線形メモリは絶対に直接共有されない
 - **WASI 進化**——0.2.11 (2026-04-07) Stable、0.3 開発中（stream<T>/future<T> async I/O）、1.0 は 2026年末-2027年初目標。Wasmtime が Bytecode Alliance の Core Project に昇格

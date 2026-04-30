@@ -1,14 +1,15 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-04-29
-**エントリ数**: 26
-**フレーズ数**: 104
+**最終更新**: 2026-05-01
+**エントリ数**: 27
+**フレーズ数**: 108
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
 ---
 
 ## カバー済みテーマ
+- **2026-05-01**: 日常の不満・愚痴 (Frust und Beschwerden im Alltag)
 - **2026-04-30**: 部屋探しと賃貸（Wohnungssuche und Mieten）
   - 内見問い合わせメール (Wären Sie so freundlich, mir mitzuteilen)
   - Nebenkosten / Nachzahlungen への質問 (denn / drin / mit etw. rechnen)
