@@ -1,11 +1,18 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-01
-**エントリ数**: 36
+**最終更新**: 2026-05-02
+**エントリ数**: 37
 
 ---
 
 ## 蓄積された知識
+- **WebTransport と HTTP/3 双方向通信革命 (2026-05-02)**——WebSocket の現代的後継として W3C/IETF で標準化、HTTP/3 (QUIC) の上に構築。3 プリミティブ：unidirectional/bidirectional streams + datagrams を 1 接続上で多重化。**HTTP/2 の Head-of-Line Blocking を QUIC ストリーム独立性で解消**
+- **拡張 CONNECT セッション**——`https://` への `:protocol = webtransport` の CONNECT リクエスト。RFC 8441 (WebSocket over HTTP/2) と同パターンの HTTP/3 版。`new WebTransport(url)` でセッション開始、`createBidirectionalStream()` で `ReadableStream`/`WritableStream` ペア取得
+- **Datagrams**——信頼性なし・順序保証なしの UDP 風転送。ゲーム/ライブ/テレプレゼンス向け。WebRTC `RTCDataChannel` と違い P2P signaling 不要、CDN サーバ集中型に統合可能
+- **コネクションマイグレーション**——QUIC ベースのため WiFi → 5G 切替で接続継続。WebSocket は TCP 接続が切断される
+- **フロー制御**——QUIC `MAX_STREAMS`/`MAX_DATA` の credit ベース制御が Streams API のバックプレッシャと直結。明示的フロー制御不要で輻輳に応じ自動調整
+- **限界**——UDP/443 がブロックされる企業 NW では使えず TCP fallback なし。「コンシューマ向け = WebTransport、企業内 = WebSocket」の棲み分け
+- **MoQ (Media over QUIC)**——WebTransport を基盤としたライブストリーミング新世代プロトコル。HLS/DASH を超える低遅延を狙う
 - **MLS (Messaging Layer Security) と大規模 E2EE グループ（2026-05-01）**——RFC 9420（2023-07）+ アーキテクチャ RFC 9750。Signal Double Ratchet を `O(log N)` 化したグループ E2EE プロトコル。Cisco Webex、Wire、Matrix、Discord 採用
 - **TreeKEM (Continuous Group Key Agreement)**——左右対称 binary tree のリーフにメンバー、各内部ノードに「サブツリー全員が共有する秘密」。更新時は `log N` 個のサブツリーへ HPKE (RFC 9180) で配布。PQ KEM への差し替えで PQ-MLS 可能
 - **Forward Secrecy & Post-Compromise Security**——epoch ごとに鍵破棄で FS。Update Commit でグループが「自己治癒」(PCS)。`O(log N)` でグループ全体に PCS は MLS の核心革新

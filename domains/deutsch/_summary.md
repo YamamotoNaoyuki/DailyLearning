@@ -1,14 +1,15 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-05-01
-**エントリ数**: 27
-**フレーズ数**: 108
+**最終更新**: 2026-05-02
+**エントリ数**: 28
+**フレーズ数**: 112
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
 ---
 
 ## カバー済みテーマ
+- **2026-05-02**: ゴミ分別とリサイクル (Müll und Recycling)
 - **2026-05-01**: 日常の不満・愚痴 (Frust und Beschwerden im Alltag)
 - **2026-04-30**: 部屋探しと賃貸（Wohnungssuche und Mieten）
   - 内見問い合わせメール (Wären Sie so freundlich, mir mitzuteilen)
@@ -44,6 +45,17 @@
 - **2026-04-29**: お金と財政（Geld und Finanzen II — pleite, ins Geld gehen, jeden Cent zweimal umdrehen, Haushalt durchforsten）
 
 ## 蓄積された知識
+- **Müll und Recycling（2026-05-02）**: `Sag mal, kommt das jetzt in den Gelben Sack oder in den Restmüll? Bei diesen Joghurtbechern bin ich mir nie sicher.` (umgangssprachlich, WG での分別確認)、`Unser Nachbar wirft immer alles in den Restmüll, das nervt total.` (隣人の分別違反への不満)、`Ich habe hier zwei Tüten Pfandflaschen, die müssen alle zurück. Wo ist denn der Automat?` (スーパーで Pfand 返却)、`Wir wollen nächste Woche umziehen und müssen noch ein altes Sofa loswerden. Weißt du, ob man Sperrmüll einfach so vor die Tür stellen kann oder muss man da extra anmelden?` (粗大ゴミ申請質問)
+- **Wechselpräpositionen の典型**: `in den Gelben Sack werfen` (Akk., 動作) vs `im Gelben Sack sein` (Dat., 状態)、`vor die Tür stellen` vs `vor der Tür stehen`。ゴミ分別文脈で頻出
+- **完了形での Ersatzinfinitiv**: `hat ... stehen lassen` (gelassen ではなく lassen のまま)。`liegen lassen`, `hängen lassen` も同じ。`stehen` も不定詞のまま
+- **Pfand 制度 2025 年改定**: 3L までのプラスチックボトル・金属缶に Pfand 25 ct 義務化。果汁・乳飲料も対象。例外: 牛乳 (生乳)、ワイン瓶
+- **Sperrmüll は anmeldepflichtig**: 多くの都市で市の Web から日付予約必要、当日朝に出す。勝手に出すと罰金
+- **形容詞名詞化**: `Falsches` (中性、不定冠詞なし)、`etwas Wichtiges`、`nichts Neues`
+- **直接的不満表現**: `Das nervt`, `Das geht mir auf die Nerven` は日本語訳すると失礼に響くがドイツ語では普通。Mülltrennung 違反への直接指導も社会的義務
+- **隣人と Sie**: 長年同じ建物でも `Sie` のままが多い。ゴミ苦情も基本 `Sie` で。`Du` は親しい友人・同年代のみ
+- **Bürokratisch な anmelden 文化**: 粗大ゴミ・住民登録・犬税・あらゆる場面で「事前申請 (Anmeldung)」が必須
+- **核心洞察**: ドイツ的「混合物の成分分離」精神は化学産業 (BASF, Bayer) と Mülltrennung 文化が同じ系譜。市民の Bürgerpflicht としての分別、長期視点の Pfand デポジット返却 → 日本の修繕積立金均等方式と同じ「短期負担 vs 長期社会益」価値観
+
 - **Geld und Finanzen II（2026-04-29）**: `Ich bin diesen Monat ziemlich pleite.`（umgangssprachlich、軽い金欠）、`Das geht aber ganz schön ins Geld.`（neutral、痛い出費）、`Ich versuche gerade, jeden Cent zweimal umzudrehen.`（節約倹約のことわざ）、`Ich muss endlich mal meinen Haushalt durchforsten.`（家計の精査、`durchforsten` は分離動詞、Konjunktiv との接続なら不分離）
 - **`pleite` の語源と意味場**: 元はビジネス用語「倒産」、口語で「文無し」。`Ich bin pleite` は強いが軽い感覚。名詞 `die Pleite` で「失敗・倒産」全般
 - **`ins Geld gehen` の慣用句**: 主語はコスト発生源、「お金の中に入る」という比喩。`ganz schön` は皮肉的強調（「美しい」の意味は失われている）
