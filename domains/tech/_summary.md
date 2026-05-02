@@ -1,11 +1,20 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-02
-**エントリ数**: 37
+**最終更新**: 2026-05-03
+**エントリ数**: 38
 
 ---
 
 ## 蓄積された知識
+- **DuckDB と組み込み OLAP 分析データベース (2026-05-03)**——CWI (MonetDB/Vectorwise の系譜) 発祥、Mark Raasveldt + Hannes Mühleisen 2018-19。"SQLite for analytics" で in-process・ゼロ依存。SIGMOD 2019 / CIDR 2020 論文で「データサイエンスの中規模データ (数 GB-100 GB) の谷間」を定義
+- **Vectorized execution**——Vector size 2048 (8 byte × 2048 = 16 KB が L1d 局所性の sweet spot)、JIT 不採用 (LLVM 依存をやめて配布最適化、interpreted vectorized でも JIT 比 90%)、Volcano + chunked iteration の MonetDB/X100 系譜
+- **Lightweight compression**——RLE/FOR/Dictionary/Bitpacking/Gorilla/FSST/ALP を自動選択。**圧縮はクエリを速くする** (帯域律速の現代 CPU で SIMD 展開 < IO 削減)
+- **HyPer MVCC を OLAP 化する発明**——圧縮ブロック in-place 更新不可の制約から、行単位 version chain ではなく **2048 行ブロック単位の bulk version 情報**を undo buffer に。100 列全行更新で HyPer 25 倍/PostgreSQL 116 倍に対し DuckDB は 1 列更新と同コスト
+- **DuckLake (2026-04 v1.0)**——Iceberg のメタデータ JSON 木の Optimistic Concurrency 衝突を**普通の RDBMS トランザクションに委譲**して解決。Iceberg + Avro マニフェストの複雑性回避
+- **MotherDuck の bridge operator**——local DuckDB と cloud DuckDB を tuple stream up/down 演算子で繋ぎ、分散 DB plan を 2 ノードに退化。BigQuery の ~400 ms 起動を ms 級に
+- **2024-26 マイルストーン**——1.0 LTS (2024-06)、1.4 LTS (2025-09 AES-256-GCM 暗号化、MERGE、Iceberg writes)、1.5 (2026-03 non-blocking checkpoint TPC-H +17%、VARIANT 型、GEOMETRY core 昇格)
+- **Single-node only は機能** (Jordan Tigani "Big Data is Dead")。192 コア NVMe で数 TB は単一ノードで十分 — 分散しないことが新規参入の障壁を下げる
+- **核心洞察**: 「**仕事を時間に置換する**」の対偶として「サーバ常駐を組み込み + 圧縮で置換する」アーキテクチャ。制約駆動設計 (LLVM 依存切り) が抽象化を磨く
 - **WebTransport と HTTP/3 双方向通信革命 (2026-05-02)**——WebSocket の現代的後継として W3C/IETF で標準化、HTTP/3 (QUIC) の上に構築。3 プリミティブ：unidirectional/bidirectional streams + datagrams を 1 接続上で多重化。**HTTP/2 の Head-of-Line Blocking を QUIC ストリーム独立性で解消**
 - **拡張 CONNECT セッション**——`https://` への `:protocol = webtransport` の CONNECT リクエスト。RFC 8441 (WebSocket over HTTP/2) と同パターンの HTTP/3 版。`new WebTransport(url)` でセッション開始、`createBidirectionalStream()` で `ReadableStream`/`WritableStream` ペア取得
 - **Datagrams**——信頼性なし・順序保証なしの UDP 風転送。ゲーム/ライブ/テレプレゼンス向け。WebRTC `RTCDataChannel` と違い P2P signaling 不要、CDN サーバ集中型に統合可能

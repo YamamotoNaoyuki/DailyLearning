@@ -1,9 +1,21 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 20
-**最終更新日**: 2026-05-02
+**エントリ数**: 21
+**最終更新日**: 2026-05-03
 
 ## 蓄積された知識
+
+### 分散システム一貫性モデル階層 — Linearizability vs Serializability vs Causal vs Eventual (2026-05-03)
+- **直交する 4 軸**: (a) 単一オブジェクト vs multi-object transaction、(b) single total order の有無、(c) real-time order との整合、(d) 因果関係の保護。一次元の「強さ」に潰さず軸で整理すると 42+ モデル (Viotti-Vukolić 2016) の partial order が自然に見える
+- **Linearizability (Herlihy-Wing 1990)**: single object + single total order + real-time。**Compositionality (locality)** が真価 — A と B が個別に linearizable なら A∪B も linearizable。SC にはない性質。MESI cache coherence は per-line linearizable だが組み合わせは TSO
+- **Attiya-Welch 1994 下界**: clock skew u 環境で linearizable read/write は最低 u/4 遅延必要。SC は片方を local 完了可能。Spanner は GPS+atomic で u を ~7 ms に圧縮し commit-wait で吸収
+- **Strict Serializability** = Linearizability ∘ Serializability。Spanner の "external consistency" と等価。Spanner / FoundationDB / CockroachDB / FaunaDB が目標とする最強レベル
+- **Snapshot Isolation (SI)** が Repeatable Read を実用代替、**SSI (Cahill 2008)** で Write Skew 抑制し Serializable に到達 (PostgreSQL 9.1)。SSI の鍵は cycle 検出ではなく **rw-antidependency の "dangerous structure" 局所判定**
+- **Causal+ (COPS, Lloyd 2011)** = Causal + convergent conflict handling (CRDT semilattice)。Eiger / AntidoteDB / Cosmos DB Session レベル。**HAT 可能 + 直感保持**でスイートスポット
+- **PACELC (Abadi 2012)**: CAP の盲点である平常時 latency-consistency tradeoff を明示 (PA/EL = Cassandra/Riak、PC/EC = Spanner/VoltDB)。**HAT (Bailis 2014, VLDB)**: SI / Serializability は network partition 下で available 不可と証明
+- **RAMP transactions (Bailis 2014)**: multi-partition の atomic visibility だけを単独提供、read 1RTT/write 2RTT。secondary index/materialized view 用
+- **Jepsen 2025**: RDS PostgreSQL 17.4 で Long Fork anomaly 発見 (primary in-memory lock 順 vs secondary WAL 順の不一致)。TigerBeetle 0.16.x は Strong Serializability 保持確認、Bufstream 0.1.0 で Kafka 自身の transaction protocol bug 発見。Knossos (linearizability SAT) + Elle (cycle detection O(n) 級、VLDB 2020)
+- **核心洞察**: 「強さ」は一次元ではない — **Linearizability ⊥ Serializability、合成して初めて両軸を捉える**。Compositionality こそ Linearizability の真価。**CRDT の semilattice = Causal+ の convergent handling = 順序代数 ≅ 一貫性証明**の同型 (Curry-Howard の分散版)。Jepsen が暴き続ける gap は「**形式モデルが論文では証明されても実装では崩れる**」現実
 
 ### Lamport 論理時計とベクタークロック (2026-05-02)
 - **Lamport "Time, Clocks, and the Ordering of Events" (1978)**: 物理時計と完全同期は不可能 → 観測可能な因果関係だけで「順序」を定義する哲学的飛躍。分散システム理論の基礎

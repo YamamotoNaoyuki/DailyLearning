@@ -1,13 +1,22 @@
 # ⛳ ゴルフ 分野サマリー
 
-**最終更新**: 2026-05-02
-**エントリ数**: 36
+**最終更新**: 2026-05-03
+**エントリ数**: 37
 
 **分野の方針転換（2026-03-05）**: 身体の使い方・バイオメカニクスは解剖学分野に統合。今後はコースマネジメント、クラブ選択、戦略、ルール、メンタルゲーム、プロツアーの分析など「ゴルフというゲーム」の理解に焦点を当てる。
 
 ---
 
 ## 蓄積された知識
+- **ゴルフルール 2019 大改正と 2023 改正の哲学 (2026-05-03)**——USGA + R&A "Rules Modernization" 2012 開始 → 2019/1/1 施行、「60 年で最大の改正」。条文 34 → **24 条**、Hazards → Penalty Areas、Through the Green → General Area へ用語刷新。Thomas Pagel (USGA) 主導
+- **改正の五原則**——Pace of Play / Intuitive (直感性) / Proportionality (比例性) / Integrity (誠実さへの信頼) / Local Discretion (Committee 裁量)。**法律改正の哲学と同型** (罪刑均衡、自治体裁量)
+- **2019 年主要変更**——ドロップ高さ肩→**膝**、OB/Lost Ball で Model Local Rule E-5 (推定地点 2 クラブ内 + 2 打罰)、バンカー内 loose impediments 触れ OK、ピン立てたままパット OK、グリーン上偶然移動無罰、Double hit 無罰、検索 5 分→**3 分**、Caddie alignment 2 打罰
+- **Penalty Area の概念設計変更**——旧 Water Hazard (yellow) / Lateral Water Hazard (red) → **一律 Penalty Area** (水以外も Committee 指定可)。**物理特性 → 機能による抽象化** (型システムの名義型→構造型と同型)
+- **2023 年改正**——Back-on-the-line ドロップ復帰、Rule 9.3 グリーン上球移動はリプレース、Rule 4.1a(2) 損傷クラブ交換可、Rule 25 Modified Equipment で障害者プレーヤー正式包摂
+- **2025 年 controversy → 2026 年応答**——Shane Lowry @ Royal Portrush 2025 の oscillate 2 打罰争議 → **Model Local Rule E-14** 新設「プレーヤー認識不能の場合 1 打罰」。2017 年 naked-eye standard の延長線
+- **2028 ロールバックボール**——2023/12 発表、2028/1 競技用、2030/1 一般用。テスト条件 120→125 mph、スピン 2400→2220 rpm。長尺ヒッター 13-15 yd 減、平均 Tour プロ 9-11 yd 減。**PGA Tour と PGA of America は公式に反対** — 統治機関と Tour の権力闘争顕在化
+- **4 年サイクル ≒ Semantic Versioning**——2019 = major、2023 = minor、2026 patch、2028 ロールバック = 次の major。**deprecation cycle** (anchored stroke 2013→2016) は API 廃止予告と同型
+- **核心洞察**: ゴルフは唯一プレーヤー自身が罰則を申告するスポーツゆえ、**罰の不合理は誠実さ自体を侵食する**。proportionality は honor system 維持の前提。Naked-eye standard は AR/4K 時代の **mens rea (故意性)** 哲学の輸入。**統一フレームワーク + 局所裁量**は Linux カーネル + ディストリビューションモデルに近い
 - **Lag putting と距離感の知覚科学 (2026-05-02)**——9m (30ft) 以上の長距離パットでは「カップに入れる」ではなく「3 フィート円に止めて 3 パット回避」が目的。PGA Tour プロの 30ft 1 パット率 7%、3 パット率 4-5%。HCP20 アマは 3 パット率 35% — Tour 水準に近づくと 0.3-0.5 打/ラウンド改善
 - **視覚 → 運動変換の 3 ステップ**——(1) 視覚距離推定、(2) 内部モデルでのストローク予測、(3) 運動指令生成。最大誤差源は (1) で、傾斜・芝目・スティンプ値で大きく狂う
 - **視覚的歪みバイアス**——下り傾斜は距離過大評価、上り傾斜は過小評価、広いグリーン (Augusta) は周辺視野参照物欠如で過小評価 → ショートしやすい。**進化心理学的に崖や急斜面で過大評価する方が安全だった残響**

@@ -1,7 +1,19 @@
 # 🦴 解剖学・身体最適化 分野サマリー
 
-**最終更新**: 2026-05-02
-**エントリ数**: 34
+**最終更新**: 2026-05-03
+**エントリ数**: 35
+
+### 股関節 (Coxofemoral Joint) の球関節構造と寛骨臼の三次元適合 (2026-05-03)
+- **構造の本質**: spheroidal joint だが femoral head の **2/3 が acetabulum に被覆** (肩は 1/3)。Acetabulum は ilium・ischium・pubis が triradiate cartilage (Y軟骨) で接合、思春期に骨化。**深い jar 構造 = 高 stability の代償として可動域は肩の 1/3**
+- **Acetabular labrum**: rim を deepen し **suction seal** を作る流体力学装置。Storaci 2020 (AJSM): labral height < 6 mm で distractive stability・peak negative pressure が有意低下。labral repair > reconstruction > excision の biomechanical hierarchy
+- **形態指標三位一体**: anteversion 10-15°、neck-shaft angle ≈ 125°、CE angle ≥ 25° (< 20° で DDH)。SICOT-J 2023: **50 歳未満 THA 患者の 42.6% が dysplasia**。日本人女性の "Japanese paradox" もこの延長
+- **FAI (Ganz 2003)**: CAM type (head-neck bump、α > 60°) + Pincer type + Mixed。**asymptomatic 男子サッカー選手の 54.8% が CAM**。ゴルファーは典型的高リスク群 (バックスイング側 internal rotation 反復で anterior-superior 衝突)
+- **Closed-pack position = 伸展 + 内旋 + 外転** ≒ **ゴルフフィニッシュの左股関節**。CS の "lock 機構" と同型 (mutex acquisition、row lock — 高速 access の代償としての contention)
+- **Hip-Spine Syndrome**: tight hip flexor → anterior pelvic tilt → 過剰 lordosis (Janda の Lower Crossed Syndrome)。「**股関節屈曲 110° 取れない患者の腰痛は、まず股関節を疑う**」
+- **ピアノでの股関節**: 椅子高 → 肘 90° は実は「**股関節 90° + lumbo-pelvic neutral**」の派生。坐骨結節上に重心 → 骨盤 anterior tilt → natural lumbar lordosis。後傾 (slouching) は腰椎平坦化 → 椎間板内圧↑ (Wilke 1999)
+- **ゴルフの hip clearance**: 左股関節外旋 + 伸展による pelvis 回転。McIlroy 720°/sec (Tour 平均 500°/sec)。clearance 不足 → 肩代償回転 → X-factor 過大 → 腰椎軸捻り損傷 (Tiger Woods)
+- **Robotic THA (2025-26)**: Mako/ROSA は cup placement の Lewinnek safe zone と LLD で manual に勝るが、PRO で差なし (2025 Front Surg)。学習曲線 15-25 例で plateau
+- **核心洞察**: **「球の被覆深さ」**が肩 (自由度) と股 (支持) の役割分担を決める。**Closed-pack ≅ lock 機構**で機械系と生体系で同じ tradeoff。**起点は股関節**で上肢効率は下半身 alignment に従属 — Hip clearance = pelvis という車輪を空転させる「解放」としての回転
 
 ### 一次運動野 M1 と運動制御階層 (2026-05-02)
 - **位置と細胞構築**: 中心溝前方の中心前回 (precentral gyrus)、Brodmann 4 野。第 V 層に**巨大錐体細胞 (Betz 細胞、60-100 μm)** が存在し、皮質脊髄路 (錐体路) の起源細胞のひとつ。ただし Betz 細胞は皮質脊髄路全体の数% で、大半は小型錐体細胞由来 (「強力で高速」と「精密で持続的」の役割分担)

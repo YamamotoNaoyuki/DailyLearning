@@ -1,11 +1,21 @@
 # 🍞 パン 分野サマリー
 
-**最終更新**: 2026-05-02
-**エントリ数**: 36
+**最終更新**: 2026-05-03
+**エントリ数**: 37
 
 ---
 
 ## 蓄積された知識
+- **オートリーズ (Autolyse) 法とグルテン形成の最適化 (2026-05-03)**——Raymond Calvel 1974 論文 / 1990 *Le Goût du Pain*。1950-60s フランス mixer 革命の弊害 (lipoxygenase 介在の色素酸化漂白、揮発性アロマ前駆体喪失) への解として開発。総混捏時間 ~15% 短縮で酸化暴露を抑える。「グルテン倍増」は後世の誤解
+- **塩なしの理由 = 酵素自由化**——塩は α-amylase / protease を競合阻害。塩抜き autolyse 中に α-amylase が損傷デンプン → maltose 分解 (酵母餌準備)、protease が glutenin loop を限定加水分解 (extensibility 向上)
+- **GMP の動的再構築 (Molecules 2021)**——混捏 3→5 min で GMP は 8.17→6.52% (-20.2%) に**減少**、30-60 min 静置で SS bond 2.93-3.02 μmol/g までピーク。**autolyse の本体は「壊した SS network を thiol-exchange で再縫合する」過程**
+- **Modernist Bread (Myhrvold 2017) の反駁**——autolyse の効果は overstated、bran scald や double hydration が代替。Janjigian は「タンパク質完全 hydration を抑え、network 形成可能 gluten 量を減らす」と再解釈
+- **派生技法**——Classical (粉+水のみ) / Fraisage / **Fermentolyse** (T. Wilson、+levain 1-4 h) / Saltolyse (+塩 cold overnight) / **Bassinage** (autolyse 後に水を後添加、80-90% hydration の高加水)
+- **Bloksma 古典研究**——optimum dough development に specific mechanical energy ~30 kJ/kg (spiral mixer)。autolyse はこれを「時間 + 酵素 + 酸素」で代替。Spiral > planetary > hand-knead で hand-knead は autolyse 恩恵が最大化
+- **Tartine 革命 (Chad Robertson 2010)**——80-85% hydration + autolyse 30-40 min + 4°C overnight retard + levain only。Calvel + Poilâne + 北イタリア bassinage + 北欧 cold retard を統合した**現代 artisan の標準文法**
+- **Arrhenius 設計**——protease Q10 ≈ 2、4°C autolyse は RT の 1/4 速度 → overnight (12 h cold) ≈ 3 h RT。経験則「冷蔵 overnight が安全」の物理化学的裏付け
+- **Bassinage の物理**——polymer hydrogel における osmotic swelling vs entanglement の競合。乾いた gluten matrix への後添加が gluten 配向を秩序化
+- **核心洞察**: **「観察と機序の混同」が科学的フォークロアを生む** (Calvel の extensibility 観察 → 「グルテン増強」誤訳)。**酸素フラックスの強度・持続時間**が同じ反応物で逆方向の効果を生む。「**労働を機械エネルギーから生物・化学エネルギーで置換する**」パラダイム — 解剖学の viscoelastic 緩和、DuckDB の「仕事を時間に置換」と同型
 - **グリアジンとグルテニン — 小麦タンパク質の分子構造 (2026-05-02)**——Osborne 1907 分類でアルブミン (15%) / グロブリン (5%) / **グリアジン (30-40%) + グルテニン (30-40%) = グルテン**。後者 2 つがパン物性の主役
 - **グリアジン**——モノマー、分子内 -S-S- のみ。28-55 kDa、α/β/γ/ω 4 サブクラス。**粘性 (viscosity) を担う**。生地に流動性・伸展性
 - **グルテニン**——分子間 -S-S- でポリマー化、HMW-GS (65-90 kDa) と LMW-GS (30-45 kDa) のサブユニット。総分子量数百万 Da で天然タンパク質最大級。**弾性 (elasticity) を担う**、ガス保持力と立ち上がりを決める

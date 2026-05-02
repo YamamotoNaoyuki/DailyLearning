@@ -1,14 +1,15 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-05-02
-**エントリ数**: 28
-**フレーズ数**: 112
+**最終更新**: 2026-05-03
+**エントリ数**: 29
+**フレーズ数**: 116
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
 ---
 
 ## カバー済みテーマ
+- **2026-05-03**: 美容院 (Beim Friseur) — 予約 (hätte gerne, am liebsten)、希望伝達 ("Spitzen weg", die Länge lassen)、トラブル比較 (ein Tick zu kurz, ruhig stehen lassen, im Nacken)、支払い・チップ (Machen Sie 60, der Rest ist für Sie)。Konjunktiv II Höflichkeit + Modalpartikel ruhig/eigentlich/ja を多用
 - **2026-05-02**: ゴミ分別とリサイクル (Müll und Recycling)
 - **2026-05-01**: 日常の不満・愚痴 (Frust und Beschwerden im Alltag)
 - **2026-04-30**: 部屋探しと賃貸（Wohnungssuche und Mieten）
