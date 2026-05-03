@@ -1,11 +1,19 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-03
-**エントリ数**: 38
+**最終更新**: 2026-05-04
+**エントリ数**: 39
 
 ---
 
 ## 蓄積された知識
+- **vLLM と PagedAttention による LLM 推論サービング (2026-05-04)**——Kwon et al., SOSP 2023 (arXiv:2309.06180)。**OS仮想メモリ・ページングを KV キャッシュに転用** する発想で、固定長 block (典型 16トークン) に分割し物理非連続な block 群に分散。block_table[seq_id] による間接参照で連続性制約を解除
+- **KVキャッシュ・フラグメンテーション3類型**——内部断片化(最大長予約の未使用領域) / 予約過多 / 外部断片化。従来 60-80% 浪費 → PagedAttention で **4% 未満**に。block_size=16 はSM占有率飽和と内部断片化トレードオフ点
+- **Continuous Batching と直交**——Orca の iteration-level scheduling と組み合わせで真価。V1 では prefill/decode を統一スケジュール化、chunked prefill で長プロンプトが decode を阻害しない
+- **プレフィックスキャッシング (Merkle連鎖)**——各 KV block に SHA-256 ハッシュ、`hash(prev, tokens)` 連鎖で同一プレフィックス自動共有。書き込み時 Copy-on-Write、parallel sampling で **メモリ55%削減・スループット2.2x**
+- **ベンチマーク**——vs HF Transformers 14-24x、vs TGI 2.2-3.5x、LMSYS 実運用で 30x、GPU 50%削減。2026 H100 比較では低並列 TensorRT-LLM 優位、100並列で vLLM 4,741 tok/s 逆転、SGLang は共有 prefix 時 +29%
+- **vLLM V1 (2025-) 改良**——Async scheduling (zero-bubble overlap, 1.7x)、EngineCore 分離、Speculative decoding (n-gram/EAGLE/Medusa)、Disaggregated Prefill/Decode、Prefix caching デフォルトON
+- **競合との階層別棲み分け**——TGI=エコシステム統合 (maintenance mode 2025)、TensorRT-LLM=AOTコンパイラ最適化 (低並列最速・GPU lock-in)、SGLang=RadixAttention アプリ層 prefix 共有、llm-d=Kubernetes クラスタ層ルーティング (TTFT 3x)。vLLM の差別化は OS風汎用ページング+プラガブル backend+広いHW対応
+- **核心洞察**——「メモリ管理の連続性仮定をハードウェアアーキテクチャ層から切り離した」OS同型設計。disaggregated P/D は CPU の P/E-core 異種コアと同じ「得意なものに分ける」古典原理が LLM推論に降りた格好
 - **DuckDB と組み込み OLAP 分析データベース (2026-05-03)**——CWI (MonetDB/Vectorwise の系譜) 発祥、Mark Raasveldt + Hannes Mühleisen 2018-19。"SQLite for analytics" で in-process・ゼロ依存。SIGMOD 2019 / CIDR 2020 論文で「データサイエンスの中規模データ (数 GB-100 GB) の谷間」を定義
 - **Vectorized execution**——Vector size 2048 (8 byte × 2048 = 16 KB が L1d 局所性の sweet spot)、JIT 不採用 (LLVM 依存をやめて配布最適化、interpreted vectorized でも JIT 比 90%)、Volcano + chunked iteration の MonetDB/X100 系譜
 - **Lightweight compression**——RLE/FOR/Dictionary/Bitpacking/Gorilla/FSST/ALP を自動選択。**圧縮はクエリを速くする** (帯域律速の現代 CPU で SIMD 展開 < IO 削減)

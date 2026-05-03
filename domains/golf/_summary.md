@@ -1,13 +1,23 @@
 # ⛳ ゴルフ 分野サマリー
 
-**最終更新**: 2026-05-03
-**エントリ数**: 37
+**最終更新**: 2026-05-04
+**エントリ数**: 38
 
 **分野の方針転換（2026-03-05）**: 身体の使い方・バイオメカニクスは解剖学分野に統合。今後はコースマネジメント、クラブ選択、戦略、ルール、メンタルゲーム、プロツアーの分析など「ゴルフというゲーム」の理解に焦点を当てる。
 
 ---
 
 ## 蓄積された知識
+- **シャフトフィッティングの技術 (2026-05-04)**——フレックスは振動数 CPM で定量化（True Temper 基準で R≈240–260、S≈255–275、X≈270–290）。**業界標準なし**で同表記でも 10–20 CPM 差。アイアンは 0.5 inch 短縮ごとに +4 CPM が frequency-matched 設計則
+- **トルク（捻れ剛性）**——1 ft·lb 印加時の捻れ角。**低 2–3°（X 系）vs 高 5–6°（A/R 系）**。100 mph 超で低トルクが必要（フックを抑制）、低速では高トルクが「つかまり」を生む
+- **キックポイント / EI プロファイル**——低キック=高弾道高スピン、高キック=低弾道低スピン。現代は EI（Young 率 × 断面 2 次モーメント）の Butt/Mid/Tip 分布で記述。**Tip Stiff = レイトリリース・強切返し向け**、**Tip Soft = 早リリース向け**
+- **重量とスイングウェイト**——ドライバートータル 290–320 g、スイングウェイト D0–D5 が男性主流（D2 中心）。**シャフト 6.5 g 増 = SW 1 ポイント増**。ヘッド・シャフト・グリップの質量配分で SW は変動（重量配分が本質）
+- **シャフト長 vs MOI**——45 → 47 inch で +3〜5 mph、しかし center contact 失敗による ball speed loss が swing speed gain を上回ることが多い。USGA 上限 48"、PGA Tour 競技 46" 制限（2022〜）
+- **TrackMan による動的フィッティング**——Spin Loft >17° → Tip Stiff へ、Smash Factor <1.45 → 重量見直し、Side Spin 増 → Torque 過大。Tour 最適 Launch 13–17° / Spin 2200–2700 rpm / AoA +3〜+5°
+- **Tom Wishon 4 要素**——(1) Clubhead Speed（ドライバー＋6I 両方）、(2) Transition / Tempo（Smooth / Average / Forceful）、(3) Shaft Weight（強い選手ほど重く）、(4) Bend Profile / Release Point。「ヘッドスピードのみのフィッティングは guessing」
+- **スチール比較**——DG S300 (130g, 5.8 FCM) 低弾道基準、Project X 6.0 (120g) Tip Stiff 強切返し向け、KBS Tour Mid Trajectory 滑らか、Modus3 Tour 130 ≈ DG / Tour 120 ≈ KBS
+- **ドライバー主要グラファイト**——Fujikura Ventus（Black 低・Blue 中・Red 高 / VeloCore Tech）、Mitsubishi Diamana（GT 中走り・WB 中低・PD 低スピン・TB Tour 系）、Graphite Design Tour AD（DI 中元低スピン定番、VF 手元最強・上級者向け、IZ 万能、XC 走り、CQ 中元上がり良）
+- **核心洞察**: CPM・トルク・キックは EI プロファイルの異なる射影に過ぎず独立でない。**TrackMan 以前のフィッティングは神話**で、0.0005 秒の impact は人間の主観で推論不能。launch monitor が EI と球挙動を客観連結し、shaft fitting が初めて科学化された（D-Plane と同じ「測定駆動の科学化」パラダイム）。**人体固有振動数 5–10 Hz とシャフト CPM 4–5 Hz のカップリング**が「合う/合わない」感覚の正体
 - **ゴルフルール 2019 大改正と 2023 改正の哲学 (2026-05-03)**——USGA + R&A "Rules Modernization" 2012 開始 → 2019/1/1 施行、「60 年で最大の改正」。条文 34 → **24 条**、Hazards → Penalty Areas、Through the Green → General Area へ用語刷新。Thomas Pagel (USGA) 主導
 - **改正の五原則**——Pace of Play / Intuitive (直感性) / Proportionality (比例性) / Integrity (誠実さへの信頼) / Local Discretion (Committee 裁量)。**法律改正の哲学と同型** (罪刑均衡、自治体裁量)
 - **2019 年主要変更**——ドロップ高さ肩→**膝**、OB/Lost Ball で Model Local Rule E-5 (推定地点 2 クラブ内 + 2 打罰)、バンカー内 loose impediments 触れ OK、ピン立てたままパット OK、グリーン上偶然移動無罰、Double hit 無罰、検索 5 分→**3 分**、Caddie alignment 2 打罰

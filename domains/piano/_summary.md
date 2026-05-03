@@ -1,13 +1,22 @@
 # 🎹 ピアノ演奏 分野サマリー
 
-**最終更新**: 2026-05-03
-**エントリ数**: 35
+**最終更新**: 2026-05-04
+**エントリ数**: 36
 
 **分野の方針**: ピアノ演奏の身体技法・奏法・練習法に特化。音楽分野（クラシック音楽の鑑賞・分析・歴史）とは分離し、「弾く」ことに焦点を当てる。解剖学・バイオメカニクスとの接点を重視。
 
 ---
 
 ## 蓄積された知識
+- **アーティキュレーション：レガート・ノンレガート・スタッカートの技術と歴史 (2026-05-04)**——Δt（音と音の無音時間）が情報の担い手。音価率で legato (>100%) → tenuto → portato (~75%) → mezzo-staccato (~50%) → staccato (~25-50%) → staccatissimo (<25%) の連続体（Bresin & Battel 2000, K.545 実測）
+- **古典派の通常タッチ = ノンレガート**——CPE Bach『Versuch』(1753)：「**moderate/slow tempo の四分・八分は音価の半分で奏する**」が ordinary touch。Mozart 時代「chopped and shortly articulated」が標準で、レガートは特別表情。Beethoven が「他者がフォルテピアノで不可能と判断したレガート」を実現した革新者
+- **指の重なりとフィンガーペダル**——Neuhaus「real acoustical legato」=「次音打鍵後に前音解放」。Czerny『Op.500』(1839) の **prolonged touch / legatissimo / overlegato / finger pedaling** は CPE Bach・Türk・Hummel・Moscheles の系譜で、ペダル不要で和声残響を作る（Mozart K.332 など）
+- **19世紀のレガート優位への移行**——Clementi Op.42 (1801)「鍵を次の鍵まで保持」を規範化。Hummel/Czerny は CPE Bach の運指原則を継承しつつフォルテピアノ用に修正、**指替え (finger substitution)** をレガートの中心技法に。指のすり替え（2指→3指の上を滑る）は CPE Bach 時代の許容を撤廃
+- **楔 vs 点の歴史的曖昧さ**——Beethoven「dot と dash は同一でない」と書簡で明言したが、自筆譜は混在。Leopold Mozart は Keil を「カンタービレ」「軽い弓」「強アクセント（記号未発達）」と多義的に使用。**1850 以前は実質同義に近く**、Friedrich Starke (1821) が初めて三分類を試みた
+- **スラーの二重機能**——古典派のスラーは「articulation slur（終端で軽く切る）」が主、19世紀後半に「phrase mark（長フレーズの呼吸）」へと意味拡張（Clive Brown『Classical and Romantic Performing Practice 1750-1900』）
+- **現代ピアノでの HIP 復権**——Beethoven Op.2 や Mozart ソナタを ordinary touch（軽い detached）で奏すると、フォルテピアノの透明性が再現される。Schiff、Brendel、R. Levin らが実践
+- **神経筋制御**——レガート = MP関節屈筋（虫様筋・骨間筋）と PIP関節屈筋（FDS）の協調的タイミング、次音打鍵筋活性が前音保持筋活性とオーバーラップ。スタッカート = 伸筋（EDC）の能動的リリース。Ortmann 1929 が筋電的に確認
+- **核心洞察**: 「アーティキュレーションは譜面にあるのではなく、譜面の隙間にある」。古典派演奏の弾みは Δt が現代基準より大きいことが本質で、レガート前提で読むと崩れる。**ピアノの弁論術 (Barth『The Pianist as Orator』) は本来、非レガート文化の延長**
 - **タッチと音色の物理学 — タッチで音色を変えられるのか (2026-05-03)**——ハンマーは let-off で jack から外れて慣性飛行 (Cristofori 1720)、**終端速度 v_h のみが弦振動を決める** (Hart, Fuller, Lusby, Bryan-Boyle)。Ortmann 1925 が Matthay 重量奏法への科学的反証として最初に立証
 - **Askenfelt-Jansson "From Touch to String Vibrations" 三部作 (JASA 1990-93)**——KTH の光学測定で確認: 終端速度同一なら弦振動はほぼ同じ。だが演奏家のタッチは voicing/agogics/pedal/**key noise (finger-key 衝突音、key-bottoming 音、Hammerschank 振動)** を同時に変える
 - **Goebl knockout 実験 (JASA 2014)**——Bösendorfer 290 SE で pressed vs struck touch を同一終端速度で比較。**finger-key noise (打鍵 20-200 ms 前) を除去すると識別率がチャンスレベル**に。Key-bottom 音 82% 識別率。「タッチの音色差」の正体は楽音ではなく **noise precursor**

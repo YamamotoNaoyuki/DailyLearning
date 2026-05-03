@@ -1,11 +1,23 @@
 # 📦 その他 分野サマリー
 
-**最終更新**: 2026-05-03
-**エントリ数**: 37
+**最終更新**: 2026-05-04
+**エントリ数**: 38
 
 ---
 
 ## 蓄積された知識
+- **ミツバチの超個体とコロニーの社会性昆虫進化 (2026-05-04、生物学・進化生物学)**——Hölldobler & Wilson (2009) "The Superorganism"。コロニー (2-6万個体) は局所相互作用のみで階層的指令なしに統合機能を発現する**組織化された機能単位**——温度調節 35°C・育児・採餌・防衛が高度協調
+- **真社会性 (eusociality) と血縁選択**——Hamilton 1964: **半倍数性** (haplodiploidy) でミツバチ姉妹間 r=0.75 (父からの50%完全共有+母からの50%×0.5)。娘 r=0.5 ではなく姉妹を育てる進化的合理性。ただし Nowak-Tarnita-Wilson (Nature 2010) 論争でシロアリ二倍体真社会性など単独説明は不十分
+- **齢分業 (temporal polyethism)**——羽化後 1-2日清掃→3-11日育児→12-20日造巣・門番→21日以降外勤。**JH/vitellogenin の負相関が分子基盤**。コロニー需要に応じ加速・減速する柔軟分散システム
+- **多重交尾 (polyandry)**——女王は処女飛行で7-20匹（時に40匹超）と交尾。Tarpy & Seeley 2006 で遺伝的多様性が病害抵抗性 (chalkbrood, AFB) と採餌活性向上を実証
+- **集合認知**——Karl von Frisch の8の字ダンス解読 (1973ノーベル賞)、鉛直角=太陽方位/直進部1秒≒1km。Seeley *Honeybee Democracy* (2010) の引っ越し先選定は**定足数感知 (15-20匹で piping signal)**——分散コンセンサス自然版
+- **化学コミュニケーション**——QMP (9-ODA中核9成分以上、Slessor)、警報フェロモン (isoamyl acetate主成分、2-heptanone補助 20-70倍濃度)、ナソノフ腺テルペノイド7種
+- **Honeycomb Conjecture**——六角柱セルが等面積分割で周長最小。Pappus (4世紀)→Fejes Tóth (1943, 凸限定)→**Hales 2001完全証明** (Discrete & Computational Geometry)。**進化が数億年前にNP困難最適解に到達**
+- **CCD (蜂群崩壊症候群)**——複合ストレス: Varroa destructor (DWVベクター)、ネオニコチノイド亜致死、Nosema ceranae、IAPV、栄養不足。USDA 2024-2025年米国年間損失率55.6%
+- **キノコ体 (mushroom body)**——約96万ニューロンで PER 学習。VUMmx1がオクトパミン報酬、ドーパミン作動系が嫌悪。**100万ニューロンで集合認知成立**、AGI 研究にも示唆
+- **Bee/ABC algorithm**——Pham 2005 / Karaboğa 2005、employed/onlooker/scout 三役で局所/大域探索切替、TSP・関数最適化応用
+- **ニホンミツバチの蜂球攻撃**——Apis cerana japonica は500匹で47°C加熱しスズメバチ致死 (45-46°C) と自分の致死 (48-50°C) の数度差を利用。Sugahara-Sakamoto 2009、Ugajin 2022でロドプシン・アレスチン2分子機構解明
+- **核心洞察**: 「**個体に存在しないものが集団に存在する**」最も鮮やかな自然事例。waggle dance + quorum sensing は Raft/Paxos の生物的先駆。CCD の年間損失率55%は超個体の robustness が**相関故障 correlated failure**に脆弱という分散システム同型問題
 - **ミランコビッチサイクルと氷期 (2026-05-03、古気候学・天体力学)**——セルビアの天体物理学者 Milutin Milanković (1879-1958) が捕虜収容所で軌道計算開始、1941 *Canon of Insolation and the Ice-Age Problem* で集大成。**北緯 65° の夏至日射量**が氷期駆動。Köppen-Wegener 1924 で「冷夏が積雪を融かさず氷床成長」仮説確立
 - **三軌道要素**——**離心率** (周期 100 ka と 413 ka、現在 0.0167)、**地軸傾斜 (obliquity)** (周期 41 ka、現在 23.44° 減少中)、**歳差 (precession)** (climatic precession 19-23 ka)
 - **Pacemaker 論文 (Hays-Imbrie-Shackleton, Science 1976)**——インド洋深海堆積物 δ¹⁸O の **spectral analysis** で 23/42/100 ka ピーク検出、Milanković 仮説の決定的証拠。**時系列を周波数ドメインに分解する**精神は Riemann zeta 函数の素数解析と同型

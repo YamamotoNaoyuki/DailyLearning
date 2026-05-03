@@ -1,9 +1,28 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 21
-**最終更新日**: 2026-05-03
+**エントリ数**: 22
+**最終更新日**: 2026-05-04
 
 ## 蓄積された知識
+
+### SSA形式とコンパイラ最適化 (2026-05-04)
+- **SSA (Static Single Assignment)**: 各変数を静的に**一度だけ定義**する IR。Use-Def chain が単一ポインタに退化し、**sparse analysis** の基盤を提供。反復 dataflow O(N²) を O(use 数) に縮約
+- **φ関数**: 合流点での value selection を表す仮想命令。同一ブロックの全 φ は **並列**評価 — これが out-of-SSA で parallel copy 問題を生む
+- **支配境界 DF (Dominance Frontier)**: 「d が支配する領域のすぐ外側の合流点」。Cytron 1991 の核心定理「**φ は iterated DF に挿入すべき**」
+- **Lengauer-Tarjan (TOPLAS 1979)**: 支配木を **O(E·α(E,N))** で計算。α は Ackermann 逆関数で実用上ほぼ定数。simple 版は O(m log n)
+- **SSA構築 — Cytron et al. (1991, TOPLAS)**: 支配木 + DF 計算 → iterated DF にφ挿入 → pre-order rename。最悪 O(N²) だが almost linear。LLVM `mem2reg` の基盤
+- **SSA構築 — Braun et al. (2013, CC)**: DF を計算しない**オンザフライ**法。`readVariable`/`writeVariable` API、incomplete CFG 対応、trivial φ removal で minimal SSA 保証。LLVM Cytron 実装より僅速。Cranelift, libFirm, LuaJIT 採用
+- **SCCP (Wegman-Zadeck 1991)**: 未到達ブロックを `⊥` ではなく separately 扱い、定数 + 死コード分岐を同時発見。**SSA edge 上の lattice worklist** でほぼ線形
+- **GVN (Alpern-Wegman-Zadeck 1988)**: 値番号で同値類分割。SSA の def 一意性により hash-cons がそのまま機能。φ を uninterpreted 関数扱いするため不完全 (Gulwani 2004 が完全多項式時間版)
+- **LICM**: ループ不変は **オペランドが loop preheader を支配するか** だけで決まる — 反復 dataflow 不要
+- **DCE**: 副作用ある命令を root に逆向き mark。SSA で def 一意のため到達不能 def は即削除
+- **Out-of-SSA 変換**: 素朴な per-predecessor copy 挿入は **lost-copy / swap problem** を起こす。Briggs et al. 1998 が改良、**Sreedhar et al. 1999 (Method I/II/III)** が φ-congruence class で copy 最小化、**Boissinot 2009 (CGO)** が現代 LLVM 実装の系列
+- **SSA-based レジスタアロケーション**: Chaitin 1981 で graph coloring 帰着 → NP完全。しかし **Hack-Goos 2006 (IPL)** + Brisk + Bouchez が独立に「**SSA の干渉グラフは chordal**」を証明 — 支配関係が perfect elimination order を誘導。**O(\|V\|·ω(G)) で最適彩色**可能、spilling/coloring/coalescing を decouple
+- **Caveat (Pereira-Palsberg 2006)**: classical SSA elimination *後* の RA は再び NP完全。SSA-RA は **destruction 前に色付け、parallel copy 含む形で out-of-SSA** する必要
+- **Linear Scan (Poletto-Sarkar TOPLAS 1999)**: live interval を線形スキャン、**O(V log R)**。HotSpot C1, V8 で採用、Wimmer 2010 の Extended 版が GraalVM で使用
+- **採用例**: LLVM IR (純粋 SSA、memory は alloca + mem2reg)、GCC GIMPLE-SSA (4.0/2005)、HotSpot C2 **sea-of-nodes** (Click 1995 PhD、basic block を捨てデータ/制御依存を一様 graph)、**MLIR (Lattner CGO 2021)** は dialect-centric + SSA 核で multi-level IR、Mojo/IREE/CIRCT が採用
+- **SSA 拡張**: **Gated SSA (Tu-Padua 1995)** = γ/μ/η で条件情報内包、**Array SSA (Knobe-Sarkar 1998)** = element-level + δ 関数で parallelization 解析、**HSSA (Chow 1996)** = μ/χ で alias/memory も SSA 化、**Concurrent SSA** = π/ψ で同期点表現
+- **核心洞察**: SSA は λ計算の **A-normal form (ANF)** とほぼ等価 (Appel 1998 "SSA is Functional Programming") — φ は continuation の引数渡しに対応。**問題の難しさは表現に依存する** — Chaitin が25年封印した NP完全問題が IR を変えるだけで多項式時間最適に。**支配境界という幾何学**が「φ をどこに置くか」を graph-theoretic 不変量に reduce した美しさが Cytron 1991 の本質
 
 ### 分散システム一貫性モデル階層 — Linearizability vs Serializability vs Causal vs Eventual (2026-05-03)
 - **直交する 4 軸**: (a) 単一オブジェクト vs multi-object transaction、(b) single total order の有無、(c) real-time order との整合、(d) 因果関係の保護。一次元の「強さ」に潰さず軸で整理すると 42+ モデル (Viotti-Vukolić 2016) の partial order が自然に見える

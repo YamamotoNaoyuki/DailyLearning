@@ -1,14 +1,15 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-05-03
-**エントリ数**: 29
-**フレーズ数**: 116
+**最終更新**: 2026-05-04
+**エントリ数**: 30
+**フレーズ数**: 120
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
 ---
 
 ## カバー済みテーマ
+- **2026-05-04**: スポーツ・フィットネススタジオ (Sport und Fitnessstudio) — 器具シェア交渉 (Sätze, sich abwechseln, durch sein)、疲労・筋肉痛 (platt, Muskelkater, Pertinenzdativ)、フォーム相談 (Kreuzheben, ziehen, Haltung)、契約解約 (Mindestlaufzeit, Einschreiben, Konjunktiv II 二連発)。Verein/Volkshochschule/Bundesliga 文化、Muckibude (Duden 公認口語)、Wandern as Volkssport、Probetraining、Krankenkasse §20 SGB V 補助
 - **2026-05-03**: 美容院 (Beim Friseur) — 予約 (hätte gerne, am liebsten)、希望伝達 ("Spitzen weg", die Länge lassen)、トラブル比較 (ein Tick zu kurz, ruhig stehen lassen, im Nacken)、支払い・チップ (Machen Sie 60, der Rest ist für Sie)。Konjunktiv II Höflichkeit + Modalpartikel ruhig/eigentlich/ja を多用
 - **2026-05-02**: ゴミ分別とリサイクル (Müll und Recycling)
 - **2026-05-01**: 日常の不満・愚痴 (Frust und Beschwerden im Alltag)
@@ -46,6 +47,27 @@
 - **2026-04-29**: お金と財政（Geld und Finanzen II — pleite, ins Geld gehen, jeden Cent zweimal umdrehen, Haushalt durchforsten）
 
 ## 蓄積された知識
+- **Sport und Fitnessstudio（2026-05-04）**: `Sag mal, wie viele Sätze hast du noch? Können wir uns vielleicht abwechseln, oder bist du bald durch?`（umgangssprachlich、ジムでの器具シェア交渉）、`Ey, ich bin total platt — mir tut heute echt alles weh. Gestern war wohl ein Satz zu viel, ich hab voll den Muskelkater.`（umgangssprachlich、疲労と筋肉痛報告）、`Du, ich glaub, ich mach das mit dem Kreuzheben falsch — irgendwie zieht's mir immer im unteren Rücken. Kannst du mal kurz auf meine Haltung schauen?`（neutral、トレーナーへフォーム相談）、`Guten Tag, ich würde meinen Vertrag gerne zum Ende der Mindestlaufzeit kündigen. Reicht es, wenn ich das schriftlich per Einschreiben einreiche, oder müsste ich da nochmal persönlich vorbeikommen?`（formal、契約解約交渉）
+- **Satz vs Wiederholung**: `Satz`（セット、男性）と `Wiederholung`（レップ、女性）。`3 Sätze à 10 Wiederholungen` が典型表現。`Satz` は文・楽章・集合の多義語だがジム文脈では一義
+- **Muskelkater の語源**: 「筋肉の雄猫」ではなく `Katarrh`（カタル＝炎症）の音転訛。Duden 公認語彙、`Muskelkater haben/bekommen/kriegen`
+- **Muckibude**: Fitnessstudio の口語愛称（Duden: umgangssprachlich scherzhaft）。`Mucki`（Muskel 縮約）+ `Bude`。マッチョ系の自虐的響きを含む
+- **kündigen の格支配の二重性**: `Vertrag kündigen`（Akk.=物・契約）vs `jemandem kündigen`（Dat.=人を解雇）。**契約解約は Akk.、人事解雇は Dat.**
+- **解約連語**: `zum Ende der Laufzeit kündigen` / `fristgerecht kündigen` / `fristlos kündigen`（即時、相手の重大義務違反）/ `außerordentlich kündigen`（特別、引越・病気）
+- **Einschreiben の法的重み**: `Einschreiben mit Rückschein`（受領証付き書留）が解約証拠の最強形式。Verbraucherzentrale 推奨。**書面・郵送・書留が口頭・メールより法的に強い**
+- **2022年3月以降の契約法改正**: BGB §309 Nr.9 改正、Fitnessstudio 等の長期契約は最低契約期間後**月単位解約義務**。コロナ期ジム閉鎖中の会費返還訴訟で会員勝訴判例多数
+- **Pertinenzdativ + 無人称 es**: `Mir tut alles weh` / `Es zieht mir im Rücken` — 身体は経験の場、所有者は Dativ で受動的に痛みを受けるゲルマン語的世界観
+- **動作名詞化（中性）**: `das Kreuzheben`（デッドリフト）、`das Bankdrücken`（ベンチプレス）、`das Aufwärmen`（ウォームアップ）— 動作を中性 1 語に圧縮、複合語化基盤
+- **ジム再帰動詞群**: `sich abwechseln`（交代）、`sich auspowern`（追い込む）、`sich aufwärmen`、`sich dehnen`、`sich anstrengen`、`sich verletzen`、`sich erholen`
+- **症状動詞の擬音体系（再確認）**: `ziehen`（鈍痛・引張）、`stechen`（刺痛）、`pochen`（脈動痛）、`brennen`（灼熱痛）、`kribbeln`（しびれ）、`knacken`（関節音）。医者 Anamnese と Workout 自己診断で同じ語彙
+- **疲労強度スペクトル**: müde < erschöpft < platt < fertig < kaputt < erledigt < ausgepowert < völlig am Ende
+- **Verein 文化**: ドイツ人2,700万人（人口30%）が**Sportverein** 所属（DOSB 2024、約87,000クラブ）。フィットネススタジオは個人主義的選択肢、伝統は Fußball, Handball, Turnen, Schützenverein, Kegelklub
+- **Wandern as Volkssport**: ドイツの真の国民的スポーツ。`Deutscher Wanderverband` 3,000クラブ60万人会員。Schwarzwald, Sächsische Schweiz, Harz
+- **Bundesliga 観戦文化**: `Verein` 所属感は世襲（父→子）、Stadion で Bratwurst+Bier、`Auswärtsfahrer`（遠征ファン）尊敬、`Traditionsverein`（百年クラブ）への愛着が階級・職業を超える社会接着剤
+- **Volkshochschule (VHS) のスポーツコース**: 安価（10回 60-100€）で Yoga・Pilates・Wirbelsäulengymnastik・Aqua-Fitness。**Krankenkasse §20 SGB V** 予防コースで年最大2コース 80%還付。健康保険×公教育×スポーツの三位一体
+- **ジム混雑時間**: 平日17-20時最混雑（仕事帰り）、午前7-9時/11-12時空く、土曜最閑散、**1月**新規入会ラッシュで最も混む（Neujahrsvorsätze 効果）
+- **ジム・エチケット**: `Hanteln zurückräumen`（戻す）、汗を Handtuch で拭く、長時間占有しない、`sich abwechseln` 提案受諾、Smartphone 短時間
+- **依頼の最強コンビ `mal kurz`**: `Kannst du mal kurz auf meine Haltung schauen?` — 負担軽減のクッション、トレーナー・友人への自然依頼の核
+
 - **Müll und Recycling（2026-05-02）**: `Sag mal, kommt das jetzt in den Gelben Sack oder in den Restmüll? Bei diesen Joghurtbechern bin ich mir nie sicher.` (umgangssprachlich, WG での分別確認)、`Unser Nachbar wirft immer alles in den Restmüll, das nervt total.` (隣人の分別違反への不満)、`Ich habe hier zwei Tüten Pfandflaschen, die müssen alle zurück. Wo ist denn der Automat?` (スーパーで Pfand 返却)、`Wir wollen nächste Woche umziehen und müssen noch ein altes Sofa loswerden. Weißt du, ob man Sperrmüll einfach so vor die Tür stellen kann oder muss man da extra anmelden?` (粗大ゴミ申請質問)
 - **Wechselpräpositionen の典型**: `in den Gelben Sack werfen` (Akk., 動作) vs `im Gelben Sack sein` (Dat., 状態)、`vor die Tür stellen` vs `vor der Tür stehen`。ゴミ分別文脈で頻出
 - **完了形での Ersatzinfinitiv**: `hat ... stehen lassen` (gelassen ではなく lassen のまま)。`liegen lassen`, `hängen lassen` も同じ。`stehen` も不定詞のまま
@@ -328,7 +350,7 @@
 - **口語省略パターン**: hab（habe）、treff（treffe）、gucke、drin（darin）、rum（herum）、am（an dem）。リスニング向上に必須
 - **Schweinehund 等の文化的キーワード**: Feierabend、Gemütlichkeit、Wanderlust 同様、英訳不可能な文化語
 - 北独 vs 南独：gucken vs schauen、Tschüss vs Servus/Pfiat di
-- ドイツ独特のVerein文化の語彙——Mitglied、Vorstand、Stammtisch
+- ~~ドイツ独特のVerein文化の語彙——Mitglied、Vorstand、Stammtisch~~ → 2026-05-04 にスポーツ Verein として一部学習済み（さらに Schützenverein、Kegelklub、Stammtisch 文化を深掘りしたい）
 - Du-Sie の境界——Duzen の儀式
 
 ---

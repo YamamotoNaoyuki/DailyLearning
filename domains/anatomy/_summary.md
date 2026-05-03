@@ -1,7 +1,23 @@
 # 🦴 解剖学・身体最適化 分野サマリー
 
-**最終更新**: 2026-05-03
-**エントリ数**: 35
+**最終更新**: 2026-05-04
+**エントリ数**: 36
+
+### 喉頭・声帯の解剖と発声メカニズム (2026-05-04)
+- **喉頭の 9 軟骨**: 不対 3（甲状軟骨・輪状軟骨・喉頭蓋）+ 対 3 対（披裂・小角・楔状）。**輪状軟骨は唯一の完全環状**（signet ring）、**喉頭蓋のみ弾性軟骨**、他は硝子軟骨。甲状軟骨の左右板癒合角は男 90° / 女 120°（テストステロンが声を低くする幾何学的根拠）
+- **披裂軟骨 arytenoid の二突起**: 声帯突起（前方・声帯付着）と筋突起（外側・PCA 付着）の幾何が内外転を決める
+- **声帯 5 層構造（Hirano 1974）**: 上皮 / **SLP = Reinke's space（HA・elastin、最大振動振幅）** / 中間層 / 深層 / 声帯筋。中間+深層 = **声帯靭帯**
+- **Body-Cover 理論**: cover（上皮+SLP）が body（vocalis）から弱結合し **mucosal wave** で振動。Body-cover 解離が音色制御の本質
+- **MEAD 理論（van den Berg 1958）**: 声門下圧 P_sub が声帯を押し開け、弾性復元 + Bernoulli 効果で再閉鎖。Titze 1980 で **収束-発散グロッタル形状の非対称性こそ主要エネルギー伝達** と修正（Bernoulli 単独では不十分）。発振閾値圧 ~0.3 kPa、会話 0.5-1、フォルテ歌唱 2-3 kPa。F0 vs P_sub: 3-5 Hz/cmH₂O
+- **内喉頭筋 5 種**: TA（声帯短縮緊張、body）、CT（伸展薄化、F0 上昇）、**PCA = 唯一の外転筋**（両側麻痺で気道閉塞）、LCA（前 2/3 内転）、IA（後 1/3 内転、唯一の不対筋）
+- **神経支配の決定的非対称**: **CT のみ上喉頭神経外枝 (SLN external)**、**他全部は反回神経 RLN**。**左 RLN は大動脈弓を回り 12cm**（魚類 6 番鰓弓動脈の進化的痕跡）— 縦隔病変・大動脈瘤・甲状腺手術で麻痺
+- **声区**: 古典像「胸声 = TA 優位 / 頭声 = CT 優位」は **300 Hz 以下で成立**。Kochis-Jennings 2014 (J Voice): **300 Hz 超では register によらず CT/TA 比 ≒ 1 か CT 優位** — 教則本の register 概念は近代生理学で書き換え進行中
+- **共鳴とフォルマント (Fant 1960 source-filter)**: F1 ≈ 250-900 Hz（vowel height）、F2 ≈ 600-2500 Hz（tongue backness）、F3 ≈ 1500-3500 Hz（lip rounding）
+- **Singer's formant (Sundberg 1974)**: F3-F4-F5 が **2.5-3.5 kHz でクラスタ化**、オーケストラエネルギー減衰帯に突き抜ける。**喉頭管:咽頭 ≈ 1:6** の幾何が必要条件。bass 2420 / baritone 2550 / tenor 2840 / contralto 3000 Hz。ソプラノは別戦略（formant tuning：F1 を F0 に合わせる）
+- **Appoggio**: 横隔膜の遠心性収縮 + **腹横筋（コルセット）** + 内外腹斜筋 + 骨盤底筋 + 外肋間筋（吸気位胸郭維持）の 4 軸テンセグリティ。**DFL（Deep Front Line）の機能単位そのもの** — 既習の横隔膜・骨盤底ピストン・腸腰筋と完全に重なる
+- **職業病**: 声帯結節（前 1/3-中 1/3 境の両側性硬結、振動振幅最大点）/ ポリープ（一側性、急性 abuse）/ **Reinke 浮腫（喫煙との強い因果、SLP 浮腫性肥大、低音化）**。治療階層: voice therapy → microphonosurgery（cover 損傷最小化、Reinke 空間温存）
+- **核心洞察**: **CT/TA の拮抗は弦楽器の張力（CT）と質量（TA）独立制御の生体実装** — F0 = (1/2L)√(T/μ) の体内版。**Singer's formant は 1:6 の純粋幾何学** — 訓練 = 共鳴幾何の再現可能化。**appoggio = 既習 DFL** で、ピアノの「支え」「フレーズ呼気」と神経学的同一基盤
+- **piano/music への接続**: フレージングは呼気制御、ヴァイオリン「projection」も 3 kHz 帯共鳴で同一物理。CS への接続: source-filter theory は LPC の生理学的起源
 
 ### 股関節 (Coxofemoral Joint) の球関節構造と寛骨臼の三次元適合 (2026-05-03)
 - **構造の本質**: spheroidal joint だが femoral head の **2/3 が acetabulum に被覆** (肩は 1/3)。Acetabulum は ilium・ischium・pubis が triradiate cartilage (Y軟骨) で接合、思春期に骨化。**深い jar 構造 = 高 stability の代償として可動域は肩の 1/3**

@@ -1,11 +1,19 @@
 # 🎵 音楽（クラシック音楽） 分野サマリー
 
-**最終更新**: 2026-05-03
-**エントリ数**: 38
+**最終更新**: 2026-05-04
+**エントリ数**: 39
 
 ---
 
 ## 蓄積された知識
+- **ジョン・ケージ「4分33秒」と不確定性の音楽 (2026-05-04)**——1952/8/29 Maverick Concert Hall, David Tudor 初演。3楽章 TACET (30"/2'23"/1'40")。Black Mountain College で Rauschenberg の White Paintings (1951) が触媒
+- **Harvard 無響室 (1951)**——絶対沈黙を期待し神経系/血流の音を聴いた体験から「**沈黙は存在しない**」確信。鈴木大拙の禅講義（コロンビア大）で「作曲家のエゴからの離脱」へ
+- **Chance vs Indeterminacy の区別**——Music of Changes (1951, I Ching) は「作曲過程は偶然だが楽譜は確定」、対して 4'33" 以降の indeterminacy は「演奏過程そのものが演奏ごとに substantially different」(Concert for Piano and Orchestra 1957-58)
+- **作品=注意の枠組み**——「沈黙」ではなく「環境音への注意誘発」が主題。**音楽の存在論を「音響対象」から「聴覚的注意の枠組み」へ移行**（『Silence』Wesleyan UP, 1961）
+- **影響系譜**——Fluxus (New School講座 1956-60 の Brecht/Higgins/Kaprow)、ミニマリズム (Young/Riley)、サウンドアート (Neuhaus/Fontana)、Brian Eno のアンビエント (Music for Airports 1978 は4'33"の論理的延長)
+- **Cage Shock (1962年来日)**——一柳慧（ジュリアード留学でケージ師事）が 1961 年 Concert for Piano and Orchestra 日本初演、武満徹に決定的影響を与え Ring/Corona のグラフィック・スコア期へ。高橋悠治はケージ作品の卓越解釈者
+- **論争**——Boulez との絶縁、Schulhoff *In futurum* (1919) 剽窃疑惑、2002年 Mike Batt "A One Minute Silence" コピーライト訴訟（沈黙の著作権問題）
+- **核心洞察**: 「作品を空にすることで世界を充満させる」転倒。indeterminacy = 「**仕様の意図的な非決定性**」で、CRDT の eventual convergence、世阿弥「秘すれば花」と同じ「**不在を通じた存在**」の構造
 - **シューベルト『冬の旅』D.911 と連作歌曲の物語性 (2026-05-03)**——1827 年二段階作曲 (2 月第 I 部、10 月第 II 部)。Müller の 1824 年改編順を採用せず第 I 部の調性関係を保持 → **シューベルトと Müller で異なる物語アーク**を生む稀有な事例
 - **Susan Youens (1991) の読み**——「失恋の物語」ではなく「**自己の段階的解体 (deconstruction of self)**」。第 1 曲で既に恋人は背景、彷徨は内的旅
 - **調性設計の「不完全性」がドラマ**——d-moll 始 → a-moll 終、24 曲は個別主調を持ち**シェンカー的統一プランがない**。半音階下降モティーフ・3 度関係・ナポリ転調が反復構造を作る。**統一の不在**こそ主体解体の構造的表現
