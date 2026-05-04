@@ -1,14 +1,15 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-05-04
-**エントリ数**: 30
-**フレーズ数**: 120
+**最終更新**: 2026-05-05
+**エントリ数**: 31
+**フレーズ数**: 124
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
 ---
 
 ## カバー済みテーマ
+- **2026-05-05**: 映画・ドラマについて話す (Über Filme und Serien sprechen) — 推薦 (Hast du den schon gesehen? sehenswert)、批判の柔らかさ (ehrlich gesagt, ein bisschen schwach)、若者言葉 (voll im Bingen drin、英語借用 bingen)、評価バランス (Plot vorhersehbar, aber Schauspieler reißen es raus)。`-bar` 形容詞接尾辞、`voll im X drin sein` 構文の生産性、英語からのストリーミング借用語 (Plot, Spoiler, Trailer, Cliffhanger)、ドイツ式「均衡的批評」文化
 - **2026-05-04**: スポーツ・フィットネススタジオ (Sport und Fitnessstudio) — 器具シェア交渉 (Sätze, sich abwechseln, durch sein)、疲労・筋肉痛 (platt, Muskelkater, Pertinenzdativ)、フォーム相談 (Kreuzheben, ziehen, Haltung)、契約解約 (Mindestlaufzeit, Einschreiben, Konjunktiv II 二連発)。Verein/Volkshochschule/Bundesliga 文化、Muckibude (Duden 公認口語)、Wandern as Volkssport、Probetraining、Krankenkasse §20 SGB V 補助
 - **2026-05-03**: 美容院 (Beim Friseur) — 予約 (hätte gerne, am liebsten)、希望伝達 ("Spitzen weg", die Länge lassen)、トラブル比較 (ein Tick zu kurz, ruhig stehen lassen, im Nacken)、支払い・チップ (Machen Sie 60, der Rest ist für Sie)。Konjunktiv II Höflichkeit + Modalpartikel ruhig/eigentlich/ja を多用
 - **2026-05-02**: ゴミ分別とリサイクル (Müll und Recycling)

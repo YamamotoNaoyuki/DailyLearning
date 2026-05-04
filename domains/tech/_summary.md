@@ -1,11 +1,17 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-04
-**エントリ数**: 39
+**最終更新**: 2026-05-05
+**エントリ数**: 40
 
 ---
 
 ## 蓄積された知識
+- **Zig言語のcomptimeとアロケーター設計哲学 (2026-05-05)**——Cの単純さを残しつつ「No Hidden Memory Allocations」「No Hidden Control Flow」を徹底した設計。`comptime`は「コンパイル時に実行される通常のZigコード」で、ジェネリクス・型クラス・条件付きコンパイル・定数畳み込みを単一機構で表現
+- **Zigのジェネリクス**——専用構文がなく「型を返す関数」で実現。`fn Matrix(comptime T: type, comptime rows: usize, ...) type`。`type`はファーストクラスの値、C++テンプレートのような独立した宣言的言語ではなく、同じZig言語そのものが型生成器
+- **明示的アロケーター契約**——標準ライブラリは「メモリ確保が必要な関数には必ず`Allocator`を引数として渡す」。`GeneralPurposeAllocator`(汎用)、`ArenaAllocator`(リクエスト単位)、`FixedBufferAllocator`(静的バッファ)、`c_allocator`(libc互換)、`page_allocator`(mmap)
+- **ArenaAllocator設計**——「個別freeを無視、deinit()で一括解放」でリーク不可能・高速・カスタムOOM処理が容易の三拍子。永続データ構造の対極（過去を残す vs 過去を捨てる）の双子戦略
+- **comptime allocator提案 (issue #5873)**——`@alloc`/`@resize`組み込み関数で単一グローバルcomptimeアロケーターから割り当て、確保失敗はコンパイルエラー。「ビルドするマシンのメモリ量で挙動が変わる」問題を回避する純粋設計
+- **核心洞察**——「明示性の総量保存則」。Cは何も明示せず脆い、Rustはライフタイム・所有権を明示して肥大化、Zigは「メモリ確保」と「コンパイル時/実行時境界」だけ徹底明示。テスト容易性は依存性注入が低レベル言語に降りた例
 - **vLLM と PagedAttention による LLM 推論サービング (2026-05-04)**——Kwon et al., SOSP 2023 (arXiv:2309.06180)。**OS仮想メモリ・ページングを KV キャッシュに転用** する発想で、固定長 block (典型 16トークン) に分割し物理非連続な block 群に分散。block_table[seq_id] による間接参照で連続性制約を解除
 - **KVキャッシュ・フラグメンテーション3類型**——内部断片化(最大長予約の未使用領域) / 予約過多 / 外部断片化。従来 60-80% 浪費 → PagedAttention で **4% 未満**に。block_size=16 はSM占有率飽和と内部断片化トレードオフ点
 - **Continuous Batching と直交**——Orca の iteration-level scheduling と組み合わせで真価。V1 では prefill/decode を統一スケジュール化、chunked prefill で長プロンプトが decode を阻害しない

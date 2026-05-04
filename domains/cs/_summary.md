@@ -1,9 +1,21 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 22
-**最終更新日**: 2026-05-04
+**エントリ数**: 23
+**最終更新日**: 2026-05-05
 
 ## 蓄積された知識
+
+### 永続データ構造とPath Copying (2026-05-05)
+- **永続データ構造**: 変更操作後も過去の版を保持。Driscoll-Sarnak-Sleator-Tarjan 1986《Making Data Structures Persistent》で体系化。Clojure・Haskell・React state・Git の基礎
+- **永続性の階層**: Ephemeral (揮発的) / Partially Persistent (旧版アクセスのみ) / Fully Persistent (旧版変更可) / Confluently Persistent (合流可、Gitの`merge`)
+- **Fat Node Method**: 各ノードに複数版の値とバージョン番号を保持。検索 O(log m)、空間 O(1)/変更。逆ポインタ追跡が必要で実装複雑
+- **Path Copying**: 変更されたノードからルートまでの経路上のノードのみコピー。O(log n) 時間・空間。バランス木の場合、最も実装しやすい
+- **DSST Hybrid (Node Copying)**: Fat Node + Path Copying の組合せ。各ノードに少数の追加スロット、埋まったときだけ新ノード。**O(1)償却時間・空間**
+- **Okasaki赤黒木 (1999)**: 永続赤黒木の挿入を約30行のHaskellで実装。`balance`関数の4パターンマッチング。再帰呼び出しが path copying を暗黙に行う。「**immutability が永続性を無料で生む**」
+- **HAMT (Hash Array Mapped Trie)**: Bagwell 2001 + Hickey 2008永続化。32要素スパース配列、5bitセグメント、最大深さ7、ビットマップ実装。Clojure HashMap・Scala Vectorの基礎。実質O(1)アクセス
+- **構造共有 (Structural Sharing)**: 変更経路以外を旧版と共有。React.memo の参照等価判定で再レンダリング自動最適化。Immer は Proxy で疑似可変インターフェイスを提供しつつ内部で path copying
+- **核心洞察**——「不変性は時間旅行を可能にする」。Reduxタイムトラベルデバッガ、git checkout、Reactレンダー履歴の基礎。**並行プログラミングではロック不要**。「O(log n)は実用的にO(1)」（log_32(40億)≈7）
+- **Zigアロケーターとの哲学的対比**: ArenaAllocator=「世代単位で一括解放」(過去を捨てる) vs 永続データ構造=「過去を残す」。両者とも個別freeを排除する点で共通だが、過去の扱いが正反対の双子戦略
 
 ### SSA形式とコンパイラ最適化 (2026-05-04)
 - **SSA (Static Single Assignment)**: 各変数を静的に**一度だけ定義**する IR。Use-Def chain が単一ポインタに退化し、**sparse analysis** の基盤を提供。反復 dataflow O(N²) を O(use 数) に縮約
