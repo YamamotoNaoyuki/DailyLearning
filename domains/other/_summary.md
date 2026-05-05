@@ -1,11 +1,21 @@
 # 📦 その他 分野サマリー
 
-**最終更新**: 2026-05-05
-**エントリ数**: 39
+**最終更新**: 2026-05-06
+**エントリ数**: 40
 
 ---
 
 ## 蓄積された知識
+- **手話言語学とASL/JSLの独立文法 (2026-05-06、言語学・認知科学)**——William Stokoe *Sign Language Structure* (1960) が手話を pantomime から「言語」に格上げした革命。Klima & Bellugi *Signs of Language* (1979 Harvard UP) が実験心理言語学で裏付け。Hockett の design features (二重分節・生産性・転移性等) を満たすことが「言語性」の判定基準
+- **音韻論の4 phonological parameters**——Handshape/Location/Movement/Palm Orientation (Stokoe 3 + Battison 1978 で4)、後にプロソディ/NMM 追加。最小対立 (CANDY/APPLE/JEALOUS) で音声の /pat/-/bat/-/mat/ と同型現象。Brentari 1998 *A Prosodic Model* (MIT Press) で autosegmental phonology 統合
+- **形態論・統語論で3D空間が文法を担う**——Classifier Predicates (CL構文) が動詞・主語・目的語・経路・様態を1動作で並列表現。Verb Agreement で空間 loci が文法的人称をマーク。トピック化は eyebrow raise (NMM) で必須——眉が上がっていなければ wh-question が非文。Topic-Comment 言語 (Neidle et al. 2000)
+- **JSL の独立性と「日本語対応手話 (J-SL)」との混同**——日本手話 (JSL) は日本語の翻訳ではない自然言語。京都盲唖院 (1878 古河太四郎) 起源。J-SL は人工符号化システムでろう者コミュニティの自然言語ではない。NMM・CL構文・指文字 (50音、ASL fingerspelling と機能的に異なる)
+- **各国手話の独立性**——ASL は LSF (フランス手話、1817 Gallaudet-Clerc) 系統、BSL は別系統で two-handed fingerspelling を持つ。BANZSL 語族 (BSL/Auslan/NZSL)。「言語境界はろう者コミュニティ史で決まり、国境・音声言語と無関係」
+- **ニカラグア手話 (LSN→ISN, 1980s)**——言語の自然発生を目撃した稀有な事例。Senghas-Kita-Özyürek (Science 2004): 第1世代がピジン状 LSN、第2世代の子供が verb agreement・classifier・aspect を導入し ISN に文法化。**Critical Period**（臨界期）の決定的証拠、Bickerton Language Bioprogram の現代版実証
+- **神経科学：言語能力はモダリティ非依存**——Klima-Bellugi、Karen Emmorey 2002 *Language, Cognition, and the Brain*。手話話者でも左半球 Broca/Wernicke 領野が活性化、左半球損傷で sign aphasia、右損傷で空間処理障害——音声言語と同じ側性化。Hickok-Bellugi-Klima Nature 1996。**Chomsky の言語能力自律性仮説の最強の経験的支持**
+- **Iconicity 再評価**——「手話は絵画的だから原始的」は誤り。すべての言語にオノマトペ・音象徴があり、iconicity は言語普遍性。ASL TREE と JSL「木」が異なるように、iconic encoding も慣習化された語彙——Thompson-Vinson-Vigliocco 2009
+- **Sign Avatar/手話 LLM の2026年現状**——PHOENIX-2014T、How2Sign 等並列コーパスは小規模。3D pose estimation (MediaPipe Holistic, SMPL-X) + Transformer で sign-to-text、CVPR 2025/2026 で multimodal LLM 拡張中。NMM 同期未解決。WFD 倫理声明 (2024) が avatar の文化的尊重を要求
+- **核心洞察**: **モダリティが文法構造を規定する**——音声の線条性が形態素継起を強いるのに対し、視覚-空間モダリティが並列文法 (CL構文・空間agreement) を生む。「メディアは形を規定する」McLuhan の言語学的実装。**音声中心主義 (phonocentrism)** は Derrida 脱構築哲学とも響き合う。**「拡張」は「置換」ではない**倫理原則 (HTMX と Sign Avatar の同型)
 - **火山噴火様式とVEI指数の科学 (2026-05-05、火山学・地球科学)**——VEI (Volcanic Explosivity Index) は1982年Newhall & Self提唱、0〜8の対数尺度。1段階上昇で10倍の規模。判定基準：噴出物量・噴煙柱高度・形容詞（gentleからmega-colossalまで）
 - **マグマ粘性とガス含有量による分類**——SiO₂含有率 (玄武岩52%以下→流紋岩70%以上) と揮発性ガスの2軸でほぼ決まる。ハワイ式 (低粘性、穏やか)→ストロンボリ式 (中粘性、断続爆発)→ヴルカノ式→スルツェイ式 (水接触)→プレー式 (火砕流)→プリニー式 (持続噴煙柱)→ウルトラプリニー式 (カルデラ形成)
 - **タンボラ噴火 (1815, VEI 7)**——人類史上最大の噴火、約150 km³噴出。山体4,300m→2,850m。10万トン超の硫酸エアロゾルで地球平均気温0.4-0.7°C低下、1816年「夏のない年」。中国雲南省10万人以上の死者、メアリ・シェリー《フランケンシュタイン》執筆の暗い夏の遠因

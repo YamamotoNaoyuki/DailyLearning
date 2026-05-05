@@ -1,14 +1,15 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-05-05
-**エントリ数**: 31
-**フレーズ数**: 124
+**最終更新**: 2026-05-06
+**エントリ数**: 32
+**フレーズ数**: 128
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
 ---
 
 ## カバー済みテーマ
+- **2026-05-06**: 美術館とアートについて話す (Im Museum und Über Kunst sprechen) — 感動表現 (umhauen, vor allem, minutenlang stehen geblieben)、流派系譜 (vom Expressionismus beeinflusst, schreit förmlich nach Kirchner, Zustandspassiv)、美術館実用 (Sagen Sie mal, im Eintritt mit drin, Schließfach, Audioguide eigentlich)、批評の中庸 (spricht mich nicht an, irgendwie, da steckt mehr dahinter, auf den ersten Blick)。Modalpartikel 多重ヘッジ (irgendwie/eigentlich/aber gut)、`vom + Dat. beeinflusst sein` (状態受動)、批評の身体化動詞 (umhauen/schreien nach/stecken/ansprechen)、Kant『判断力批判』との哲学的接続
 - **2026-05-05**: 映画・ドラマについて話す (Über Filme und Serien sprechen) — 推薦 (Hast du den schon gesehen? sehenswert)、批判の柔らかさ (ehrlich gesagt, ein bisschen schwach)、若者言葉 (voll im Bingen drin、英語借用 bingen)、評価バランス (Plot vorhersehbar, aber Schauspieler reißen es raus)。`-bar` 形容詞接尾辞、`voll im X drin sein` 構文の生産性、英語からのストリーミング借用語 (Plot, Spoiler, Trailer, Cliffhanger)、ドイツ式「均衡的批評」文化
 - **2026-05-04**: スポーツ・フィットネススタジオ (Sport und Fitnessstudio) — 器具シェア交渉 (Sätze, sich abwechseln, durch sein)、疲労・筋肉痛 (platt, Muskelkater, Pertinenzdativ)、フォーム相談 (Kreuzheben, ziehen, Haltung)、契約解約 (Mindestlaufzeit, Einschreiben, Konjunktiv II 二連発)。Verein/Volkshochschule/Bundesliga 文化、Muckibude (Duden 公認口語)、Wandern as Volkssport、Probetraining、Krankenkasse §20 SGB V 補助
 - **2026-05-03**: 美容院 (Beim Friseur) — 予約 (hätte gerne, am liebsten)、希望伝達 ("Spitzen weg", die Länge lassen)、トラブル比較 (ein Tick zu kurz, ruhig stehen lassen, im Nacken)、支払い・チップ (Machen Sie 60, der Rest ist für Sie)。Konjunktiv II Höflichkeit + Modalpartikel ruhig/eigentlich/ja を多用
@@ -48,6 +49,30 @@
 - **2026-04-29**: お金と財政（Geld und Finanzen II — pleite, ins Geld gehen, jeden Cent zweimal umdrehen, Haushalt durchforsten）
 
 ## 蓄積された知識
+- **Im Museum und Über Kunst（2026-05-06）**: `Also, die Ausstellung hat mich ehrlich gesagt total umgehauen — vor allem der Raum mit den Großformaten, da bin ich echt minutenlang stehen geblieben.`（umgangssprachlich、展示への圧倒感想）、`Das ist eindeutig vom Expressionismus beeinflusst — die Farbflächen schreien förmlich nach Kirchner, finde ich.`（neutral、流派・系譜の同定）、`Sagen Sie mal, ist der Audioguide eigentlich im Eintritt mit drin, oder kostet der extra? Und kann ich meinen Rucksack hier irgendwo in einem Schließfach lassen?`（neutral、美術館受付実用）、`Ach, weiß nicht — das spricht mich irgendwie nicht so an. Aber gut, da steckt sicher mehr dahinter, als man auf den ersten Blick sieht.`（umgangssprachlich、中庸的批評）
+- **`umhauen` の感動用法**: 物理的「殴り倒す」→比喩「圧倒する/感動させる」。完了形 `hat umgehauen`（haben 支配、Akk.目的語）。同義に `Das ist umwerfend!`、`Mir hat's die Sprache verschlagen.`、`Ich war hin und weg.`
+- **状態受動 (Zustandspassiv)** `sein + 過去分詞`: 動作受動 (`werden`+P2) との対比。**美術評論では結果状態の `sein` 受動が圧倒的**。`Sein Werk ist von Cézanne beeinflusst/geprägt`
+- **`von` vs `durch` (受動の前置詞)**: `von + Dat.` = 行為主（人・流派）、`durch + Akk.` = 媒介・経由。批評は基本 `von`、`durch` は事象媒介の場合のみ
+- **批評の身体化動詞**: `umhauen`（殴り倒す→感動）、`schreien nach + Dat.`（叫び求める→想起）、`stecken in/dahinter`（潜む）、`ansprechen`（話しかける→響く）。**抽象を身体化するゲルマン語 DNA**
+- **`spricht mich (nicht) an`**: 美術・音楽・文学批評の核心動詞。否定形が「嫌い」を直言しない上品な拒絶。`Ich finde es schlecht` の洗練版
+- **`schreien nach + Dat.`**: 直訳「〜に向かって叫ぶ」→「〜を切実に求める/想起させる」。前置詞支配 nach + Dat. を確認
+- **`auf den ersten Blick` (Akk.固定句)**: `Blick` は男性、`auf + Akk.` 支配。対義 `auf den zweiten Blick`、フォーマル版 `bei näherer Betrachtung`
+- **`im Hinblick auf + Akk.`**: 「〜に関して/の観点から」。批評・論評で頻用の前置詞句。同系: `in Bezug auf + Akk.`, `im Gegensatz zu + Dat.`, `unter dem Eindruck von + Dat.`
+- **`Da steckt mehr dahinter, als man auf den ersten Blick sieht`**: 美術批評の最頻出構文。`dahinter stecken`（分離動詞）+ `mehr...als...` 比較構文
+- **`im Eintritt mit drin`**: 三重口語化 (`im` = `in dem`、`mit` 副詞、`drin` = `darin`)。標準語 `Ist X im Preis enthalten?` の口語版。`mit drin sein` =「セット・含まれてる」万能慣用句
+- **`Sagen Sie mal,...`**: 質問導入の最強テンプレ。`mal` で命令形を軟化、`Entschuldigung` より会話的
+- **`finde ich` 文末挿入**: 文頭 `Ich finde, dass...` の口語版。文末配置で「私見だが」のヘッジ機能最大化。同型 `meine ich`, `glaub ich`
+- **`irgendwie` の Modalpartikel 機能**: 確信を意図的に薄める副詞。批評で詠嘆口調を作り断定を回避
+- **`Aber gut,...`**: 自己反駁マーカー、批判を緩和して相対化。**ドイツ的バランス批評の核**
+- **批評で使えない英訳不能語**: `Kitsch` (1860 年代ミュンヘン起源、ドイツ語が世界輸出)、`Gesamtkunstwerk`（総合芸術、Wagner）、`Synästhesie`（共感覚、Kandinsky 由来）、`Museumsmüdigkeit`（美術館疲労、1916 命名）
+- **Wechselpräposition `lassen + 場所(Dat.)`**: `in einem Schließfach lassen`（Dat. = 預けたまま中にある状態）vs `in ein Schließfach packen`（Akk. = 動作焦点）
+- **`irgendwo` (Dat.) vs `irgendwohin` (Akk.)**: 場所か移動先かで使い分け
+- **Großformate vs Kleinformate**: 美術用語、Format は中性 (das Format)。複合語 das Großformat
+- **流派語彙の性**: `der Expressionismus`, `der Impressionismus`, `der Kubismus`, `der Surrealismus`, `der Realismus`, `der Bauhaus-Stil`, `die Neue Sachlichkeit`, `die Romantik`, `die Konzeptkunst`, `die Land Art`。`-ismus` は男性
+- **ドイツ美術館地理**: Berlin Museumsinsel（5 館 UNESCO）、München Pinakotheken（Alte/Neue/Moderne 三層）、Köln Museum Ludwig（Pop Art）、Dresden Zwinger（Alte Meister）、Frankfurt Städel。連邦制 (Föderalismus) の文化版分業
+- **Documenta**: Kassel で 5 年毎開催の世界最大現代美術展、1955 年 Arnold Bode 創設
+- **核心洞察**: ドイツ批評文化は **Modalpartikel 多重ヘッジ**（irgendwie + eigentlich + aber gut）で成立。粒子を抜くと「審判の判決」になり対話崩壊。Kant『判断力批判』(1790) の `interesseloses Wohlgefallen` (無関心的満足) と Hegel の `Kunst als sinnliches Scheinen der Idee` が口語表現の哲学的源流
+
 - **Sport und Fitnessstudio（2026-05-04）**: `Sag mal, wie viele Sätze hast du noch? Können wir uns vielleicht abwechseln, oder bist du bald durch?`（umgangssprachlich、ジムでの器具シェア交渉）、`Ey, ich bin total platt — mir tut heute echt alles weh. Gestern war wohl ein Satz zu viel, ich hab voll den Muskelkater.`（umgangssprachlich、疲労と筋肉痛報告）、`Du, ich glaub, ich mach das mit dem Kreuzheben falsch — irgendwie zieht's mir immer im unteren Rücken. Kannst du mal kurz auf meine Haltung schauen?`（neutral、トレーナーへフォーム相談）、`Guten Tag, ich würde meinen Vertrag gerne zum Ende der Mindestlaufzeit kündigen. Reicht es, wenn ich das schriftlich per Einschreiben einreiche, oder müsste ich da nochmal persönlich vorbeikommen?`（formal、契約解約交渉）
 - **Satz vs Wiederholung**: `Satz`（セット、男性）と `Wiederholung`（レップ、女性）。`3 Sätze à 10 Wiederholungen` が典型表現。`Satz` は文・楽章・集合の多義語だがジム文脈では一義
 - **Muskelkater の語源**: 「筋肉の雄猫」ではなく `Katarrh`（カタル＝炎症）の音転訛。Duden 公認語彙、`Muskelkater haben/bekommen/kriegen`

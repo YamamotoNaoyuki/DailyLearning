@@ -1,13 +1,21 @@
 # ⛳ ゴルフ 分野サマリー
 
-**最終更新**: 2026-05-05
-**エントリ数**: 39
+**最終更新**: 2026-05-06
+**エントリ数**: 40
 
 **分野の方針転換（2026-03-05）**: 身体の使い方・バイオメカニクスは解剖学分野に統合。今後はコースマネジメント、クラブ選択、戦略、ルール、メンタルゲーム、プロツアーの分析など「ゴルフというゲーム」の理解に焦点を当てる。
 
 ---
 
 ## 蓄積された知識
+- **TPIスクリーニングと身体機能評価 (2026-05-06)**——Titleist Performance Institute、2003年Greg Rose (DC, CSCS) & Dave Phillips (PGA) 設立、Acushnetスポンサー。**Body-Swing Connection** 哲学: スイング欠陥は身体機能制限の代償運動。"There is no one way to swing a club, but there is one efficient way for every player given their physical limitations" がTPI命題的背骨——ホーガンの普遍解モデルと正反対の局所最適アプローチ
+- **16-Point Physical Screening Protocol**——Pelvic Tilt/Rotation, Toe Touch, Overhead Deep Squat, Single Leg Balance, Lat Length, Lower Quarter Rotation, Seated Trunk Rotation, Cervical Rotation (90/90), Wrist Hinge, Forearm Rotation, Reach Roll Lift, Bridge with Leg Extension 等。**Pass / Limited / Fail** の三段階評価
+- **12 Common Swing Characteristics**——S-Posture, C-Posture, Loss of Posture, Flat Shoulder Plane, Early Extension, Over-the-Top, Slide, Sway, Reverse Spine Angle, Hanging Back, Casting/Early Release, Chicken Winging。経験的にツアー〜アマで頻出する欠陥分類
+- **臨床ロジック**——身体制限→代償スイングの因果連鎖を仮説化。例: Toe Touch fail → C-Posture → Early Extension、Pelvic Rotation fail → Sway/Slide、Lower Quarter Rotation 右内旋45°以下 → Sway必発。**100%の因果ではなく相関と臨床仮説**
+- **認定階層 & ツアー採用**——Level 1 (Fundamentals), Level 2 (Medical/Fitness/Junior/Power/Golf), Level 3。世界20,000人超認定。Joey Hackett (Justin Thomas, Brooks Koepka)、Jason Glass (Lydia Ko)、Dr. Troy Van Biezen (Adam Scott, Jordan Spieth) 等ツアー帯同
+- **限界と批判**——Gulgin (2014), Smith (*Sports Medicine* 2018) 「信頼性中等度・妥当性要追加検証」。ATP研究の選択バイアス、簡易スクリーニングの限界、商業認定中心でRCT検証少
+- **アマ実装優先順位**——Greg Rose推奨: (1) Overhead Deep Squat (2) Toe Touch (3) Pelvic Rotation (4) Seated Trunk Rotation。これら4つPassなら多くのfaultは構造的に起こりにくい。Failがあれば技術修正前に身体介入優先
+- **核心洞察**: TPIの本質は「ゴルフスイングを身体制約下の最適化問題」と捉える視点 (非凸目的関数の制約付き解)。さらに **コーチ/トレーナー/医師の言語共有化** がインターフェイス分離として機能。ただしドグマ化の危険——Pass でも Early Extension する選手、Fail でも綺麗に振れる選手は存在し、臨床ロジックは仮説であって観察事実を上書きしない
 - **ベン・ホーガンの5レッスンとスイング哲学 (2026-05-05)**——《Five Lessons: The Modern Fundamentals of Golf》(1957)、Sports Illustrated誌連載の書籍化。70年経った今も世界中のスイング理論の参照点。シャフトフィッティング・Dプレーン理論・DECADEなど現代分析もホーガンの概念枠組みの上に構築
 - **5つの基礎**——(1) グリップ (2) スタンスとポスチャー (3) バックスイング: Hands→Shoulders→Hips (4) ダウンスイング: Hips→Shoulders→Hands (5) 統合実演。シンプルな5章に現代スイング理論の核心がほぼ全て埋め込まれている
 - **スイングプレーン革命**——「ガラスの板 (pane of glass)」の視覚イメージで初めて具体化。アドレス時にボールから両肩を貫く斜めの平面を想像、左腕はバックスイング中それより下を保つ。**バックスイングプレーン > ダウンスイングプレーン**（より浅い）= 現代「シャロウイング」の起源

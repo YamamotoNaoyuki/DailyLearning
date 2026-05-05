@@ -1,11 +1,17 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-05
-**エントリ数**: 40
+**最終更新**: 2026-05-06
+**エントリ数**: 41
 
 ---
 
 ## 蓄積された知識
+- **HTMX と Hypermedia-Driven Application (HDA) (2026-05-06)**——Carson Gross の intercooler.js 後継、13 KB min.gz。`hx-get/post/swap/target/trigger` 属性で「任意要素が任意イベントで任意 HTTP 動詞を発行」する HTML 拡張。SPA が捨てた **HATEOAS の現役実装としてのブラウザ**を再評価する政治的プロジェクト
+- **HDA の二制約**——(1) 宣言的 HTML 埋め込みシンタックス、(2) サーバとの通信は HTML フラグメント (JSON ではなく)。サーバが状態の真実源、クライアントはドメイン知識ゼロの汎用ハイパーメディアエンジン。当座貸越の口座にはサーバが `<form action="/withdraw">` を出さないだけで OK
+- **Locality of Behaviour (LoB)**——「コード単位の挙動はその単位だけ見て自明であるべき」。SoC への明示的反逆で、jQuery の spooky action at a distance を否定。React/JSX が JS に HTML 埋め込みで局所性回復したのと双子の戦略 (HTML に振る舞いを埋め込む)。LoB と SoC は両立せず文脈依存トレードオフ
+- **2026 生態系**——htmx 2.0.x 安定、4.0 アルファ (fetch() 化)、機能追加は基本凍結 ("100 Year Web Services")。Hotwire/Turbo (22 KB, Rails 寄り)、Phoenix LiveView (BEAM ステートフル process)、Livewire、Alpine AJAX (3 KB)。htmx の差別化はバックエンド非依存とステートレス徹底
+- **限界**——オフライン/低レイテンシ・複雑な双方向状態 (N+1 ラウンドトリップ)・モバイルネイティブ (Hyperview はあるが小規模)・テンプレート層との密結合 (フロント/バック分離組織には不向き)
+- **核心洞察**——HTML の表現力 30 年ぶりの再評価。Triptych 提案で htmx 自体を仕様化して自己消滅させる戦略。母種 (リエヴィト・マードレ) と同じく「単一の状態源を長期保守」する思想
 - **Zig言語のcomptimeとアロケーター設計哲学 (2026-05-05)**——Cの単純さを残しつつ「No Hidden Memory Allocations」「No Hidden Control Flow」を徹底した設計。`comptime`は「コンパイル時に実行される通常のZigコード」で、ジェネリクス・型クラス・条件付きコンパイル・定数畳み込みを単一機構で表現
 - **Zigのジェネリクス**——専用構文がなく「型を返す関数」で実現。`fn Matrix(comptime T: type, comptime rows: usize, ...) type`。`type`はファーストクラスの値、C++テンプレートのような独立した宣言的言語ではなく、同じZig言語そのものが型生成器
 - **明示的アロケーター契約**——標準ライブラリは「メモリ確保が必要な関数には必ず`Allocator`を引数として渡す」。`GeneralPurposeAllocator`(汎用)、`ArenaAllocator`(リクエスト単位)、`FixedBufferAllocator`(静的バッファ)、`c_allocator`(libc互換)、`page_allocator`(mmap)

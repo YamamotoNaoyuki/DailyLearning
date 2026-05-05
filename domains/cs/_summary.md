@@ -1,9 +1,21 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 23
-**最終更新日**: 2026-05-05
+**エントリ数**: 24
+**最終更新日**: 2026-05-06
 
 ## 蓄積された知識
+
+### Hybrid Logical Clock (HLC) — 物理時刻と論理時刻のハイブリッド (2026-05-06)
+- **HLC コア発想 (Kulkarni et al., OPODIS 2014)**: タイムスタンプ `(l, c)` ペア。`l` は最大観測物理時刻ベース値、`c` は同 `l` 内のカウンタ。Lamport 時計の `max` 演算 + 物理時刻参照を組合せ、O(1) サイズで wall clock 近似と因果保証を両立
+- **更新ルール**: ローカルイベントで `l ← max(l, pt())`、`l` 更新なら `c++`、更新時 `c=0`。受信時は `l ← max(l_old, m.l, pt())` で 4 ケース分岐。`l - pt()` drift は NTP skew bound 内で有界
+- **TrueTime (Spanner, OSDI 2012) 比較**: GPS+原子時計で `[earliest, latest]` 区間 (ε ≈ 1〜7ms)、commit-wait `2ε` で external consistency 達成。HLC は wait なし + retry コスト、causal+serializable のみで external 不保証
+- **保証の片方向性**: `e → f ⇒ HLC(e) < HLC(f)` のみ。逆は不成立。これは設計判断 — 双方向はベクトル時計 O(N) が必要、HLC は意図的に放棄。causal session には十分
+- **bounded skew assumption**: 正しさは clock skew ε が有限であることに依存。CockroachDB は `--max-offset 500ms` で陽に表現、超過したノードは panic 自殺 (壊れた時計で動くより安全)
+- **採用例**: CockroachDB (uncertainty interval `[ts, ts+max_offset]` で read restart)、YugabyteDB (Raft entry timestamp)、MongoDB 3.6+ (`afterClusterTime` causal session)。FoundationDB は対照的に単一 sequencer 設計
+- **HLC vs TrueTime トレードオフ**: 「ハードウェアコストで latency 確定」vs「ソフトウェアコストで retry 確率受容」。Spanner = Google 帝国内、CockroachDB/YugabyteDB = Spanner-like を任意クラウドで実現
+- **Hybrid Vector Clocks (Demirbas-Kulkarni 2017)**: HLC のベクトル版で因果完全性 + 物理近似。**Stable timestamp** = follower read 用「safe_ts 以下は解決済み」保証で leader トラフィック分散
+- **限界**: cross-region read-after-write は session token 伝播必須、`pt()` 逆行 (NTP step, leap second smear) で drift 蓄積、`c` overflow は `l++; c=0` 救済
+- **核心洞察**: 「**因果完全性を捨てる**」明示的選択。学術的には vector clock が「正しい」が、運用では「O(1) で wall clock 近似 + ほぼ十分」が支配。Reed-Solomon → LRC で MDS 部分犠牲化と同型の工学判断。**Spanner = 不確実性をハードウェアで消す、CockroachDB = ソフトウェアで管理する**哲学差。Kulkarni 2014 論文一本がエコシステムを生んだ
 
 ### 永続データ構造とPath Copying (2026-05-05)
 - **永続データ構造**: 変更操作後も過去の版を保持。Driscoll-Sarnak-Sleator-Tarjan 1986《Making Data Structures Persistent》で体系化。Clojure・Haskell・React state・Git の基礎
