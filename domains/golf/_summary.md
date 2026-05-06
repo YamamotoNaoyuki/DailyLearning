@@ -1,13 +1,19 @@
 # ⛳ ゴルフ 分野サマリー
 
-**最終更新**: 2026-05-06
-**エントリ数**: 40
+**最終更新**: 2026-05-07
+**エントリ数**: 41
 
 **分野の方針転換（2026-03-05）**: 身体の使い方・バイオメカニクスは解剖学分野に統合。今後はコースマネジメント、クラブ選択、戦略、ルール、メンタルゲーム、プロツアーの分析など「ゴルフというゲーム」の理解に焦点を当てる。
 
 ---
 
 ## 蓄積された知識
+- **マッチプレー戦略とライダーカップの心理学 (2026-05-07)**——ストロークプレーは累積総打数競争・連続的プレッシャー、マッチプレーはホール毎独立の勝敗集計・パルス的プレッシャー。1 ホールでの大叩きでもマッチプレーでは「ホール 1 つ落とす」だけで大叩きの選択的アグレッシブネスが成立
+- **「相手依存的最適化」**——マッチプレーの核は「相手のショットを見てから自分の戦略を決める」最良応答 (best response)。DECADE 的個別ショット期待値最適化と異質のゲーム理論的構造。相手がトラブルなら保守、ベタピンなら攻撃的にピン狙い
+- **コンシードの心理戦**——序盤に短いパットも全部 holed させて感覚を壊す、後半に長めをコンシードして集中削ぐ、キーホールでコンシード拒否してプレッシャー印加。1991 ライダーカップのバレステロス vs アジンガーが古典例
+- **ライダーカップ 3 形式**——フォアサム (alternate shot, 最高難度・信頼関係要)、フォアボール (better ball, 攻撃 + 安定のペアリング)、シングルス (1 対 1, 最終日 12 試合)。欧州チームの伝統的強さは同国ペアリング戦略
+- **プレッシャーの非対称性**——マッチプレーはホール間で気分転換可能なため「下位選手が上位選手を倒す」アップセットが頻発。連続的プレッシャーが前頭前皮質作業記憶を消耗するチョーキング誘発と対比
+- **核心洞察**——マッチプレーは「相手という動的環境への最適化」で囲碁・将棋に近い。ストロークプレーの単一エージェント最適化との差異。「累積評価ではなく区間評価で生きる」という人生戦略へのアナロジー
 - **TPIスクリーニングと身体機能評価 (2026-05-06)**——Titleist Performance Institute、2003年Greg Rose (DC, CSCS) & Dave Phillips (PGA) 設立、Acushnetスポンサー。**Body-Swing Connection** 哲学: スイング欠陥は身体機能制限の代償運動。"There is no one way to swing a club, but there is one efficient way for every player given their physical limitations" がTPI命題的背骨——ホーガンの普遍解モデルと正反対の局所最適アプローチ
 - **16-Point Physical Screening Protocol**——Pelvic Tilt/Rotation, Toe Touch, Overhead Deep Squat, Single Leg Balance, Lat Length, Lower Quarter Rotation, Seated Trunk Rotation, Cervical Rotation (90/90), Wrist Hinge, Forearm Rotation, Reach Roll Lift, Bridge with Leg Extension 等。**Pass / Limited / Fail** の三段階評価
 - **12 Common Swing Characteristics**——S-Posture, C-Posture, Loss of Posture, Flat Shoulder Plane, Early Extension, Over-the-Top, Slide, Sway, Reverse Spine Angle, Hanging Back, Casting/Early Release, Chicken Winging。経験的にツアー〜アマで頻出する欠陥分類

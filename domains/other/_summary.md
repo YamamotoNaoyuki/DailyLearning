@@ -1,11 +1,16 @@
 # 📦 その他 分野サマリー
 
-**最終更新**: 2026-05-06
-**エントリ数**: 40
+**最終更新**: 2026-05-07
+**エントリ数**: 41
 
 ---
 
 ## 蓄積された知識
+- **ハチドリのホバリング飛翔と空気力学 (2026-05-07、生物力学・空気力学)**——鳥類唯一の完全静止ホバリング・後退飛行・側方飛行可能。鳥類の常識「ダウンストロークで揚力、アップは収縮」を破り、両ストロークで揚力生成。アップは揚力 30% だがエネルギー 30% で効率均等
+- **解剖学的特殊化**——前縁の 80%+ が一次風切羽 (薄硬で leading-edge vortex 生成最適)、上腕骨短く手根骨長い、肩関節球状で 180° 可動域、烏口上筋肥大 (ダウン+アップ駆動)、大胸筋+烏口上筋で体重 25-30%
+- **3 つの非定常空気力学メカニズム**——(1) Stable Leading-Edge Vortex: 翼上面に小渦が剥離せず付着し続け低圧領域を形成、(2) Wing Rotation (long-axis supination/pronation): ダウン終わりに翼を捻ってアップでも前縁が前向き、bound circulation 維持、(3) Wake Capture / Clap-and-Fling: 求愛飛行で翼が背中で接触するほど振り上げ昆虫的追加揚力
+- **代謝の極端さ**——羽ばたき周波数 50-80 Hz (ミツバチハチドリ最小)、筋小胞体 Ca²⁺ 動態 50 ms 以下、ミトコンドリア密度 35% (体内最高)、糖酸化速度哺乳類の 5 倍。30 秒餌絶ちで死。夜間 torpor (体温 5-10°C・代謝 1/15) で延命
+- **核心洞察**——「動物が飛行機の物理学を超える」例。MAV (Micro Air Vehicle) 工学が生物模倣で再発明中。進化はモジュラーではなく「コア機能 (翼の長軸回転) のために全身が再設計される」整合性。蜜依存の「化石燃料的生物」で持続不可能な高代謝を時間分割で凌ぐ脆さ
 - **手話言語学とASL/JSLの独立文法 (2026-05-06、言語学・認知科学)**——William Stokoe *Sign Language Structure* (1960) が手話を pantomime から「言語」に格上げした革命。Klima & Bellugi *Signs of Language* (1979 Harvard UP) が実験心理言語学で裏付け。Hockett の design features (二重分節・生産性・転移性等) を満たすことが「言語性」の判定基準
 - **音韻論の4 phonological parameters**——Handshape/Location/Movement/Palm Orientation (Stokoe 3 + Battison 1978 で4)、後にプロソディ/NMM 追加。最小対立 (CANDY/APPLE/JEALOUS) で音声の /pat/-/bat/-/mat/ と同型現象。Brentari 1998 *A Prosodic Model* (MIT Press) で autosegmental phonology 統合
 - **形態論・統語論で3D空間が文法を担う**——Classifier Predicates (CL構文) が動詞・主語・目的語・経路・様態を1動作で並列表現。Verb Agreement で空間 loci が文法的人称をマーク。トピック化は eyebrow raise (NMM) で必須——眉が上がっていなければ wh-question が非文。Topic-Comment 言語 (Neidle et al. 2000)

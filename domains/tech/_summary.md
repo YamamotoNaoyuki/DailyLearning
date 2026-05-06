@@ -1,11 +1,17 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-06
-**エントリ数**: 41
+**最終更新**: 2026-05-07
+**エントリ数**: 42
 
 ---
 
 ## 蓄積された知識
+- **Automerge とローカルファースト CRDT (2026-05-07)**——Ink & Switch の "Local-First Software" (2019) 7 つの理想 (即応性・マルチデバイス・オフライン・所有権・コラボ・プライバシ・主権) を技術的に成立させる中核が CRDT。Automerge は JSON 風 CRDT を Rust + WASM で実装、操作 ID = (actor_id, Lamport counter)
+- **CRDT のデータ型別衝突解決規則**——テキストは RGA (因果順序付き挿入)、マップは LWW (Last-Writer-Wins)、リストは順序付き挿入。「衝突解決ロジックを事前にデータ型に紐付ける」ことで実装者の判断を排除
+- **column-oriented binary encoding**——同じカラム (op type, timestamp, position) をまとめて圧縮、操作ログを元テキスト同等オーダーに収める。同期は Bloom filter 差分検出で「相手が知らない操作だけ」転送
+- **automerge-repo**——NetworkAdapter (WebSocket/WebRTC/BroadcastChannel)・StorageAdapter (IndexedDB/Filesystem)・DocHandle 抽象。サーバは「リレー兼バックアップ」のみ、source of truth は各ピア
+- **Yjs との設計判断対比**——Yjs は性能優先で操作ログ GC、Automerge は履歴保持で時間軸スクラブ・ブランチ・マージ可能。「メモリ vs 機能」のトレードオフ
+- **核心洞察**——ローカルファーストは技術問題というより SaaS 経済構造への反論。CRDT 普及がベンダーロックインを破壊する経済的脅威。HTMX (サーバ真実源) と Automerge (分散真実源) は React 複雑性疲れに対する異なる対案
 - **HTMX と Hypermedia-Driven Application (HDA) (2026-05-06)**——Carson Gross の intercooler.js 後継、13 KB min.gz。`hx-get/post/swap/target/trigger` 属性で「任意要素が任意イベントで任意 HTTP 動詞を発行」する HTML 拡張。SPA が捨てた **HATEOAS の現役実装としてのブラウザ**を再評価する政治的プロジェクト
 - **HDA の二制約**——(1) 宣言的 HTML 埋め込みシンタックス、(2) サーバとの通信は HTML フラグメント (JSON ではなく)。サーバが状態の真実源、クライアントはドメイン知識ゼロの汎用ハイパーメディアエンジン。当座貸越の口座にはサーバが `<form action="/withdraw">` を出さないだけで OK
 - **Locality of Behaviour (LoB)**——「コード単位の挙動はその単位だけ見て自明であるべき」。SoC への明示的反逆で、jQuery の spooky action at a distance を否定。React/JSX が JS に HTML 埋め込みで局所性回復したのと双子の戦略 (HTML に振る舞いを埋め込む)。LoB と SoC は両立せず文脈依存トレードオフ

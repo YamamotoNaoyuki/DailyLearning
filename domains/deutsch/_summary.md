@@ -1,14 +1,15 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-05-06
-**エントリ数**: 32
-**フレーズ数**: 128
+**最終更新**: 2026-05-07
+**エントリ数**: 33
+**フレーズ数**: 132
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
 ---
 
 ## カバー済みテーマ
+- **2026-05-07**: 電話会話 (Telefongespräche) — 相手確認 (Mit wem spreche ich, bitte? — `mit wem` 前置詞 + wh-語の前置構造)、転送 (Einen Moment, ich verbinde Sie. — verbinden=電話で転送、`einen Moment` Akkusativ der Zeitdauer)、不在対応 (Frau Müller ist gerade nicht am Platz. Soll ich ihr etwas ausrichten? — am Platz=席に、ausrichten=伝言する 3+4 格)、電波悪い (ich kann Sie schlecht verstehen. Können Sie das bitte wiederholen? — verstehen=聞き取る、wiederholen 非分離アクセント wieder**HO**len)。ドイツ電話文化の「即名乗り」「Auf Wiederhören (聴覚別れ)」、再帰動詞 sich melden、分離動詞 anrufen/durchstellen/ausrichten/hinterlassen の頻出
 - **2026-05-06**: 美術館とアートについて話す (Im Museum und Über Kunst sprechen) — 感動表現 (umhauen, vor allem, minutenlang stehen geblieben)、流派系譜 (vom Expressionismus beeinflusst, schreit förmlich nach Kirchner, Zustandspassiv)、美術館実用 (Sagen Sie mal, im Eintritt mit drin, Schließfach, Audioguide eigentlich)、批評の中庸 (spricht mich nicht an, irgendwie, da steckt mehr dahinter, auf den ersten Blick)。Modalpartikel 多重ヘッジ (irgendwie/eigentlich/aber gut)、`vom + Dat. beeinflusst sein` (状態受動)、批評の身体化動詞 (umhauen/schreien nach/stecken/ansprechen)、Kant『判断力批判』との哲学的接続
 - **2026-05-05**: 映画・ドラマについて話す (Über Filme und Serien sprechen) — 推薦 (Hast du den schon gesehen? sehenswert)、批判の柔らかさ (ehrlich gesagt, ein bisschen schwach)、若者言葉 (voll im Bingen drin、英語借用 bingen)、評価バランス (Plot vorhersehbar, aber Schauspieler reißen es raus)。`-bar` 形容詞接尾辞、`voll im X drin sein` 構文の生産性、英語からのストリーミング借用語 (Plot, Spoiler, Trailer, Cliffhanger)、ドイツ式「均衡的批評」文化
 - **2026-05-04**: スポーツ・フィットネススタジオ (Sport und Fitnessstudio) — 器具シェア交渉 (Sätze, sich abwechseln, durch sein)、疲労・筋肉痛 (platt, Muskelkater, Pertinenzdativ)、フォーム相談 (Kreuzheben, ziehen, Haltung)、契約解約 (Mindestlaufzeit, Einschreiben, Konjunktiv II 二連発)。Verein/Volkshochschule/Bundesliga 文化、Muckibude (Duden 公認口語)、Wandern as Volkssport、Probetraining、Krankenkasse §20 SGB V 補助

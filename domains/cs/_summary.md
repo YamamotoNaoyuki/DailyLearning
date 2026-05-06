@@ -1,9 +1,17 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 24
-**最終更新日**: 2026-05-06
+**エントリ数**: 25
+**最終更新日**: 2026-05-07
 
 ## 蓄積された知識
+
+### Paxos と Raft — 分散合意アルゴリズムの設計と「理解可能性」 (2026-05-07)
+- **FLP 不可能性 (Fischer-Lynch-Paterson 1985)**: 非同期通信で 1 ノードでも故障する可能性があれば、合意は決定的アルゴリズムでは保証不可能。Paxos/Raft は「停止故障モデル + 安全性優先 + ランダム化タイムアウトで確率的進行」で実用化
+- **Paxos (Lamport 1990/1998)**: Proposer/Acceptor/Learner の 3 役割、Prepare-Accept 2 フェーズ、過半数 quorum 交差性で安全性保証。Multi-Paxos でリーダー固定化しログ複製。Mike Burrows: 「世界には合意アルゴリズムは Paxos だけ、他は不正確版か特殊ケース」だが実装は悪戦苦闘
+- **Raft (Ongaro-Ousterhout 2014)**: 「**理解可能性 (understandability)** を第一原理に置く」設計判断。Leader/Follower/Candidate 3 状態、リーダー選出 + ログ複製 + 安全性に問題分割。**Follower は最新ログ持つ Candidate にのみ投票**で「過半数票を得るリーダーは必ず最新ログ持つ」を強制 — 実装簡略化のための強制約
+- **両者の本質差**: Paxos は対称的 (リーダー暗黙)、Raft は非対称 (リーダー明示・全通信が Leader→Follower)。Heidi Howard 「両者は事実上等価、Raft の制約は実装簡略化のための賢明なトレードオフ」
+- **エコシステム**: Paxos 系=Chubby/ZooKeeper(Zab)/Spanner、Raft 系=etcd/Consul/TiKV/CockroachDB/MongoDB/KRaft。新規プロジェクトは Raft 圧倒的多数=「実装難易度=採用判断」
+- **核心洞察**: Raft の最大貢献は「理解可能性を測定可能な研究課題にした」こと。Ongaro 博論は 43 人で理解度テスト実施、人間の認知能力をアルゴリズム設計の変数として扱った稀有な研究。CRDT が「衝突解決を事前定義」するのと同じ哲学=人間の限界を踏まえた制約設計
 
 ### Hybrid Logical Clock (HLC) — 物理時刻と論理時刻のハイブリッド (2026-05-06)
 - **HLC コア発想 (Kulkarni et al., OPODIS 2014)**: タイムスタンプ `(l, c)` ペア。`l` は最大観測物理時刻ベース値、`c` は同 `l` 内のカウンタ。Lamport 時計の `max` 演算 + 物理時刻参照を組合せ、O(1) サイズで wall clock 近似と因果保証を両立
