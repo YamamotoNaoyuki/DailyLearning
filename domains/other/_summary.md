@@ -1,11 +1,19 @@
 # 📦 その他 分野サマリー
 
-**最終更新**: 2026-05-07
-**エントリ数**: 41
+**最終更新**: 2026-05-08
+**エントリ数**: 42
 
 ---
 
 ## 蓄積された知識
+- **地図投影法と地図の政治学 (2026-05-08、地理学/カートグラフィー)**——**Tissot の定理（1859）**: 球面を平面に展開すると面積・形状・距離の3つを同時に保つことは数学的に不可能（Gauss Theorema Egregium 1827から導かれる）。地図は必ず何かを歪める
+- **正角（conformal）/正積（equal-area）/正距（equidistant）/折衷（compromise）**——どの歪みを許容するかの選択
+- **Mercator (1569)**——正角図法、緯度60°で4倍・80°で33倍に面積膨張、グリーンランドがアフリカと同じ大きさに見える（実際1/14）。**任意方位角が直線=航海図として必須**で大航海時代と一致
+- **Gall-Peters (1855/1973)**——James Gallが先行、Arno Petersが「Mercatorは植民地主義の地図」と再発見・政治化。1973年UNICEF/WCC採用。1989年American Cartographic Associationが推奨せず決議。形状歪み大（赤道付近縦長）
+- **Equal Earth (2018)**——Šavrič/Patterson/Jenny開発の正積図法、Gall-Petersの政治的訴えへのカートグラファー側応答。形状歪み少なく多項式表現、AU 2025 *Correct The Map* キャンペーンで採用
+- **Robinson (1963)/Winkel Tripel (1921)/AuthaGraph (鳴川肇1999)/Dymaxion (Fuller 1943)**——折衷型・独自手法。AuthaGraphは正四面体展開でGood Design Award大賞2016
+- **「北が上」は文化的構築物**——中世ヨーロッパは東上、中国は南上、al-Idrisi イスラム地図は南上。ヨーロッパ近代の規範。Stuart McArthur 1979 *Universal Corrective Map of the World* で南上下逆地図公開
+- **核心洞察**——「地図は嘘をつく」(Mark Monmonier 1991)。専門知（カートグラファー）と社会的合意（教育・人道機関）が衝突した時、後者が勝つ場合がある。Equal Earthは専門家による政治的応答=Seconda Prattica型解決
 - **ハチドリのホバリング飛翔と空気力学 (2026-05-07、生物力学・空気力学)**——鳥類唯一の完全静止ホバリング・後退飛行・側方飛行可能。鳥類の常識「ダウンストロークで揚力、アップは収縮」を破り、両ストロークで揚力生成。アップは揚力 30% だがエネルギー 30% で効率均等
 - **解剖学的特殊化**——前縁の 80%+ が一次風切羽 (薄硬で leading-edge vortex 生成最適)、上腕骨短く手根骨長い、肩関節球状で 180° 可動域、烏口上筋肥大 (ダウン+アップ駆動)、大胸筋+烏口上筋で体重 25-30%
 - **3 つの非定常空気力学メカニズム**——(1) Stable Leading-Edge Vortex: 翼上面に小渦が剥離せず付着し続け低圧領域を形成、(2) Wing Rotation (long-axis supination/pronation): ダウン終わりに翼を捻ってアップでも前縁が前向き、bound circulation 維持、(3) Wake Capture / Clap-and-Fling: 求愛飛行で翼が背中で接触するほど振り上げ昆虫的追加揚力

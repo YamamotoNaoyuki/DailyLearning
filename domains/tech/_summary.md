@@ -1,11 +1,17 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-07
-**エントリ数**: 42
+**最終更新**: 2026-05-08
+**エントリ数**: 43
 
 ---
 
 ## 蓄積された知識
+- **eBPFとLinuxカーネル可観測性 (2026-05-08)**——extended Berkeley Packet Filter は**Verifier**による静的安全性証明 + JITコンパイル + 動的アタッチで「カーネル内サンドボックス」を実現。Cloudflare/Meta/Cilium/Datadog/Pixie の基盤、CNCF 2026 Q1で前年比300%成長
+- **Verifier**——抽象解釈でレジスタ値域・終了性・メモリ安全性を実行前に証明。bounded loops, NULL check 強制, complexity limit。形式手法の最も成功した実用例の一つ
+- **BTF (BPF Type Format)**——カーネル内蔵の型情報。`/sys/kernel/btf/vmlinux` でstruct定義を実行時参照可能。DWARFより軽量・カーネル内アクセス前提
+- **CO-RE (Compile Once, Run Everywhere)**——`__builtin_preserve_access_index` で再配置可能な型参照を残し、libbpfが実行時カーネルBTFと突き合わせてフィールドオフセット書き換え。「ABIではなくBTFで結合する」late binding 思想
+- **プログラムタイプ階層**——Tracepoint(静的・安定)>Fprobe(ftrace NOP・低オーバーヘッド)>Kprobe(任意関数・debug exception)>Uprobe(ユーザー空間)。XDPはNICドライバ層でパケット到着直後処理（DDoS緩和Gbps級）
+- **核心洞察**——「安全性×性能×動的拡張性」のトリレンマをVerifierという番人で初めて解いた。kernel hacking の民主化。BPF schedulers (sched_ext) で Linux 6.12 がスケジューラまでeBPF化
 - **Automerge とローカルファースト CRDT (2026-05-07)**——Ink & Switch の "Local-First Software" (2019) 7 つの理想 (即応性・マルチデバイス・オフライン・所有権・コラボ・プライバシ・主権) を技術的に成立させる中核が CRDT。Automerge は JSON 風 CRDT を Rust + WASM で実装、操作 ID = (actor_id, Lamport counter)
 - **CRDT のデータ型別衝突解決規則**——テキストは RGA (因果順序付き挿入)、マップは LWW (Last-Writer-Wins)、リストは順序付き挿入。「衝突解決ロジックを事前にデータ型に紐付ける」ことで実装者の判断を排除
 - **column-oriented binary encoding**——同じカラム (op type, timestamp, position) をまとめて圧縮、操作ログを元テキスト同等オーダーに収める。同期は Bloom filter 差分検出で「相手が知らない操作だけ」転送

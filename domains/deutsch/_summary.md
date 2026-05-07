@@ -1,14 +1,15 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-05-07
-**エントリ数**: 33
-**フレーズ数**: 132
+**最終更新**: 2026-05-08
+**エントリ数**: 34
+**フレーズ数**: 136
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
 ---
 
 ## カバー済みテーマ
+- **2026-05-08**: 医者での会話 (Beim Arzt) — 体調訴え (Mir geht's seit Tagen mies, ich krieg den Kopf nicht frei. — *mies*=ひどい口語、*kriegen*=bekommenの口語形、*den Kopf frei kriegen*=頭スッキリさせる)、診断書依頼 (Können Sie mich krankschreiben? Ich schaff's nicht zur Arbeit. — *krankschreiben*分離動詞、AU=*Arbeitsunfähigkeitsbescheinigung*=黄色い紙、*schaffen+zu不定詞*)、痛みの性質 (Das zieht so komisch im Rücken, vor allem wenn ich mich bücke. — 痛み動詞4分類 *ziehen/stechen/brennen/pochen*、*ausstrahlen*=放散する、*sich bücken*再帰)、薬の質問 (Muss ich das Antibiotikum wirklich zu Ende nehmen, auch wenn's mir besser geht? — *das Antibiotikum*中性ラテン語、複数*Antibiotika*、*auch wenn*従属接続詞文末動詞、*zu Ende nehmen*決まり句)。Krankenkasse・Hausarzt→Facharzt紹介システム、3日まで自己申告OK文化、医療パターナリズム回避で患者の質問は歓迎、Wechselwirkung（薬物相互作用）が頻出語
 - **2026-05-07**: 電話会話 (Telefongespräche) — 相手確認 (Mit wem spreche ich, bitte? — `mit wem` 前置詞 + wh-語の前置構造)、転送 (Einen Moment, ich verbinde Sie. — verbinden=電話で転送、`einen Moment` Akkusativ der Zeitdauer)、不在対応 (Frau Müller ist gerade nicht am Platz. Soll ich ihr etwas ausrichten? — am Platz=席に、ausrichten=伝言する 3+4 格)、電波悪い (ich kann Sie schlecht verstehen. Können Sie das bitte wiederholen? — verstehen=聞き取る、wiederholen 非分離アクセント wieder**HO**len)。ドイツ電話文化の「即名乗り」「Auf Wiederhören (聴覚別れ)」、再帰動詞 sich melden、分離動詞 anrufen/durchstellen/ausrichten/hinterlassen の頻出
 - **2026-05-06**: 美術館とアートについて話す (Im Museum und Über Kunst sprechen) — 感動表現 (umhauen, vor allem, minutenlang stehen geblieben)、流派系譜 (vom Expressionismus beeinflusst, schreit förmlich nach Kirchner, Zustandspassiv)、美術館実用 (Sagen Sie mal, im Eintritt mit drin, Schließfach, Audioguide eigentlich)、批評の中庸 (spricht mich nicht an, irgendwie, da steckt mehr dahinter, auf den ersten Blick)。Modalpartikel 多重ヘッジ (irgendwie/eigentlich/aber gut)、`vom + Dat. beeinflusst sein` (状態受動)、批評の身体化動詞 (umhauen/schreien nach/stecken/ansprechen)、Kant『判断力批判』との哲学的接続
 - **2026-05-05**: 映画・ドラマについて話す (Über Filme und Serien sprechen) — 推薦 (Hast du den schon gesehen? sehenswert)、批判の柔らかさ (ehrlich gesagt, ein bisschen schwach)、若者言葉 (voll im Bingen drin、英語借用 bingen)、評価バランス (Plot vorhersehbar, aber Schauspieler reißen es raus)。`-bar` 形容詞接尾辞、`voll im X drin sein` 構文の生産性、英語からのストリーミング借用語 (Plot, Spoiler, Trailer, Cliffhanger)、ドイツ式「均衡的批評」文化

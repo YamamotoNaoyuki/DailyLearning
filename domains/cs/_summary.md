@@ -1,9 +1,18 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 25
-**最終更新日**: 2026-05-07
+**エントリ数**: 26
+**最終更新日**: 2026-05-08
 
 ## 蓄積された知識
+
+### ガベージコレクション — 世代別から ZGC まで (2026-05-08)
+- **GCの根本問題**: throughput vs latency, compaction vs fragmentation, generational vs flat, concurrent vs STW のトレードオフ。「いつ・どのオブジェクトが死んでいるか」を安全・高速・低レイテンシで判定
+- **世代別GC**: 弱い世代仮説「ほとんどのオブジェクトはすぐ死ぬ」を活用。Young (Eden+Survivor) で頻繁・小規模、Old は稀・大規模。Card Tableで Old→Young参照をwrite barrierで効率追跡（512バイト単位の dirty card）
+- **G1 GC** (JDK 9+デフォルト): 約2000個リージョン分割、ガベージ密度の高いリージョンから回収（Garbage-First）。MaxGCPauseMillis target 設定可能。Concurrent markingあるが evacuation phase は STW。100GB級ヒープでpause数百ms到達
+- **ZGC** (JDK 11+, JDK 25 LTS でデフォルト): **Colored Pointers**（64bit ポインタ上位bitにメタデータMarked0/1, Remapped, Finalizable）+ **Load Barrier**（参照ロード毎にメタデータ検証・healing）。sub-millisecond pause、ヒープサイズ非依存。JDK 21で Generational ZGC
+- **Shenandoah** (Red Hat): ZGCと同目標、別実装。**Brooks Pointers**（各オブジェクト先頭に転送ポインタ）。32/64bitアドレス空間制約なし、移植性高い、pause<10ms
+- **Read vs Write Barrier**: Card TableはWrite barrier（書込み時作業）、ZGCはRead barrier（読込み時作業、CPU branch predictorでほぼゼロコスト化）。**ハードウェアの統計的振る舞いを前提にした設計**
+- **核心洞察**: GC設計史は「STWをいかに減らすか」の連続。Mark-Sweep→Generational→CMS→G1→ZGC/Shenandoah の各世代が並行性拡大の別解。Colored Pointer は「データ構造を実装の制約として活用する」eBPF的発想
 
 ### Paxos と Raft — 分散合意アルゴリズムの設計と「理解可能性」 (2026-05-07)
 - **FLP 不可能性 (Fischer-Lynch-Paterson 1985)**: 非同期通信で 1 ノードでも故障する可能性があれば、合意は決定的アルゴリズムでは保証不可能。Paxos/Raft は「停止故障モデル + 安全性優先 + ランダム化タイムアウトで確率的進行」で実用化
