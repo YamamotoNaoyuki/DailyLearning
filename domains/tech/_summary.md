@@ -1,11 +1,17 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-08
-**エントリ数**: 43
+**最終更新**: 2026-05-10
+**エントリ数**: 45
 
 ---
 
 ## 蓄積された知識
+- **Sigstore とソフトウェアサプライチェーンセキュリティ (2026-05-10)**——OpenSSF / Linux Foundation 傘下プロジェクト、2024 GA。SolarWinds・Codecov・XZ Utils backdoor 後の supply chain 脅威に対する標準解。npm/PyPI/Maven Central/RubyGems/Homebrew が標準採用 (2026)
+- **Keyless Signing**——OIDC ID トークン → Fulcio (Free CA) が 10 分有効の x.509 証明書発行 → Cosign が一時鍵で署名 → 署名後に秘密鍵破棄。**永続的署名鍵を持たない**新パラダイム。署名の subject に GitHub Actions workflow URL が埋め込まれる
+- **Fulcio / Rekor / Cosign / Gitsign / policy-controller**——Fulcio は Free CA、**Rekor** は append-only Trillian Merkle tree の transparency log、Cosign は CLI、Gitsign は git commit 署名、policy-controller は Kubernetes admission webhook。証明書失効ではなく**不変ログで信頼を証明**
+- **SLSA フレームワーク統合**——Build L1〜L4 の成熟度モデル、Sigstore は L3+ provenance 署名の事実上の実装。GitHub Actions の `actions/attest-build-provenance` で「このバイナリは確かに main の commit X からビルドされた」が暗号学的に検証可能
+- **核心洞察**——「鍵管理問題」を「ID 管理問題」に変換。CT log と同じ「公開で守る」哲学。タイムスタンプで署名の有効期限と証明書の有効期限を分離する設計判断
+- **MCP（Model Context Protocol）アーキテクチャ (2026-05-09)** — Anthropic 発、Claude Desktop に統合、JSON-RPC 2.0 over stdio/SSE/streamable HTTP。"AI の USB-C"、N×M → N+M 統合の標準化
 - **eBPFとLinuxカーネル可観測性 (2026-05-08)**——extended Berkeley Packet Filter は**Verifier**による静的安全性証明 + JITコンパイル + 動的アタッチで「カーネル内サンドボックス」を実現。Cloudflare/Meta/Cilium/Datadog/Pixie の基盤、CNCF 2026 Q1で前年比300%成長
 - **Verifier**——抽象解釈でレジスタ値域・終了性・メモリ安全性を実行前に証明。bounded loops, NULL check 強制, complexity limit。形式手法の最も成功した実用例の一つ
 - **BTF (BPF Type Format)**——カーネル内蔵の型情報。`/sys/kernel/btf/vmlinux` でstruct定義を実行時参照可能。DWARFより軽量・カーネル内アクセス前提

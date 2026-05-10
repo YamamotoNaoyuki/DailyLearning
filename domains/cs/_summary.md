@@ -1,9 +1,18 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 27
-**最終更新日**: 2026-05-09
+**エントリ数**: 29
+**最終更新日**: 2026-05-10
 
 ## 蓄積された知識
+
+### HyperLogLog と Count-Min Sketch — ストリーミング近似アルゴリズム (2026-05-10)
+- **ストリーミングモデル**: 無限長データ列に対し O(polylog n) メモリで近似回答。Count-distinct (HLL)、frequency estimation (CMS)、heavy hitters、quantile が四大問題
+- **HyperLogLog**: Flajolet-Fusy-Gandouet-Meunier 2007。Flajolet-Martin (1984) → LogLog (1985) の系譜。バケット分割 + 末尾連続 0 ビット数の最大値 + **調和平均**で分散最小化。バケット数 m=2^14 で約 12 KB、標準誤差 1.04/√m ≈ 0.81%。**1 兆カーディナリティでも誤差 1% 程度**
+- **Count-Min Sketch**: Cormode-Muthukrishnan 2003。d 個独立ハッシュ関数 + d×w 整数配列。更新で全行 +1、クエリで min。w=⌈e/ε⌉, d=⌈ln(1/δ)⌉。**過大誤差のみ保証 (過小なし)**、誤差≤εN 確率 1-δ。実装は超軽量
+- **Min vs Max の対称性**: HLL の max は希少事象の珍しさを活用、CMS の min は衝突過大の最小化。**最大と最小は異なる情報を抽出する**統計的二重性
+- **HLL++ / HyperLogLogLog**: Heule 2013 (Google) で sparse encoding と small cardinality bias 補正。Karppa-Pagh 2022 でさらに 70% メモリ圧縮 (Golomb-Rice 符号化)
+- **応用**: Redis HLL (Sparse/Dense 自動切替)、BigQuery、Reddit、Twitter フォロワー差分、Google AdSense クリック頻度、Cassandra hot key 検出、TensorFlow count_table
+- **核心洞察**: 「正確を諦めて巨大スケールに到達」というパラダイム転換。確率的データ構造は Bloom (1970)→MinHash→CMS→HLL の系譜で、各々がトレードオフを別の場所に置いた美しい設計空間。**生物の sensor fusion (筋紡錘+GTO) と同じ「独立観測の統合」原理**
 
 ### TCP輻輳制御の進化 — Reno, CUBIC, BBR (2026-05-09)
 - **歴史的契機**: 1986年インターネット輻輳崩壊事件（Stanford-LBL間のスループット32kbps→40bps激減）。Van Jacobson 1988「TCP Congestion Avoidance and Control」論文が現在まで続く枠組みを確立

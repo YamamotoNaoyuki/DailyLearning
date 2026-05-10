@@ -1,14 +1,15 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-05-09
-**エントリ数**: 35
-**フレーズ数**: 140
+**最終更新**: 2026-05-10
+**エントリ数**: 36
+**フレーズ数**: 144
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
 ---
 
 ## カバー済みテーマ
+- **2026-05-10**: レストランで注文・苦情 (Im Restaurant — Bestellen und Reklamieren) — 中身を聞く (Was ist da eigentlich alles drin? — *eigentlich* モーダル助詞、*drin*=darin 口語、*Aus was besteht das?* 関連表現)、おすすめを聞く (Was können Sie denn empfehlen? — *denn* で柔らかさ、*empfehlen* は Dat+Akk 二格、接続法 II *empföhle/empfähle*)、注文間違いの指摘 (Entschuldigung, das hatte ich aber nicht bestellt. — **過去完了**で「料理が来る前の時点」強調、*aber* は逆接ではなく主張強調)、別払い (Können wir bitte getrennt zahlen? — getrennt zahlen はドイツ・オーストリアの**文化的標準**、Stimmt so. でチップ込み、aufrunden 文化)。**モーダル助詞 (denn/eigentlich/aber/halt/eben...) は会話の 30〜50% に登場し B1→B2/C1 の決定的差**、過去完了の口語的時間軸強調用法、ドイツの個人主義+平等主義に基づく Reklamieren 文化 (苦情を伝えることに罪悪感がない)
 - **2026-05-09**: 道案内 (Wegbeschreibung und Orientierung) — 道を聞く (Entschuldigung, wie komme ich am besten zum Hauptbahnhof? — `am besten`が一番良い行き方を示す丁寧語、`nach`+都市vs`zu`+施設、`zum/zur` 融合)、口語の方向 (Geh die Straße runter, an der Ampel rechts, dann siehst du's schon. — `runter`=hinunter口語短縮、`siehst du's schon`の `schon`=「すぐに」、`an der Ampel`は3格)、迷ったときの謝罪 (Tut mir leid, ich bin selber nicht von hier. Aber ich glaube, das ist da hinten irgendwo. — 道聞かれ最頻出謝罪、`selber`の同情共感、`da hinten/vorn/drüben`位置語、`irgendwo`不確実ヘッジ)、複雑経路 (Du gehst hier links raus, dann immer geradeaus über die Brücke. Auf der anderen Seite siehst du gleich den Park – da musst du dann einmal um die Ecke. — `raus`=hinaus/heraus口語、**Wechselpräpositionen**: `über die Brücke`(4格・移動)vs`auf der Brücke`(3格・静止)、`einmal um die Ecke`慣用句、`gleich`時間/空間多義)。Wechselpräpositionenの精密性、口語短縮形（runter/raus/rein）、**南独/オーストリアの`halt/Servus`**、ドイツ流親切=誠実な情報提供
 - **2026-05-08**: 医者での会話 (Beim Arzt) — 体調訴え (Mir geht's seit Tagen mies, ich krieg den Kopf nicht frei. — *mies*=ひどい口語、*kriegen*=bekommenの口語形、*den Kopf frei kriegen*=頭スッキリさせる)、診断書依頼 (Können Sie mich krankschreiben? Ich schaff's nicht zur Arbeit. — *krankschreiben*分離動詞、AU=*Arbeitsunfähigkeitsbescheinigung*=黄色い紙、*schaffen+zu不定詞*)、痛みの性質 (Das zieht so komisch im Rücken, vor allem wenn ich mich bücke. — 痛み動詞4分類 *ziehen/stechen/brennen/pochen*、*ausstrahlen*=放散する、*sich bücken*再帰)、薬の質問 (Muss ich das Antibiotikum wirklich zu Ende nehmen, auch wenn's mir besser geht? — *das Antibiotikum*中性ラテン語、複数*Antibiotika*、*auch wenn*従属接続詞文末動詞、*zu Ende nehmen*決まり句)。Krankenkasse・Hausarzt→Facharzt紹介システム、3日まで自己申告OK文化、医療パターナリズム回避で患者の質問は歓迎、Wechselwirkung（薬物相互作用）が頻出語
 - **2026-05-07**: 電話会話 (Telefongespräche) — 相手確認 (Mit wem spreche ich, bitte? — `mit wem` 前置詞 + wh-語の前置構造)、転送 (Einen Moment, ich verbinde Sie. — verbinden=電話で転送、`einen Moment` Akkusativ der Zeitdauer)、不在対応 (Frau Müller ist gerade nicht am Platz. Soll ich ihr etwas ausrichten? — am Platz=席に、ausrichten=伝言する 3+4 格)、電波悪い (ich kann Sie schlecht verstehen. Können Sie das bitte wiederholen? — verstehen=聞き取る、wiederholen 非分離アクセント wieder**HO**len)。ドイツ電話文化の「即名乗り」「Auf Wiederhören (聴覚別れ)」、再帰動詞 sich melden、分離動詞 anrufen/durchstellen/ausrichten/hinterlassen の頻出
