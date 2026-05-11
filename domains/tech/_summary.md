@@ -1,11 +1,16 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-10
-**エントリ数**: 45
+**最終更新**: 2026-05-12
+**エントリ数**: 46
 
 ---
 
 ## 蓄積された知識
+- **Mixture of Experts（MoE）と大規模LLMのスパース化 (2026-05-12)**——FFN を E 個のエキスパートに分割し、ルーター（gating network）が各トークンに上位 k 個だけ割り当てる sparse activation。**容量（総パラメータ）と計算量（活性パラメータ）を分離**する設計。2024–2026 のフロンティアはほぼ全部 MoE（dense はエッジ・研究用）
+- **ルーティング崩壊（routing collapse）と負荷分散**——一部のエキスパートばかり選ばれる悪循環＋容量上限超過でトークンドロップ。対策の系譜: 補助損失（Switch Transformer、主損失と綱引き）→ Expert Choice routing（エキスパートがトークンを選ぶ）→ **補助損失フリー（DeepSeek-V3）：各エキスパートのスコアに学習可能バイアスを足して混雑度で動的調整（= 混雑料金／ピグー税のメカニズムデザイン）**
+- **DeepSeek-V3 (2024-12)**——671B 総 / 37B 活性。**fine-grained experts**（256 ルーテッド、top-8）で知識を細分化＋**shared expert** 1 個を常時全トークンに適用して共通知識を担わせ他を専門化に専念させる。14.8T トークンを 278 万 H800 GPU 時間という破格の効率で学習。Mixtral 8×7B（top-2 of 8）がオープン MoE の普及点
+- **MoE のコストモデル**——FLOPs を節約してメモリと帯域を消費。671B のパラメータは 37B しか使わなくても全部 VRAM に常駐必要。分散推論では expert parallelism（all-to-all 通信、負荷不均衡で一部 GPU 遊休）が律速。「制約を消すのではなく扱いやすい場所に移動させる」（学習 compute → 推論メモリへ）
+- **核心洞察**——エキスパートは人間的役割（数学担当等）でなく表層特徴で分かれる。「専門家委員会」より「ルックアップの粒度を細かくしつつ共通項をキャッシュする工学」＝DB のインデックス／シャーディング設計と同型
 - **Sigstore とソフトウェアサプライチェーンセキュリティ (2026-05-10)**——OpenSSF / Linux Foundation 傘下プロジェクト、2024 GA。SolarWinds・Codecov・XZ Utils backdoor 後の supply chain 脅威に対する標準解。npm/PyPI/Maven Central/RubyGems/Homebrew が標準採用 (2026)
 - **Keyless Signing**——OIDC ID トークン → Fulcio (Free CA) が 10 分有効の x.509 証明書発行 → Cosign が一時鍵で署名 → 署名後に秘密鍵破棄。**永続的署名鍵を持たない**新パラダイム。署名の subject に GitHub Actions workflow URL が埋め込まれる
 - **Fulcio / Rekor / Cosign / Gitsign / policy-controller**——Fulcio は Free CA、**Rekor** は append-only Trillian Merkle tree の transparency log、Cosign は CLI、Gitsign は git commit 署名、policy-controller は Kubernetes admission webhook。証明書失効ではなく**不変ログで信頼を証明**

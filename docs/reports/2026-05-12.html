@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>デイリーレポート 2026-05-12</title>
+  <style>
+/* ============================================
+   知識統合システム — Daily Report Stylesheet
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap');
+
+/* --- Reset & Base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fafaf9;
+  --bg-card: #ffffff;
+  --text: #1a1a1a;
+  --text-secondary: #555;
+  --text-muted: #888;
+  --border: #e5e5e5;
+  --border-light: #f0f0f0;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+  --radius: 10px;
+  --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Noto Serif JP', serif;
+
+  /* Domain colors */
+  --color-tech: #2563eb;
+  --color-music: #7c3aed;
+  --color-piano: #1e1e1e;
+  --color-golf: #16a34a;
+  --color-anatomy: #dc2626;
+  --color-bread: #a16207;
+  --color-cs: #1e3a5f;
+  --color-house-hunting: #ea580c;
+  --color-deutsch: #ca8a04;
+  --color-other: #6b7280;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111111;
+    --bg-card: #1c1c1c;
+    --text: #e5e5e5;
+    --text-secondary: #aaa;
+    --text-muted: #777;
+    --border: #333;
+    --border-light: #252525;
+    --accent: #60a5fa;
+    --accent-light: #1e3a5f;
+    --shadow: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.4);
+  }
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Layout --- */
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* --- Navigation --- */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.875rem;
+}
+.nav a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.nav a:hover { opacity: 0.7; }
+.nav-prev::before { content: '← '; }
+.nav-next::after { content: ' →'; }
+
+/* --- Header --- */
+.report-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.report-header h1 {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.25rem;
+}
+.report-date {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* --- Domain Badge --- */
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.15em 0.6em;
+  border-radius: 4px;
+  color: #fff;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.badge-tech { background: var(--color-tech); }
+.badge-music { background: var(--color-music); }
+.badge-piano { background: var(--color-piano); }
+.badge-golf { background: var(--color-golf); }
+.badge-anatomy { background: var(--color-anatomy); }
+.badge-bread { background: var(--color-bread); }
+.badge-cs { background: var(--color-cs); }
+.badge-house-hunting { background: var(--color-house-hunting); }
+.badge-deutsch { background: var(--color-deutsch); }
+.badge-other { background: var(--color-other); }
+
+/* --- Topic Table --- */
+.topic-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  font-size: 0.925rem;
+}
+.topic-table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+.topic-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+}
+.topic-table tr:last-child td { border-bottom: none; }
+.topic-table a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.topic-table a:hover { text-decoration: underline; }
+
+/* --- Section --- */
+.section {
+  margin-bottom: 2.5rem;
+}
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--border);
+}
+
+/* --- Cards --- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s;
+  border-left: 4px solid var(--border);
+}
+.card:hover { box-shadow: var(--shadow-hover); }
+
+.card-tech { border-left-color: var(--color-tech); }
+.card-music { border-left-color: var(--color-music); }
+.card-piano { border-left-color: var(--color-piano); }
+.card-golf { border-left-color: var(--color-golf); }
+.card-anatomy { border-left-color: var(--color-anatomy); }
+.card-bread { border-left-color: var(--color-bread); }
+.card-cs { border-left-color: var(--color-cs); }
+.card-house-hunting { border-left-color: var(--color-house-hunting); }
+.card-deutsch { border-left-color: var(--color-deutsch); }
+.card-other { border-left-color: var(--color-other); }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.card p, .card li {
+  color: var(--text-secondary);
+  font-size: 0.925rem;
+  line-height: 1.75;
+}
+
+/* --- Collapsible Details --- */
+details {
+  margin-bottom: 0.75rem;
+}
+details summary {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+details summary::before {
+  content: '▸';
+  display: inline-block;
+  transition: transform 0.2s;
+  font-size: 0.8em;
+  color: var(--text-muted);
+}
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+details .detail-content {
+  padding: 0.75rem 0 0.75rem 1.25rem;
+  border-left: 2px solid var(--border-light);
+  margin-left: 0.4rem;
+}
+
+/* --- Stats / Accumulation --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.stat-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+}
+.stat-label {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* --- Insight blocks --- */
+.insight {
+  background: var(--accent-light);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--accent);
+  border-opacity: 0.2;
+}
+.insight h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.insight p, .insight li {
+  font-size: 0.925rem;
+  line-height: 1.75;
+}
+.insight ul {
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+/* --- Connection blocks --- */
+.connection {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.connection::before {
+  content: '⟷';
+  position: absolute;
+  top: -0.6rem;
+  left: 1.25rem;
+  background: var(--bg);
+  padding: 0 0.4rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.connection h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.connection p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+/* --- Accumulation Table --- */
+.acc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+.acc-table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+.acc-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+}
+.acc-table tr:last-child td { border-bottom: none; }
+.acc-table .domain-col { white-space: nowrap; }
+.acc-table .count-col {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.acc-table .coverage-col {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* --- Next Actions --- */
+.actions-list {
+  list-style: none;
+  padding: 0;
+}
+.actions-list li {
+  padding: 0.4rem 0 0.4rem 1.25rem;
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.actions-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+}
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* --- Index page --- */
+.index-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.index-header h1 {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.index-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+.report-list {
+  list-style: none;
+  padding: 0;
+}
+.report-list li {
+  border-bottom: 1px solid var(--border-light);
+}
+.report-list a {
+  display: block;
+  padding: 0.75rem 0.5rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.15s;
+}
+.report-list a:hover {
+  background: var(--accent-light);
+  border-radius: var(--radius);
+}
+.report-list .report-list-date {
+  font-weight: 500;
+  margin-right: 1rem;
+}
+.report-list .report-list-topics {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+  .container { padding: 1rem; }
+  .report-header h1 { font-size: 1.35rem; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .card { padding: 1rem; }
+  .nav { font-size: 0.8rem; }
+}
+
+/* ============================================
+   Self-contained report additions
+   ============================================ */
+
+/* --- Section heading controls (expand / collapse all) --- */
+.section-controls {
+  float: right;
+  font-size: 0.75rem;
+  font-weight: 400;
+  font-family: var(--font-sans);
+}
+.section-controls button {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 5px;
+  padding: 0.2em 0.6em;
+  margin-left: 0.3rem;
+  cursor: pointer;
+  font: inherit;
+}
+.section-controls button:hover { background: var(--border-light); }
+.section-note {
+  color: var(--text-muted);
+  font-size: 0.825rem;
+  margin-bottom: 1rem;
+}
+.section-intro { margin-bottom: 1rem; }
+.section-intro p, .section-intro li {
+  color: var(--text-secondary);
+  font-size: 0.925rem;
+}
+
+/* --- Topic table: source link column --- */
+.topic-table .src-col { white-space: nowrap; text-align: right; width: 1%; }
+.topic-table .src-col a, .ext-link {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+.topic-table .src-col a:hover { text-decoration: underline; }
+
+/* --- Domain detail cards (collapsible) --- */
+.domain-details { padding: 0; overflow: hidden; }
+.domain-details > summary {
+  display: block;
+  cursor: pointer;
+  padding: 1.1rem 1.4rem;
+  list-style: none;
+  outline-offset: -2px;
+}
+.domain-details > summary::-webkit-details-marker { display: none; }
+.domain-details > summary::marker { content: ""; }
+.domain-details > summary::before { content: none; }
+.domain-details > summary:hover { background: var(--border-light); }
+.domain-details .card-head {
+  display: block;
+  font-weight: 600;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  margin-bottom: 0.4rem;
+}
+.domain-details .card-head::before {
+  content: "▸";
+  display: inline-block;
+  color: var(--text-muted);
+  font-size: 0.8em;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+.domain-details[open] .card-head::before { transform: rotate(90deg); }
+.domain-details .card-title { vertical-align: middle; }
+.domain-details .card-abstract {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+.domain-details .card-abstract strong { color: var(--text); }
+
+.domain-body {
+  padding: 0.25rem 1.4rem 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+.domain-body h2 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 1.75rem 0 0.6rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border-light);
+}
+.domain-body h2:first-child,
+.domain-body .domain-tags + h2 { margin-top: 1rem; }
+.domain-body h3 { font-size: 1rem; font-weight: 700; margin: 1.25rem 0 0.4rem; }
+.domain-body h4 { font-size: 0.95rem; font-weight: 700; margin: 1rem 0 0.3rem; }
+.domain-body p, .domain-body li { color: var(--text-secondary); font-size: 0.925rem; }
+.domain-body ul, .domain-body ol { padding-left: 1.4rem; margin: 0.5rem 0; }
+.domain-body li { margin-bottom: 0.15rem; }
+.domain-body a { color: var(--accent); }
+.domain-body strong { color: var(--text); }
+.domain-body hr { border: none; border-top: 1px solid var(--border-light); margin: 1.5rem 0; }
+.domain-body blockquote {
+  border-left: 3px solid var(--border);
+  padding: 0.2rem 0 0.2rem 1rem;
+  margin: 0.5rem 0;
+  color: var(--text);
+}
+.domain-body code {
+  background: var(--border-light);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.875em;
+}
+.domain-body pre {
+  background: var(--border-light);
+  border-radius: var(--radius);
+  padding: 0.9rem 1.1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+.domain-body pre code { background: none; padding: 0; }
+.domain-body table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin: 1rem 0; }
+.domain-body th { text-align: left; padding: 0.5rem 0.7rem; border-bottom: 2px solid var(--border); color: var(--text-muted); font-size: 0.8rem; }
+.domain-body td { padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+
+.domain-tags { margin-bottom: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.domain-tags .tag {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  background: var(--border-light);
+  border-radius: 4px;
+  padding: 0.12em 0.5em;
+}
+.domain-source { margin-top: 1.75rem; font-size: 0.8rem; }
+.domain-source a { color: var(--text-muted); }
+
+/* --- Generic section tables (e.g. accumulation summary) --- */
+.section > table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin: 1rem 0 1.5rem;
+}
+.section > table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+.section > table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+  color: var(--text-secondary);
+}
+.section > table tr:last-child td { border-bottom: none; }
+.section > table td:first-child { white-space: nowrap; }
+
+/* --- Next-actions detail bullets --- */
+.detail-content ul, .detail-content ol { list-style: none; padding-left: 0; margin: 0; }
+.detail-content li {
+  padding: 0.35rem 0 0.35rem 1.25rem;
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.detail-content li::before { content: "→"; position: absolute; left: 0; color: var(--text-muted); }
+.detail-content p { color: var(--text-secondary); font-size: 0.9rem; }
+
+/* --- :target highlight --- */
+:target { scroll-margin-top: 0.75rem; }
+.domain-details:target { box-shadow: 0 0 0 2px var(--accent); }
+
+/* --- Print --- */
+@media print {
+  body { font-size: 11pt; }
+  .nav, .footer, .section-controls, .section-note { display: none; }
+  .card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+  details > *:not(summary) { display: block !important; }
+  .domain-details .card-head::before { content: ""; margin: 0; }
+  .domain-details > summary { padding-bottom: 0.3rem; }
+  a[href^="http"]::after { content: ""; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a href="2026-05-10.html" class="nav-prev">2026-05-10</a>
+      <a href="../index.html">一覧</a>
+      <span></span>
+    </nav>
+    <header class="report-header">
+      <h1>デイリーレポート</h1>
+      <div class="report-date">2026-05-12</div>
+    </header>
+    <section class="section" id="topics">
+      <h2 class="section-title">今日のトピック一覧</h2>
+      <table class="topic-table">
+        <thead><tr><th>分野</th><th>テーマ</th><th></th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-tech">tech</span></td><td><a href="#card-tech">Mixture of Experts（MoE）と大規模LLMのスパース化</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/tech/2026-05-12_Mixture-of-Experts_MoE_と大規模LLMのスパース化.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-music">music</span></td><td><a href="#card-music">ブラームス交響曲第4番とパッサカリアの建築</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/music/2026-05-12_ブラームス交響曲第4番とパッサカリアの建築.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-piano">piano</span></td><td><a href="#card-piano">ポリリズムと両手の独立性の訓練</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/piano/2026-05-12_ポリリズムと両手の独立性の訓練.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-golf">golf</span></td><td><a href="#card-golf">メジャー選手権のコースセットアップ哲学</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/golf/2026-05-12_メジャー選手権のコースセットアップ哲学.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-anatomy">anatomy</span></td><td><a href="#card-anatomy">指先の皮膚機械受容器と能動的触知覚</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/anatomy/2026-05-12_指先の皮膚機械受容器と能動的触知覚.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-bread">bread</span></td><td><a href="#card-bread">スターチ・リトログラデーションとパンの老化の科学</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/bread/2026-05-12_スターチ・リトログラデーションとパンの老化の科学.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-cs">cs</span></td><td><a href="#card-cs">計算可能性理論 — チューリングマシン・停止問題・Rice の定理</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/cs/2026-05-12_計算可能性理論_チューリングマシン_停止問題_Riceの定理.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-house-hunting">house</span></td><td><a href="#card-house-hunting">不動産登記簿の読み方と相続登記義務化（2024年改正）</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/house-hunting/2026-05-12_不動産登記簿の読み方と相続登記義務化2024.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-deutsch">deutsch</span></td><td><a href="#card-deutsch">Im Büro — Berufsalltag, Kollegen und Besprechungen</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/deutsch/2026-05-12_Im_Büro_Berufsalltag_und_Kollegen.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-other">other</span></td><td><a href="#card-other">ゲーム理論 — ナッシュ均衡・囚人のジレンマ・進化的に安定な戦略</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/other/2026-05-12_ゲーム理論_ナッシュ均衡と進化的に安定な戦略.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="section" id="domains">
+      <h2 class="section-title">今日のテーマ概要        <span class="section-controls"><button type="button" id="expand-all">すべて展開</button><button type="button" id="collapse-all">すべて閉じる</button></span></h2>
+      <p class="section-note">各カードをクリックすると、そのドメインの全文が開きます。</p>
+      <details id="card-tech" class="card card-tech domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-tech">tech</span> <span class="card-title">Mixture of Experts（MoE）と大規模LLMのスパース化</span></span>
+          <span class="card-abstract">Mixture of Experts（MoE）は FFN を多数の「エキスパート」に分割し、ルーターが各トークンに上位 k 個だけ割り当てる sparse activation で、<strong>容量（総パラメータ）と計算量（活性パラメータ）を分離</strong>する。最大の難所は負荷不均衡（routing collapse）で、DeepSeek-V3 の<strong>補助損失フリー均衡</strong>（混雑度に応じてスコアにバイアスを足す＝混雑料金）と <strong>fine-grained experts ＋ shared expert</strong> が現代の標準。「制約を消すのではなく扱いやすい場所（学習 compute → 推論メモリ）に移す」設計。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#MoE</span> <span class="tag">#LLM</span> <span class="tag">#スパースモデル</span> <span class="tag">#DeepSeek</span> <span class="tag">#推論効率</span> <span class="tag">#スケーリング則</span></div>
+<h2>学んだこと</h2>
+<h3>なぜ密モデル（dense）のスケーリングが行き詰まったか</h3>
+<p>Transformer の各層は「Attention（トークン間の混合）」と「FFN（トークンごとの非線形変換）」からなり、パラメータの大半は FFN にある。dense モデルでは<strong>すべてのトークンが全 FFN パラメータを通過する</strong>ため、パラメータ数 N に対して 1 トークンあたりの FLOPs も O(N) で増える。Chinchilla 則（学習トークン数はパラメータ数に比例させるのが計算最適）に従うと、性能を上げるには学習・推論コストが二乗的に膨らむ。</p>
+<p>MoE の発想は <strong>「容量（capacity）と計算量（compute）を分離する」</strong>こと。FFN を E 個の小さな「エキスパート」に分割し、各トークンはルーター（gating network）が選んだ k 個（典型的に k=1〜8）だけを通る。総パラメータ数は E 倍に増やせるが、1 トークンあたりの計算量は k/E 倍で済む。これを <strong>sparse activation</strong>（条件付き計算 conditional computation）と呼ぶ。</p>
+<h3>MoE 層の構造</h3>
+<ol>
+<li><strong>ルーター</strong>: 入力ベクトル x に対し、各エキスパートとの親和度スコア s_i = x·w_i を計算し、softmax で正規化。上位 k 個を選ぶ（top-k routing）。</li>
+<li><strong>エキスパート</strong>: 選ばれた k 個の FFN にそれぞれ x を通す。</li>
+<li><strong>重み付き和</strong>: 出力 = Σ (gate_i × Expert_i(x))。gate は softmax 確率（または正規化したもの）。</li>
+</ol>
+<p>ルーティングは<strong>離散選択</strong>なので微分不可能。GShard/Switch Transformer 系は「選ばれたエキスパートの gate 値だけが勾配を受け取る」近似で対処する（選ばれなかったエキスパートには勾配が流れない＝ルーターの学習が遅い、という問題が残る）。</p>
+<h3>最大の難所：負荷不均衡（routing collapse）</h3>
+<p>ルーターを素朴に学習させると、<strong>一部のエキスパートばかりが選ばれる</strong>悪循環に陥る（よく選ばれる→よく学習される→さらに良くなる→さらに選ばれる）。残りのエキスパートは「死んで」しまい、実効的な容量が激減する。さらに、各エキスパートには<strong>容量上限（capacity factor）</strong>があり、溢れたトークンは処理されず素通り（token dropping）になる——分散学習で各エキスパートを別 GPU に置くため、バッファサイズを固定する必要があるからだ。</p>
+<p>対策の系譜：</p>
+<ul>
+<li><strong>補助損失（auxiliary load-balancing loss）</strong>: 「各エキスパートへのトークン割当の分散」をペナルティ項として加える（Switch Transformer）。ただし主タスクの損失と綱引きになり、性能を犠牲にする。</li>
+<li><strong>Expert Choice routing</strong>: トークンがエキスパートを選ぶのではなく、エキスパートが自分の容量分のトークンを選ぶ（逆向き）。負荷は構造的に均等になるが、あるトークンが 0 個のエキスパートにしか割り当てられない可能性がある。</li>
+<li><strong>補助損失フリー（auxiliary-loss-free, DeepSeek-V3, 2024末）</strong>: 各エキスパートのスコアに<strong>学習可能なバイアス項</strong>を足し、混雑しているエキスパートのバイアスを下げ、空いているエキスパートのバイアスを上げる動的調整を行う。バイアスは top-k 選択にだけ使い、最終的な gate 重みには使わない。主損失を汚さずに均衡を取る——現在の事実上の標準。</li>
+</ul>
+<h3>2024–2026 の主要 MoE モデルと設計選択</h3>
+<ul>
+<li><strong>Mixtral 8×7B / 8×22B（Mistral, 2023末–2024）</strong>: エキスパート 8 個・top-2。「8×7B」だが共有部分があるため総パラメータは ~47B、活性は ~13B。オープンウェイト MoE の普及点。</li>
+<li><strong>DeepSeek-V3（2024-12, 671B 総 / 37B 活性）</strong>: 「<strong>fine-grained experts</strong>」——エキスパートを細かく分割（256 ルーテッドエキスパート、各層 top-8）し、知識をより細分化して専門化を促す。加えて<strong>共有エキスパート（shared expert）</strong>1 個を常時全トークンに適用し、共通知識（文法・常識）を担わせて他のエキスパートを専門化に専念させる。補助損失フリー均衡。Multi-head Latent Attention（KV キャッシュ圧縮）と組み合わせ、14.8T トークンを <strong>278 万 H800 GPU 時間</strong>という破格の効率で学習。</li>
+<li><strong>Qwen3-235B-A22B / Llama 4 Scout・Maverick / DBRX / Grok</strong>: いずれも MoE。2025–2026 のフロンティアはほぼ全部 MoE で、「dense は研究用・エッジ用、フロンティアは sparse」という棲み分けが定着した。GPT-4 系も MoE と広く推測されている。</li>
+</ul>
+<h3>推論時のコストモデル：compute は安いが memory は高い</h3>
+<p>MoE の落とし穴は <strong>VRAM</strong>。671B のパラメータは（37B しか使わなくても）全部メモリに載せておかねばならない（次のトークンでどのエキスパートが要るか分からない）。だから MoE は「FLOPs を節約してメモリと帯域を消費する」トレードオフ。さらに分散推論では <strong>expert parallelism</strong>——エキスパートを GPU 群に分散し、トークンを正しい GPU へ all-to-all 通信で送る——が必要で、ネットワークが律速になりやすい。バッチ内のトークンがエキスパート間で偏ると一部 GPU が遊ぶ（負荷不均衡が推論時にも効く）。vLLM/SGLang などのサービングスタックは expert-parallel と continuous batching を組み合わせてこれを緩和する。</p>
+<h2>気づき・洞察</h2>
+<p>MoE は<strong>「専門家の委員会」より「ルーティングテーブル」と捉える</strong>方が正確だ。各エキスパートが「数学担当」「コード担当」のように人間的に解釈できる役割を持つわけではない——可視化研究では、エキスパートはむしろ<strong>トークンの表層的特徴（句読点、特定の語、構文位置）</strong>で分かれることが多い。「fine-grained + shared expert」設計が効くのも、「専門家を増やす」というより「ルックアップの粒度を細かくしつつ、共通項を括り出してキャッシュする」工学だと考えると腑に落ちる。これはデータベースの<strong>インデックス設計</strong>——細かく分割すれば検索は速いが管理コストが増える、ホットスポットを避けるためにシャーディングを工夫する——とほぼ同型の問題で、実際 fine-grained MoE の「256 個に分けて top-8」は「シャード数を増やしてレプリカで負荷分散」の発想そのものだ。</p>
+<p>もう一つの洞察：MoE は <strong>Chinchilla 則を「曲げる」のではなく別の軸に逃がしている</strong>。dense では「compute = データ × パラメータ」が一本の制約だったのを、MoE は「学習 compute は活性パラメータで決まるが、モデルの知識容量は総パラメータで決まる」と二軸に分解した。だから MoE の真の制約は「推論時のメモリ予算」に移った——Sigstore の回（鍵管理問題を ID 管理問題に変換した）と同じく、<strong>制約を消すのではなく、より扱いやすい場所に移動させる</strong>のがシステム設計の常套手段だと再確認できる。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>cs（今日のエントリ・計算可能性理論）</strong>: ルーティングは離散選択＝本来 NP 的に難しい組合せ最適化。だが「学習で近似的に均衡させる」ことで実用化した。eBPF の verifier が「決定不能な停止性判定を、bounded loop に制限して決定可能にした」のと同型——<strong>理論的に難しい問題を、入力を制約することで実用圏に落とす</strong>設計判断。</li>
+<li><strong>cs（過去エントリ・MESI / 一貫性モデル）</strong>: expert parallelism の all-to-all 通信と負荷不均衡は、分散システムの古典問題（パーティショニング、ホットシャード、コーディネーション・コスト）そのもの。MoE はニューラルネットの皮を被った分散システムだ。</li>
+<li><strong>解剖学（基底核・小脳の機能分化）</strong>: 脳も「全領域が全タスクを処理する」のではなく、領域ごとに役割分担しつつ、視床や基底核が「どの回路を活性化するか」を選択（ゲーティング）する。MoE のルーターは基底核の「行動選択」機能の人工版に近い。</li>
+<li><strong>music（ブラームス4番・オーケストレーション）</strong>: オーケストラも「全楽器が常時鳴る」のではなく、指揮者（ルーター）が場面ごとに楽器群（エキスパート）を選んで前面に出す。総奏（tutti）は shared expert に相当する。</li>
+<li><strong>other（ゲーム理論）</strong>: 補助損失フリー均衡は、各エキスパートの「混雑度に応じてバイアスを動的調整」する——これは<strong>混雑料金（congestion pricing）</strong>＝Pigou 税の発想で、ナッシュ均衡を社会的最適に近づけるメカニズムデザインそのもの。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>MoE の理論</strong>: なぜ fine-grained が効くのか、エキスパート数 E と活性数 k の最適比はスケーリング則でどう決まるか（"MoE scaling laws" の研究）</li>
+<li><strong>モダリティ拡張</strong>: vision MoE、Soft MoE（離散ルーティングを連続化）、MoE と Mixture-of-Depths（層をスキップする）の組み合わせ</li>
+<li><strong>量子化と MoE</strong>: 「使われないエキスパートは積極的に量子化/オフロードする」per-expert quantization、SSD オフロード推論</li>
+<li><strong>upcycling</strong>: dense モデルを後から MoE に「分割」して継続学習する手法（Mixtral がこれと噂される）の実態</li>
+</ul>
+<h2>主要参考ソース</h2>
+<ul>
+<li>DeepSeek-AI, "DeepSeek-V3 Technical Report", arXiv:2412.19437（公式技術レポート、Tier 1）</li>
+<li>Dai et al., "DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models", arXiv:2401.06066（fine-grained + shared expert の原論文）</li>
+<li>Fedus, Zoph, Shazeer, "Switch Transformers", JMLR（補助損失負荷分散の古典）</li>
+<li>Cameron R. Wolfe, "Mixture-of-Experts (MoE) LLMs"（専門家による技術解説、Tier 2）</li>
+<li>DeepLearning.AI The Batch, "DeepSeek-V3 Redefines LLM Performance and Cost Efficiency"（Tier 2）</li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/tech/2026-05-12_Mixture-of-Experts_MoE_と大規模LLMのスパース化.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-music" class="card card-music domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-music">music</span> <span class="card-title">ブラームス交響曲第4番ホ短調 作品98 ——フィナーレのパッサカリアと変奏曲形式の建築</span></span>
+          <span class="card-abstract">ブラームス交響曲第4番フィナーレは、ワーグナー＝リストの「形式解体」に逆らってバッハのパッサカリア（8 小節の定型低音上の 30 変奏）に遡った「時代錯誤」。だがその円環的反復の中に<strong>ソナタ形式の輪郭を二重露光</strong>し、長調の救済を一切与えず短調のまま破断する悲劇的閉鎖を作る。全曲を「下行三度連鎖」という間隔の DNA が貫き、シェーンベルクが讃えた developing variation の極致。「枠があるから破る瞬間に意味が宿る」。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#ブラームス</span> <span class="tag">#交響曲第4番</span> <span class="tag">#パッサカリア</span> <span class="tag">#シャコンヌ</span> <span class="tag">#バロック復興</span> <span class="tag">#変奏曲</span> <span class="tag">#第4楽章</span></div>
+<h2>学んだこと</h2>
+<h3>1885年の「時代錯誤」——なぜ古い形式に賭けたのか</h3>
+<p>ブラームスは交響曲第4番（1884–85、マイニンゲンで自ら初演）の終楽章に、<strong>17世紀バロックのパッサカリア（シャコンヌ）形式</strong>——8小節の定型低音（バッソ・オスティナート）の上で 30 回の変奏を積み上げる——を据えた。リスト＝ワーグナー陣営が「未来の音楽」「交響詩」を掲げて形式の解体に向かっていた時代に、ブラームスは逆に<strong>1685年生まれのバッハ</strong>に遡った。直接の典拠はバッハのカンタータ第150番《主よ、われ汝を仰ぎ望む》(Nach dir, Herr, verlanget mich) の終曲のシャコンヌ主題で、ブラームスはこれをハンス・フォン・ビューロー宛の有名な手紙で示唆している（ただしブラームスはバッハの 4 小節主題に半音を 1 つ足して<strong>全音階＋半音の 8 小節主題</strong>に改作した——E–F♯–G–A–A♯–B–B–E、上行する厳しい音階）。</p>
+<p>ここでの核心：ブラームスにとって「古い形式」は懐古ではなく<strong>制約による自由</strong>だった。8 小節の枠を 30 回繰り返すと宣言することで、彼は「何を書くか」ではなく「同じ枠の中でどこまで変容できるか」に集中できる。これはバッハの《シャコンヌ》（無伴奏ヴァイオリン）やゴルトベルク変奏曲と同じ美学——<strong>変奏は装飾ではなく、主題に内在する可能性の論理的展開</strong>である。</p>
+<h3>30 変奏の建築：ソナタ形式を「内包」したパッサカリア</h3>
+<p>ブラームスの仕掛けの妙は、純粋なバロック・パッサカリアではなく、その中に<strong>ソナタ形式の輪郭を二重露光</strong>したことだ。学者（とくに analytisches Hören の伝統）は次のように読む：</p>
+<ul>
+<li><strong>変奏 1–11</strong>：「提示部」に相当。主題（金管和音による厳しい宣言）→ 弦のピチカート、木管の対旋律と、次第に密度を上げる。</li>
+<li><strong>変奏 12–15</strong>：「展開部／緩徐部」。テンポが落ち（実質 3/2 に感じられる）、調も E 短調から離れ、ホ長調へ。<strong>変奏 12 のフルート独奏</strong>——下行する半音階の長いソロ——は全曲の情緒的中心。続く変奏 13–15 はトロンボーンのコラール風和声で、葬送的・宗教的な静謐。</li>
+<li><strong>変奏 16</strong>：主題が金管で<strong>回帰</strong>（再現部の開始）。冒頭とほぼ同じだが、今度は短調の闇がいっそう重い。</li>
+<li><strong>変奏 16–30 ＋ コーダ</strong>：「再現部＋発展的コーダ」。最後の数変奏で音価が詰まり、テンポが加速し、<strong>コーダではオスティナートの 8 小節周期そのものが壊れ</strong>、和声進行が暴走的に閉じる。長調への「救済」を一切与えず、ホ短調のまま、フォルティッシモの破断で終わる——19 世紀交響曲としては異例の「悲劇的閉鎖」。</li>
+</ul>
+<p>つまりこの楽章は、<strong>バロックの円環的反復（同じ低音の永劫回帰）と、古典派の目的論的ドラマ（提示→葛藤→帰結）を一つの構造に重ねた</strong>。円は「同じ場所に戻る」のに、線は「進んで終わる」——その緊張がフィナーレの不気味な力の源泉だ。</p>
+<h3>全曲を貫く「下行三度連鎖」と有機的統一</h3>
+<p>第4番が単なる「最終楽章だけ凝った曲」でないのは、<strong>第1楽章冒頭の主題（下行する三度の連鎖：B–G–E–C♯…と三度ずつ落ちていく、裏返せば上行六度の連鎖）</strong>が、実は全曲の遺伝子だから。ブラームスはこの「三度の鎖」を各楽章に変形して埋め込み（第3楽章スケルツォの C 長調主題、終楽章の変奏のいくつか）、ベートーヴェン的な「動機の有機的展開」を、ブラームス流の「間隔（インターヴァル）の DNA」として実装した。シェーンベルクが 1933 年の講演〈進歩主義者ブラームス〉(Brahms the Progressive) で「ブラームスこそ developing variation（発展的変奏）の達人であり、十二音技法の先駆だ」と論じたのは、まさにこの「素材を徹底的に経済的に使い回す」手つきを指している。</p>
+<p>第2楽章はフリギア旋法的な開始（ホルンの古風な旋律）で「古さ」の伏線を張り、第3楽章は唯一の真の長調・三拍子でなく<strong>2/4 の激烈なスケルツォ</strong>（トライアングルが初めて登場）で、伝統的な「緩徐楽章→舞曲楽章」の型を歪ませる。全体として「秋」「黄昏」と評されるが、それは情緒の話で、構造的には<strong>極度に引き締まった、ほぼ禁欲的な対位法の建築物</strong>だ。</p>
+<h2>気づき・洞察</h2>
+<p>ブラームス4番のフィナーレが教えてくれるのは、<strong>「制約は表現の敵ではなく、表現を可能にする足場だ」</strong>ということ。8 小節 × 30 回という「牢獄」を自ら設定したからこそ、フルート・ソロの一瞬の解放（変奏12）が胸を打つ——もし全曲が自由なら、その瞬間は埋もれてしまう。これは作曲技法を超えた一般原理で、ソネットの 14 行、俳句の 17 音、ジャズの 32 小節フォーム、すべて同じ。「枠があるから、枠を破る瞬間に意味が宿る」。</p>
+<p>もう一つ：パッサカリアは「<strong>同じものの反復が、聴き手の中に蓄積する</strong>」音楽形式だ。8 小節を 30 回聴くうちに、聴き手はそのベースラインを暗記し、内的に予測するようになる。だからコーダでオスティナートが壊れる瞬間、聴き手の「予測」が裏切られて衝撃が走る。作曲家は聴き手の記憶そのものを楽器として演奏している——これは MoE のルーターが「使われ方の履歴」を学習するのと、あるいは脳が「予測符号化」で次の感覚入力を先読みするのと、深いところで同じ構造だ（裏切られた予測＝サプライズ＝情報量）。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>bread（澱粉の老化）/ bread 全般（発酵の反復工程）</strong>: パッサカリアの「同じ低音の上に層を積む」は、ブレッドのレシピで「同じ生地を折りたたみ続ける（ラミネーション、パンチダウン、伸ばし）」のと似た「反復による構造形成」。回数を重ねるほど質が変わる。</li>
+<li><strong>tech（MoE）/ cs（永続データ構造の path copying）</strong>: 「変えない部分（オスティナート＝共有エキスパート／共有された木構造）」と「変える部分（変奏＝ルーテッドエキスパート／コピーされたパス）」を分離する。固定された土台の上に変化を載せる設計。</li>
+<li><strong>piano（今日のエントリ・ポリリズム）</strong>: 変奏 12–15 でブラームスは 3/4 の中に 3/2 や 2 拍子の感覚を重ね、メーターを多義的にする。これはポリリズム＝「複数の拍節の同時進行」をオーケストラ規模でやっている。</li>
+<li><strong>golf（コース設計の戦略性）</strong>: マッケンジーの「同じ 18 ホールを何度回っても飽きさせない」設計思想は、ブラームスが「同じ 8 小節を 30 回聴かせて飽きさせない」のと同じ問題——反復の中に多様性を仕込む技術。</li>
+<li><strong>解剖学（基底核と手続き記憶）</strong>: オスティナートの反復で聴き手の中に「予測」が手続き的に形成されるプロセスは、まさに基底核が反復で運動パターンを自動化するのと同型。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li>バッハ無伴奏ヴァイオリンの《シャコンヌ》（BWV1004）との直接比較——両者の「閉じ方」の哲学の違い</li>
+<li>ブラームスのもう一つの変奏曲の傑作《ハイドンの主題による変奏曲》《ヘンデルの主題による変奏曲とフーガ》における「変奏とフーガの接合」</li>
+<li>シェーンベルク〈進歩主義者ブラームス〉論文の精読——developing variation の概念史</li>
+<li>ヴェーベルンのパッサカリア作品1（1908）——ブラームスの形式を後期ロマン派／無調へ橋渡しした作品</li>
+</ul>
+<h2>主要参考ソース</h2>
+<ul>
+<li>Grove Music Online, "Brahms, Johannes"（生涯・作品解説、Tier 1）</li>
+<li>Arnold Schoenberg, "Brahms the Progressive" in <em>Style and Idea</em>（developing variation の古典的論考、Tier 1）</li>
+<li>Walter Frisch, <em>Brahms: The Four Symphonies</em>（Yale UP、Tier 2）</li>
+<li>David Brodbeck, <em>Brahms: Symphony No. 4</em>（Cambridge Music Handbooks、Tier 2）</li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/music/2026-05-12_ブラームス交響曲第4番とパッサカリアの建築.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-piano" class="card card-piano domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-piano">piano</span> <span class="card-title">ポリリズムと両手の独立性 ——3対2・3対4・5対4の身体技法と神経制御</span></span>
+          <span class="card-abstract">「両手の独立」は誤解語——脳は両手協調にバイアスがあり、3 対 2 を弾けるピアニストは「右 3・左 2」と別々に考えず<strong>両手の合成リズムを一つのゲシュタルト</strong>として運動プログラム化している。lcm グリッドで合成パターンを暗記する方略（速いポリリズムはこれでしか弾けない＝認知の帯域制約）と、遅いテンポで両方の脈を感じる方略は相補的。19 世紀の意図的非同期（melodic delay）も「揃える/ずらすを自在に選べる幅」の問題。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#ポリリズム</span> <span class="tag">#両手の独立</span> <span class="tag">#クロスリズム</span> <span class="tag">#3対2</span> <span class="tag">#ショパン</span> <span class="tag">#ブラームス</span> <span class="tag">#運動制御</span></div>
+<h2>学んだこと</h2>
+<h3>「両手の独立」は誤解されやすい言葉</h3>
+<p>ピアノで「左右の手を独立させる」と言うとき、初学者は「両手をバラバラに動かす」と考えがちだが、これは間違いだ。脳の運動制御は基本的に<strong>両手協調（bimanual coordination）にバイアスがかかっている</strong>——左右の運動野は脳梁を介して密に結合し、片手の動きはもう片手に「漏れる」（mirror movement）。だから熟達者がやっているのは「独立」ではなく、<strong>より高次の単一プランの下に両手を統合すること</strong>だ。3 対 2 のポリリズムを弾けるピアニストは、「右手が 3、左手が 2」と別々に考えているのではなく、両手の音が作る<strong>合成リズムパターン（composite rhythm）を一つのゲシュタルトとして</strong>運動プログラムに焼き付けている。</p>
+<h3>ポリリズムの数学：最小公倍数のグリッド</h3>
+<p>n 対 m のポリリズムは、1 拍を <strong>lcm(n, m) 等分したグリッド</strong>の上に乗る。</p>
+<ul>
+<li><strong>3 対 2</strong>：6 分割。位置 0,2,4 に「2 の手」、0,3 にいや——0,2,4 が 3 連符ではなく…正しくは: 6 等分上で「3 の手」は 0,2,4、「2 の手」は 0,3。合成パターンは「両・3の手・2の手・3の手」＝<strong>「タ・タ・タ・タ」のリズムを覚える語呂が "not dif-fi-cult"（4音）または "パッ・サ・カ・リ・ア"... 実用的には</strong>「nice cup of tea」「pass the bread and butter」など 6 拍に対応しない 4 イベント語呂。3 対 2 は「両手→右→左→右」（イベントは 4 つ、間隔は 1拍を 2:1:1:2 の比で... いや 6 分割上で 0,2,3,4 → 間隔 2,1,1,2）。</li>
+<li><strong>3 対 4</strong>：12 分割。「3 の手」は 0,4,8、「4 の手」は 0,3,6,9。合成イベントは 0,3,4,6,8,9（6 イベント、間隔 3,1,2,2,1,3）。語呂「pass another piece of pie」など。ショパン《幻想即興曲》（右 16 分音符 4 つ vs 左 3 連符）が典型。</li>
+<li><strong>5 対 4</strong>：20 分割。スクリャービンやブラームス、メシアンに頻出。ここまで来ると「合成パターンの暗記」は実用的でなく、別の方略が要る（下記）。</li>
+</ul>
+<h3>三つの習得方略——どれも有効、組み合わせる</h3>
+<ol>
+<li><strong>合成リズム法（mathematical / composite）</strong>：上記のように lcm グリッドで全音の並びを書き出し、片手だけで「合成リズム」を叩いて完全に暗記してから両手に振り分ける。3 対 2、3 対 4 まではこれが最速で確実。<strong>速いポリリズムほどこの方略でしか弾けない</strong>——速いと「2 つのリズムを同時に意識する」帯域がないので、1 つの統合パターンに圧縮するしかない。</li>
+<li><strong>多層的フィール法（feel both layers）</strong>：遅いテンポで「右手の脈」と「左手の脈」を両方身体で感じる。足で 2 を踏みながら手で 3 を叩く等。これは「2 つの時間軸を並行保持する」訓練で、ルバートや「メロディは歌い、伴奏は厳格に」という<strong>意図的な非同期</strong>（下記）の基礎になる。3 対 2 を「腿を両手で叩く：左右左 / 右左右…」の有名なエクササイズ（"left, right, left, right"... 実際は両手同時→片手→他片手→片手）。</li>
+<li><strong>従属法（subordinate one hand）</strong>：片手（普通は伴奏側）を「メトロノーム」として完全自動化し、もう片手をその上に「振りかける」。ジャズやポップスの伴奏感覚。クラシックでも左手のアルベルティ・バスやワルツの「ズン・チャッ・チャ」を自動化し、右手の旋律を自由に乗せる場合に使う。</li>
+</ol>
+<p>熟達のゴールは方略 1 で「正確さ」を担保しつつ、本番では方略 3 の「片手は完全自動・もう片手は表情豊か」のモードで弾けること。</p>
+<h3>「ずれ」は欠陥ではなく表現——意図的非同期</h3>
+<p>19 世紀のピアニズム（ショパン、リスト、そして録音に残るパハマン、コルトー、ホフマンら）では、<strong>メロディの音を伴奏よりわずかに遅らせる "melodic anticipation/delay"</strong> が常套だった。左手が拍をきっちり刻み、右手のメロディが「歌手のように」少し遅れて入る——これは「両手の独立」を<strong>表現のために積極利用</strong>する技術。逆に「両手をミリ秒単位で揃える」のは 20 世紀後半の即物的演奏様式の産物。だからポリリズムの訓練は「常に完璧に揃える」ためではなく、「<strong>揃えるべき時に揃え、ずらすべき時に意図通りずらせる</strong>」コントロールの幅を作るためにある。ブラームスのインターメッツォやショパンのノクターンでこの差が演奏の格を決める。</p>
+<h3>神経生理学的背景</h3>
+<p>両手で異なるリズムを刻むとき、fMRI 研究では補足運動野（SMA）と前頭前野の負荷が高い。SMA は<strong>運動シーケンスの内的タイミング生成</strong>を担い、ポリリズムは「2 つの独立シーケンスを同一クロックで生成する」という SMA への高負荷課題。練習で起こるのは、最初は「2 つのプランの干渉（一方が他方に引きずられる）」を意志力で抑え込んでいた状態から、<strong>合成パターンを基底核に手続き記憶として移管</strong>し、SMA の負荷を下げる過程（[[2026-04-25_基底核と手続き記憶]] の自動化）。「3 対 2 が突然弾けるようになる」体験は、神経表象が「2 つのリズム」から「1 つのパターン」へ再符号化された瞬間に対応する。</p>
+<h2>気づき・洞察</h2>
+<p>ポリリズムの本質は「<strong>2 つの時間を生きること</strong>」だ。そしてピアノという楽器は、人間が「複数の時間軸を同時に運用する」能力を訓練する稀有な装置になっている。バッハのフーガで 3〜4 声部を同時に追うのも、本質はポリリズムの拡張——各声部が独自のリズム的・旋律的「時間」を持ち、それを一人の演奏者が統合する。</p>
+<p>実践的に最も腑に落ちたのは、<strong>「速いポリリズムは合成パターンとしてしか弾けない」</strong>という事実。これは認知の帯域制約そのもので、ワーキングメモリは「2 つの並行ストリーム」を高速で維持できないから「1 つのチャンク」に圧縮する。チェスの名人が盤面を「駒の配置」でなく「パターン」で見るのと同じ。逆に言えば、遅い練習で「2 層を感じる」訓練を積んでおかないと、その「合成パターン」が音楽的に意味を持たない（ただの機械的な音の羅列になる）。<strong>分析的理解（合成リズム）と身体的理解（2 層のフィール）は補完的で、両方要る</strong>。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>music（今日のエントリ・ブラームス4番）</strong>: ブラームスはポリリズムの達人で、第4番フィナーレの変奏でも 3/4 の中に 2 拍子・3/2 を重ねる。「メーターの多義性」は管弦楽規模のポリリズム。演奏者として彼の室内楽（ピアノ四重奏、ヴァイオリンソナタ）を弾くと、3 対 2 が「装飾」でなく構造であることが体で分かる。</li>
+<li><strong>解剖学（基底核と手続き記憶 / 小脳と運動学習タイミング制御）</strong>: ポリリズム習得は「干渉の抑制（前頭前野）→パターンの自動化（基底核）→精密タイミング（小脳）」という運動学習の三段階の教科書的事例。</li>
+<li><strong>cs（並行処理・スレッド）</strong>: 2 つの独立リズムを 1 クロックで動かすのは、本質的に「共有クロックを持つ 2 スレッド」。「合成パターンに圧縮する」のは 2 スレッドを単一スレッドにシリアライズすること——並行性の難しさ（干渉、競合）も似ている。</li>
+<li><strong>tech（MoE のルーター）</strong>: 「片手を自動化し、もう片手を自由に乗せる」のは、共有エキスパート（常時稼働の伴奏）＋ルーテッドエキスパート（場面で変わる旋律）の構造と相似。</li>
+<li><strong>golf（リズムとテンポ／Tour Tempo）</strong>: ゴルフスイングの「バックスイング 3 : ダウンスイング 1」の比率感覚も、身体に刻む「2 つの局面の時間比」——ポリリズムを 1 ストロークに圧縮したようなもの。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>不規則ポリリズム</strong>（7 対 4、5 対 3 など現代音楽・南インド古典音楽の konnakol）と、それを身体化する記憶術</li>
+<li><strong>声部の独立</strong>：フーガにおける「ポリリズム＋ポリフォニー」——各声部のアーティキュレーションを別々にコントロールする技術</li>
+<li><strong>ペダリングとポリリズム</strong>：左右の手が別リズムのとき、共鳴ペダルをどちらの拍に合わせるか</li>
+<li>19 世紀の「melodic delay」を、現代の即物的演奏様式の中でどこまで／どう復活させるべきかの様式論</li>
+</ul>
+<h2>主要参考ソース</h2>
+<ul>
+<li>Howard Gardner / Eric Clarke 系のリズム認知研究、および Caroline Palmer "Music Performance" (Annual Review of Psychology)（演奏の運動制御、Tier 1）</li>
+<li>Heinrich Neuhaus, <em>The Art of Piano Playing</em>（[[2026-05-05_ロシアピアノ楽派とハインリヒ・ノイハウス]] 既出、ポリリズムと「歌う」奏法、Tier 2）</li>
+<li>György Sándor, <em>On Piano Playing</em>（両手協調の技法、Tier 2）</li>
+<li>ショパン《幻想即興曲》《ノクターン》、ブラームス《インテルメッツォ Op.118》——一次資料（楽譜）</li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/piano/2026-05-12_ポリリズムと両手の独立性の訓練.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-golf" class="card card-golf domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-golf">golf</span> <span class="card-title">メジャー選手権のコースセットアップ哲学 ——USオープン・マスターズ・全英オープンはなぜ「別のゲーム」なのか</span></span>
+          <span class="card-abstract">4 大メジャーは「同じスポーツの最高峰」ではなく「ゴルフという広い概念の中の 4 つの異なる価値観の頂点」。USオープン（USGA）＝狭い FW＋深いラフ＋硬いグリーンで「世界一過酷な試験」、マスターズ（オーガスタ）＝ラフがほぼ無く罰は「不利な角度・傾斜」で与える戦略型の純粋形、全英（R&amp;A）＝コースをいじらず風とポットバンカーと地面の速さに委ねるリンクスの哲学。鍵概念は<strong>「設計（恒久）vs セットアップ（可変）」の分離</strong>——システムの性格は固定部分でなく調律で決まる。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#メジャー</span> <span class="tag">#コースセットアップ</span> <span class="tag">#USオープン</span> <span class="tag">#マスターズ</span> <span class="tag">#全英オープン</span> <span class="tag">#USGA</span> <span class="tag">#R&amp;A</span> <span class="tag">#コースマネジメント</span></div>
+<h2>学んだこと</h2>
+<h3>「コース設計」と「コースセットアップ」は別物</h3>
+<p>[[2026-04-26_コース設計の戦略性とゲームとしてのアーキテクチャ]] や [[2026-05-08_ゴルフコース建築の三大潮流とMacKenzie13原則]] で扱ったのは建築家が作る「恒久的な骨格」（バンカー位置、グリーン形状、戦略線）。一方<strong>セットアップ</strong>は、その骨格の上で大会主催者が毎週／毎日いじる可変パラメータ——ティー位置（全長）、ホールロケーション（ピン位置）、フェアウェイ幅、ラフの長さと密度、グリーンスピード（スティンプメーター値）、グリーンの硬さ（含水率）。同じオーガスタ・ナショナルでも、会員プレーとマスターズではまったく違う「ゲーム」になる。プロツアーの勝ち方を理解するには、この<strong>セットアップの哲学的違い</strong>を読む必要がある。</p>
+<h3>USオープン（USGA）——「世界一過酷な試験」の思想</h3>
+<p>USGA の歴史的な信条は <strong>"the toughest test in golf"</strong>。par を「合格点」と捉え、優勝スコアが par 前後（あるいはオーバー）になるよう設計する。具体的な手段：</p>
+<ul>
+<li><strong>狭いフェアウェイ＋深く濃いラフ</strong>：伝統的に「ファーストカット → プライマリーラフ（脛〜膝の高さ）」の段階構成。ラフから 150 ヤード打つのは至難で、ドライバーの正確性に極端なプレミアムを置く。</li>
+<li><strong>硬く速いグリーン</strong>：スティンプ 13–14 フィート級、含水率を絞ってボールが止まらない。「グリーンを狙う」のではなく「グリーンの正しい部分に止める」ゲーム。</li>
+<li><strong>par の操作</strong>：同じホールを年によって par 4 と par 5 で行き来させる（例：500 ヤードを「par 4」にすると、2 オン狙いが「無謀」になる）。</li>
+<li><strong>悪名高い失敗例</strong>：1998 オリンピッククラブ（17 番グリーンでボールが転がり戻る）、2004 シネコックヒルズ日曜（7 番グリーンが乾きすぎてプレー不能寸前、係員が散水）、2015 チェンバーズベイ（フェスクの状態が荒れて「カリフラワーの上でパット」と酷評）。これらの「やりすぎ」反省から、近年（マイク・デイビス、ジョン・ボーデンハマー体制）は<strong>graduated rough（ボールがフェアウェイから外れた距離に応じてラフが段階的に深くなる）</strong>を導入し、「公平な過酷さ」へ微調整した。</li>
+<li><strong>2027 年以降のさらなる文脈</strong>：USGA/R&amp;A は飛距離抑制のため<strong>ボールのテスト条件変更（いわゆる "rollback"、2028 プロ・2030 アマ施行予定）</strong>を決定済みで、これが将来のセットアップ思想（コースをこれ以上伸ばさなくても「過酷さ」を保てる）に影響する。</li>
+</ul>
+<p>→ <strong>勝ち方のセオリー</strong>：フェアウェイキープ最優先、ピンは無視してグリーンセンター、3 パットを絶対回避、「ボギーは敵じゃない、ダブルボギーが敵」。コースマネジメントの極致が問われる。</p>
+<h3>マスターズ（オーガスタ・ナショナル、Augusta National Golf Club）——「攻めれば報われ、外せば壊滅」のリスク・リワード</h3>
+<p>ボビー・ジョーンズとマッケンジーが「リンクスの戦略性」を内陸に移植した設計思想（[[2026-05-08...MacKenzie13原則]]）の上に、オーガスタは独自のセットアップ哲学を持つ：</p>
+<ul>
+<li><strong>ラフがほぼ無い</strong>（"second cut" と呼ぶごく短い刈り込みのみ）。狙いは「ボールはフェアウェイに残るが、<strong>理想的な角度</strong>でないと次が極端に難しい」——罰は「打てない」ではなく「不利な角度／傾斜のライ」で与える。これがマッケンジー的「戦略型」の純粋形。</li>
+<li><strong>猛烈に速く、傾斜が大きく、硬いグリーン</strong>：13–14 フィート、複雑なアンジュレーション。ピン位置（とくに日曜の伝統的位置——9 番手前段、16 番左下、11 番左奥など）を間違えると 3 パット・4 パットが出る。「グリーンの<strong>どの段</strong>に乗せるか」が全て。</li>
+<li><strong>アーメンコーナー（11・12・13番）の水</strong>：12 番（パー3、ラエ・クリーク）は風が読めないことで悪名高く、攻めの距離選択が運命を分ける。13・15 番のパー5 は「2 オンを狙うか刻むか」の典型的リスク・リワード——刻んでもバーディが取れるが、攻めればイーグルもダブルボギーもある。</li>
+<li><strong>「バック・ナインの日曜午後にトーナメントが始まる」</strong>：セットアップ（ピン位置、グリーンの硬さ）が「劇的なスコアの振れ」を意図的に生むよう調整されている。エンターテインメント性を計算した設計。</li>
+</ul>
+<p>→ <strong>勝ち方のセオリー</strong>：飛距離（とくに 13・15 番で 2 オンできるパワー）＋グリーンを「正しい段・正しいサイド」から攻める精密さ＋オーガスタ特有のラインの「経験知」。だから初出場優勝が稀で、常連が強い。</p>
+<h3>全英オープン（ジ・オープン、R&amp;A）——「自然と運に身を委ねる」リンクスの哲学</h3>
+<p>[[2026-04-24_リンクスゴルフとグラウンドゲーム]] で扱った地形そのものが試験官：</p>
+<ul>
+<li><strong>基本的にコースを「いじらない」</strong>：ラフは伸ばすが、勝負を決めるのは<strong>ポットバンカー（深く小さく、出すだけで 1 打消える）、フェスクのうねるフェアウェイ（フラットなライがほぼ無い）、ファームで速い地面（ボールが転がり続ける）、そして風</strong>。USGA が「コースを過酷にする」のに対し、R&amp;A は「自然条件に委ねる」。</li>
+<li><strong>天候による日替わりの不公平</strong>：午前と午後でウェーブが分かれ、片方が穏やか、片方が暴風ということが起こる。「draw（組合せ）の運」が成績に大きく効く——これを R&amp;A は「リンクスゴルフの本質」として容認する（USGA なら「不公平」と批判される）。</li>
+<li><strong>グラウンドゲーム必須</strong>：高く上げて止める「空中戦」が通用せず、<strong>ランニングアプローチ、バンプ＆ラン、風下では転がして寄せる</strong>技術が要る。グリーンも他メジャーより遅め（11–12 フィート）だが、強風下ではそれでも速く感じる。</li>
+<li><strong>「コースは可変、ルールは普遍」</strong>：ボールが風で動いても罰なし（[[2026-05-03_ゴルフルール2019大改正...]] のローカルルール運用）、unplayable からの救済も含め「自然との交渉」がゲームの一部。</li>
+</ul>
+<p>→ <strong>勝ち方のセオリー</strong>：弾道を低く操れる（knock-down ショット）、風の中で平常心を保つメンタル（[[2026-04-29_プレッシャー下のChoking...]]）、バンカーを徹底回避するコースマネジメント、そして「不運を引いても腐らない」感情制御。シェフラー、ローリー、ハリントンら「ボールを操れる職人」が好成績。</p>
+<h3>第4のメジャー：全米プロ（PGA of America）——「もっとも標準的」</h3>
+<p>PGA Championship は「USGA ほど過酷でなく、マスターズほど特殊でなく、リンクスでもない」——アメリカの良質なパークランドコースを「やや難しめ」にセットアップする、最も「普通の強いコース」。だから「総合力が高い選手」が勝ちやすく、メジャー間で最も「番狂わせ」が少ないとされる（近年は会場選定で多様性を出そうとしている）。</p>
+<h2>気づき・洞察</h2>
+<p>4 大メジャーは「同じスポーツの最高峰大会」ではなく、<strong>「ゴルフという広い概念の中の、4 つの異なる価値観の頂点」</strong>だと理解すると腑に落ちる。USオープンは「正確性と忍耐」、マスターズは「大胆さと精密の両立＋経験知」、全英は「適応力と運の受容」、全米プロは「総合力」。だから「キャリア・グランドスラム」が偉大なのは、<strong>性質の異なる 4 つの試験すべてに合格する</strong>ことだから——マッチプレーの達人が必ずしもストロークプレーで強くないのと同じ構造の、より大きな版。</p>
+<p>そして核心は、<strong>「コース設計（恒久）」と「セットアップ（可変）」を分離する</strong>という考え方そのものの普遍性。同じ骨格でも、可変パラメータの設定で「やさしいゲーム」にも「悪夢」にもなる——これは音楽の「楽譜（恒久）」と「テンポ・ダイナミクス（演奏者の選択＝可変）」、料理の「レシピ（恒久）」と「発酵時間・温度（可変）」、ソフトウェアの「アルゴリズム（恒久）」と「パラメータ・設定（可変）」と完全に同型。<strong>システムの性格は、固定部分ではなく可変部分の調律で決まる</strong>。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>music（ブラームス4番／演奏解釈）</strong>: USGA がコースを「過酷に追い込む」のと、ブラームス4番フィナーレが「長調の救済を与えず短調で破断する」のは、同じ美学——「快適さを与えない厳格さ」が崇高さを生む。一方マスターズの「劇的スコアを演出するセットアップ」は、聴衆を計算した 19 世紀ヴィルトゥオーゾ的エンターテインメント。</li>
+<li><strong>bread（澱粉の老化／発酵）</strong>: 「同じレシピでも、発酵温度・含水率・時間（可変パラメータ）で別物になる」——グリーンの含水率（硬さ）がコースの難易度を決めるのと完全に同じ。パン職人が湿度・温度を「セットアップ」するように、グリーンキーパーは芝を「セットアップ」する。</li>
+<li><strong>cs（パラメータ vs アルゴリズム）/ tech（MoE のハイパーパラメータ）</strong>: 性能はアルゴリズム（恒久）よりハイパーパラメータ・チューニング（可変）で決まることが多い、というML の経験則と同型。</li>
+<li><strong>解剖学（環境への適応）</strong>: 全英の「day-night draw の運を受け入れる」哲学は、自律神経が「制御できないストレスは抗わず受け流す」（[[2026-05-06_迷走神経と自律神経バランス]]）のと響き合う——適応とは環境を変えることでなく、環境に合わせて自分を調律すること。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>グリーンキーピングの科学</strong>：スティンプメーターの測定法、ベントグラス vs バミューダ vs フェスク vs ポアの特性、グリーンスピードと刈高・転圧・含水率の関係</li>
+<li><strong>飛距離規制（ball rollback）の影響予測</strong>：2028/2030 施行後、メジャーのセットアップ思想はどう変わるか（コースを伸ばさなくて済む＝USGA は他の手段で過酷さを作る必要）</li>
+<li><strong>PGA ツアーの「平常週」のセットアップ</strong>：シグネチャーイベント／FedExカップ・プレーオフのコースは何を基準に作るのか</li>
+<li>過去の「セットアップ論争」事例研究（2004 シネコック、2018 シネコック土曜、2015 チェンバーズベイ）から学べる「公平な難しさ」の境界線</li>
+</ul>
+<h2>主要参考ソース</h2>
+<ul>
+<li>USGA 公式（usga.org）"Course Setup" 解説、および全米オープンの歴史的セットアップ記録（Tier 1）</li>
+<li>R&amp;A 公式（randa.org）The Open のリンクス・セットアップ方針、および飛距離規制（distance insights / ball rollback）声明（Tier 1）</li>
+<li>Masters.com / Augusta National 公式のコース解説（Tier 1）</li>
+<li>Geoff Shackelford の長期コース建築・セットアップ批評（専門家・著書多数、Tier 2）</li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/golf/2026-05-12_メジャー選手権のコースセットアップ哲学.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-anatomy" class="card card-anatomy domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-anatomy">anatomy</span> <span class="card-title">指先の皮膚機械受容器と能動的触知覚 ——マイスナー・パチニ・メルケル・ルフィニ小体が「触る」を作る</span></span>
+          <span class="card-abstract">指先の触覚は 4 種の機械受容器の四重奏——マイスナー（速い順応・微小すべり検知）、メルケル（遅い順応・形/エッジの空間識別）、パチニ（超速い順応・250-300Hz の振動・道具を介した遠隔触覚）、ルフィニ（皮膚の伸展・把持安定性）——で、カプセル構造の違うフィルタバンクとして同じ皮膚変形を多重サンプリングする。そして触覚は受動的入力でなく<strong>能動的探索（haptics）</strong>：プロが「触っただけで」分かるのは超人的皮膚でなく「どう触れば情報が最大化するか」を知っているから。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#機械受容器</span> <span class="tag">#触覚</span> <span class="tag">#指先</span> <span class="tag">#マイスナー小体</span> <span class="tag">#パチニ小体</span> <span class="tag">#メルケル細胞</span> <span class="tag">#ルフィニ終末</span> <span class="tag">#能動的触知覚</span> <span class="tag">#ピアノ</span> <span class="tag">#ゴルフ</span> <span class="tag">#パン</span></div>
+<h2>学んだこと</h2>
+<h3>「触覚」は一つの感覚ではなく四重奏</h3>
+<p>指先（無毛皮膚 glabrous skin）には機能の異なる 4 種類の機械受容器が層をなして埋まっており、それぞれ<strong>順応速度（速い/遅い）と受容野（小さい/大きい）</strong>の組合せで役割分担している。これは「Aβ 線維（太い有髄、伝導速度 ~50 m/s）」が運ぶ高速チャンネル。</p>
+<table>
+<thead>
+<tr>
+<th>受容器</th>
+<th>順応</th>
+<th>受容野</th>
+<th>深さ</th>
+<th>最適刺激</th>
+<th>担当する知覚</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>マイスナー小体（FA-I / RA-I）</strong></td>
+<td>速い</td>
+<td>小・境界明瞭</td>
+<td>真皮乳頭（浅い）</td>
+<td>5–50 Hz の振動、軽い触れ・微小すべり</td>
+<td>「物が滑り始めた」検知、点字・微細テクスチャ、グリップ調整</td>
+</tr>
+<tr>
+<td><strong>メルケル細胞–神経複合体（SA-I）</strong></td>
+<td>遅い</td>
+<td>小・境界明瞭</td>
+<td>表皮基底層（最も浅い）</td>
+<td>持続圧、エッジ、点、曲率（~0.5 mm 解像度）</td>
+<td>形・エッジ・テクスチャの「空間的」識別、点字読解の主役</td>
+</tr>
+<tr>
+<td><strong>パチニ小体（FA-II / RA-II）</strong></td>
+<td>非常に速い</td>
+<td>大・境界曖昧</td>
+<td>皮下深部</td>
+<td>40–800 Hz の高周波振動（最適 ~250–300 Hz）</td>
+<td>道具を介した遠隔感覚、表面の質感（道具先端の振動）、微細振動</td>
+</tr>
+<tr>
+<td><strong>ルフィニ終末（SA-II）</strong></td>
+<td>遅い</td>
+<td>大・境界曖昧</td>
+<td>真皮深部</td>
+<td>皮膚の伸展（ストレッチ）方向</td>
+<td>指の位置感覚（皮膚版の固有受容）、力の方向、把持の安定性モニター</td>
+</tr>
+</tbody>
+</table>
+<p>指先は受容器密度が最大（マイスナー約 140/cm²、メルケル約 70/cm²、手のひらの数倍、前腕の十数倍）で、これが<strong>二点弁別閾 ~2–3 mm</strong>（背中は 40 mm 以上）という指先の異常な解像度を生む。皮膚の「指紋（隆線）」は単なる滑り止めではなく、表面を撫でたとき隆線が振動を増幅して FA-I/FA-II に届ける<strong>機械的トランスデューサ</strong>——指紋を撫でる速度に応じ ~250 Hz 付近（パチニの最適周波数！）の振動を生むよう間隔が最適化されている、という説がある。</p>
+<h3>受容器の物理：なぜ層構造とカプセルが要るのか</h3>
+<p>順応の速さは<strong>カプセル構造</strong>で決まる。パチニ小体は神経終末を玉ねぎ状の同心円層（数十層）が包み、これが<strong>ハイパスフィルタ</strong>として働く——一定の圧では層が変形を吸収してしまい、終末は刺激の「変化（時間微分）」にしか応答しない。だから高周波振動だけを通す。マイスナーも薄いカプセルでより緩いハイパス。メルケルとルフィニはカプセルが無い（あるいは薄い）ので持続刺激（DC 成分）を通す。<strong>同じ皮膚変形を、フィルタ特性の異なる 4 つのセンサーで多重サンプリングし、中枢で合成して「触感」を再構成している</strong>——これは信号処理のフィルタバンクそのもの（音声を周波数帯ごとに分解する蝸牛の戦略と同じ発想）。</p>
+<h3>能動的触知覚（active touch / haptics）——「触られる」と「触る」は別物</h3>
+<p>J.J. ギブソンの古典的洞察：受動的に触られる（誰かが指に物を当てる）よりも、<strong>自分で能動的に探索する（撫でる、押す、つまむ、転がす）</strong>ほうが圧倒的に正確に物を識別できる。理由は二つ：</p>
+<ol>
+<li><strong>運動と感覚の予測的統合</strong>：自分で動かすと「どんな感覚が来るはず」という遠心性コピー（efference copy）が小脳経由で予測でき（[[2026-04-24_小脳と運動学習の内部モデル]]）、実際の入力との差分から物の性質を逆算できる。撫でる速度・圧を能動的に変えて「最適な刺激条件」を作りにいける。</li>
+<li><strong>「探索的手続き（exploratory procedures）」</strong>：レーダーマンとクラツキーの研究——人は物の性質ごとに無意識に決まった手の動かし方をする。テクスチャ→横方向に撫でる（lateral motion）、硬さ→押す（pressure）、重さ→持ち上げて支える（unsupported holding）、形→輪郭をなぞる（contour following）、温度→静的接触（static contact）。それぞれが特定の受容器群を最適に駆動する動作。</li>
+</ol>
+<p>つまり触覚は「皮膚に来た刺激を読む」のではなく、<strong>手の運動制御と一体の能動的サンプリング過程</strong>。だから指の動かし方が下手だと、同じ受容器を持っていても「下手な触り方」になる。</p>
+<h3>把持力の自動制御——FA-I が滑りを 50–100 ms で消す</h3>
+<p>物を持つとき、人は「落とさない最小限の力＋安全マージン」で握る。指と物の間で<strong>微小すべり（incipient slip）</strong>が起きると FA-I（マイスナー）がそれを検知し、~50–100 ms の超高速反射で握力をわずかに増す——意識に上らない。FA-I を局所麻酔で潰すと、人は把持力を過剰に上げ（力加減ができなくなり）、つまむ動作が不器用になる。ルフィニ（SA-II）は皮膚の伸展方向から「力がどちらにかかっているか（負荷力の方向）」をモニターし、把持の幾何学的安定性を担保する。<strong>ピアノのタッチ、ゴルフのグリップ圧、パン生地を扱う指——すべてこの無意識のフィードバックループの上に乗っている</strong>。</p>
+<h3>加齢・障害</h3>
+<p>マイスナー小体は加齢で著しく減少（70 代で 20 代の 1/3 以下）し、これが高齢者の「細かい作業のしにくさ」「小さなボタンが扱いにくい」の一因。糖尿病性ニューロパチー（[[2026-04-28_絞扼性ニューロパチーとピアニスト・ゴルファー]] と関連）や手根管症候群でも触覚の解像度が落ちる。逆に点字読者やプロ演奏家では、皮質の手指表現領域（[[2026-05-02_一次運動野M1と運動制御階層]] の感覚版＝S1 のホムンクルス）が使用依存的に拡大する。</p>
+<h2>気づき・洞察</h2>
+<p>「指先の感覚」は受動的な"入力"だと思い込んでいたが、実は<strong>手の運動制御の一部</strong>——「触る」とは「探索行動」であって、ピアノのタッチ・ゴルフのグリップ・パン生地の手触りはすべて「能動的触知覚のスキル」だ。だから上達とは「感覚が鋭くなる」より「最適な探索動作（圧・速度・接触面）を選べるようになる」こと。プロのパン職人が生地を「触っただけで」発酵状態を当てられるのは、超人的な皮膚ではなく、<strong>「どう触れば情報が最大化するか」を知っている</strong>から——軽く押して戻りを見る（弾性＝硬さ→pressure 探索）、表面を撫でて張り具合を見る（テクスチャ→lateral motion）、持ち上げて重さ＝水和とガスを推定（重さ→unsupported holding）。これはまさにレーダーマンの「探索的手続き」の達人的運用。</p>
+<p>もう一つの洞察：4 受容器のフィルタバンク構造は、<strong>「単一の完璧なセンサー」より「特性の違う複数の不完全なセンサー＋中枢での統合」のほうが頑健</strong>という設計原理の生物学的実装。蝸牛（周波数分解）、網膜（錐体3種＋桿体）、前庭（[[2026-05-07_前庭系と平衡感覚の統合]]）、固有受容（[[2026-05-10_筋紡錘とゴルジ腱器官の固有受容感覚]]）——感覚系はどれもこの「多重・冗長・相補」アーキテクチャ。MoE の「fine-grained experts ＋ shared expert」、Reed-Solomon の「冗長シンボルで誤りを訂正」と、抽象レベルでは同じ思想——<strong>多様な部分的観測を統合して全体像を頑健に再構成する</strong>。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>piano（タッチと音色の物理学 [[2026-05-03...]] / 今日のポリリズム）</strong>: ピアノの「タッチ」が音色に影響するかは長年の論争だが、確かなのは「打鍵速度・加速プロファイル」を演奏者が精密に制御していること——その制御フィードバックの一部が指先 FA-I/SA-II からの情報。「鍵盤の底を感じる」「キーの抵抗を読む」のはルフィニ＋メルケルの仕事。</li>
+<li><strong>golf（グリップ／シャフトフィッティング [[2026-05-04...]]）</strong>: グリップ圧の「微妙さ」（強すぎず弱すぎず）の自動調整は FA-I の滑り検知反射。シャフトの「しなりを感じる」「ヘッドの位置が分かる」（タイミング）の一部はグリップを介した振動＝パチニ小体経由——道具の先端の出来事を手元の振動で知る「遠隔触覚」。</li>
+<li><strong>bread（澱粉の老化／生地の扱い）</strong>: 「生地の手触りで発酵・水和を判断」は能動的触知覚スキルの典型。老化したパンの「ぼそつき」も触覚で分かる——retrogradation で硬化した澱粉結晶が口腔内（これも機械受容器だらけ）の感覚を変える。</li>
+<li><strong>解剖学・cs（信号処理）</strong>: フィルタバンク（順応速度＝周波数帯）による多重サンプリング＝蝸牛・MoE・誤り訂正符号と同じ「冗長な並列観測＋統合」アーキテクチャ。</li>
+<li><strong>other（ゲーム理論）/ tech（MoE 負荷分散）</strong>: 把持力の「最小限＋安全マージン」自動調整は、コスト(疲労・物を潰す)と失敗(落とす)のトレードオフを連続的に最適化する制御——資源配分問題の身体版。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>C 触覚線維（CT afferents）</strong>：無毛皮膚にはほぼ無いが有毛皮膚にある「ゆっくり優しく撫でられる」専用の低速無髄線維——「情動的タッチ（affective touch）」と社会的接触の神経基盤</li>
+<li><strong>触覚と質感知覚の「二段階モデル」</strong>：粗いテクスチャ＝空間コード（SA-I の解像度）、細かいテクスチャ＝振動コード（FA-II の周波数）——どこで切り替わるか</li>
+<li><strong>ハプティクス工学</strong>：VR の触覚フィードバック、義手のセンサーがどの受容器を模倣しようとしているか、触覚ディスプレイの限界</li>
+<li><strong>演奏家・職人の S1 可塑性</strong>：使用依存的な感覚皮質拡大は触覚の解像度をどれだけ上げるか、フォーカル・ジストニアとの関係（過剰な可塑性？）</li>
+</ul>
+<h2>主要参考ソース</h2>
+<ul>
+<li>Johansson &amp; Flanagan, "Coding and use of tactile signals from the fingertips in object manipulation tasks", <em>Nature Reviews Neuroscience</em> 2009（把持力制御と FA-I、Tier 1）</li>
+<li>Lederman &amp; Klatzky, "Haptic perception: A tutorial", <em>Attention, Perception &amp; Psychophysics</em> 2009（能動的触知覚・探索的手続き、Tier 1）</li>
+<li>Kandel et al., <em>Principles of Neural Science</em>（機械受容器の分類と生理、Tier 1）</li>
+<li>Scheibert et al., "The Role of Fingerprints in the Coding of Tactile Information", <em>Science</em> 2009（指紋とパチニ振動、Tier 1）</li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/anatomy/2026-05-12_指先の皮膚機械受容器と能動的触知覚.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-bread" class="card card-bread domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-bread">bread</span> <span class="card-title">スターチ・リトログラデーション（澱粉の老化）とパンの硬化の科学 ——なぜパンは固くなり、なぜ冷蔵庫は最悪で、なぜ温めると戻るのか</span></span>
+          <span class="card-abstract">パンが固くなるのは「乾く」のではなく<strong>澱粉の再結晶化（retrogradation）</strong>——密閉しても起こる。アミロースの速い再結晶化（不可逆、スライス可能にする）とアミロペクチンの遅い再結晶化（融点 ~50-60°C で可逆、温め直すと一時的に戻る）の二段階。冷蔵庫（~4°C）は再結晶化が最速の最悪ゾーンで、正しい保存は「室温で食べきる or 冷凍」。乳化剤・湯種・マルトジェニックアミラーゼは「結晶化の核生成・成長を遅くする」同じ目的の異なる手段。「化学反応の運命は変えられないが速度は変えられる」。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#澱粉</span> <span class="tag">#リトログラデーション</span> <span class="tag">#老化</span> <span class="tag">#ステイリング</span> <span class="tag">#アミロース</span> <span class="tag">#アミロペクチン</span> <span class="tag">#ガラス転移</span> <span class="tag">#保存</span></div>
+<h2>学んだこと</h2>
+<h3>「パンが固くなる」≠「乾く」——staling は水分損失とは別の現象</h3>
+<p>直感的には「パンが固くなる＝水が抜ける」と思いがちだが、これは半分しか正しくない。<strong>密閉袋に入れて水分が逃げないようにしてもパンは固くなる</strong>——水分は系内に保持されたまま、<strong>澱粉分子の再結晶化</strong>によってクラム（中身）の弾性が失われ、ぼそぼそ・ぱさぱさになる。これが <strong>retrogradation（澱粉の老化、回帰）</strong>。staling は (1) クラムの硬化＝主にアミロペクチンの retrogradation、(2) クラストの軟化＝クラムからクラストへの水分移行（パリパリが湿気る）、(3) フレーバーの劣化、の複合現象だが、食感の主因は (1)。</p>
+<h3>焼成中に何が起きているか——ゲル化（gelatinization）の復習</h3>
+<p>生の小麦澱粉は<strong>半結晶性の顆粒</strong>（granule）で、アミロース（直鎖状グルコース重合体、~25%）とアミロペクチン（高度に分岐、~75%）が交互に層をなして詰まっている。焼成中、温度が ~55–70°C に達すると顆粒が吸水して膨潤し、結晶構造が壊れ（<strong>ゲル化／糊化 gelatinization</strong>）、アミロースが顆粒外へ溶け出す（[[2026-04-27_湯種法とアジア式ミルクブレッドのデンプン糊化]] で扱った）。焼き上がり直後のクラムは「膨潤した澱粉顆粒の残骸＋溶出アミロース＋変性グルテンの連続マトリックス」で、柔らかく弾力がある——この状態は<strong>熱力学的に準安定（kinetically trapped）</strong>で、放置すれば結晶状態へ戻ろうとする。それが retrogradation。</p>
+<h3>Retrogradation の二段階：速い（アミロース）と遅い（アミロペクチン）</h3>
+<ol>
+<li><strong>アミロースの再結晶化（速い、数時間以内、焼成直後の冷却中にほぼ完了）</strong>：溶出した直鎖アミロースが二重らせんを組んで素早く部分結晶化し、クラム構造に「初期の腰（set）」を与える。焼き立てパンを切ると崩れるが、数時間冷ますとスライスできるようになるのはこれ。この成分は<strong>不可逆</strong>（温め直しても戻らない）で、融点が ~150°C と高い。</li>
+<li><strong>アミロペクチンの再結晶化（遅い、数日かけて進行）</strong>：分岐の外側短鎖（DP ~15 前後）が膨潤顆粒の内部でゆっくり二重らせん→結晶ドメインを形成。これがクラムの<strong>経時的硬化</strong>の主因。重要なのは<strong>この成分の融点が ~50–60°C と低い</strong>こと——だから古いパンを 60°C 以上に温め直す（オーブン、トースター、電子レンジ）と、アミロペクチン結晶が融け、クラムが一時的にフレッシュに近い柔らかさに戻る（<strong>「リフレッシュ」可逆性</strong>）。ただし冷めると再び（むしろ速く）retrograde するので、温め直しは食べる直前に。</li>
+</ol>
+<h3>なぜ冷蔵庫（4°C 前後）が最悪なのか</h3>
+<p>retrogradation の速度は温度依存で、<strong>0–10°C 付近で最大</strong>になる（一般に再結晶化は「核生成」と「結晶成長」の競合で、過冷却が大きい＝核生成が速いが、低すぎると分子運動が止まる、その中間で最速）。家庭の冷蔵庫（~4°C）はまさにこの「最悪ゾーン」。実験的に<strong>冷蔵したパンは室温放置より数倍速く固くなる</strong>——1 日冷蔵 ≈ 室温 数日分。一方 <strong>−18°C 以下の冷凍</strong>では分子運動が事実上凍結（後述のガラス転移以下）し、retrogradation はほぼ止まる。だから「パンの正しい保存」は (a) 1–2 日で食べきるなら室温・密閉、(b) それ以上なら<strong>スライスして冷凍</strong>、絶対に冷蔵庫に入れない。</p>
+<h3>ガラス転移（glass transition）という鍵概念</h3>
+<p>パンのクラムは「ゴム状（rubbery、柔らかく可動）」と「ガラス状（glassy、硬く分子運動停止）」の状態を持つアモルファス系で、その境界がガラス転移温度 <strong>Tg</strong>。Tg は<strong>水分量に強く依存</strong>（水は可塑剤）——水分 35–40% のクラムでは Tg はおよそ −10〜0°C 付近。だから室温（25°C）ではクラムは Tg より十分上＝ゴム状で、分子が動けるから retrogradation が進行する。冷凍（−18°C）では Tg より下＝ガラス状で運動が凍結し老化が止まる。逆にクラスト（水分 ~5%）は Tg が高く室温でガラス状＝パリパリ、そこにクラムから水が移ってくると Tg が下がりゴム状＝しなしなになる。<strong>「パンの食感の物理」はほぼガラス転移と水分分布の物語</strong>。</p>
+<h3>Retrogradation を遅らせる手段（パン屋の道具箱）</h3>
+<ul>
+<li><strong>油脂・乳化剤</strong>：モノグリセリド（DATEM、SSL、モノステアリン酸グリセリル等の "anti-staling emulsifier"）はアミロースと<strong>包接複合体（amylose–lipid complex, V型結晶）</strong>を作り、アミロースの再結晶化を阻害する。バター・卵黄（レシチン）が多いブリオッシュ（[[2026-05-07_ブリオッシュとリッチドゥの科学]]）が「翌日も柔らかい」のはこれ。</li>
+<li><strong>糊化澱粉のプレ添加（湯種・タンザクン tangzhong）</strong>：[[2026-04-27...デンプン糊化]] で扱った——あらかじめ大量の水を澱粉に抱かせておくと、クラム全体の保水力が上がり、自由水が減って結晶化の核生成が遅れる。アジア系ミルクブレッドが長持ちするのはこの戦略。</li>
+<li><strong>アミラーゼ（とくにマルトジェニック・アミラーゼ／中温性 α-アミラーゼ）</strong>：[[2026-05-04_アミラーゼと糖変換の科学]] で扱った酵素を「生地改良剤」として添加すると、アミロペクチンの<strong>外側の短鎖を切り詰める</strong>——再結晶化に必要な「長さ」を奪うので、長期的な硬化を劇的に抑える。市販食パンが何日も柔らかいのは主にこれ（"anti-staling enzyme"）。サワードウの内在アミラーゼや麦芽（diastatic malt）にも同様の効果が一部ある。</li>
+<li><strong>ペントサン／食物繊維（アラビノキシラン）</strong>：ライ麦パン（[[2026-04-26_ライ麦パンの化学とDetmolder工程]]）が異様に日持ちするのは、ライ麦のペントサンが大量の水を保持し、グルテンが弱い分むしろ澱粉–水系として安定だから。全粒粉のブラン（ふすま）も保水で効くが、ブランの鋭利な粒がグルテンを切るデメリットと相殺。</li>
+<li><strong>糖</strong>：砂糖は水と結合し、澱粉が結晶化に使える自由水を減らす（菓子パンが柔らかい一因）。ただし糖は浸透圧で発酵を抑える（[[2026-05-07...リッチドゥ]]）副作用あり。</li>
+<li><strong>酸（サワードウ）</strong>：適度な酸性は澱粉–グルテン相互作用と糊化挙動を変え、retrogradation をやや遅らせる方向に働く（クラム構造がより緻密になることとも関連）。長期冷蔵発酵（[[2026-05-10_長時間冷蔵発酵リターディングの科学と風味形成]]）由来の酸も間接的に寄与。</li>
+</ul>
+<h2>気づき・洞察</h2>
+<p>「焼き立てのパンの柔らかさは、熱力学的には"借り物"」——澱粉は本来結晶でいたい（低エネルギー）状態で、焼成は無理やり非晶質に追い込む。だから時間が経てば必ず結晶へ「回帰」する。<strong>パン作りの保存技術とは、この不可避な熱力学的傾斜を"動力学的に"先延ばしする工夫の集積</strong>だ。乳化剤も酵素も湯種も冷凍も、すべて「結晶化の核生成・成長を遅くする（kinetic barrier を上げる／分子の可動性を下げる）」という同じ目的の異なる手段。これは [[2026-05-10...冷蔵発酵]] の「酵母を冷やして遅らせ、酵素は動かす」という"反応速度の選択的操作"と完全に同じ哲学——<strong>化学反応の運命は変えられないが、速度は変えられる</strong>。</p>
+<p>もう一つ：「冷蔵庫がパンに最悪」という反直感的事実は、<strong>"低温＝保存に良い" という単純な一般化が破綻する好例</strong>。低温は微生物（カビ）の繁殖は確かに遅らせるが、澱粉の物理的老化はむしろ加速する。だから「カビが生える前に食べきる」なら室温、「長期保存」なら冷凍——「中途半端な冷蔵」は両方の最悪を取る。これは golf の「中途半端なセットアップ」（過酷でも自然でもない）、cs の「中途半端な一貫性レベル」と同型の教訓で、<strong>多目的最適化では"中間"がしばしば全パレート劣位になる</strong>。</p>
+<p>そして最も面白いのは <strong>retrogradation が「悪」一辺倒ではない</strong>こと——「アミロースの速い再結晶化」がなければパンはスライスできないし、コーンフレークやライスクリスピー、レトルト米飯の食感、春雨や葛切りの透明な弾力、片栗粉のとろみが冷めて固まる現象（あんかけが冷えると固まる）はすべて retrogradation の応用。さらに<strong>レジスタントスターチ（難消化性澱粉 RS3）</strong>——retrograde したアミロースは消化酵素が分解しにくく、食物繊維様に働く（冷やご飯・冷えたパスタ・ポテトサラダの「血糖値が上がりにくい」現象）。だから「老化」は「制御すべき劣化」であると同時に「設計できる機能」でもある。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>解剖学（今日のエントリ・指先の機械受容器）</strong>: 「パンが固くなった」を判定するのは指先の SA-I（メルケル＝弾性）と口腔内機械受容器。staling は触覚・口腔感覚で検知される物性変化。職人が「触っただけで古さが分かる」のは能動的触知覚スキル。</li>
+<li><strong>cs（永続データ構造／物質の状態）/ tech（MoE のメモリ vs compute）</strong>: 「準安定状態を維持するコスト」——焼き立て状態を保つには冷凍（エネルギー）が要る。エントロピー的に有利な状態へ落ちようとするのを抑え込むのは、システムが「秩序」を維持するコストを払い続けるのと同型（ソフトのキャッシュ無効化、エントロピー vs 情報）。</li>
+<li><strong>bread 内・[[2026-05-04_アミラーゼと糖変換の科学]] / [[2026-04-27_湯種法...]]</strong>: ゲル化（gelatinization）と老化（retrogradation）は澱粉物性の「行き」と「帰り」。アミラーゼも湯種も、この両端を制御する手段として再解釈できる——澱粉サイエンスの「三部作」が完成。</li>
+<li><strong>music（ブラームス4番のパッサカリア）/ golf（コースセットアップ）</strong>: 「同じ骨格でも可変パラメータ（水分・温度・添加物 / テンポ・ダイナミクス / グリーンの硬さ）で結果がまるで変わる」——システムの性格は固定部分でなく調律で決まる、という共通原理。</li>
+<li><strong>other（ゲーム理論／多目的最適化）</strong>: 「冷蔵 = 微生物には良いが物性には最悪」は、複数目的のトレードオフで中間解がパレート劣位になる例。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>クラスト⇄クラムの水分動態</strong>：水分活性（aw）勾配によるリディストリビューション、なぜパリパリのクラストは数時間でしなびるか、その物理モデル</li>
+<li><strong>コンプレッサビリティ試験（テクスチャアナライザ）</strong>：staling を定量する方法（圧縮弾性、firmness カーブ）、DSC（示差走査熱量計）での retrogradation エンタルピー測定</li>
+<li><strong>冷凍生地（par-baked / frozen dough）の科学</strong>：冷凍が酵母・グルテン・澱粉に与えるダメージ、急速冷凍 vs 緩慢冷凍、解凍時の品質</li>
+<li><strong>レジスタントスターチ RS1〜RS4 の分類</strong>と、パンの GI（グリセミック指数）を意図的に下げるパン作り（冷却サイクル、全粒、サワードウの組合せ）</li>
+</ul>
+<h2>主要参考ソース</h2>
+<ul>
+<li>Gray &amp; BeMiller, "Bread Staling: Molecular Basis and Control", <em>Comprehensive Reviews in Food Science and Food Safety</em> 2003（staling 機構の決定版レビュー、Tier 1）</li>
+<li>Fennema's <em>Food Chemistry</em>（澱粉のゲル化・retrogradation・ガラス転移の章、Tier 1）</li>
+<li>Hug-Iten, Escher &amp; Conde-Petit, "Staling of bread: role of amylose and amylopectin", <em>Cereal Chemistry</em>（Tier 1）</li>
+<li>Harold McGee, <em>On Food and Cooking</em>（澱粉と老化の平易な解説、Tier 2）</li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/bread/2026-05-12_スターチ・リトログラデーションとパンの老化の科学.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-cs" class="card card-cs domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-cs">cs</span> <span class="card-title">計算可能性理論 ——チューリングマシン・停止問題・Rice の定理が引く「原理的にできないこと」の境界線</span></span>
+          <span class="card-abstract">チューリングマシンの「無限のテープ × 有限の制御」が万能性を生み、「プログラムをデータとして扱える（万能 TM、eval、MoE の推論エンジン）」という強力さの代償として、停止問題（決定不能）と <strong>Rice の定理</strong>（プログラムの意味的性質はすべて決定不能＝完全な静的バグ検出・マルウェア検出・等価性判定は原理的に不可能）という限界が生じる——同じコイン（universality）の表裏。だから工学は「言語を制限して決定可能な部分集合に押し込める」（eBPF verifier、型システム、全関数型言語）。「理論が不可能と言う ⇒ 制限する／近似する／トレードオフを明示的に設計する」。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#計算可能性</span> <span class="tag">#決定不能性</span> <span class="tag">#チューリングマシン</span> <span class="tag">#停止問題</span> <span class="tag">#Riceの定理</span> <span class="tag">#帰着</span> <span class="tag">#チャーチ・チューリングのテーゼ</span> <span class="tag">#計算理論</span></div>
+<h2>学んだこと</h2>
+<h3>なぜ「計算とは何か」を厳密に定義する必要があったか</h3>
+<p>1930 年代、ヒルベルトの <strong>Entscheidungsproblem（決定問題）</strong>——「与えられた一階述語論理式が証明可能かを機械的に判定する手続きはあるか？」——に答えるには、「機械的手続き（effective procedure）」を数学的に定義する必要があった。チャーチ（λ計算）、ゲーデル（再帰関数）、チューリング（チューリングマシン）が独立に定式化し、<strong>すべて等価</strong>であることが証明された。これが <strong>チャーチ・チューリングのテーゼ</strong>：「直感的に計算可能 ⟺ チューリングマシンで計算可能」。これは数学的定理ではなく<strong>自然法則的な主張</strong>（直感的概念と形式的概念の同一視）だが、90 年以上反例がなく、量子計算ですら「計算可能なものの範囲」は変えない（変えるのは効率＝計算量だけ）。</p>
+<p>チューリングマシン（TM）の本質的要素は：(1) 無限のテープ（記憶）、(2) 有限の状態（プログラム）、(3) 局所的な書き換え規則。重要なのは <strong>「無限のテープ × 有限の制御」</strong> という非対称——プログラムは有限なのに、扱えるデータは無限。この組合せが「万能性（universality）」を生む。</p>
+<h3>万能チューリングマシン——「プログラム＝データ」の発見</h3>
+<p>チューリングの決定的洞察：<strong>ある TM の記述（遷移規則の表）を文字列として符号化し、それを別の TM の入力テープに置ける</strong>。<strong>万能チューリングマシン U</strong> は、入力として「TM M の符号 ⟨M⟩」と「M への入力 w」を受け取り、M が w 上で振る舞う通りにシミュレートする。U(⟨M⟩, w) = M(w)。</p>
+<p>これが現代の<strong>ストアドプログラム方式（フォン・ノイマン型コンピュータ）の理論的原型</strong>——「プログラムはメモリ上のデータに過ぎず、別のプログラム（OS、インタプリタ、コンパイラ、仮想機械、eval）が読んで実行できる」。Lisp の <code>eval</code>、JVM、QEMU、ブラウザの JS エンジン、そして MoE モデルの重みを読んで走らせる推論エンジン——すべて万能 TM のインスタンス。「コードとデータの区別は便宜的なもので、本質的なものではない」というのが計算理論の出発点であり、同時に多くのセキュリティ脆弱性（コードインジェクション、バッファオーバーフロー）の根源でもある。</p>
+<h3>停止問題（Halting Problem）——対角線論法の本領</h3>
+<p><strong>問</strong>：「TM M と入力 w が与えられたとき、M が w 上で停止するか（無限ループしないか）を判定する TM H は存在するか？」<br>
+<strong>答</strong>：存在しない（決定不能 undecidable）。</p>
+<p>証明（対角線論法）：仮に H(⟨M⟩, w) が「M が w で停止するなら yes、しなければ no」を必ず有限時間で返すとする。すると次の TM D を作れる：</p>
+<pre><code>D(⟨M⟩):
+  if H(⟨M⟩, ⟨M⟩) == yes:   # M が「自分自身の符号」を入力に取って停止するなら
+      loop forever            # わざと無限ループ
+  else:
+      halt                    # 停止
+</code></pre>
+<p>ここで D に「D 自身の符号 ⟨D⟩」を入力として与える：D(⟨D⟩) は？</p>
+<ul>
+<li>もし D(⟨D⟩) が停止するなら、定義により H(⟨D⟩,⟨D⟩)=yes だったはず → だが then 節は loop forever → 停止しない。矛盾。</li>
+<li>もし D(⟨D⟩) が停止しないなら、H(⟨D⟩,⟨D⟩)=no → else 節 → halt → 停止する。矛盾。</li>
+</ul>
+<p>どちらも矛盾。ゆえに H は存在し得ない。<strong>「自己言及＋否定」が古典的パラドックス（嘘つきのパラドックス、ラッセルのパラドックス、カントールの対角線論法）と同じ構造</strong>で、計算という文脈でそれが「決定不能性」として現れる。</p>
+<p>「停止性は決定不能」が意味するのは——<strong>完璧な「無限ループ検出器」「最適化コンパイラの停止保証」「リソース上限の事前判定」は原理的に作れない</strong>。実務では「ほとんどのケースで判定できる近似」（タイムアウト、停止性解析の保守的近似）で凌ぐ。</p>
+<h3>Rice の定理——「意味のあるプログラム解析はすべて決定不能」</h3>
+<p>停止問題の一般化であり、<strong>実務に最も効く一撃</strong>。Rice の定理（1953）：</p>
+<blockquote>
+<p><strong>プログラムが計算する関数（部分関数）についての、自明でない（trivial でない）あらゆる意味的（semantic）性質は決定不能である。</strong></p>
+</blockquote>
+<p>「自明でない」＝「その性質を持つプログラムも持たないプログラムも存在する」。「意味的（extensional）」＝「プログラムの<strong>入出力の振る舞い</strong>だけで決まる性質」（構文的な性質——「ソースが 100 行以下か」「<code>goto</code> を含むか——ではなく）。</p>
+<p>帰結（すべて決定不能）：</p>
+<ul>
+<li>このプログラムは恒等関数を計算するか？</li>
+<li>このプログラムは常に 0 を返すか？</li>
+<li>二つのプログラムは同じ関数を計算するか？（<strong>プログラム等価性判定</strong>——コンパイラ最適化の正しさ検証が原理的に自動化できない理由）</li>
+<li>このプログラムはすべての入力で停止するか？（<strong>全域性 totality</strong>）</li>
+<li>このプログラムはエラー（ゼロ除算、NULL 参照）を起こす入力があるか？（<strong>完全な静的バグ検出は不可能</strong>）</li>
+<li>このコードはマルウェアか（特定の悪性挙動を示すか）？（<strong>完全なウイルス検出は不可能</strong>——シグネチャや振る舞いヒューリスティクスに頼る理由）</li>
+</ul>
+<p>Rice の定理が言っているのは「<strong>プログラムを実行せずに、その"意味"を完全に知ることはできない</strong>」——プログラムの意味は、それを（あらゆる入力で）走らせること以外に確定する方法がない。これが静的解析ツール（型チェッカ、リンタ、定理証明器、抽象解釈）が<strong>必ず</strong>「保守的（soundness のために誤検出を許す）」または「不完全（false negative を許す）」になる根本理由。</p>
+<h3>決定不能性の「強さ」を測る——帰着と次数</h3>
+<p>決定不能問題にも階層がある。<strong>多対一帰着（many-one reduction）</strong> A ≤ₘ B：「A の問題例を B の問題例に変換する計算可能関数があり、答えが一致する」。A ≤ₘ B かつ B が決定可能なら A も決定可能——だから「B は A 以上に難しい」。停止問題は <strong>半決定可能（recursively enumerable, r.e.）</strong>——「停止する」ケースは（実際に走らせれば）有限時間で yes と分かるが、「停止しない」ケースは確認できない。その<strong>補集合（停止しない問題）は r.e. ですらない</strong>。さらに難しい問題（停止問題のオラクルを使っても解けない問題＝「停止問題の停止問題」…）が無限に積み重なり、これが <strong>算術的階層（arithmetical hierarchy）</strong> Σₙ / Πₙ。「∀x ∃y ...」のような論理式の量化子の交替数が、その述語の「計算不能性の度合い」に対応する——ロジックと計算が再び繋がる（[[2026-05-01_Curry_Howard同型と命題型対応]] の延長線上）。</p>
+<h3>ゲーデルとの関係——不完全性は決定不能性の影</h3>
+<p>ゲーデルの第一不完全性定理（「十分強い無矛盾な公理系には、真だが証明できない命題が存在する」）は、計算可能性の言葉で見通しよく言い換えられる：もし「論理式 φ が証明可能か」が決定可能なら、「TM M が停止するか」も決定可能になってしまう（停止は算術の命題として書ける）——だが停止問題は決定不能。ゆえに証明可能性は決定不能（Entscheidungsproblem への否定的回答＝チャーチとチューリングが 1936 に独立に示した）。<strong>「証明できる」⊊「真である」のギャップは、「決定できる」⊊「半決定できる」のギャップの論理版</strong>。</p>
+<h3>「決定不能を回避する」——制限という工学</h3>
+<p>理論が「不可能」と言ったら、工学は「では何を諦めればできるか」を問う。これが現代システムの至る所にある設計判断：</p>
+<ul>
+<li><strong>eBPF の verifier</strong>（[[2026-05-08_eBPFとLinuxカーネル可観測性]]、tech 既出）：任意プログラムの停止性判定は不可能 → だから eBPF は<strong>言語自体を制限</strong>（無制限ループ禁止／bounded loops のみ、命令数上限、有界スタック）して、停止性を<strong>決定可能な部分集合</strong>に押し込めた。「決定不能な問題は、入力を狭めれば決定可能になる」。</li>
+<li><strong>型システム</strong>：[[2026-04-24_Hindley_Milner型推論とlet多相]] の HM 型推論は決定可能、しかし System F（全称型の完全な型推論）は決定不能、依存型の型検査も一般には決定不能 → 言語設計者は「表現力 vs 判定可能性」を綱引きする。</li>
+<li><strong>正規表現と文脈自由文法</strong>：正規言語の包含・等価は決定可能、文脈自由言語の等価性は決定不能 → だから「正規表現の最適化」はできても「任意パーサの等価性チェック」はできない。</li>
+<li><strong>モデル検査</strong>：有限状態に限れば（あるいは抽象化して有限化すれば）性質検証は決定可能 → だからハードウェア検証や有限状態プロトコル検証は機械化できるが、無限状態系では半自動・近似に頼る。</li>
+<li><strong>全関数型言語（Agda, Idris の totality checker）</strong>：「停止しない関数」を書けないように構文を制限（構造的再帰のみ許す）→ チューリング完全性を犠牲にして「すべての関数が停止する」保証を得る。</li>
+</ul>
+<p>つまり <strong>「チューリング完全性」は両刃</strong>——万能だが解析不能。実用システムの多くは「ほぼ万能だが解析可能な部分集合」を慎重に選んでいる。設定ファイル形式が（うっかり）チューリング完全になると「設定の検証ができなくなる」（実話：sendmail 設定、一部の CSS/正規表現は意図せず計算能力が高すぎる）。</p>
+<h2>気づき・洞察</h2>
+<p>計算可能性理論の核は <strong>「自己言及は両刃の剣」</strong> という一点に尽きる。「プログラムをデータとして扱える（万能 TM、eval、メタプログラミング）」という強力さと、「プログラムについての完全な判定はできない（停止問題、Rice）」という限界は、<strong>同じコイン（万能性＝universality）の表裏</strong>。柔軟性のコストとして、自己分析の不可能性を払っている。これは脳が「自分自身を完全に理解できるか」という問いとも響くし、ゲーデル＝エッシャー＝バッハ的な「自己参照ループ」の主題そのもの。</p>
+<p>実務的に最も重要な悟りは——<strong>「完璧な静的解析が存在しないのは、ツールが未熟だからではなく、原理的に不可能だから」</strong>。だから「型チェッカが通ったのにバグがある」「リンタが見逃した」「ウイルス対策をすり抜けられた」は、努力不足ではなく Rice の定理の必然。ゆえに正しい戦略は「完璧を目指す」のではなく「<strong>どの近似（保守的 or 楽観的）を選ぶか、誤検出と見逃しのトレードオフをどう設計するか</strong>」——これは tech の MoE 負荷分散（「最適ルーティングは難しいから学習で近似」）、anatomy の把持力制御（「最適握力は計算できないから安全マージンで近似」）、golf のコースマネジメント（「完璧なショットは無理だから期待値で意思決定」）と完全に同じ思考様式。<strong>「理論が不可能と言う ⇒ 入力を制限する／近似で妥協する／トレードオフを明示的に設計する」——これがシステム工学の最も汎用的なパターン</strong>。</p>
+<p>そしてもう一つ：「無限のテープ × 有限の制御」という非対称が万能性の源、という構造は美しい。有限の DNA（制御）が無限に多様な環境（テープ）に対応する生物、有限のオーケストレーション（指揮者）が無限の音楽的状況に対応する演奏（[[ブラームス4番]]）、有限のルーター（MoE）が無限の入力に対応するモデル——「有限の規則 × 無限の状況」という普遍構造の、最も純粋な数学的表現がチューリングマシンだ。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>tech（今日のエントリ・MoE）</strong>: ルーティングという組合せ最適化を「学習で近似」するのは、「決定不能／NP困難な問題を実用的近似で凌ぐ」の典型。また「重みを読んで走らせる推論エンジン」は万能 TM のインスタンス。</li>
+<li><strong>cs 内・[[2026-04-26_NP完全性とCook_Levin定理]]</strong>: 決定不能（できない）と NP完全（できるが遅い）は別の壁——計算理論は「解けるか（computability）」と「速く解けるか（complexity）」の二層構造。本エントリは下の層（より根源的な不可能性）。</li>
+<li><strong>cs 内・[[2026-05-01_Curry_Howard同型と命題型対応]] / [[2026-05-04_SSA形式とコンパイラ最適化]]</strong>: 型推論の判定可能性、コンパイラ最適化の正しさ検証——Rice の定理が「どこまで自動化できるか」の上限を引く。SSA も「保守的に近似された」データフロー解析。</li>
+<li><strong>解剖学（今日のエントリ・能動的触知覚）</strong>: 「物の性質は、能動的に探索する（走らせる）以外に確定できない」——プログラムの意味は実行する以外に確定できない、と構造が同じ。観測には介入が要る。</li>
+<li><strong>other（ゲーム理論）</strong>: ナッシュ均衡の計算（一般には PPAD 困難）、無限ゲームの解の存在——ゲーム理論にも「存在するが構成的に求まらない／効率的に求まらない」という計算可能性・計算量の壁がある。</li>
+<li><strong>music（ブラームスの developing variation）/ piano（ポリリズム）</strong>: 「有限の素材（8 小節の主題／2 つのリズム）を無限に変容させる」——有限の規則から無限の多様性を生む、万能 TM と同じ生成原理。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>再帰定理（Kleene's recursion theorem）</strong>：「任意のプログラムは自分自身の符号を取得できる」——quine（自己出力プログラム）やコンピュータウイルスの理論的基盤、不動点定理との関係</li>
+<li><strong>Busy Beaver 関数 Σ(n)</strong>：n 状態 TM が停止する前に書ける最大の 1 の数——計算可能でない（停止問題に帰着）、しかし小さい n では具体値が計算され、BB(5)=47,176,870 が 2024 に確定、BB(6) は天文学的でゲーデル独立の可能性も</li>
+<li><strong>オラクルマシンと相対化</strong>：P vs NP 問題が「相対化する技法では解けない」（Baker–Gill–Solovay）——証明技法の限界そのものを論じるメタ理論</li>
+<li><strong>Chaitin の Ω（停止確率）</strong>：アルゴリズム的にランダムな実数、コルモゴロフ複雑性と決定不能性の交点</li>
+<li><strong>超計算（hypercomputation）</strong>：チャーチ・チューリングのテーゼに「物理的に」反例はあり得るか（無限精度の実数計算、相対論的計算、量子重力…）——ほぼ全て否定的だが境界線の議論として面白い</li>
+</ul>
+<h2>主要参考ソース</h2>
+<ul>
+<li>Sipser, <em>Introduction to the Theory of Computation</em>（決定可能性・帰着・Rice の定理の標準教科書、Tier 1）</li>
+<li>Turing (1936), "On Computable Numbers, with an Application to the Entscheidungsproblem"（原典、Tier 1）</li>
+<li>Rice (1953), "Classes of recursively enumerable sets and their decision problems", <em>Transactions of the AMS</em>（原典、Tier 1）</li>
+<li>Hopcroft, Motwani &amp; Ullman, <em>Introduction to Automata Theory, Languages, and Computation</em>（Tier 1）</li>
+<li>Scott Aaronson, "Why Philosophers Should Care About Computational Complexity" / Busy Beaver の解説（Tier 2、現代的視点）</li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/cs/2026-05-12_計算可能性理論_チューリングマシン_停止問題_Riceの定理.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-house-hunting" class="card card-house-hunting domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-house-hunting">house</span> <span class="card-title">不動産登記簿（登記事項証明書）の読み方と相続登記義務化（2024年改正）</span></span>
+          <span class="card-abstract">登記簿は表題部（物理的に何か——マンション専有部分は内法面積で登記され広告の壁芯より小さい）・甲区（所有権の履歴）・乙区（抵当権など）の三部構成で、「対抗力はあるが公信力はない」（登記を信じても真実と違えば保護されない＝だから司法書士の本人確認が要る）。2024 年 4 月から<strong>相続登記が義務化</strong>（取得を知った日から 3 年以内、過去の相続は 2027 年 3 月末が一斉期限、怠ると 10 万円以下の過料）され、遺産分割が未了でも「相続人申告登記」で単独で義務をクリアできる救済策が新設された。所有者不明土地（国土の約 24%）という「コモンズの悲劇」へのメカニズムデザイン的対応。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#不動産登記</span> <span class="tag">#登記事項証明書</span> <span class="tag">#表題部</span> <span class="tag">#甲区</span> <span class="tag">#乙区</span> <span class="tag">#抵当権</span> <span class="tag">#相続登記義務化</span> <span class="tag">#所有者不明土地</span> <span class="tag">#相続人申告登記</span></div>
+<h2>学んだこと</h2>
+<h3>登記簿（登記事項証明書）の三部構成——「物・所有・担保」を一望する書類</h3>
+<p>不動産取引で「登記簿謄本」と呼ぶものは正式には<strong>登記事項証明書</strong>（コンピュータ化後の呼称）で、誰でも法務局・登記情報提供サービスで取得できる（手数料 ~600円、オンライン ~330円）。重要事項説明書（[[2026-05-09_重要事項説明書の読み方と告知義務]]）の記載は最終的にこの登記簿が原典なので、自分で読めることが買主の防御線になる。構造：</p>
+<p><strong>1. 表題部（表示に関する登記）</strong>——「その不動産が物理的に何か」</p>
+<ul>
+<li>土地：所在・地番（<strong>住居表示の"住所"とは別物</strong>——地番は登記上の番号、地図と照合が必要）、地目（宅地/田/畑/山林/公衆用道路…）、地積（㎡）。</li>
+<li>建物：所在・家屋番号、種類（居宅/店舗/共同住宅…）、構造（木造/鉄筋コンクリート造、何階建）、床面積（<strong>登記床面積は壁芯か内法か</strong>——マンションの専有部分は<strong>内法（うちのり）面積</strong>で登記され、不動産広告の壁芯面積より数㎡小さい。住宅ローン控除の「50㎡以上」要件は登記床面積＝内法で判定するので、広告で 51㎡でも登記で 49㎡だと不適用というワナがある）。</li>
+<li>区分建物（マンション）：一棟の建物の表題部＋専有部分の表題部＋<strong>敷地権</strong>（土地の持分が専有部分と一体化＝分離処分不可）の表示。「敷地権の割合」がそのまま土地の持分。</li>
+</ul>
+<p><strong>2. 権利部 甲区（所有権に関する事項）</strong>——「誰のものか、どう移ってきたか」</p>
+<ul>
+<li>所有権保存登記（新築時の最初の所有者）、所有権移転登記（売買・相続・贈与の履歴が<strong>すべて時系列で残る</strong>）、その原因（「売買」「相続」「贈与」「財産分与」）と日付。</li>
+<li><strong>差押え・仮差押え・仮処分</strong>——税金滞納や訴訟があるとここに付く。これがあれば要警戒。</li>
+<li><strong>買戻特約</strong>——売主が一定期間内に買い戻せる特約（公庫融資物件などに残っていることがある）。</li>
+<li>所有者の氏名・住所（<strong>住所変更登記がされていないと旧住所のまま</strong>——2026年4月から住所等変更登記も義務化＝後述）。</li>
+</ul>
+<p><strong>3. 権利部 乙区（所有権以外の権利に関する事項）</strong>——「どんな担保・利用権が付いているか」</p>
+<ul>
+<li><strong>抵当権</strong>：債権額（借入額）、債務者、抵当権者（銀行名）、利息・損害金。<strong>「債権額」は当初の借入額で残債ではない</strong>ので、残債は別途確認が必要。複数の抵当権があれば順位（1番抵当、2番抵当…）が付き、競売時の配当順を決める。</li>
+<li><strong>根抵当権</strong>：極度額の範囲で繰り返し借入・返済できる枠（事業者の物件に多い）。「極度額」も実際の借入残高ではない。</li>
+<li>賃借権、地上権、地役権、配偶者居住権（2020新設）など。</li>
+<li><strong>売買決済時には必ず抵当権抹消登記と所有権移転登記を同時に</strong>——売主の住宅ローン残債を売買代金で完済し、その場で抹消書類を司法書士が受け取って移転と一括申請するのが実務（「同時履行」）。乙区に抵当権が残ったまま引き渡されることは通常ない。</li>
+</ul>
+<h3>登記には「対抗力」はあるが「公信力」はない——日本法の重要な特徴</h3>
+<p>民法177条：不動産物権変動は<strong>登記しなければ第三者に対抗できない</strong>（対抗要件主義）。だから二重譲渡では「先に登記した者が勝つ」。一方で日本の不動産登記には<strong>公信力がない</strong>——登記を「信じて」取引しても、登記が真実と違えば（無権利者からの購入など）保護されない（動産の即時取得とは対照的）。だから「登記簿に売主名義がある」だけでは不十分で、権利証（登記識別情報）、印鑑証明、本人確認、（場合により）登記簿上の住所変更の経緯まで確認する。司法書士が決済に立ち会って本人確認・意思確認するのはこのリスクを潰すため。</p>
+<h3>相続登記の義務化（2024年4月1日施行）——所有者不明土地問題への国家的対応</h3>
+<p>長年「相続しても登記しない」放置が横行し、<strong>所有者不明土地が国土の約24%</strong>（九州本島より広い）に達した。誰の土地か分からないと公共事業・再開発・災害復旧・空き家対策が止まる。これを止めるため不動産登記法が改正された（民法・不動産登記法等の一括改正、2021成立）：</p>
+<ul>
+<li><strong>義務の内容</strong>：相続（遺言を含む）で不動産を取得した相続人は、<strong>「自己のために相続の開始があったことを知り、かつその所有権を取得したことを知った日」から3年以内</strong>に相続登記を申請する義務を負う。遺産分割で取得した場合は、分割成立日から3年以内に分割結果を反映した登記をする義務も。</li>
+<li><strong>過去の相続にも遡及適用</strong>：施行日（2024.4.1）より前に発生した相続も対象。この場合は「施行日」と「相続を知った日」のいずれか遅い方から3年以内＝<strong>2027年3月31日が一斉の期限</strong>。何代も前の相続で登記が止まっている「数次相続」の物件も対象（よくある「祖父名義のまま」のケース）。</li>
+<li><strong>罰則</strong>：正当な理由なく怠ると<strong>10万円以下の過料</strong>（行政罰、前科にはならない）。ただしいきなり科されるのではなく、登記官が義務違反を把握→相当の期間を定めて催告→それでも正当理由なく未申請なら管轄地方裁判所へ通知、という段階を踏む。「正当な理由」の例：相続人が極めて多数で戸籍収集に時間を要する、遺言の有効性や遺産範囲が係争中で帰属が未定、義務者が重病等。</li>
+<li><strong>救済策＝相続人申告登記（新設）</strong>：遺産分割協議がまとまらなくても義務を果たせる簡易な手続き。「①登記名義人について相続が開始したこと」「②自分がその相続人であること」を法務局に<strong>単独で申し出る</strong>だけ（他の相続人全員の関与・法定相続分の特定は不要、自分の戸籍だけで足りる）。登記官が職権で申出人の氏名・住所を登記簿に付記する。これで<strong>3年の義務はとりあえずクリア</strong>（その後、分割が決まったら3年以内に正式な相続登記を）。あくまで「義務を履行した」扱いにする暫定措置で、所有権の登記そのものではない点に注意。</li>
+<li><strong>関連改正（同時期〜2026）</strong>：</li>
+<li><strong>住所等変更登記の義務化（2026年4月施行）</strong>：所有者の住所・氏名が変わったら2年以内に変更登記。法務局が住基ネット等と連携して職権で更新する仕組みも導入。</li>
+<li><strong>所有不動産記録証明制度（2026年2月開始）</strong>：特定の人が名義人になっている不動産を<strong>全国まとめてリスト化</strong>して証明書を取れる——「親が全国に持っていた不動産を把握しきれない」を解決。相続人や本人が請求可能。</li>
+<li><strong>相続土地国庫帰属制度（2023年4月開始、本改正パッケージの一部）</strong>：要らない相続土地を一定要件＋負担金（10年分の管理費相当）で国に引き取ってもらえる——「負動産」の出口。</li>
+<li>遺産分割の長期未了状態の解消：相続開始から10年経過すると、原則として法定相続分（or 指定相続分）で分割される（特別受益・寄与分の主張ができなくなる）——だらだら放置するインセンティブを削ぐ。</li>
+</ul>
+<h2>気づき・洞察</h2>
+<p>登記簿は「不動産という"オブジェクト"の<strong>メタデータ＋トランザクションログ＋アクセス制御リスト</strong>」だと読むと構造が腑に落ちる——表題部＝そのオブジェクトの実体スキーマ（物理的属性）、甲区＝所有権の変更履歴（append-only な監査ログ）、乙区＝そのオブジェクトに付いた権利（担保＝ロック、地上権＝部分的アクセス権）。<strong>「対抗力はあるが公信力はない」は、"ログには記録されるが、ログが真実を保証するわけではない"</strong>——分散システムでいう「コミットされたから正しいとは限らない（ビザンチン障害がありうる）」のと同じで、だから決済時に司法書士という"信頼できる第三者（trusted third party）"が本人確認＝認証を挟む。Sigstore（[[tech]] 既出）の Rekor が「append-only な透明性ログ」で信頼を担保するのと、構造が驚くほど似ている——ただし不動産登記には Rekor のような暗号学的な改ざん不能性も公信力もないので、なお人手の検証が要る、という"不完全な台帳"。</p>
+<p>相続登記義務化は、<strong>「個々の合理性（登記しない方が手間も登録免許税も省ける）が積み重なると社会的に破滅的（所有者不明土地24%）になる」典型的なコモンズの悲劇</strong>で、国家がペナルティ（過料）と簡易代替手段（相続人申告登記）の組合せ＝「アメとムチ」で均衡を社会的最適に近づけるメカニズムデザインそのもの。これは other の今日のテーマ（ゲーム理論）の現実版だし、tech の MoE 負荷分散（混雑エキスパートにバイアスを掛けて均衡を誘導）と同じ発想——<strong>「望ましい全体状態を、個人のインセンティブ構造をいじって実現する」</strong>。実務的には「親世代が持つ不動産がどこにあるか今のうちに（できれば本人が元気なうちに）把握し、相続が起きたら3年以内、遅くとも分割が揉めるなら相続人申告登記だけは出しておく」が結論。横浜で中古マンションを買う側としても、売主が「相続で取得→未登記のまま売却」というケースに当たる可能性が今後増えるので、甲区の最新の所有権登記が「相続」原因で売主名義になっているか、なっていないなら決済までに完了させる段取りかを確認するのが新しいチェックポイント。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>tech（Sigstore の Rekor 透明性ログ）/ cs（永続データ構造・append-only ログ）</strong>: 甲区は不動産所有権の append-only な履歴台帳。ただし暗号学的不変性も公信力もない「弱い台帳」——だから人間の検証（司法書士）で補強する。「ログ＋信頼できる第三者」の組合せ。</li>
+<li><strong>other（今日のエントリ・ゲーム理論）</strong>: 相続登記の放置＝コモンズの悲劇。過料＋相続人申告登記＝メカニズムデザインによる均衡の誘導。</li>
+<li><strong>house-hunting 内・[[2026-05-06_共有名義と贈与税相続税の落とし穴]] / [[2026-05-09_重要事項説明書の読み方と告知義務]]</strong>: 相続で生じた共有名義が放置されると数次相続で権利者が爆発的に増える——義務化はこれにブレーキ。重説の登記情報は登記簿が原典。</li>
+<li><strong>house-hunting 内・[[2026-05-08_賃貸_持ち家_NPV分析と機会費用]]</strong>: 「相続土地国庫帰属制度」「負動産の出口」は、持ち家の出口戦略・流動性リスクの最終手段。資産が"負債化"するシナリオの保険。</li>
+<li><strong>解剖学・cs（観測には介入が要る）</strong>: 「登記簿を見るだけでは真実は確定しない、本人確認という"介入"が要る」——能動的触知覚やプログラム意味論（Rice）と同じ、観測の限界の話。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>登記識別情報（権利証の現代版）</strong>の仕組みと、紛失時の対応（事前通知制度、本人確認情報の作成）、なりすまし犯罪（地面師）の手口と対策</li>
+<li><strong>公図・地積測量図・建物図面</strong>の読み方——地番と現地の照合、境界確定、筆界特定制度、登記面積と実測面積のズレ（縄延び・縄縮み）</li>
+<li><strong>マンションの敷地権化されていない古い物件</strong>（敷地利用権と専有部分が分離登記）のリスクと、購入時の注意</li>
+<li><strong>相続登記の実費</strong>：登録免許税（不動産価額の0.4%、ただし一定の免税措置あり）、司法書士報酬の相場、相続人申告登記との費用比較</li>
+<li>2026年4月施行の<strong>住所変更登記義務化</strong>の運用——「職権による更新」が実際どこまで機能するか、海外居住者・法人の扱い</li>
+</ul>
+<h2>主要参考ソース</h2>
+<ul>
+<li>法務省「相続登記の申請義務化について」「所有者不明土地の解消に向けた民事基本法制の見直し」（公式、Tier 1）</li>
+<li>政府広報オンライン「不動産の相続登記義務化／所有不動産記録証明制度」（2025年12月、Tier 1）</li>
+<li>東京法務局・各地方法務局「相続登記が義務化されました（令和6年4月1日制度開始）」（Tier 1）</li>
+<li>不動産登記法・民法（2021年改正、法令そのもの）、ZeLo 法律事務所等の司法書士・弁護士による改正解説（Tier 2）</li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/house-hunting/2026-05-12_不動産登記簿の読み方と相続登記義務化2024.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-deutsch" class="card card-deutsch domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-deutsch">deutsch</span> <span class="card-title">Im Büro — Berufsalltag, Kollegen und Besprechungen</span></span>
+          <span class="card-abstract">職場（オフィス）の会話——朝の声かけ（<em>Na, viel los heute?</em> / <em>Bei mir brennt's gerade</em>）、会議の割り込み（<em>Darf ich da kurz einhaken?</em> / <em>Können wir das parken?</em>）、依頼の後回し（<em>Ich steck gerade mitten in was — kann ich später auf dich zukommen?</em>）、退勤（<em>Ich mach für heute Feierabend!</em>）。鍵は <strong>Feierabend という独立した名詞</strong>が「労働が終わったらそこで私生活が始まる」文化的前提を物語ること、ビジネスドイツ語の英語化レイヤー（Sorry/parken/Meeting）とレジスターの使い分け、モーダル助詞 <em>mal</em> のぼかし機能、<em>Sie/du</em> の境界が組織文化を表すこと。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#Büro</span> <span class="tag">#Arbeit</span> <span class="tag">#Kollegen</span> <span class="tag">#Meeting</span> <span class="tag">#Berufsalltag</span> <span class="tag">#B1Plus</span></div>
+<h2>学んだこと</h2>
+<p>職場（オフィス）での日常——同僚との雑談、会議、上司とのやり取り、残業や休暇——で<strong>ネイティブが実際に使う</strong>フレーズを 4 つ。フォーマル度は formal / neutral / umgangssprachlich / slang の 4 段階で示す。ドイツの職場文化では原則として同僚同士でも <em>Sie</em> を使う会社が多く（IT/スタートアップ等は <em>du</em>）、その温度感も併記する。</p>
+<hr>
+<h3>Phrase 1: 朝の挨拶 — 「忙しい?／立て込んでる?」を自然に聞く</h3>
+<p><strong>Na, viel los heute?</strong></p>
+<blockquote>
+<p>どう、今日は忙しい?</p>
+</blockquote>
+<p><strong>日本語訳</strong>: 「やあ、今日は色々ある（＝忙しい）感じ?」。朝オフィスで同僚にすれ違ったときの軽い声かけ。返事の定番は <em>„Geht so."</em>（まあまあ）、<em>„Ja, ganz schön viel."</em>（うん、けっこうある）、<em>„Eigentlich ganz ruhig."</em>（実は割と落ち着いてる）。</p>
+<p><strong>単語リスト</strong>:</p>
+<ul>
+<li><em>na</em> — 「やあ／で?」（呼びかけ・促しの間投詞。文頭で柔らかいトーンを作る）</li>
+<li><em>viel los</em> — 「いろいろ起きている／賑わっている／忙しい」（<em>los sein</em> = 起きている、行われている）</li>
+<li><em>heute</em> — 「今日」</li>
+</ul>
+<p><strong>使う場面</strong>: 朝の給湯室・廊下・エレベーター。仕事の話に入る前のアイスブレイク。ランチに誘う前の前振りにも（<em>„Na, viel los? Schaffst du's trotzdem zum Mittagessen?"</em>）。</p>
+<p><strong>フォーマル度</strong>: <strong>umgangssprachlich</strong>。<em>du</em> 同士、または親しい <em>Sie</em> の同僚に。上司や初対面には <em>„Guten Morgen! Viel zu tun heute?"</em> に切り替える。</p>
+<p><strong>キーワード解説</strong>:</p>
+<ul>
+<li><strong><em>los sein</em></strong> は「（場所・状況で）何かが起きている」。<em>„Was ist hier los?"</em>（ここで何が起きてるの?）、<em>„Auf der Party war richtig was los."</em>（パーティーはすごく盛り上がってた）。<em>„viel los"</em> で「忙しい・賑わっている」。仕事の文脈では「タスクが多い」。</li>
+<li>文頭の <strong><em>na</em></strong> はモーダル的な呼びかけ。<em>„Na?"</em> 単独でも「で、どう?」という挨拶になり、<em>„Na, wie geht's?"</em> / <em>„Na, alles klar?"</em> と続けることが多い。北ドイツでは <em>„Na?"</em> だけで完結する挨拶として有名。</li>
+<li><em>„viel zu tun"</em>（やることが多い）と <em>„viel los"</em> はほぼ同義だが、<em>zu tun</em> は「自分のタスク量」、<em>los</em> は「周りの状況の慌ただしさ」にやや寄る。</li>
+</ul>
+<p><strong>関連表現</strong>:</p>
+<ul>
+<li><strong>Stressig heute, oder?</strong> — 「今日バタバタしてるね?」（<em>stressig</em> = ストレスフル、口語で多用。<em>oder?</em> で同意を求める）</li>
+<li><strong>Du siehst gestresst aus — alles okay?</strong> — 「疲れてそうだけど、大丈夫?」（<em>gestresst aussehen</em> = ストレスを抱えてるように見える）</li>
+<li><strong>Bei mir brennt's gerade.</strong> — 「今ちょっと火を噴いてる（＝めちゃ忙しい・緊急対応中）」（<em>es brennt</em> = 緊急事態。slang 寄り）</li>
+<li><strong>Ich komm heute zu gar nichts.</strong> — 「今日マジで何も手につかない（＝割り込みばかりで自分の仕事が進まない）」（<em>zu nichts kommen</em> = 何もできずに終わる）</li>
+</ul>
+<hr>
+<h3>Phrase 2: 会議で — 「ちょっと一言いいですか／補足させてください」</h3>
+<p><strong>Darf ich da kurz einhaken?</strong></p>
+<blockquote>
+<p>ちょっとそこに割り込んでいいですか?</p>
+</blockquote>
+<p><strong>日本語訳</strong>: 「そこに少し食い込んで（＝発言を差し挟んで）いいですか?」。会議で誰かが話している最中に、関連するコメントや訂正を入れたいときの礼儀正しい切り出し方。</p>
+<p><strong>単語リスト</strong>:</p>
+<ul>
+<li><em>einhaken</em> — 「（話に）割り込む・食いつく」（<em>haken</em> = フックで引っかける、の分離動詞。比喩的）</li>
+<li><em>kurz</em> — 「短く・ちょっと」</li>
+<li><em>da</em> — 「そこに（＝その話題に）」</li>
+<li><em>darf ich…?</em> — 「〜してもいいですか?」（<em>dürfen</em> で許可を丁寧に求める）</li>
+</ul>
+<p><strong>使う場面</strong>: 会議・打ち合わせ・ブレスト。相手の話を遮ることになるので「短く」「許可を求める」形にして角を立てない。オンライン会議でもチャットでなく口頭で割り込むときの定番。</p>
+<p><strong>フォーマル度</strong>: <strong>neutral</strong>。社内会議で標準。よりフォーマルなら <em>„Wenn ich kurz ergänzen darf …"</em>（少し補足させていただければ）、カジュアルなら <em>„Kurz dazwischen —"</em>（ちょっと割り込み）。</p>
+<p><strong>キーワード解説</strong>:</p>
+<ul>
+<li><strong><em>einhaken</em></strong> は「話の流れにフックを引っかけて自分も乗る」イメージ。<em>„Da möchte ich einhaken."</em>（そこに乗りたい＝発言したい）。似た <em>„dazwischenreden"</em> / <em>„unterbrechen"</em> は「遮る」のネガティブ寄りなので、自分の行為には <em>einhaken</em> を使うほうが穏やか。</li>
+<li><strong><em>da</em></strong> は「その点に・その話題に」を指す前方照応。<em>„Da bin ich anderer Meinung."</em>（その点では意見が違います）。会議では <em>da</em> / <em>dazu</em> / <em>dabei</em> を使いこなすと「議論のどこに反応しているか」が明確になる。</li>
+<li>許可の <em>dürfen</em> と可能の <em>können</em> の差: <em>„Darf ich …?"</em> は「（場の許しを得て）してよいか」、<em>„Kann ich …?"</em> は「（物理的・能力的に）できるか」。会議の割り込みは社会的許可の問題なので <em>darf</em> が自然。</li>
+</ul>
+<p><strong>関連表現</strong>:</p>
+<ul>
+<li><strong>Eine kurze Anmerkung dazu noch:</strong> — 「それについて一点だけ補足を:」（<em>Anmerkung</em> = 注記・コメント。<em>noch</em> で「もう一つ」）</li>
+<li><strong>Ich würde das gern noch mal aufgreifen.</strong> — 「その点をもう一度取り上げたいのですが」（<em>aufgreifen</em> = （議題を）拾い上げる。接続法 II <em>würde</em> で控えめに）</li>
+<li><strong>Bevor wir weitermachen —</strong> — 「先に進む前に —」（議論を一旦止めたいとき）</li>
+<li><strong>Lass mich kurz ausreden, dann …</strong> — 「最後まで言わせて、そのあと…」（逆に自分が遮られたとき。<em>ausreden</em> = 言い終える。<em>du</em> 同士で）</li>
+<li><strong>Können wir das parken und später besprechen?</strong> — 「それは一旦"駐車"して後で話せます?」（<em>parken</em> = 議題を脇に置く。英語の "park it" の借用、ビジネス口語で広く通用）</li>
+</ul>
+<hr>
+<h3>Phrase 3: 同僚への依頼／断り — 「今ちょっと手が離せない、あとでいい?」</h3>
+<p><strong>Sorry, ich steck gerade mitten in was — kann ich später auf dich zukommen?</strong></p>
+<blockquote>
+<p>ごめん、今ちょっと取り込み中で — あとでこっちから声かけていい?</p>
+</blockquote>
+<p><strong>日本語訳</strong>: 「ごめん、今ちょうど何かの真っ最中で — あとで君のところに行ってもいい?」。同僚に話しかけられたが今は対応できない、というのを失礼なく伝える。</p>
+<p><strong>単語リスト</strong>:</p>
+<ul>
+<li><em>stecken in (Dat)</em> — 「〜にはまっている・取り組んでいる最中だ」（<em>mitten in etwas stecken</em> = 何かの真っ只中だ）</li>
+<li><em>mitten in</em> — 「〜の真ん中で／真っ最中で」（+ Dat）</li>
+<li><em>in was</em> — <em>in etwas</em> の口語形（<em>was</em> = etwas）</li>
+<li><em>auf jdn. zukommen</em> — 「（人）に（用件で）声をかける・近づく」（後で連絡する、の意）</li>
+<li><em>später</em> — 「あとで」</li>
+</ul>
+<p><strong>使う場面</strong>: デスクで集中作業中に同僚が来た、廊下で捕まったが急ぎの別件がある、など。<em>„Sorry"</em>（英語からの借用、ドイツ口語で完全に定着）でクッションを置き、「拒否」ではなく「先送り＋自分から戻る約束」にするのがポイント。</p>
+<p><strong>フォーマル度</strong>: <strong>umgangssprachlich</strong>（<em>du</em> 同士）。<em>Sie</em> なら <em>„Entschuldigung, ich bin gerade mitten in einer Sache — darf ich später auf Sie zukommen?"</em>。</p>
+<p><strong>キーワード解説</strong>:</p>
+<ul>
+<li><strong><em>mitten in etwas stecken</em></strong> は「身動きが取れないほど何かに没入している」。<em>„Ich stecke mitten in der Quartalsabrechnung."</em>（四半期決算の真っ最中だ）。<em>stecken</em> は本来「刺さっている」で、比喩的に「抜け出せない状態」を表す（<em>„in der Klemme stecken"</em> = 窮地にいる、<em>„dahinter steckt …"</em> = その裏には〜がある）。</li>
+<li><strong><em>auf jemanden zukommen</em></strong> には二つの意味: ①物理的・比喩的に「（人）の方へ近づく」、②「（用件・問題が）人に降りかかる」(<em>„Da kommt einiges auf uns zu."</em> = 色々と我々に降りかかってくる)。ここでは①の「あとで自分から連絡する」。ビジネスで <em>„Ich komme auf Sie zu."</em> = 「こちらからご連絡します」は超頻出。</li>
+<li><em>„in was"</em> の <em>was</em>: 口語では <em>etwas</em> がほぼ常に <em>was</em> に短縮される（<em>„Hast du was gesagt?"</em>）。書き言葉では <em>etwas</em>。</li>
+</ul>
+<p><strong>関連表現</strong>:</p>
+<ul>
+<li><strong>Hast du kurz?</strong> — 「ちょっといい?」（<em>„Hast du kurz Zeit?"</em> の極端な省略。同僚に話しかける最頻フレーズ）</li>
+<li><strong>Passt es gerade?</strong> — 「今、都合いい?」（<em>passen</em> = 都合が合う。電話・チャットでも）</li>
+<li>** Gib mir zehn Minuten, dann bin ich bei dir.<em><em> — 「10分ちょうだい、そしたらそっち行く」（</em>bei dir sein</em> = （対応のために）君のところに行く）</li>
+<li><strong>Kann das bis morgen warten?</strong> — 「それ明日まで待てる?」（緊急度を確認する。<em>warten können</em> = 後回しにできる）</li>
+<li><strong>Schreib mir am besten eine kurze Mail, dann geht's nicht unter.</strong> — 「メールしといて、そしたら埋もれないから」（<em>untergehen</em> = （情報が）埋もれる・見失われる。Phrase 1 の関連表現とも繋がる）</li>
+</ul>
+<hr>
+<h3>Phrase 4: 終業／休暇 — 「お先に失礼します」と「有給取ります」</h3>
+<p><strong>Ich mach für heute Feierabend — bis morgen!</strong></p>
+<blockquote>
+<p>今日はこれで上がります、また明日!</p>
+</blockquote>
+<p><strong>日本語訳</strong>: 「今日はもう（仕事を切り上げて）終わりにします — また明日!」。<em>Feierabend</em> は「就業後の自由時間／終業」を指すドイツ語特有の概念語で、「定時で帰る」「もう仕事は終わり」を一語で表せる。</p>
+<p><strong>単語リスト</strong>:</p>
+<ul>
+<li><em>Feierabend</em> — 「終業（後の時間）」（直訳「祝いの夕べ」だが日常的に「仕事終わり」の意）</li>
+<li><em>Feierabend machen</em> — 「仕事を切り上げる・終業する」</li>
+<li><em>für heute</em> — 「今日のところは」</li>
+<li><em>bis morgen</em> — 「また明日」（別れの挨拶）</li>
+</ul>
+<p><strong>使う場面</strong>: オフィスを出るとき、リモートワークでチームチャットに書くとき。ドイツの労働文化では<strong>定時で帰るのは当然の権利</strong>で、罪悪感の表明（日本の「お先に失礼します」のニュアンス）は不要——<em>„Feierabend!"</em> と明るく言って帰る。残っている同僚には <em>„Mach's nicht mehr so lange!"</em>（あんまり遅くまでやらないでね）と声をかける。</p>
+<p><strong>フォーマル度</strong>: <strong>neutral〜umgangssprachlich</strong>。フォーマルな場面でも <em>„Ich verabschiede mich für heute. Schönen Feierabend!"</em> と <em>Feierabend</em> は普通に使う。<em>„Schönen Feierabend!"</em>（よい終業後を!）は帰る人・残る人の双方が言える定番の別れ言葉。</p>
+<p><strong>キーワード解説</strong>:</p>
+<ul>
+<li><strong><em>Feierabend</em></strong> は「労働 vs 余暇」をはっきり分けるドイツ文化の象徴語。<em>„nach Feierabend"</em> = 仕事終わりに、<em>„Feierabendbier"</em> = 仕事上がりの一杯、<em>„jetzt ist (aber) Feierabend!"</em> = 「もうおしまい!（＝これ以上は無し）」（比喩的に交渉や子どもの遊びを打ち切るときにも）。</li>
+<li><strong><em>Überstunden</em></strong> 関連語彙: <em>„Überstunden machen"</em>（残業する）、<em>„Überstunden abbauen"</em>（残業分の代休を消化する）、<em>„Gleitzeit"</em>（フレックスタイム）、<em>„Kernzeit"</em>（コアタイム）、<em>„Zeitkonto / Arbeitszeitkonto"</em>（労働時間口座——超過分を貯めて休みに充てる制度）。</li>
+<li><strong><em>Urlaub</em></strong> 関連: <em>„Ich nehme nächste Woche Urlaub."</em>（来週休暇を取ります）、<em>„Ich beantrage Urlaub."</em>（休暇を申請する。<em>Urlaubsantrag</em> = 休暇申請書）、<em>„Resturlaub"</em>（残りの有給）、<em>„Urlaubsvertretung"</em>（休暇中の代理担当）、<em>„Ich bin ab Montag wieder im Büro / wieder da."</em>（月曜からまた出社しています）。病欠は <em>„sich krankmelden"</em>（病欠の連絡をする）、<em>„Krankschreibung / AU"</em>（＝Arbeitsunfähigkeitsbescheinigung、診断書）。</li>
+<li>注意: 英語 <em>„holiday"</em> に引きずられて <em>Urlaub</em> と <em>Feiertag</em>（祝日）を混同しないこと。<em>Feiertag</em> は国民の祝日、<em>Urlaub</em> は個人の有給休暇。</li>
+</ul>
+<p><strong>関連表現</strong>:</p>
+<ul>
+<li><strong>Ich klinke mich dann mal aus.</strong> — 「それじゃ、抜けます（＝退勤します／会議を退出します）」（<em>sich ausklinken</em> = 抜ける。リモート会議の退出にも）</li>
+<li><strong>Machst du noch lange?</strong> — 「まだ長くかかる?」（残っている同僚に。Phrase 1 とも繋がる）</li>
+<li><strong>Ich bin dann mal weg.</strong> — 「じゃ、行きます」（軽い去り際の決まり文句。同名の有名な本のタイトルでもある）</li>
+<li><strong>Ich häng mich morgen früh wieder rein.</strong> — 「明日の朝またガッツリやります」（<em>sich reinhängen</em> = 本腰を入れて取り組む。slang 寄り）</li>
+<li><strong>Schön langsam machen!</strong> — 「無理しないでね／ゆっくりやって」（残る人への気遣い。オーストリア寄りの言い回し）</li>
+</ul>
+<h2>気づき・洞察</h2>
+<h3><em>Feierabend</em> という語が示す「労働と人生の境界線」</h3>
+<p>ドイツ語に <em>Feierabend</em> という独立した名詞があること自体が、<strong>「労働時間が終わったらそこで人生（私生活）が始まる」という文化的前提</strong>を物語る。英語にも日本語にも一語の等価物がない（"end of workday" / "退勤後" は説明的）。これは [[2026-05-10_Im_Restaurant_Bestellen_und_Reklamieren]] で見た <em>getrennt zahlen</em>（割り勘）と同じ「個人の領域を尊重する」価値観の延長で、ドイツの労働法（労働時間法 ArbZG による休息時間規制、有給最低取得日数）や <em>Work-Life-Balance</em> 重視の土壌と地続き。語彙は文化の化石だ——<em>Feierabend</em> / <em>Überstunden abbauen</em> / <em>Zeitkonto</em> という単語群が存在すること自体が「働きすぎを構造的に抑制する社会設計」の証拠になっている。</p>
+<h3>ビジネスドイツ語の「英語化レイヤー」</h3>
+<p><em>Sorry</em> / <em>„etwas parken"</em> / <em>Meeting</em> / <em>Deadline</em> / <em>Feedback</em> / <em>Call</em> / <em>Slot</em>——現代ドイツのオフィス口語は英語のビジネス語彙を大量に取り込んでいて（いわゆる <em>Denglisch</em>）、B1 の教科書ドイツ語（<em>„die Besprechung"</em>, <em>„der Termin"</em>, <em>„die Rückmeldung"</em>）だけだと逆に「お役所っぽく・古風に」聞こえることがある。重要なのは<strong>レジスター（場面ごとの言葉づかい）の使い分け</strong>: 公式メールや官庁相手なら純ドイツ語寄り、IT/コンサル/スタートアップの会議では英語混じりが自然。どちらか一方だけ知っているのは片肺飛行。</p>
+<h3>モーダル助詞 <em>mal</em> と「ぼかし」の効用</h3>
+<p><em>„Ich bin dann mal weg."</em> / <em>„Hast du mal kurz?"</em> / <em>„Ich klinke mich mal aus."</em>——この <em>mal</em> は「ちょっと・とりあえず・なんとなく」のぼかしで、行為を<strong>カジュアルで一時的なものに見せる</strong>機能を持つ。<em>mal</em> を抜くと（<em>„Ich bin dann weg."</em>）やや唐突・冷たい。日本語の「ちょっと」「とりあえず」と機能が酷似していて、職場の「角を立てないコミュニケーション」の核。B1→B2 の壁はこの種の「機能語による微調整」をどれだけ自然に挟めるか。</p>
+<h3><em>Sie</em> と <em>du</em> の境界が「会社の文化」を表す</h3>
+<p>同じドイツ語圏でも、伝統的大企業・官庁・銀行は社内でも <em>Sie</em>、IT・メディア・スタートアップは入社初日から <em>du</em>、というように <strong>代名詞の選択が組織文化そのもの</strong>になっている。<em>„Wir sind hier per Du."</em>（うちは <em>du</em> で呼び合います）/ <em>„Sollen wir uns duzen?"</em>（<em>du</em> で呼び合いません?——<em>das Du anbieten</em>）といったメタ会話が職場の人間関係の節目になる。日本語の敬語の上下感とは違い、ドイツの <em>Sie/du</em> は「上下」より「距離・帰属集団」の指標に近い。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>tech / cs（プロジェクトの会議運営）</strong>: <em>„Können wir das parken?"</em>（議題を脇に置く）はアジャイル開発の "parking lot" 文化そのもの。技術職のドイツ語環境ではこの種の英語由来ビジネス語彙が特に濃い。</li>
+<li><strong>anatomy（迷走神経と自律神経バランス [[2026-05-06_迷走神経と自律神経バランス]]）</strong>: <em>Feierabend</em> で労働モードから切り替える＝交感神経優位から副交感神経優位へのスイッチ。「終業の儀式」を一語で持つ文化は、自律神経の回復を制度的に支えているとも読める。</li>
+<li><strong>golf（メンタルゲーム）/ piano（メンタルプラクティス）</strong>: <em>„Schön langsam machen!"</em>（無理しないで）や <em>Work-Life-Balance</em> 重視は、過度の緊張が逆効果という [[2026-04-29_プレッシャー下のChokingとゴルフのメンタル科学]] の知見と通底——休息を「サボり」でなく「パフォーマンスの一部」と捉える文化。</li>
+<li><strong>house-hunting（ドイツの賃貸・労働文化）</strong>: 強い労働者保護・休暇権・<em>Feierabend</em> 文化と、強い借家人保護（解約規制・家賃上限）は同じ「個人を構造的に守る」社会設計の表裏。ドイツ社会の一貫した思想。</li>
+<li><strong>other（ゲーム理論／メカニズムデザイン）</strong>: 「残業を構造的に抑制する制度（労働時間口座、最低有給日数）」は、個人の短期的インセンティブ（残業して評価を上げたい）と社会的最適（過労を防ぐ）のズレを制度で矯正する——本日の other テーマと同型。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>メール・チャットのビジネス文体</strong> —— <em>„Anbei finden Sie …"</em> / <em>„Bei Rückfragen stehe ich gerne zur Verfügung"</em> / <em>„Viele Grüße"</em> vs <em>„Mit freundlichen Grüßen"</em> vs <em>„Beste Grüße"</em> の使い分け、Slack/Teams での砕けた書き方</li>
+<li><strong>会議の進行役の言い回し</strong> —— <em>„Lasst uns mal sammeln …"</em> / <em>„Können wir das festhalten?"</em>（記録に残す）/ <em>„Wer übernimmt das?"</em>（誰が担当?）/ <em>„Bis wann?"</em>（いつまで?）など、ファシリテーション語彙</li>
+<li><strong>フィードバック・評価面談の言葉</strong> —— 婉曲的な批判（<em>„Da ist noch Luft nach oben"</em> = まだ伸びしろがある）、<em>Mitarbeitergespräch</em> / <em>Zielvereinbarung</em>（目標設定）</li>
+<li><strong>オフィスのスモールトーク・タブー</strong> —— 給料の話（<em>„Über Geld spricht man nicht"</em>）、政治、休暇先のマウンティング——どこまで踏み込んでよいかの暗黙ルール</li>
+<li><strong>オーストリア／スイスのオフィス語彙差</strong> —— <em>Jänner</em>（1月、＝Januar）、<em>Sackerl</em>、敬称・肩書の重視度（オーストリアは <em>Herr Magister</em> など学位呼称が濃い）</li>
+</ul>
+<hr>
+<p><strong>主要参考ソース</strong>:</p>
+<ul>
+<li>Duden online / DWDS（Digitales Wörterbuch der deutschen Sprache）—— <em>Feierabend</em>, <em>einhaken</em>, <em>zukommen</em> 等の語義・用例（Tier 1）</li>
+<li>Goethe-Institut / Hueber「Berufssprache Deutsch」「Im Beruf」シリーズの語彙・場面教材（Tier 2、公的・著名出版社）</li>
+<li>Duden „Briefe und E-Mails gut und richtig schreiben"（ビジネス文体の標準リファレンス、Tier 2）</li>
+<li>独労働時間法（Arbeitszeitgesetz, ArbZG）および連邦休暇法（Bundesurlaubsgesetz）—— <em>Feierabend</em> / <em>Überstunden</em> / <em>Urlaub</em> の制度的背景（一次法令、Tier 1）</li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/deutsch/2026-05-12_Im_Büro_Berufsalltag_und_Kollegen.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-other" class="card card-other domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-other">other</span> <span class="card-title">ゲーム理論 ——ナッシュ均衡・囚人のジレンマ・進化的に安定な戦略</span></span>
+          <span class="card-abstract">ゲーム理論——囚人のジレンマ（個人合理性が集団的災厄を生む）、ナッシュ均衡（最適でも公平でもない、PPAD 完全で効率的には求まらない）、繰り返しゲームと「未来の影」（割引因子が協力を支える＝SNS の使い捨てアカウントが荒れる理由）、進化ゲームと ESS（適応度を最大化しない＝進化は遺伝子の相対的成功を最大化するので孔雀の尾や人間の腰痛が残る）、メカニズムデザイン（ヴィックリーオークション、ピグー税、オストロムのコモンズ自治＝「悪い均衡しか持たないゲームを良い均衡を持つゲームに作り変える」）。「ナッシュ均衡が悪いなら、ゲームを変えろ」。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#ゲーム理論</span> <span class="tag">#ナッシュ均衡</span> <span class="tag">#囚人のジレンマ</span> <span class="tag">#進化ゲーム</span> <span class="tag">#ESS</span> <span class="tag">#メカニズムデザイン</span> <span class="tag">#コモンズの悲劇</span></div>
+<h2>学んだこと</h2>
+<h3>ゲーム理論とは「相互依存する意思決定」の数学</h3>
+<p>決定理論（一人で自然を相手に最適化）と違い、ゲーム理論は <strong>「自分の最善手が相手の手に依存し、相手の最善手も自分の手に依存する」循環構造</strong>を扱う。「ゲーム」を定義するのは ①プレイヤー集合、②各プレイヤーの戦略集合、③各戦略の組（プロファイル）に対する利得（payoff）——この三つ組み。フォン・ノイマンとモルゲンシュテルン（1944, <em>Theory of Games and Economic Behavior</em>）が体系化し、経済学・生物学・政治学・コンピュータ科学に広がった。</p>
+<h3>支配戦略と「囚人のジレンマ」——個人合理性の罠</h3>
+<p><strong>支配戦略（dominant strategy）</strong>＝相手が何をしても自分にとって最善の手。両者に支配戦略があれば結果は確定する——が、それが<strong>集団にとって最悪になりうる</strong>のが囚人のジレンマ：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>B：黙秘</th>
+<th>B：自白</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A：黙秘</strong></td>
+<td>(−1, −1)</td>
+<td>(−10, 0)</td>
+</tr>
+<tr>
+<td><strong>A：自白</strong></td>
+<td>(0, −10)</td>
+<td>(−5, −5)</td>
+</tr>
+</tbody>
+</table>
+<p>A は「B が黙秘でも自白でも、自分は自白したほうが得」（0 &gt; −1、−5 &gt; −10）——自白が支配戦略。B も同じ。よって両者自白で <strong>(−5, −5)</strong>。だが両者黙秘なら <strong>(−1, −1)</strong> で双方ともマシだった。<strong>「各人が個別に合理的に振る舞うと、全員が損する均衡に落ちる」</strong>——これがゲーム理論の最も重要な発見。値下げ競争、軍拡競争、ドーピング、漁業の乱獲、温室効果ガス排出、広告費の膨張、SNS の炎上煽り——構造的に同じ。「<strong>支配戦略均衡が必ずしもパレート効率的でない</strong>」＝個人合理性 ≠ 集団合理性。</p>
+<h3>ナッシュ均衡——「誰も一人では得しない状態」</h3>
+<p>支配戦略が無いゲームでも均衡は定義できる。<strong>ナッシュ均衡</strong>：どのプレイヤーも、他の全員の戦略を所与としたとき、自分だけ戦略を変えても得しない戦略の組（＝相互最適応答）。ジョン・ナッシュ（1950）が<strong>任意の有限ゲームに（混合戦略まで許せば）少なくとも一つ存在する</strong>ことを不動点定理で証明した（これがノーベル経済学賞、映画『ビューティフル・マインド』）。</p>
+<p>重要な含意と注意：</p>
+<ul>
+<li>ナッシュ均衡は<strong>最適でも公平でもない</strong>（囚人のジレンマの (自白,自白) はナッシュ均衡）。「合理的なプレイヤーがそこから動かない」状態にすぎない。</li>
+<li><strong>複数の均衡がありうる</strong>——「どこで落ち合うか」（待ち合わせ場所、規格、左側通行 vs 右側通行）は調整ゲーム（coordination game）で、どの均衡に行くかは慣習・歴史・フォーカルポイント（シェリングの「自然な集合点」）が決める。</li>
+<li><strong>混合戦略（mixed strategy）</strong>——確率的にランダム化する戦略。じゃんけん、テニスのサーブのコース、サッカーの PK のように「読まれたら負け」のゲーム（ゼロサム）では、純戦略のナッシュ均衡が無く、混合戦略均衡だけが存在する（フォン・ノイマンのミニマックス定理）。</li>
+<li><strong>計算の難しさ</strong>——ナッシュ均衡を「見つける」のは、一般に <strong>PPAD 完全</strong>（多項式時間アルゴリズムは恐らく無い、と信じられている）。「存在は保証されるが効率的に求まらない」——これは cs の今日のテーマ（計算可能性・計算量の壁）と同じ構造で、ゲーム理論にも「理論的存在 ≠ 構成可能性」の落とし穴がある。</li>
+</ul>
+<h3>繰り返しゲームと協力の進化——「明日があるから」</h3>
+<p>囚人のジレンマを<strong>一回きり</strong>でなく<strong>繰り返す</strong>と話が変わる。「相手が前回裏切ったら次は自分も裏切る」という戦略（<strong>しっぺ返し／Tit-for-Tat</strong>）が安定しうる。アクセルロッドのコンピュータ・トーナメント（1980s）で Tit-for-Tat（①最初は協力、②以後は相手の前手を真似る）が優勝し、勝因は「上品（先には裏切らない）、報復的（裏切りには即応）、寛容（謝れば許す）、明快（戦略が読みやすい）」と分析された。ただし「いつ終わるか分かっている有限回」だと<strong>バックワード・インダクション</strong>（最終回は裏切るのが最適 → 最終回が裏切りなら最後から2回目も裏切るのが最適 → …と遡って全回裏切り）で協力が崩れる。協力には「終わりが見えないこと（or 確率的に続くこと＝割引因子 δ が十分大きいこと）」が要る——<strong>「未来の影（the shadow of the future）」が現在の協力を支える</strong>。フォーク定理：δ が十分大きければ、ほぼあらゆる「協力的な」結果が均衡として支えられる。</p>
+<h3>進化ゲーム理論と ESS——合理性を仮定しない均衡</h3>
+<p>ゲーム理論を生物進化に持ち込んだのがメイナード＝スミス（J. Maynard Smith, 1973）。プレイヤーは「合理的に計算する」のではなく、<strong>「成功した戦略を持つ個体が多く繁殖する」（複製ダイナミクス replicator dynamics）</strong>。ここでの均衡概念が <strong>ESS（進化的に安定な戦略 Evolutionarily Stable Strategy）</strong>：「ある戦略が集団の大多数を占めているとき、わずかな変異戦略（mutant）が侵入してきても、その変異が広がれない」——侵入不可能性で定義される均衡。</p>
+<ul>
+<li><strong>タカ・ハト・ゲーム（Hawk–Dove）</strong>：資源 V を巡る争いで「タカ（常に戦う）」と「ハト（脅すだけ、相手がタカなら退く）」。タカばかりだと怪我のコスト C で共倒れ、ハトばかりだとタカ変異が大儲け——どちらの純粋戦略も ESS でなく、<strong>両者が一定比率で混在する混合 ESS</strong>（あるいは「タカ的個体とハト的個体が比率 V/C で共存」）に落ち着く。動物の儀式的闘争（本気で殺し合わない）がなぜ進化したかの説明。</li>
+<li>重要な含意：<strong>ESS は適応度を最大化「しない」</strong>——タカ・ハトの混合 ESS は、全員ハトの世界（資源を平和に分け合う）より集団平均適応度が低い。<strong>進化は「種の利益」でなく「遺伝子の相対的成功」を最大化する</strong>ので、囚人のジレンマと同型のジレンマが自然界に組み込まれている。</li>
+<li><strong>血縁選択（kin selection）と互恵的利他主義</strong>：ハミルトンの規則 rB &gt; C（血縁度 r ×受益者の利益 B ＞自分のコスト C なら利他行動が進化）。蜂やアリの「不妊の働き蜂」が進化したのは半倍数性で姉妹間の r が異様に高いから（[[2026-05-04_ミツバチの超個体とコロニーの社会性昆虫進化]] で扱った）。これは「協力の進化」のもう一つのメカニズム。</li>
+</ul>
+<h3>メカニズムデザイン——「望む均衡を作る」逆問題</h3>
+<p>ゲーム理論が「ルールが与えられたとき何が起きるか」を問うのに対し、<strong>メカニズムデザイン</strong>（ハーヴィッツ、マスキン、マイヤーソン、2007ノーベル賞）は逆——「望ましい結果を均衡にするには、ルール（インセンティブ構造）をどう設計すべきか」。代表例：</p>
+<ul>
+<li><strong>ヴィックリー（第二価格）オークション</strong>：落札者は「2番目に高い入札額」を払う——すると「正直に自分の評価額を入札する」のが支配戦略になる（嘘をつく動機が消える）。Google/Meta の広告オークションの理論的祖先。</li>
+<li><strong>ピグー税／混雑料金</strong>：負の外部性（公害、渋滞）に課税して「私的費用＝社会的費用」にし、囚人のジレンマ的な過剰行動を抑える。ロンドンの渋滞税、炭素税。</li>
+<li><strong>コモンズの悲劇への処方</strong>：エリノア・オストロム（2009ノーベル賞）は「私有化か国有化か」の二択でなく、<strong>当事者コミュニティによる自治的ルール</strong>（共有資源の利用権の割当、相互監視、段階的制裁）が機能しうることを実証した。</li>
+</ul>
+<p>これらはすべて「個人のインセンティブを操作して、ナッシュ均衡を社会的最適に一致させる」工学——<strong>「悪い均衡しか持たないゲームを、良い均衡を持つゲームに作り変える」</strong>。</p>
+<h2>気づき・洞察</h2>
+<p>ゲーム理論の核心的教訓は <strong>「合理性は集団的災厄と両立する」</strong>——賢い個人が集まっても賢い社会になるとは限らない。むしろ「各人が個別に合理的」だからこそ全員が損する（囚人のジレンマ、コモンズの悲劇）。だから社会は「説得（規範・道徳）」「繰り返し（評判・長期関係）」「制度（法・税・オークション設計）」という三つの梃子で<strong>ゲームのルール自体を書き換えて</strong>、悪い均衡から脱出しようとする。これは技術設計でも全く同じ——MoE の負荷分散（混雑エキスパートにバイアスを掛けて均衡を誘導＝混雑料金）、相続登記義務化（過料＋簡易手続き＝アメとムチで均衡を移動）、TCP の輻輳制御（各フローが「公平に譲る」アルゴリズムを埋め込んで共倒れを防ぐ）——すべて「分散した利己的エージェントの均衡を、望ましい全体状態に誘導する」メカニズムデザイン。<strong>「ナッシュ均衡が悪いなら、ゲームを変えろ」がエンジニアリングの普遍戦略</strong>。</p>
+<p>二つ目の洞察：ESS が示すのは、<strong>「均衡＝最適」という直感が二重に間違っている</strong>こと——ナッシュ均衡（合理的計算の到達点）も ESS（進化の到達点）も、全体最適を保証しない。進化は「絶対的な良さ」でなく「相対的な成功」を最大化するので、孔雀の尾のような「群れにとっては無駄だが個体間競争では有利」な軍拡（性選択のランナウェイ）が組み込まれる。これは「自然＝賢明な設計者」というナイーブな見方への強力な反証で、生物の体に残る非効率（[[解剖学]] の様々な「設計上の妥協」——人間の腰痛、出産の難しさ）が「進化のゲーム理論的均衡」として理解できる。</p>
+<p>三つ目：「未来の影」——繰り返しと割引因子が協力を支える、という結果は深い。一回きりの取引（観光地のぼったくり、最終回の裏切り）と継続的関係（行きつけの店、長年の同僚）で人の振る舞いが変わるのは、道徳の差ではなくゲーム構造の差。だから「協力的な社会を作る」とは「人々を善人にする」ことより「相互作用を繰り返しゲームに見えるようにする（評判が残る、再会する可能性がある、関係が長続きする）」ことかもしれない——SNS の匿名・使い捨てアカウントが荒れやすいのは「未来の影」を消すから。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>cs（今日のエントリ・計算可能性／計算量）</strong>: ナッシュ均衡の存在は保証されるが計算は PPAD 完全——「存在 ≠ 構成可能 ≠ 効率的に求まる」という階層は、停止問題（決定不能）・NP完全（効率的に解けない）と同じ「理論が引く不可能性の境界線」の話。</li>
+<li><strong>tech（今日のエントリ・MoE 負荷分散）</strong>: 補助損失フリー均衡＝混雑しているエキスパートにバイアスを掛けて利用を分散＝混雑料金（ピグー税）によるメカニズムデザインそのもの。</li>
+<li><strong>golf（マッチプレー戦略 [[2026-05-07_マッチプレー戦略とライダーカップの心理学]]）</strong>: マッチプレーは「相手の出方次第で自分の最適戦略が変わる」二人ゼロサムゲーム——攻めるか刻むかは混合戦略（相手に読まれない）。ストロークプレー（自然＝コース相手の決定理論）との違いはまさに「決定理論 vs ゲーム理論」。</li>
+<li><strong>anatomy（進化的妥協）/ other（[[2026-05-04_ミツバチの超個体...]]）</strong>: 体の「設計上の欠陥」も、社会性昆虫の不妊カーストも、ESS・血縁選択というゲーム理論的均衡の産物。「進化は種でなく遺伝子の相対的成功を最大化する」。</li>
+<li><strong>house-hunting（今日のエントリ・相続登記義務化）</strong>: 所有者不明土地＝コモンズの悲劇。過料＋相続人申告登記＝オストロム的な「制度による均衡の移動」。</li>
+<li><strong>deutsch（今日のエントリ・労働時間規制）/ music（オーケストラの協調）/ piano（両手の協調）</strong>: 「個人の短期インセンティブ（残業して目立つ）と全体最適（過労防止）のズレを制度で矯正する」「複数の自律的パート／手を一つの目標の下に統合する」——どちらも協調問題。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>シャプレー値とマッチング理論</strong>：協力ゲームにおける「公平な利得分配」（シャプレー値）、ゲール＝シャプレーの安定マッチング（研修医配属、学校選択、腎臓交換移植——2012ノーベル賞のロス）</li>
+<li><strong>進化的ゲームの空間構造</strong>：ネットワーク・格子の上での協力の進化（「協力者のクラスター」がなぜ生き残るか）、Nowak の「協力の進化の5つのルール」</li>
+<li><strong>行動ゲーム理論</strong>：実際の人間は均衡通りに動かない（最後通牒ゲームで不公平な提案を拒否する＝損してでも罰する「利他的処罰」）——合理性の前提のほころび</li>
+<li><strong>オークション理論の実装</strong>：周波数オークション、広告オークション（GSP）、収益等価定理とその破れ</li>
+<li><strong>メカニズムデザインの不可能性定理</strong>：ギバード＝サタースウェイトの定理（戦略的操作不可能で独裁的でない投票制度は存在しない）——cs の Rice の定理と並ぶ「望ましい性質を全部は満たせない」型の結果</li>
+</ul>
+<h2>主要参考ソース</h2>
+<ul>
+<li>von Neumann &amp; Morgenstern, <em>Theory of Games and Economic Behavior</em>（古典、Tier 1）</li>
+<li>John Nash, "Equilibrium Points in N-person Games" / "Non-cooperative Games"（原論文、PNAS / Annals of Mathematics、Tier 1）</li>
+<li>John Maynard Smith, <em>Evolution and the Theory of Games</em>（進化ゲーム理論の創始、Cambridge UP、Tier 1）</li>
+<li>Robert Axelrod, <em>The Evolution of Cooperation</em>（繰り返し囚人のジレンマとトーナメント、Tier 1）</li>
+<li>Elinor Ostrom, <em>Governing the Commons</em>（コモンズの自治的管理、Cambridge UP、Tier 1）</li>
+<li>Osborne &amp; Rubinstein, <em>A Course in Game Theory</em> / Stanford Encyclopedia of Philosophy「Game Theory」（標準的教科書・百科、Tier 1）</li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/other/2026-05-12_ゲーム理論_ナッシュ均衡と進化的に安定な戦略.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+    </section>
+    <section class="section" id="accumulation">
+      <h2 class="section-title">蓄積サマリー</h2>
+      <p><strong>学習開始日</strong>: 2026-03-04（tech/music/golf/bread/house-hunting/other）、2026-03-05（piano/anatomy）、2026-03-09（deutsch）、2026-03-19（cs）<br>
+<strong>経過日数</strong>: 69 日（主要分野）、58 日（cs）、64 日（deutsch）<br>
+<strong>総エントリ数</strong>: <strong>431 エントリ</strong>（10 主要分野の合計、内訳は下表。philosophy 16 + sdv 6 を含むリポジトリ全体は約 453）</p>
+<table>
+<thead>
+<tr>
+<th>分野</th>
+<th>エントリ数</th>
+<th>カバー済み主要領域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tech</td>
+<td>46</td>
+<td>LLM/MCP/AI ガバナンス → クラウド（Cloudflare, CXL, Confidential Computing）→ カーネル（eBPF, io_uring）→ ネットワーク（WebRTC, WebTransport, MLS）→ AI 推論（vLLM）→ ストリーミング（DuckDB, Iceberg）→ CRDT（Automerge）→ サプライチェーン（Sigstore）→ <strong>LLM アーキテクチャ（MoE）</strong></td>
+</tr>
+<tr>
+<td>music</td>
+<td>46</td>
+<td>バロック（Bach, Monteverdi）→ 古典派 → ロマン派（Wagner, Bruckner, Mahler, <strong>Brahms</strong>）→ 印象派（Debussy）→ 表現主義（Berg）→ 12 音（Schoenberg）→ 後期前衛（Cage, Xenakis, Ligeti, Pärt）→ ソ連体制下（Shostakovich）／<strong>変奏曲形式・パッサカリア</strong></td>
+</tr>
+<tr>
+<td>piano</td>
+<td>44</td>
+<td>解剖学的奏法（Matthay, Taubman, Neuhaus）→ 個別技法（オクターブ、トリル、ペダリング、跳躍、ダブルノーツ）→ 練習法（スロー、暗譜、視奏、メンタル）→ 音色物理 → 神経筋制御 → <strong>ポリリズム・両手協調</strong></td>
+</tr>
+<tr>
+<td>golf</td>
+<td>46</td>
+<td>戦略（DECADE, Strokes Gained）→ コース建築（MacKenzie, リンクス）→ ルール（2019/2023 改正）→ メンタル（チョーキング、Tour Tempo, マッチプレー）→ ショートゲーム（AimPoint, Lag putting, Pelz）→ 装備規制（グルーブ 2010）→ <strong>メジャーのコースセットアップ</strong></td>
+</tr>
+<tr>
+<td>anatomy</td>
+<td>44</td>
+<td>関節（TMJ, 仙腸, 股関節, 頸椎, 肩甲胸郭）→ 筋骨格（筋膜, 腱）→ 神経（M1, 小脳 ×2, 海馬, 基底核, 迷走神経, 前庭, 喉頭）→ 固有受容感覚（筋紡錘・GTO）→ <strong>皮膚機械受容器・能動的触知覚</strong></td>
+</tr>
+<tr>
+<td>bread</td>
+<td>46</td>
+<td>サワードウ生態系 → 製パン化学（グルテン, アミラーゼ, アロマ）→ 分類（バゲット, ライ麦, ピザ, クロワッサン, ブリオッシュ, パネトーネ）→ 工程（オートリーズ, 湯種, ラミネーション）→ 時間制御（リターディング）→ <strong>澱粉の老化（retrogradation）・保存科学</strong></td>
+</tr>
+<tr>
+<td>cs</td>
+<td>30</td>
+<td>DB（LSM, MVCC, B-tree）→ ネットワーク（TCP, Kademlia）→ 言語処理系（HM, SSA, Curry-Howard）→ 分散（Paxos/Raft, HLC, Lamport, 一貫性, MESI）→ 情報理論（Shannon, Reed-Solomon, NP 完全）→ ストリーミング近似（HLL/CMS）→ <strong>計算理論（計算可能性・停止問題・Rice）</strong></td>
+</tr>
+<tr>
+<td>house-hunting</td>
+<td>46</td>
+<td>区分所有（建替え, 修繕積立, 管理組合, 共有名義）→ 法令（区分所有法, 都市計画法, 接道, 省エネ法 2025）→ リスク評価（耐震, 地盤, ハザード）→ 金融（NPV, 住宅ローン, 路線価）→ デューデリジェンス（重説, インスペクション）→ 税制（固定資産税評価）→ <strong>登記制度（登記簿の読み方・相続登記義務化2024）</strong></td>
+</tr>
+<tr>
+<td>deutsch</td>
+<td>37（フレーズ 148）</td>
+<td>日常（Smalltalk, Komplimente, Verkehr）→ 役所・医療（Bürokratie, Beim Arzt）→ 仕事・生活（Termine, Geld, Wohnungssuche）→ 趣味（Filme, Museum, Sport）→ 不満・苦情（Frust, Konfliktlösung）→ コミュニケーション（Telefon, Wegbeschreibung）→ 食（Im Restaurant）→ <strong>職場・オフィス（Im Büro）</strong></td>
+</tr>
+<tr>
+<td>other</td>
+<td>46</td>
+<td>生物学（深海熱水, ハチドリ, ミツバチ, タコ, クマムシ）→ 言語学（印欧祖語, 手話）→ 地球科学（ミランコビッチ, 火山 VEI, 地図投影）→ 美学（能, 蒸留, コンサートホール音響, 香水）→ 数学（リーマン予想）→ 古生物（カンブリア爆発）→ <strong>経済学・応用数学（ゲーム理論）</strong></td>
+</tr>
+</tbody>
+</table>
+    </section>
+    <section class="section" id="patterns">
+      <h2 class="section-title">今日の横断的パターン</h2>
+      <div class="insight">
+        <h3>1. 「悪い均衡から脱出するためにゲームのルールを書き換える」——メカニズムデザインの遍在</h3>
+        <p>今日のテーマには<strong>「分散した利己的エージェントの均衡が望ましくないとき、インセンティブ構造をいじって均衡を社会的最適に近づける」</strong>という同型構造が<strong>最低 4 分野横断</strong>で現れた:</p>
+<ul>
+<li><strong>other</strong>: ゲーム理論のメカニズムデザインそのもの（ピグー税、ヴィックリーオークション、オストロムのコモンズ自治）</li>
+<li><strong>tech</strong>: MoE の補助損失フリー負荷分散——混雑しているエキスパートのスコアにバイアスを足して利用を分散させる＝混雑料金</li>
+<li><strong>house-hunting</strong>: 相続登記義務化——所有者不明土地（コモンズの悲劇）に対し「過料（ムチ）＋相続人申告登記（簡易な代替手段）」で均衡を移動させる</li>
+<li><strong>cs（間接的に）</strong>: eBPF verifier も「プログラム作者に bounded loop を強制する」ことで「解析不能なゲーム」を「解析可能なゲーム」に作り変えている</li>
+</ul>
+<p>「<strong>ナッシュ均衡が悪いなら、ゲームを変えろ</strong>」——これは今日最も強い横断テーマで、TCP 輻輳制御、炭素税、評判システムも同じ家族。</p>
+      </div>
+      <div class="insight">
+        <h3>2. 「理論が引く不可能性の境界線」と「制限による回避」</h3>
+        <p><strong>cs（計算可能性）と other（ゲーム理論）が直接同型</strong>: どちらも「存在は保証されるが構成的に／効率的には求まらない」という壁を持つ。</p>
+<ul>
+<li><strong>cs</strong>: 停止問題は決定不能、Rice の定理で意味的性質はすべて決定不能 → 工学は「言語を制限して決定可能な部分集合に押し込める」（eBPF verifier、HM 型推論、全関数型言語）</li>
+<li><strong>other</strong>: ナッシュ均衡は存在するが計算は PPAD 完全、ギバード＝サタースウェイトの定理（操作不可能で独裁的でない投票制度は存在しない）→ 制度設計者は「望ましい性質の一部を諦める」</li>
+<li><strong>tech</strong>: 最適ルーティングは組合せ最適化（理論的に難しい）→「学習で近似的に均衡させる」</li>
+<li><strong>anatomy</strong>: 最適把持力は計算できない → 「最小限＋安全マージン」で近似する</li>
+<li><strong>golf</strong>: 完璧なショットは不可能 → 期待値で意思決定する（DECADE）</li>
+</ul>
+<p><strong>「理論が不可能と言う ⇒ 入力を制限する／近似で妥協する／トレードオフを明示的に設計する」</strong>——これが今日の 5 分野を貫くシステム工学の最も汎用的なパターン。</p>
+      </div>
+      <div class="insight">
+        <h3>3. 「冗長な並列観測の統合で単一の限界を超える」（前日からの継続パターン）</h3>
+        <ul>
+<li><strong>anatomy</strong>: 4 種の機械受容器のフィルタバンク（順応速度＝周波数帯）による多重サンプリング＋中枢での統合——蝸牛・前庭・固有受容と同じ「多様な部分的観測を統合して全体像を頑健に再構成する」</li>
+<li><strong>tech</strong>: MoE の fine-grained experts ＋ shared expert——「多様な部分関数を統合」</li>
+<li><strong>piano</strong>: 指運動 ＋ 前腕回旋の位相合成（ポリリズムも 2 つのリズム層の合成）</li>
+<li><strong>music</strong>: ブラームスの 30 変奏——「同じ低音」の上に「変化する声部」を積層</li>
+</ul>
+<p>「最適化ではなく冗長化が解として選ばれる」——anatomy の機械受容器、bread の老化抑制手段（乳化剤＋湯種＋酵素の並列）、cs の Reed-Solomon（既出）も同じ家族。</p>
+      </div>
+      <div class="insight">
+        <h3>4. 「固定された土台 × 変化する上層」——同じ骨格を可変パラメータで別物にする</h3>
+        <ul>
+<li><strong>golf</strong>: コース設計（恒久＝バンカー位置・グリーン形状）vs セットアップ（可変＝ピン位置・ラフ・グリーンの硬さ）——同じコースが「やさしいゲーム」にも「悪夢」にもなる</li>
+<li><strong>bread</strong>: レシピ（恒久）vs 発酵温度・水分・添加物（可変）——同じ生地が retrogradation の速度で「翌日も柔らかい」にも「すぐ固くなる」にもなる</li>
+<li><strong>music</strong>: パッサカリアのオスティナート（恒久）vs 30 変奏（可変）</li>
+<li><strong>tech</strong>: MoE の shared expert（恒久・常時稼働）vs ルーテッドエキスパート（可変・場面で変わる）</li>
+<li><strong>cs</strong>: アルゴリズム（恒久）vs ハイパーパラメータ・チューニング（可変）——性能は後者で決まることが多い</li>
+</ul>
+<p><strong>「システムの性格は固定部分ではなく調律で決まる」</strong>——多目的最適化では「中途半端な中間」がしばしばパレート劣位になる（冷蔵庫＝カビには良いが物性には最悪、PGA Championship 以外のメジャーは「中間でない極」を選んでいる）という系も今日複数分野で出た。</p>
+      </div>
+    </section>
+    <section class="section" id="connections">
+      <h2 class="section-title">意外な接続点</h2>
+      <div class="connection">
+        <h3>eBPF verifier（cs）とゲーム理論のメカニズムデザイン（other）と相続登記義務化（house-hunting）——「制限/罰則で望ましい均衡を作る」三つの実装</h3>
+        <p><strong>最も意外な接続</strong>: 一見まったく無関係なこの三つは、<strong>「自由放任だと悪い結果になる系を、ルールの書き換えで矯正する」</strong>という同一思想の異なる実装。</p>
+<ul>
+<li><strong>eBPF verifier</strong> は「プログラム作者の自由（任意のループ）を制限」して「停止性が決定可能」という望ましい性質を強制する</li>
+<li><strong>メカニズムデザイン</strong>（ピグー税、混雑料金）は「経済主体の私的費用に外部性を内部化」して「過剰行動が起きない」均衡を作る</li>
+<li><strong>相続登記義務化</strong> は「過料（罰）＋相続人申告登記（簡易な代替）」で「登記する」が個人にとって合理的な選択になるようゲームを変える</li>
+</ul>
+<p>そして <strong>tech の MoE 補助損失フリー負荷分散</strong> も「混雑したエキスパートにバイアスを掛ける＝混雑料金」で全く同じ構造。<strong>「自由 vs 望ましさ」のトレードオフを、制限・罰則・価格付けのどれで解くか</strong>という設計判断は、ソフトウェア・経済制度・法律・機械学習で同型に現れる。</p>
+      </div>
+      <div class="connection">
+        <h3>Rice の定理（cs）と能動的触知覚（anatomy）——「観測には介入が要る」</h3>
+        <p><strong>第二の意外な接続</strong>: Rice の定理が「<strong>プログラムの意味は、それを（あらゆる入力で）実行する以外に確定する方法がない</strong>」と言うのと、能動的触知覚が「<strong>物の性質は、自分で能動的に探索する（撫でる・押す・転がす）以外に正確には確定できない</strong>」と言うのは、認識論的に同型——<strong>観測対象を完全に知るには対象に介入（実行・探索）しなければならない</strong>。受動的に「眺める」だけでは不十分。これは house-hunting の「登記簿を見るだけでは真実は確定しない、本人確認という介入が要る」とも繋がる三角形。</p>
+      </div>
+      <div class="connection">
+        <h3>ブラームスのパッサカリア（music）と MoE の shared expert（tech）——「変えない土台」の役割</h3>
+        <p><strong>第三の意外な接続</strong>: パッサカリアの 8 小節オスティナート（30 回繰り返す不変の低音）と、MoE の shared expert（全トークンに常時適用される 1 個のエキスパート）は、<strong>「変化する部分（変奏／ルーテッドエキスパート）を、変えない土台（オスティナート／共有エキスパート）の上に載せる」</strong>という同じアーキテクチャ。土台が「共通知識・共通項」を担うことで、上層は「専門化・個別性」に専念できる。cs の永続データ構造の path copying（共有される木構造＋コピーされたパス）も同じ家族——<strong>「不変の共有部分 ＋ 可変の固有部分」は構造設計の普遍パターン</strong>。</p>
+      </div>
+      <div class="connection">
+        <h3>ポリリズムの「合成パターン圧縮」（piano）とチェスの名人の盤面知覚——認知の帯域制約</h3>
+        <p><strong>第四の意外な接続</strong>: 速いポリリズムが「2 つのリズムを同時に意識する」のでなく「1 つの合成パターンに圧縮」してしか弾けないのは、ワーキングメモリが並行ストリームを高速維持できない＝チェスの名人が盤面を「駒の配置」でなく「パターン（チャンク）」で見るのと同じ認知制約。そして cs の「万能 TM＝有限の制御で無限のテープを扱う」も「有限の規則 ＋ 無限の状況」という同型——<strong>有限のリソースで複雑性に対処するには「チャンク化／パターン化／圧縮」が必須</strong>。music のブラームスの developing variation（有限の素材を無限に変容）、tech の MoE（有限のルーターで無限の入力に対応）も同じ。</p>
+      </div>
+      <div class="connection">
+        <h3>全英オープンの「draw の運を受け入れる」哲学（golf）と迷走神経の「制御できないストレスは受け流す」（anatomy 既出）</h3>
+        <p><strong>第五の意外な接続</strong>: R&amp;A が「午前/午後ウェーブの不公平はリンクスゴルフの本質」として容認するのと、自律神経が「制御不能なストレッサーには抗わず受け流す（learned helplessness を避ける適応的諦め）」のは、<strong>「環境を変えられないなら、環境に合わせて自分を調律する」</strong>という適応の本質で同型。USGA の「コースを過酷にする（環境を能動的にコントロールする）」哲学とは対極——<strong>コントロール vs アクセプタンスは、ゴルフのセットアップ哲学にも、ストレス対処にも、deutsch の Feierabend 文化（仕事を切り上げて切り替える）にも現れる二極</strong>。</p>
+      </div>
+    </section>
+    <section class="section" id="insights">
+      <h2 class="section-title">統合的洞察</h2>
+      <div class="insight">
+        <h3>「自由 vs 制御」の二つの極と、その間の「中途半端」の罠</h3>
+        <p>今日のテーマを統合すると、<strong>「システムに自由を与えるか、制御を課すか」</strong>という軸が繰り返し現れる:</p>
+<ul>
+<li><strong>完全な自由は解析不能</strong>: チューリング完全な言語（停止性が判定できない）、設定ファイルがうっかりチューリング完全になる、自由放任の市場（コモンズの悲劇）、相続登記の放置——「強力だが手に負えない」</li>
+<li><strong>制限を課すと扱える</strong>: eBPF verifier の bounded loops、HM 型推論、全関数型言語、メカニズムデザイン、相続登記義務化、グルーブ規制——「表現力／自由を犠牲にして、解析可能性／望ましさを得る」</li>
+<li><strong>「中途半端な中間」はしばしば最悪</strong>: 冷蔵庫（カビには良いが物性老化には最悪）、PGA Championship 以外の「中間でない極」を選ぶメジャー、cs の中途半端な一貫性レベル——<strong>多目的最適化では、はっきりした極の方が中間より良いことが多い</strong></li>
+</ul>
+<p>設計の本質は「どこに線を引くか（何を制限し何を自由にするか）」であり、そしてその線は<strong>はっきり引いた方がいい</strong>。「ほぼ万能だが解析可能な部分集合」を慎重に選ぶ——これが今日の最も普遍的な教訓。</p>
+      </div>
+      <div class="insight">
+        <h3>「観測・知識・意味は能動的に獲得される」——受動的な記録だけでは不十分</h3>
+        <p>今日のテーマには<strong>「対象を知るには介入・探索・実行が要る」</strong>という認識論が複数分野で現れた:</p>
+<ul>
+<li><strong>anatomy</strong>: 物の性質は能動的に触る（探索的手続き）以外に確定できない</li>
+<li><strong>cs</strong>: プログラムの意味は実行する以外に確定できない（Rice）</li>
+<li><strong>house-hunting</strong>: 登記簿（記録）を見るだけでは真実は確定しない、本人確認という介入が要る——「ログには記録されるがログが真実を保証するわけではない」</li>
+<li><strong>piano</strong>: ポリリズムは「分析的に理解する」だけでなく「身体で 2 層を感じる」能動的訓練がないと音楽的に意味を持たない</li>
+</ul>
+<p><strong>記録・台帳・楽譜・受動的観測</strong>は出発点にすぎず、<strong>意味は能動的な相互作用の中で初めて確定する</strong>。Sigstore の Rekor（既出）が「不変ログだけでは信頼を作れず、検証という能動的行為が要る」のも同じ。</p>
+      </div>
+      <div class="insight">
+        <h3>「自己性をどう刻むか」——音楽・暗号・登記の共通問題（前日からの継続）</h3>
+        <p>昨日（Sigstore × ショスタコーヴィチ）の「自己署名性」のテーマが今日も継続: ブラームスの「下行三度連鎖」という間隔の DNA（全曲に遺伝子として埋め込む）、house-hunting の「甲区＝所有権の append-only な履歴」（誰のものかを時系列で刻む）、deutsch の Feierabend／Sie-du（自分の領域・帰属集団を言葉で刻む）——<strong>「自己の identity を構造に埋め込む」技術は、音楽・暗号・法律・言語で同型</strong>。そして cs の万能 TM（プログラムが自分自身の符号を取得できる＝再帰定理）が、その最も純粋な数学的表現。</p>
+      </div>
+      <div class="insight">
+        <h3>ブラームスの「制約による自由」と工学の「制限による解析可能性」——同じ哲学の芸術版と技術版</h3>
+        <p>ブラームスが「8 小節 × 30 回」という牢獄を自ら設定したからこそ「どこまで変容できるか」に集中でき、変奏 12 のフルート独奏の解放が胸を打つ——これは cs の「言語を制限することで停止性が決定可能になる」、golf の「セットアップという制約の中で戦略を競う」、deutsch の「モーダル助詞という限られた語彙で態度の微妙な幅を表現する」と<strong>同じ哲学</strong>: <strong>制約は表現／機能の敵ではなく、それを可能にする足場</strong>。ソネット 14 行、俳句 17 音、ジャズ 32 小節、型システム、API——すべて「枠があるから、枠の中で／枠を破る瞬間に意味が宿る」。</p>
+      </div>
+    </section>
+    <section class="section" id="next-actions">
+      <h2 class="section-title">次のアクション</h2>
+      <details class="card card-tech">
+        <summary><span class="badge badge-tech">tech</span> テクノロジー</summary>
+        <div class="detail-content"><ul>
+<li><strong>MoE のスケーリング則</strong>——エキスパート数 E と活性数 k の最適比、なぜ fine-grained が効くのか（"MoE scaling laws"）</li>
+<li><strong>Soft MoE / Mixture-of-Depths</strong> との組み合わせ、vision MoE</li>
+<li><strong>per-expert quantization と SSD オフロード推論</strong>——使われないエキスパートを積極的に圧縮する</li>
+<li><strong>upcycling</strong>——dense モデルを後から MoE に分割して継続学習する手法の実態（Mixtral 説の検証）</li>
+</ul></div>
+      </details>
+      <details class="card card-music">
+        <summary><span class="badge badge-music">music</span> 音楽</summary>
+        <div class="detail-content"><ul>
+<li>バッハ無伴奏ヴァイオリン《シャコンヌ》（BWV1004）との直接比較——両者の「閉じ方」の哲学</li>
+<li>ブラームス《ハイドンの主題による変奏曲》《ヘンデルの主題による変奏曲とフーガ》の「変奏とフーガの接合」</li>
+<li>シェーンベルク〈進歩主義者ブラームス〉論文の精読——developing variation の概念史</li>
+<li>ヴェーベルンのパッサカリア作品1（1908）——ブラームスの形式を無調へ橋渡し</li>
+</ul></div>
+      </details>
+      <details class="card card-piano">
+        <summary><span class="badge badge-piano">piano</span> ピアノ</summary>
+        <div class="detail-content"><ul>
+<li><strong>不規則ポリリズム</strong>（7 対 4、5 対 3、南インド古典音楽の konnakol）と身体化の記憶術</li>
+<li>フーガにおける「ポリリズム＋ポリフォニー」——各声部のアーティキュレーションを別々に制御</li>
+<li>ペダリングとポリリズム——左右の手が別リズムのとき共鳴ペダルをどちらの拍に合わせるか</li>
+<li>19 世紀の melodic delay を現代の演奏様式の中でどう復活させるかの様式論</li>
+</ul></div>
+      </details>
+      <details class="card card-golf">
+        <summary><span class="badge badge-golf">golf</span> ゴルフ</summary>
+        <div class="detail-content"><ul>
+<li><strong>グリーンキーピングの科学</strong>——スティンプメーターの測定法、ベントグラス vs バミューダ vs フェスク vs ポア、グリーンスピードと刈高・転圧・含水率の関係</li>
+<li><strong>飛距離規制（ball rollback）の影響予測</strong>——2028/2030 施行後、メジャーのセットアップ思想はどう変わるか</li>
+<li>PGA ツアーの「平常週」「シグネチャーイベント」のセットアップ基準</li>
+<li>過去の「セットアップ論争」事例研究（2004 シネコック、2015 チェンバーズベイ）から学ぶ「公平な難しさ」の境界線</li>
+</ul></div>
+      </details>
+      <details class="card card-anatomy">
+        <summary><span class="badge badge-anatomy">anatomy</span> 解剖学</summary>
+        <div class="detail-content"><ul>
+<li><strong>C 触覚線維（CT afferents）</strong>——有毛皮膚の「ゆっくり優しく撫でられる」専用線維、情動的タッチと社会的接触の神経基盤</li>
+<li>触覚と質感知覚の「二段階モデル」——粗いテクスチャ＝空間コード、細かいテクスチャ＝振動コード、どこで切り替わるか</li>
+<li>ハプティクス工学——VR の触覚フィードバック、義手のセンサーがどの受容器を模倣するか</li>
+<li>演奏家・職人の S1 可塑性とフォーカル・ジストニア（過剰な可塑性？）の関係</li>
+</ul></div>
+      </details>
+      <details class="card card-bread">
+        <summary><span class="badge badge-bread">bread</span> パン</summary>
+        <div class="detail-content"><ul>
+<li>クラスト⇄クラムの水分動態（水分活性 aw 勾配によるリディストリビューション）の物理モデル</li>
+<li>テクスチャアナライザによる staling の定量、DSC での retrogradation エンタルピー測定</li>
+<li>冷凍生地（par-baked / frozen dough）の科学——冷凍が酵母・グルテン・澱粉に与えるダメージ、急速 vs 緩慢冷凍</li>
+<li>レジスタントスターチ RS1〜RS4 の分類と、パンの GI を意図的に下げるパン作り（冷却サイクル＋全粒＋サワードウ）</li>
+</ul></div>
+      </details>
+      <details class="card card-cs">
+        <summary><span class="badge badge-cs">cs</span> CS</summary>
+        <div class="detail-content"><ul>
+<li><strong>再帰定理（Kleene's recursion theorem）</strong>——「任意のプログラムは自分自身の符号を取得できる」、quine とウイルスの理論的基盤</li>
+<li><strong>Busy Beaver 関数 Σ(n)</strong>——計算可能でないが小さい n では具体値（BB(5)=47,176,870 が 2024 に確定）、BB(6) のゲーデル独立性</li>
+<li>オラクルマシンと相対化——P vs NP が「相対化する技法では解けない」（Baker–Gill–Solovay）</li>
+<li>Chaitin の Ω（停止確率）、コルモゴロフ複雑性と決定不能性の交点</li>
+</ul></div>
+      </details>
+      <details class="card card-house-hunting">
+        <summary><span class="badge badge-house-hunting">house</span> 家探し</summary>
+        <div class="detail-content"><ul>
+<li>登記識別情報（権利証の現代版）の仕組みと紛失時の対応、なりすまし犯罪（地面師）の手口と対策</li>
+<li>公図・地積測量図・建物図面の読み方——地番と現地の照合、筆界特定制度、登記面積と実測面積のズレ（縄延び・縄縮み）</li>
+<li>マンションの敷地権化されていない古い物件（敷地利用権と専有部分が分離登記）のリスク</li>
+<li>相続登記の実費——登録免許税（0.4%、免税措置あり）、司法書士報酬の相場、相続人申告登記との費用比較</li>
+<li>2026 年 4 月施行の住所変更登記義務化の運用——「職権による更新」が実際どこまで機能するか</li>
+</ul></div>
+      </details>
+      <details class="card card-deutsch">
+        <summary><span class="badge badge-deutsch">deutsch</span> ドイツ語</summary>
+        <div class="detail-content"><ul>
+<li>メール・チャットのビジネス文体——<em>Anbei finden Sie …</em> / <em>Mit freundlichen Grüßen</em> vs <em>Beste Grüße</em>、Slack/Teams での砕けた書き方</li>
+<li>会議の進行役の言い回し——<em>Lasst uns mal sammeln</em> / <em>Können wir das festhalten?</em> / <em>Wer übernimmt das? Bis wann?</em></li>
+<li>フィードバック・評価面談の言葉——<em>Da ist noch Luft nach oben</em>、<em>Mitarbeitergespräch</em> / <em>Zielvereinbarung</em></li>
+<li>オフィスのスモールトーク・タブー（給料、政治、休暇マウンティング）、オーストリア／スイスのオフィス語彙差</li>
+</ul></div>
+      </details>
+      <details class="card card-other">
+        <summary><span class="badge badge-other">other</span> その他</summary>
+        <div class="detail-content"><ul>
+<li>シャプレー値とマッチング理論——安定マッチング（研修医配属、学校選択、腎臓交換移植、ロス 2012 ノーベル賞）</li>
+<li>進化的ゲームの空間構造——ネットワーク・格子上での協力の進化、Nowak の「協力の進化の 5 つのルール」</li>
+<li>行動ゲーム理論——最後通牒ゲームの「利他的処罰」、合理性の前提のほころび</li>
+<li>メカニズムデザインの不可能性定理——ギバード＝サタースウェイトの定理（cs の Rice の定理と並ぶ「望ましい性質を全部は満たせない」型の結果）</li>
+</ul></div>
+      </details>
+    </section>
+    <footer class="footer">
+      <p><em>Generated by 知識統合システム</em></p>
+    </footer>
+  </div>
+  <script>
+(function () {
+  function openHash() {
+    var h = (location.hash || '').replace('#', '');
+    if (!h) return;
+    var el = document.getElementById(h);
+    if (el && el.tagName === 'DETAILS') {
+      el.open = true;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+  window.addEventListener('hashchange', openHash);
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a[href^="#card-"]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var el = document.getElementById(a.getAttribute('href').slice(1));
+        if (el && el.tagName === 'DETAILS') el.open = true;
+      });
+    });
+    var ex = document.getElementById('expand-all'), co = document.getElementById('collapse-all');
+    if (ex) ex.addEventListener('click', function () {
+      document.querySelectorAll('details.domain-details').forEach(function (d) { d.open = true; });
+    });
+    if (co) co.addEventListener('click', function () {
+      document.querySelectorAll('details.domain-details').forEach(function (d) { d.open = false; });
+    });
+    openHash();
+  });
+})();
+  </script>
+</body>
+</html>
