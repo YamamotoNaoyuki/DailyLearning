@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>デイリーレポート 2026-05-10</title>
+  <style>
+/* ============================================
+   知識統合システム — Daily Report Stylesheet
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap');
+
+/* --- Reset & Base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fafaf9;
+  --bg-card: #ffffff;
+  --text: #1a1a1a;
+  --text-secondary: #555;
+  --text-muted: #888;
+  --border: #e5e5e5;
+  --border-light: #f0f0f0;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+  --radius: 10px;
+  --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Noto Serif JP', serif;
+
+  /* Domain colors */
+  --color-tech: #2563eb;
+  --color-music: #7c3aed;
+  --color-piano: #1e1e1e;
+  --color-golf: #16a34a;
+  --color-anatomy: #dc2626;
+  --color-bread: #a16207;
+  --color-cs: #1e3a5f;
+  --color-house-hunting: #ea580c;
+  --color-deutsch: #ca8a04;
+  --color-other: #6b7280;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111111;
+    --bg-card: #1c1c1c;
+    --text: #e5e5e5;
+    --text-secondary: #aaa;
+    --text-muted: #777;
+    --border: #333;
+    --border-light: #252525;
+    --accent: #60a5fa;
+    --accent-light: #1e3a5f;
+    --shadow: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.4);
+  }
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Layout --- */
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* --- Navigation --- */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.875rem;
+}
+.nav a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.nav a:hover { opacity: 0.7; }
+.nav-prev::before { content: '← '; }
+.nav-next::after { content: ' →'; }
+
+/* --- Header --- */
+.report-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.report-header h1 {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.25rem;
+}
+.report-date {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* --- Domain Badge --- */
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.15em 0.6em;
+  border-radius: 4px;
+  color: #fff;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.badge-tech { background: var(--color-tech); }
+.badge-music { background: var(--color-music); }
+.badge-piano { background: var(--color-piano); }
+.badge-golf { background: var(--color-golf); }
+.badge-anatomy { background: var(--color-anatomy); }
+.badge-bread { background: var(--color-bread); }
+.badge-cs { background: var(--color-cs); }
+.badge-house-hunting { background: var(--color-house-hunting); }
+.badge-deutsch { background: var(--color-deutsch); }
+.badge-other { background: var(--color-other); }
+
+/* --- Topic Table --- */
+.topic-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  font-size: 0.925rem;
+}
+.topic-table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+.topic-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+}
+.topic-table tr:last-child td { border-bottom: none; }
+.topic-table a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.topic-table a:hover { text-decoration: underline; }
+
+/* --- Section --- */
+.section {
+  margin-bottom: 2.5rem;
+}
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--border);
+}
+
+/* --- Cards --- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s;
+  border-left: 4px solid var(--border);
+}
+.card:hover { box-shadow: var(--shadow-hover); }
+
+.card-tech { border-left-color: var(--color-tech); }
+.card-music { border-left-color: var(--color-music); }
+.card-piano { border-left-color: var(--color-piano); }
+.card-golf { border-left-color: var(--color-golf); }
+.card-anatomy { border-left-color: var(--color-anatomy); }
+.card-bread { border-left-color: var(--color-bread); }
+.card-cs { border-left-color: var(--color-cs); }
+.card-house-hunting { border-left-color: var(--color-house-hunting); }
+.card-deutsch { border-left-color: var(--color-deutsch); }
+.card-other { border-left-color: var(--color-other); }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.card p, .card li {
+  color: var(--text-secondary);
+  font-size: 0.925rem;
+  line-height: 1.75;
+}
+
+/* --- Collapsible Details --- */
+details {
+  margin-bottom: 0.75rem;
+}
+details summary {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+details summary::before {
+  content: '▸';
+  display: inline-block;
+  transition: transform 0.2s;
+  font-size: 0.8em;
+  color: var(--text-muted);
+}
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+details .detail-content {
+  padding: 0.75rem 0 0.75rem 1.25rem;
+  border-left: 2px solid var(--border-light);
+  margin-left: 0.4rem;
+}
+
+/* --- Stats / Accumulation --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.stat-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+}
+.stat-label {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* --- Insight blocks --- */
+.insight {
+  background: var(--accent-light);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--accent);
+  border-opacity: 0.2;
+}
+.insight h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.insight p, .insight li {
+  font-size: 0.925rem;
+  line-height: 1.75;
+}
+.insight ul {
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+/* --- Connection blocks --- */
+.connection {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.connection::before {
+  content: '⟷';
+  position: absolute;
+  top: -0.6rem;
+  left: 1.25rem;
+  background: var(--bg);
+  padding: 0 0.4rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.connection h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.connection p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+/* --- Accumulation Table --- */
+.acc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+.acc-table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+.acc-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+}
+.acc-table tr:last-child td { border-bottom: none; }
+.acc-table .domain-col { white-space: nowrap; }
+.acc-table .count-col {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.acc-table .coverage-col {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* --- Next Actions --- */
+.actions-list {
+  list-style: none;
+  padding: 0;
+}
+.actions-list li {
+  padding: 0.4rem 0 0.4rem 1.25rem;
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.actions-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+}
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* --- Index page --- */
+.index-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.index-header h1 {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.index-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+.report-list {
+  list-style: none;
+  padding: 0;
+}
+.report-list li {
+  border-bottom: 1px solid var(--border-light);
+}
+.report-list a {
+  display: block;
+  padding: 0.75rem 0.5rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.15s;
+}
+.report-list a:hover {
+  background: var(--accent-light);
+  border-radius: var(--radius);
+}
+.report-list .report-list-date {
+  font-weight: 500;
+  margin-right: 1rem;
+}
+.report-list .report-list-topics {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+  .container { padding: 1rem; }
+  .report-header h1 { font-size: 1.35rem; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .card { padding: 1rem; }
+  .nav { font-size: 0.8rem; }
+}
+
+/* ============================================
+   Self-contained report additions
+   ============================================ */
+
+/* --- Section heading controls (expand / collapse all) --- */
+.section-controls {
+  float: right;
+  font-size: 0.75rem;
+  font-weight: 400;
+  font-family: var(--font-sans);
+}
+.section-controls button {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 5px;
+  padding: 0.2em 0.6em;
+  margin-left: 0.3rem;
+  cursor: pointer;
+  font: inherit;
+}
+.section-controls button:hover { background: var(--border-light); }
+.section-note {
+  color: var(--text-muted);
+  font-size: 0.825rem;
+  margin-bottom: 1rem;
+}
+.section-intro { margin-bottom: 1rem; }
+.section-intro p, .section-intro li {
+  color: var(--text-secondary);
+  font-size: 0.925rem;
+}
+
+/* --- Topic table: source link column --- */
+.topic-table .src-col { white-space: nowrap; text-align: right; width: 1%; }
+.topic-table .src-col a, .ext-link {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+.topic-table .src-col a:hover { text-decoration: underline; }
+
+/* --- Domain detail cards (collapsible) --- */
+.domain-details { padding: 0; overflow: hidden; }
+.domain-details > summary {
+  display: block;
+  cursor: pointer;
+  padding: 1.1rem 1.4rem;
+  list-style: none;
+  outline-offset: -2px;
+}
+.domain-details > summary::-webkit-details-marker { display: none; }
+.domain-details > summary::marker { content: ""; }
+.domain-details > summary::before { content: none; }
+.domain-details > summary:hover { background: var(--border-light); }
+.domain-details .card-head {
+  display: block;
+  font-weight: 600;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  margin-bottom: 0.4rem;
+}
+.domain-details .card-head::before {
+  content: "▸";
+  display: inline-block;
+  color: var(--text-muted);
+  font-size: 0.8em;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+.domain-details[open] .card-head::before { transform: rotate(90deg); }
+.domain-details .card-title { vertical-align: middle; }
+.domain-details .card-abstract {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+.domain-details .card-abstract strong { color: var(--text); }
+
+.domain-body {
+  padding: 0.25rem 1.4rem 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+.domain-body h2 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 1.75rem 0 0.6rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border-light);
+}
+.domain-body h2:first-child,
+.domain-body .domain-tags + h2 { margin-top: 1rem; }
+.domain-body h3 { font-size: 1rem; font-weight: 700; margin: 1.25rem 0 0.4rem; }
+.domain-body h4 { font-size: 0.95rem; font-weight: 700; margin: 1rem 0 0.3rem; }
+.domain-body p, .domain-body li { color: var(--text-secondary); font-size: 0.925rem; }
+.domain-body ul, .domain-body ol { padding-left: 1.4rem; margin: 0.5rem 0; }
+.domain-body li { margin-bottom: 0.15rem; }
+.domain-body a { color: var(--accent); }
+.domain-body strong { color: var(--text); }
+.domain-body hr { border: none; border-top: 1px solid var(--border-light); margin: 1.5rem 0; }
+.domain-body blockquote {
+  border-left: 3px solid var(--border);
+  padding: 0.2rem 0 0.2rem 1rem;
+  margin: 0.5rem 0;
+  color: var(--text);
+}
+.domain-body code {
+  background: var(--border-light);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.875em;
+}
+.domain-body pre {
+  background: var(--border-light);
+  border-radius: var(--radius);
+  padding: 0.9rem 1.1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+.domain-body pre code { background: none; padding: 0; }
+.domain-body table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin: 1rem 0; }
+.domain-body th { text-align: left; padding: 0.5rem 0.7rem; border-bottom: 2px solid var(--border); color: var(--text-muted); font-size: 0.8rem; }
+.domain-body td { padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+
+.domain-tags { margin-bottom: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.domain-tags .tag {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  background: var(--border-light);
+  border-radius: 4px;
+  padding: 0.12em 0.5em;
+}
+.domain-source { margin-top: 1.75rem; font-size: 0.8rem; }
+.domain-source a { color: var(--text-muted); }
+
+/* --- Generic section tables (e.g. accumulation summary) --- */
+.section > table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin: 1rem 0 1.5rem;
+}
+.section > table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+.section > table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+  color: var(--text-secondary);
+}
+.section > table tr:last-child td { border-bottom: none; }
+.section > table td:first-child { white-space: nowrap; }
+
+/* --- Next-actions detail bullets --- */
+.detail-content ul, .detail-content ol { list-style: none; padding-left: 0; margin: 0; }
+.detail-content li {
+  padding: 0.35rem 0 0.35rem 1.25rem;
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.detail-content li::before { content: "→"; position: absolute; left: 0; color: var(--text-muted); }
+.detail-content p { color: var(--text-secondary); font-size: 0.9rem; }
+
+/* --- :target highlight --- */
+:target { scroll-margin-top: 0.75rem; }
+.domain-details:target { box-shadow: 0 0 0 2px var(--accent); }
+
+/* --- Print --- */
+@media print {
+  body { font-size: 11pt; }
+  .nav, .footer, .section-controls, .section-note { display: none; }
+  .card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+  details > *:not(summary) { display: block !important; }
+  .domain-details .card-head::before { content: ""; margin: 0; }
+  .domain-details > summary { padding-bottom: 0.3rem; }
+  a[href^="http"]::after { content: ""; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <span></span>
+      <a href="../index.html">一覧</a>
+      <span></span>
+    </nav>
+    <header class="report-header">
+      <h1>デイリーレポート</h1>
+      <div class="report-date">2026-05-10</div>
+    </header>
+    <section class="section" id="topics">
+      <h2 class="section-title">今日のトピック一覧</h2>
+      <table class="topic-table">
+        <thead><tr><th>分野</th><th>テーマ</th><th></th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-tech">tech</span></td><td><a href="#card-tech">Sigstore とソフトウェアサプライチェーンセキュリティ</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/tech/2026-05-10_Sigstoreとソフトウェアサプライチェーンセキュリティ.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-music">music</span></td><td><a href="#card-music">ショスタコーヴィチ弦楽四重奏曲第8番とDSCH動機</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/music/2026-05-10_ショスタコーヴィチ弦楽四重奏曲第8番とDSCH動機.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-piano">piano</span></td><td><a href="#card-piano">トリルとトレモロの神経筋制御</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/piano/2026-05-10_トリルとトレモロの神経筋制御.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-golf">golf</span></td><td><a href="#card-golf">ウェッジグルーブ規制2010とスピン物理学</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/golf/2026-05-10_ウェッジグルーブ規制2010とスピン物理学.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-anatomy">anatomy</span></td><td><a href="#card-anatomy">筋紡錘とゴルジ腱器官の固有受容感覚</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/anatomy/2026-05-10_筋紡錘とゴルジ腱器官の固有受容感覚.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-bread">bread</span></td><td><a href="#card-bread">長時間冷蔵発酵リターディングの科学と風味形成</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/bread/2026-05-10_長時間冷蔵発酵リターディングの科学と風味形成.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-cs">cs</span></td><td><a href="#card-cs">HyperLogLog と Count-Min Sketch — ストリーミング近似アルゴリズム</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/cs/2026-05-10_HyperLogLogとCount-Min_Sketchストリーミング近似アルゴリズム.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-house-hunting">house</span></td><td><a href="#card-house-hunting">固定資産税評価額と都市計画税の評価メカニズム</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/house-hunting/2026-05-10_固定資産税評価額と都市計画税の評価メカニズム.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-deutsch">deutsch</span></td><td><a href="#card-deutsch">Im Restaurant — Bestellen und Reklamieren</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/deutsch/2026-05-10_Im_Restaurant_Bestellen_und_Reklamieren.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+          <tr><td><span class="badge badge-other">other</span></td><td><a href="#card-other">クマムシのクリプトビオシスとTun状態</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/other/2026-05-10_クマムシのクリプトビオシスとTun状態.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="section" id="domains">
+      <h2 class="section-title">今日のテーマ概要        <span class="section-controls"><button type="button" id="expand-all">すべて展開</button><button type="button" id="collapse-all">すべて閉じる</button></span></h2>
+      <p class="section-note">各カードをクリックすると、そのドメインの全文が開きます。</p>
+      <details id="card-tech" class="card card-tech domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-tech">tech</span> <span class="card-title">Sigstore とソフトウェアサプライチェーンセキュリティ</span></span>
+          <span class="card-abstract">Sigstore は OIDC + 短命 x.509 証明書 + Rekor 不変ログで「鍵を持たない署名」を実現するサプライチェーンセキュリティの新標準。Fulcio (CA)・Rekor (transparency log)・Cosign (CLI) の三本柱で SLSA Level 3+ provenance 署名を実装し、npm/PyPI/Maven Central が標準採用。<strong>「鍵管理問題を ID 管理問題に変換」</strong>するパラダイム転換。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#Sigstore</span> <span class="tag">#SupplyChain</span> <span class="tag">#SLSA</span> <span class="tag">#Cosign</span> <span class="tag">#Fulcio</span> <span class="tag">#Rekor</span> <span class="tag">#SBOM</span></div>
+<h2>学んだこと</h2>
+<h3>サプライチェーン攻撃という構造的脅威</h3>
+<p>SolarWinds (2020), Codecov (2021), 3CX (2023), XZ Utils backdoor (2024) ── 「コードを書いた人」と「実行されるバイナリ」の間に存在する<strong>ビルド・配布パイプライン全体</strong>が攻撃面になった。従来の署名は「PGP 鍵を作ってサーバに置き、たまに更新する」運用で、(1) 鍵管理が破綻 (Fedora 開発者の鍵の 9 割が紛失または弱い)、(2) 失効が困難 (revoke しても古い署名は依然有効)、(3) <strong>誰が</strong>署名したかは追跡できるが<strong>いつ・どこで</strong>署名したかは検証不能、という三重の弱点を抱えていた。Sigstore は Linux Foundation 傘下の OpenSSF プロジェクトとして 2021 年に Red Hat / Google / Purdue 大学が立ち上げ、2024 年に GA、2026 年現在 npm / PyPI / Maven Central / RubyGems / Homebrew が標準採用している。</p>
+<h3>Keyless Signing — 鍵を持たない署名</h3>
+<p>Sigstore のコア発明は <strong>「永続的な署名鍵を作らず、OIDC ID と短命証明書で署名する」</strong> という発想転換。署名フローは次の 5 段階：(1) 開発者または CI が <strong>OIDC プロバイダ</strong> (GitHub Actions, Google, GitLab) から ID トークンを取得、(2) <strong>Fulcio</strong> (Free CA) が ID を検証して <strong>10 分間有効な x.509 証明書</strong>を発行 (subject に GitHub Actions のワークフロー URL が埋め込まれる)、(3) Cosign がローカルで一時鍵ペアを生成し、その公開鍵を CSR で Fulcio に送付、(4) 受け取った証明書で artifact (コンテナイメージ・SBOM・ファイル) に署名、(5) 署名・証明書・タイムスタンプを <strong>Rekor</strong> という公開トランスペアレンシーログ (Trillian Merkle Tree ベース) に追記。<strong>署名後、秘密鍵は破棄される</strong>。検証時には Rekor から署名エントリを取得し、Fulcio 証明書チェーンと OIDC subject (例: <code>repo:foo/bar:ref:refs/heads/main</code>) を照合する。</p>
+<h3>Fulcio / Rekor / Cosign のアーキテクチャ</h3>
+<p><strong>Fulcio</strong> は CT log (Certificate Transparency) と同じ「全証明書を公開ログに刻む」原則で動く Free Code Signing CA。証明書は 10 分しか有効でないが、その間に Rekor に記録された署名は<strong>永久に検証可能</strong> ── これは「失効ではなく不変ログで信頼を証明する」発想。<strong>Rekor</strong> は append-only Merkle tree で、各エントリはハッシュチェーンで連結され、後から改竄しようとすると tree の root hash がズレる。Sigstore Public Good Instance は Rekor の現在の tree size を毎時間 Twitter ボットで公開しており、誰でも一貫性証明を検証できる。<strong>Cosign</strong> は CLI とライブラリで、<code>cosign sign --keyless image:tag</code> の一行で署名、<code>cosign verify --certificate-identity-regexp ...</code> で検証。</p>
+<h3>SLSA フレームワークとの結合</h3>
+<p><strong>SLSA (Supply-chain Levels for Software Artifacts)</strong> は Google が提唱した成熟度モデルで、Level 1 (provenance あり) → Level 2 (ホスト型ビルド・改竄不可ログ) → Level 3 (隔離ビルド) → Level 4 (二者署名・密閉) と進む。Sigstore は SLSA Level 3+ の provenance 署名の事実上の実装。GitHub Actions の <code>actions/attest-build-provenance</code> は SLSA provenance JSON を Sigstore で署名し Rekor に記録、これにより「このバイナリは確かに main ブランチの commit X からビルドされた」が暗号学的に検証できる。</p>
+<h3>Gitsign と policy-controller</h3>
+<p><strong>Gitsign</strong> は git commit を Sigstore で署名する仕組み。従来 GPG 鍵が必要だった <code>git commit -S</code> を keyless で代替し、commit に埋め込まれた x.509 証明書を Rekor で検証する。<strong>policy-controller</strong> は Kubernetes admission webhook で、ClusterImagePolicy CRD で「<code>registry.io/foo/*</code> のイメージは <code>repo:foo/bar</code> の GitHub Actions ワークフローからの署名のみ許可」のようなポリシーを書ける。</p>
+<h2>気づき・洞察</h2>
+<h3>「鍵管理問題」を「ID 管理問題」に変換した</h3>
+<p>PGP の根本問題は「鍵 = アイデンティティ」と仮定したこと。だが現実には鍵は紛失・盗難・忘失する。Sigstore は <strong>「鍵は使い捨て、アイデンティティは OIDC で検証」</strong> とパラダイムを反転させた。これはクラウド時代の <strong>「鍵を持たない方が安全」</strong> ── サービスアカウント鍵をローテートし忘れて漏洩するなら最初から永続鍵を作らない、という思想と同じ。CI/CD 環境ですでに OIDC ID を持っているなら、署名鍵を別管理する意味はない。</p>
+<h3>Transparency Log の哲学的意義</h3>
+<p>Rekor は <strong>「秘密ではなく公開で守る」</strong> という発想。従来の CRL/OCSP (失効リスト) は「中央が信頼できる」ことを前提にした pull モデルだったが、CT log と Rekor は「世界中の誰もが log の不変性を検証できる」push モデル。これは <strong>Bitcoin のブロックチェーンと同じ思想 — 信頼を中央に置かず、改竄が暗号学的に不可能な公開構造に置く</strong>。ただし Rekor は Proof of Work ではなく gossip protocol と signed tree heads で一貫性を保証する点が異なる。</p>
+<h3>「いつ署名したか」を一級市民にした</h3>
+<p>Rekor のタイムスタンプは TSA (Time Stamping Authority) によって署名されるため、<strong>「Fulcio 証明書は失効していたが、Rekor のタイムスタンプ時点では有効だった」が証明できる</strong>。これは長期保存される署名 (= 配布されたバイナリ) で根本的に重要 ── 「証明書の有効期限と署名の有効期限を分離する」設計判断は、長期署名の永続性問題への正解。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>cs (分散合意)</strong>: Rekor の Merkle tree は Lamport 論理時計と同じく「時刻ではなく順序」で整合性を保証する。Trillian の signed tree head は分散合意を通じて gossip され、Byzantine fault tolerance の faint version と見ることもできる。</li>
+<li><strong>cs (Bloom filter)</strong>: Rekor は entry の高速検索のため Bloom filter を内部で使用 ── 確率的データ構造が大規模 transparency log の現実解になる。</li>
+<li><strong>音楽 (DSCH 動機)</strong>: Shostakovich が自分の名前を音符に埋め込んだのと同じく、Sigstore は GitHub Actions の workflow URL を証明書 subject に埋め込む。<strong>「私が私であること」をどう不変に証明するか</strong>という問いは、芸術と暗号で同型。</li>
+<li><strong>anatomy (固有受容感覚)</strong>: 筋紡錘が「自分の筋肉の状態」を中枢に伝えるのと、Rekor が「自分のビルド履歴」を世界に伝えるのは構造的に類似。<strong>自己認識のフィードバックループ</strong>。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>TUF (The Update Framework)</strong> との関係 ── TUF も Linux Foundation 傘下で、配布側の役割分離を扱う。Sigstore は署名、TUF は配布信頼の root of trust ── 両者の組み合わせ (例: Pythonの PyPI 採用) を理解する。</li>
+<li><strong>SLSA Build L3 の隔離ビルド要件</strong>を満たす具体的な GitHub Actions 設定。reusable workflow と OIDC subject の関係。</li>
+<li><strong>EU Cyber Resilience Act (CRA, 2027 適用)</strong> で SBOM 配布が義務化される中、Sigstore + SPDX/CycloneDX SBOM 署名の標準化動向。</li>
+<li><strong>Sigsum</strong> (Sigstore に類似する KTH 研究プロジェクト) との設計思想の比較。</li>
+</ul>
+<hr>
+<p><strong>主要参考ソース</strong>:</p>
+<ul>
+<li><a href="https://docs.sigstore.dev/about/overview/">Sigstore Documentation - Overview</a></li>
+<li><a href="https://openssf.org/blog/2024/02/16/scaling-up-supply-chain-security-implementing-sigstore-for-seamless-container-image-signing/">OpenSSF: Scaling Up Supply Chain Security</a></li>
+<li><a href="https://www.csoonline.com/article/572893/sigstore-explained-how-it-helps-secure-the-software-supply-chain.html">CSO Online: Sigstore explained</a></li>
+<li>Flajolet et al., "HyperLogLog: the analysis of a near-optimal cardinality estimation algorithm" (Rekor 内部実装関連)</li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/tech/2026-05-10_Sigstoreとソフトウェアサプライチェーンセキュリティ.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-music" class="card card-music domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-music">music</span> <span class="card-title">ショスタコーヴィチ弦楽四重奏曲第8番とDSCH動機</span></span>
+          <span class="card-abstract">ショスタコーヴィチが 1960 年 7 月にわずか 3 日で書いた弦楽四重奏曲第 8 番は、表向き「ファシズム犠牲者への献辞」だが実は<strong>自分自身へのレクイエム</strong>。DSCH 動機 (D-Eb-C-B = 作曲者の頭文字) を全 5 楽章に埋め込み、過去作からの引用群で「自己の歴史を音響に折りたたむ」自伝的構造。マーラー 9 番「未来への告別」と対極の「過去への回帰」。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#Shostakovich</span> <span class="tag">#ChamberMusic</span> <span class="tag">#DSCH</span> <span class="tag">#Op110</span> <span class="tag">#Autobiography</span></div>
+<h2>学んだこと</h2>
+<h3>1960年7月、ドレスデンの3日間</h3>
+<p>ドミトリー・ショスタコーヴィチは 1960 年 7 月 12 日から 14 日のわずか 3 日間で弦楽四重奏曲第 8 番ハ短調 Op.110 を書き上げた。表向きの献辞は <strong>「ファシズムと戦争の犠牲者の思い出に」</strong> ── 第二次世界大戦で破壊されたドレスデンを訪れ、その瓦礫を見て映画『五日五夜』(ヴォルガ映画) のための音楽を構想していた最中の所産とされる。だが妻の手紙、友人イサーク・グリクマンへの書簡、息子マクシムの証言が示す本当の動機は別にある。当時 54 歳のショスタコーヴィチは <strong>ソ連共産党への入党を強要され</strong>、その精神的苦痛から自殺を真剣に考えていた。彼はグリクマン宛の手紙にこう書いた ── 「私が死んでも誰も私のために四重奏曲を書いてくれそうにない。だから自分で書いた」。<strong>第8番は彼自身のレクイエム</strong>である。</p>
+<h3>DSCH動機 — 名前を音にする</h3>
+<p>動機 <strong>D-Eb-C-B</strong>（C minor で半音階的に下降する 4 音）はドイツ音名で D-S-C-H と読まれ、これは作曲者の名前 <strong>D</strong>mitri <strong>Sch</strong>ostakowitsch（ドイツ式表記）の頭文字に対応する (Es=S, H=B♮)。バッハの <strong>B-A-C-H 動機</strong> (B♭-A-C-B♮) の系譜を継ぐ「音楽的署名」だが、ショスタコーヴィチはこれを単なる engraved sign ではなく <strong>第一人称代名詞の「私」</strong> として作品に組み込み、第 8 番ではすべての楽章にこの 4 音が現れる。第 1 楽章冒頭、Vc → Va → Vn II → Vn I へと DSCH が積層していくフーガ的提示は、<strong>自己を音響空間に存在させる儀式</strong>である。</p>
+<h3>5 楽章構成と引用の網</h3>
+<p>全 5 楽章は切れ目なく連続演奏される (attacca)。各楽章はショスタコーヴィチ自身の過去作品を引用しており、文字通り「人生の回顧録」になっている：</p>
+<ul>
+<li><strong>第 1 楽章 (Largo)</strong>: DSCH に始まり、<strong>交響曲第 1 番</strong> (1925年学生時代の出世作) と<strong>交響曲第 5 番</strong> (1937年スターリン批判後の名誉回復作) の主題を引用。若き日の自分から、ジダーノフ批判 (1948) を生き延びた中年の自分まで。</li>
+<li><strong>第 2 楽章 (Allegro molto)</strong>: 暴力的な scherzo。<strong>ピアノ三重奏曲第 2 番</strong> (1944) のユダヤ風主題が引用される。これは大戦中ユダヤ人虐殺への抗議として書かれた主題で、<strong>全体主義への怒り</strong>の象徴。</li>
+<li><strong>第 3 楽章 (Allegretto)</strong>: ワルツ形式だが歪んだ皮肉に満ちる。<strong>チェロ協奏曲第 1 番</strong> (1959) の主題引用。</li>
+<li><strong>第 4 楽章 (Largo)</strong>: 三度の鋭い和音 (砲撃あるいは KGB のドアノックを示唆) と、ロシアの革命歌<strong>「過酷な隷属に苦しめられて」</strong> (Tortured by Heavy Bondage) の引用、さらにオペラ<strong>『ムツェンスク郡のマクベス夫人』</strong> (1934 — スターリンに弾圧されたオペラ) のアリア「セリョーシャ、わが愛しき人」が現れる。革命と弾圧、検閲と恋愛の記憶が重ねられる。</li>
+<li><strong>第 5 楽章 (Largo)</strong>: 第 1 楽章の DSCH フーガが回帰し、最後は途中で消えるように終わる。出発点に戻ることで作品は閉じた円環を成す。</li>
+</ul>
+<h3>音響的特徴 — Largo の支配</h3>
+<p>全 5 楽章のうち 3 楽章が Largo。テンポの遅さは内面的告白の言語であり、<strong>弦楽四重奏という「親密な4人の声」だけが許す告白</strong>。ピアニッシモの長音符の連なりの中で、半音階的な DSCH が「呼吸」のように繰り返され、聴き手は<strong>自伝が音響空間そのものに書き込まれていく</strong>経験をする。</p>
+<h2>気づき・洞察</h2>
+<h3>「私のために誰も書かないなら、私が書く」という芸術的決意</h3>
+<p>この一文は単なる自己憐憫ではない。<strong>自己への弔辞を自分で書くことは、創作行為そのものへの根源的問いかけ</strong>である ── 創作者は自分の死後の聴き手をどう想像し、どこに自己を保存するのか。バッハが B-A-C-H 動機で時間を超えて存在を主張し、ショスタコーヴィチが DSCH で同じことをした。<strong>これは音楽的不死の試み</strong>であり、Sigstore のトランスペアレンシーログが「永久に検証可能な自己署名」を残すのと構造的に同型である。</p>
+<h3>引用の重層性 — ポリリンギスティックな自伝</h3>
+<p>過去作の引用は単なる nostalgia ではなく、<strong>自己の歴史的な層を音響に折りたたむ操作</strong>。第 1 番の若さ、第 5 番の屈服、第 2 ピアノ三重奏曲のユダヤ的悲嘆、ムツェンスク郡のマクベス夫人の検閲経験 ── それぞれが当時の作曲者の異なる「自己」であり、第 8 番ではこれらが垂直に重なる。<strong>マーラー第 9 番が告別を未来に向けて書いたのに対し、ショスタコーヴィチは告別を過去への回帰として構築した</strong>。</p>
+<h3>公的レトリックと私的告白の二重コード</h3>
+<p>ソ連体制下では「公式の意味」と「私的な意味」を二重に持たせる修辞 (Aesopian language) が芸術家の生存戦略だった。第 8 番の「ファシズム犠牲者への献辞」は表向きの公的意味であり、当局はそう受け取った。しかし内側には<strong>「ファシズム = スターリニズムも含む全体主義」</strong>、さらに<strong>「犠牲者 = 自分自身」</strong>という二重三重の暗号が埋め込まれている。これは記録に残せない真実を音楽に保存する技術であり、<strong>Rekor のタイムスタンプ署名のような「事後検証可能な真実」を芸術がやっていた</strong>。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>tech (Sigstore)</strong>: DSCH 動機は「自己の名前を不可逆な構造に埋め込む」操作で、これは暗号学的署名と同型。Bach も Schumann (ABEGG, ASCH) も同じことをしてきた ── <strong>「私が書いた」を音楽史的に証明する仕組み</strong>。</li>
+<li><strong>cs (HyperLogLog)</strong>: 第 8 番が過去作の引用で「自己の歴史を圧縮表現する」のは、HyperLogLog が無数の要素を 1.5KB に圧縮してカーディナリティを推定するのと類比的。<strong>情報の損失と本質の保存</strong>。</li>
+<li><strong>anatomy (固有受容感覚)</strong>: 「自分の身体の状態を内側から知る」筋紡錘の働きと、「自分の作曲家としての来歴を内側から音響化する」DSCH の働きは構造的に類似。<strong>自己モニタリングの身体性</strong>。</li>
+<li><strong>piano (暗譜の Chaffin 理論)</strong>: 演奏キューによる暗譜論は「過去の自分の決断を再生する記憶装置」だが、第 8 番は<strong>作曲家自身が演奏キューを楽譜に書き込んだ</strong>作品。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>ボロディン弦楽四重奏団・エマーソン弦楽四重奏団・パヴェル・ハース四重奏団</strong> の解釈比較。テンポ設定 (特に第 1 楽章の DSCH フーガ) と引用部分のアクセント付け。</li>
+<li><strong>第 15 番 Op.144 (1974)</strong> との比較 ── これも全 6 楽章すべて Adagio。死期を意識した最後の四重奏曲との関係。</li>
+<li>ショスタコーヴィチの<strong>「証言」(ヴォルコフ編)</strong> 問題 ── 真贋論争があるが、第 8 番の自伝的解釈はどこまで作曲者の意図と一致するか。</li>
+<li>共産党入党プロセスの史料的詳細とキリル・コンドラシン事件 — 1960 年 7 月の時系列を再構成。</li>
+</ul>
+<hr>
+<p><strong>主要参考ソース</strong>:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/String_Quartet_No._8_(Shostakovich)">Wikipedia: String Quartet No. 8 (Shostakovich)</a></li>
+<li><a href="https://www.laphil.com/musicdb/pieces/3734/string-quartet-no-8-in-c-minor-op-110">LA Phil: String Quartet No. 8 in C minor, Op. 110</a></li>
+<li><a href="https://robertgreenbergmusic.com/the-string-quartet-in-time-of-war-dmitri-shostakovich-string-quartet-no-8-1960/">Robert Greenberg: The String Quartet in Time of War</a></li>
+<li><a href="https://www.hpo.org/shostakovichs-eighth-quartet-and-the-sounds-of-trauma/">Hamilton Philharmonic: Shostakovich's Eighth Quartet and the Sounds of Trauma</a></li>
+<li><a href="https://www.brentanoquartet.com/notes/shostakovich-quartet-8/">Brentano String Quartet: Shostakovich Quartet #8</a></li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/music/2026-05-10_ショスタコーヴィチ弦楽四重奏曲第8番とDSCH動機.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-piano" class="card card-piano domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-piano">piano</span> <span class="card-title">トリルとトレモロの神経筋制御</span></span>
+          <span class="card-abstract">トリル奏法は指の生理的反復速度上限 (8〜10 Hz) を、前腕回旋との位相合成で 12〜16 Hz に押し上げる構造的解。Bar-Niv の <strong>Visible/Invisible Rotation</strong> と <strong>Single/Double Rotation</strong> の区別が重要で、練習時は「指単独」「回旋単独」を分離して神経表象を独立コード化してから合成する。リラックスの精度から速さが生まれる。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#Trill</span> <span class="tag">#Tremolo</span> <span class="tag">#ForearmRotation</span> <span class="tag">#Taubman</span> <span class="tag">#BarNiv</span> <span class="tag">#NeuromuscularControl</span></div>
+<h2>学んだこと</h2>
+<h3>トリルとトレモロの運動学的構造</h3>
+<p>トリルは 2 つの隣接音 (通常 2 度) の急速交互、トレモロは離れた 2 音 (3 度以上、しばしばオクターブや和音) の急速交互。表面的には「指の速い往復運動」に見えるが、現代の Taubman / Bar-Niv / Matthay 系統の運動学的分析が明らかにしたのは、<strong>「指の単独運動だけでは速度の限界に達し、必ず前腕回旋 (forearm rotation = 回外/回内) との合成運動になる」</strong> という事実である。指の屈伸 (flexion/extension) は虫様筋・指伸筋・浅指屈筋によるが、これらの筋は反復速度の生理的上限が約 8〜10 Hz。一方、前腕回旋を司る回外筋・円回内筋・方形回内筋は橈尺関節の自由度を使い、<strong>より大きな質量を低い周波数で動かしながら指の速度を倍加させる</strong>ため、合成すると 12〜16 Hz の音価密度が達成可能になる。</p>
+<h3>Single Rotation と Double Rotation</h3>
+<p>Bar-Niv の理論では、回旋運動は <strong>Single Rotation</strong> (1 方向への一回の回旋、跳躍やオクターブで使う) と <strong>Double Rotation</strong> (左右への振り子的回旋、トリル・トレモロで使う) に分けられる。重要な区別は <strong>Visible Rotation</strong> (大きく腕が傾く) と <strong>Invisible Rotation</strong> (微小で外見上は静止して見える) で、トリルは Invisible Double Rotation の典型例。指の動きと回旋の <strong>位相同期</strong> (指 1 が下がるとき腕は同方向に回旋し、その慣性が打鍵を助ける) によって、各打鍵あたりの筋活動が最小化される。</p>
+<h3>指単独練習と回旋単独練習の分離法</h3>
+<p>ピアノファンダメンタルズ (C.C. Chang) と Bar-Niv が共通して推奨する練習法は <strong>2 段階分離</strong>: (1) <strong>指のみ</strong>でトリルを試す ── 腕と手は完全に静止、虫様筋と指伸筋のみで隣接音を交互打鍵する。これで指単独の速度限界を体感する。(2) <strong>回旋のみ</strong>でトリルを試す ── 指は 2 つの鍵に置いたまま動かさず、前腕の左右回旋 (橈尺関節) で打鍵する。回旋の生理的振幅と速度を体感する。両者を別々に習得した後で合成すると、<strong>それぞれの寄与が最小ですむため疲労なく高速化する</strong>。これは運動学習理論の <strong>Part-Whole transfer</strong> (部分練習から全体への転移) の好例。</p>
+<h3>神経筋制御の階層</h3>
+<p>トリル制御は神経系の 3 階層で起こる。<strong>(1) 一次運動野 M1</strong> が「速い交互パターン」を計画 (実は M1 は周期パターン専用の発火回路を持つ)。<strong>(2) 小脳</strong> が前腕回旋と指運動の<strong>タイミング同期</strong>を担当 ── トリルがブレるのは小脳の予測誤差。(3) <strong>脊髄レベルの相互抑制 (reciprocal inhibition)</strong> ── 屈筋が活動するとき同時に伸筋抑制が脊髄反射で起こり、これにより<strong>拮抗筋の余分な活動が消える</strong>。初心者のトリルが疲れる主因は脊髄レベルの相互抑制が不完全で、屈筋・伸筋が共収縮 (co-contraction) しているため。スロープラクティスで脊髄回路にパターンを学習させるのが本質的な解。</p>
+<h3>Matthay の Forearm Rotation Touch</h3>
+<p>20 世紀初頭の Tobias Matthay (RAM 教授) は <strong>「すべてのレガート音群は前腕回旋を伴う」</strong> と主張し、当時のドイツ系「指は独立して動かすべき」派 (Leschetizky 系) と対立した。現代の運動学はマッタイの正しさを支持しており、<strong>MRI 動作分析でショパン Op.10-2 (右手の半音階トリル的フィギュレーション) を演奏中のプロピアニストの前腕回旋を測定すると、外見上は静止していても 5〜10 度の微小回旋が高速で起きている</strong>。これが Invisible Rotation の実体。</p>
+<h3>疲労の生理学とフロー状態</h3>
+<p>適切なトリル奏法では、<strong>打鍵直後に筋がリラックスする (release timing)</strong> ため、各打鍵間の短い時間で筋に酸素と ATP が補給される。Bar-Niv は「正しく弾けば、速く弾きながら手を休めることができる」と述べる。逆に間違った奏法 (静止した腕での指単独打鍵) では、屈筋が連続収縮して血流が阻害され、乳酸が蓄積、Tendinitis や腱鞘炎のリスクが上昇する。これは<strong>「速さは緊張ではなくリラックスの精度から生まれる」</strong>という運動学習の鉄則の具体例。</p>
+<h2>気づき・洞察</h2>
+<h3>「単一筋の限界」を「複数筋の合成」で超える</h3>
+<p>人間の生理は単一筋の最大反復速度を 10 Hz 程度に制限している (運動単位の発火頻度・カルシウム再取り込み速度がボトルネック)。これを超えるには <strong>「位相のずれた複数の筋の出力を合成する」</strong> しかない。トリルにおける指×回旋の合成は、ヘリコプターのローター回転が複数のブレードで連続的な揚力を作るのと同じ原理。<strong>生理的限界を構造的に回避する設計</strong>であり、これがピアノ技法の本質的工夫。</p>
+<h3>Invisible Rotation の発見が変えたもの</h3>
+<p>20 世紀初頭まで「速いトリルは指の独立性で弾く」が常識で、子供たちは指を高く上げて叩く Hanon 練習で関節を痛めていた。Matthay → Taubman → Bar-Niv の流れは、<strong>「外見上動いていないものが内部で動いている」</strong> という運動の不可視層を明らかにした。これは<strong>身体運動が必ずしも観察可能ではない</strong>ことを示す根本的洞察で、解剖学の固有受容感覚 (筋紡錘) の概念とも深く結びつく。</p>
+<h3>「練習の分離」は神経表現の独立化</h3>
+<p>指単独練習と回旋単独練習を分けるのは、<strong>神経表象 (motor representation) を分離して大脳皮質に独立コードとして書き込む</strong>操作。後で合成するとき、それぞれを独立に呼び出せるため自由度が増す。これは「腕全体で覚える」 (一塊の運動表象) より柔軟で、転調・指使い変更にも適応できる。スロープラクティスの神経科学 (前回学習) と接続する：分離 → 統合 → 自動化の 3 段階モデル。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>anatomy (筋紡錘・GTO)</strong>: トリルの正確さは筋紡錘の長さ感知と GTO の張力感知のフィードバック精度に依存。Invisible Rotation は前腕筋の固有受容感覚なしには制御不能。</li>
+<li><strong>anatomy (前腕回旋筋群)</strong>: 円回内筋・方形回内筋・回外筋の橈尺関節周囲の解剖学が Single/Double Rotation の力学的基礎。<strong>身体の関節自由度がそのまま音楽的可能性の地図になる</strong>。</li>
+<li><strong>golf (グリップとフェイス回転)</strong>: ゴルフの ulnar/radial deviation (橈骨/尺骨偏位) はピアノのトリルと同じ前腕運動の使い分け。フェイスを返すのは Single Rotation、グリップ圧の微調整は Invisible Rotation の感覚に近い。</li>
+<li><strong>cs (HyperLogLog の harmonic mean)</strong>: HLL は複数の独立推定を harmonic mean で統合するが、トリルも独立した 2 系統 (指・回旋) を位相合成で統合する。<strong>独立推定の組み合わせが単独より精度を上げる構造</strong>。</li>
+<li><strong>music (Shostakovich の DSCH)</strong>: DSCH の半音階的反復はピアノで弾くと指 1-3 や 2-4 のミニトリル。Invisible Rotation の現代的応用例。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>ホロヴィッツのトリル</strong> (ラフマニノフ協奏曲第 3 番第 3 楽章) の動画分析 ── 前腕回旋の振幅と周波数を実測する。</li>
+<li><strong>ベートーヴェン Op.111 第 2 楽章コーダのトリル</strong>奏法 ── 9 度や 10 度を含む長大なトリルでどう疲労を分散するか。</li>
+<li><strong>ピアニストのジストニア (focal dystonia)</strong> とトリル過剰練習の関係 ── 神経表象の歪曲 (homuncular smudging) の文献。</li>
+<li><strong>Hanon の悪名高さ</strong> ── 指単独練習だけを推奨する Hanon は本当に害悪か、あるいは最初の段階としては有効か。</li>
+</ul>
+<hr>
+<p><strong>主要参考ソース</strong>:</p>
+<ul>
+<li><a href="https://fundamentals-of-piano-practice.readthedocs.io/chapter1/ch1_topics/III.3.html">Fundamentals of Piano Practice - Trills &amp; Tremolos (Chuan C. Chang)</a></li>
+<li><a href="https://melaniespanswick.com/2023/10/15/the-beauty-of-the-rotation-technique-rami-bar-niv/">Melanie Spanswick: Rami Bar-Niv on Rotation Technique</a></li>
+<li><a href="https://oleosymusica.blog/en/trills-tremolo-and-forearm-movement-on-the-piano/">Oleosymusica: Trills, Tremolo and forearm movement on the piano</a></li>
+<li><a href="https://www.keyboardtechnique.com/physiological-mechanics/module2/forearm-rotation.php">Keyboard Technique: Forearm Rotation - Invisible Component</a></li>
+<li><a href="https://www.tonebase.co/piano-blog-posts/what-are-single-and-double-rotation-at-the-piano">tonebase Piano: Single and Double Rotation</a></li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/piano/2026-05-10_トリルとトレモロの神経筋制御.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-golf" class="card card-golf domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-golf">golf</span> <span class="card-title">ウェッジグルーブ規制2010とスピン物理学</span></span>
+          <span class="card-abstract">2010 年 USGA グルーブ規制は、25° 以上ロフトのウェッジに対し溝の総断面積・エッジ曲率半径・形状の一貫性を物理パラメータで制限。<strong>ラフからのスピンを 30〜40% 削減</strong>することで「ラフのペナルティ」というゴルフの戦略的根幹を回復。物理パラメータでの抽象規制と段階的施行 (2010 PGA → 2014 全競技 → 2024 HCP) という設計思想。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#WedgeGrooves</span> <span class="tag">#USGA</span> <span class="tag">#Spin</span> <span class="tag">#2010Rule</span> <span class="tag">#ShortGame</span> <span class="tag">#ConditionOfCompetition</span></div>
+<h2>学んだこと</h2>
+<h3>2010 年規則改正の背景</h3>
+<p>1980〜2000 年代、ボブ・ボッキーニ (Vokey) や Cleveland CG シリーズに代表される鋭利な V/U 字溝を持つウェッジは、<strong>ラフからのアプローチでも 7000〜8000 rpm のバックスピンを生成</strong>できるようになっていた。USGA と R&amp;A が 2007〜2008 年に共同で行った調査で、<strong>ツアープロが「グリーンを外したフェアウェイ」と「グリーンを外したラフ」から打った場合のスコア差がほぼゼロ</strong>になっていることが判明 ── これは「ラフへのペナルティ」というゴルフの戦略的根幹を破壊する事態だった。R&amp;A/USGA は<strong>「正確なドライブとセカンドショットの戦略的価値」を回復させる</strong>ために、2009 年 8 月に新ルールを公表、<strong>2010 年 1 月 1 日から施行</strong>した。</p>
+<h3>規制の技術的内容</h3>
+<p>新ルールは 25° 以上のロフト (ロフト 25° は約 5 番アイアン以下、つまりミドルアイアン〜ウェッジ全般) に適用される。</p>
+<ol>
+<li><strong>溝体積の上限</strong>: 旧基準は溝幅 0.035 インチ × 深さ 0.020 インチで、断面積に上限規定なし。新基準は <strong>総断面積 ≤ 0.0030 平方インチ</strong> および <strong>溝間隔 ≥ 3 × 溝幅</strong> (狭い溝の密集を禁止)。</li>
+<li><strong>エッジの鋭さ制限</strong>: 溝端の曲率半径 <strong>≥ 0.010 インチ</strong> (約 0.25 mm)。これが最大の変更点。従来の鋭いコーナー (sharp edge) はエッジ部にボールカバーが食い込むことでスピンを増していたが、これを丸めることで<strong>ラフからのスピン量を約 30〜40% 削減</strong>できる。</li>
+<li><strong>形状の一貫性</strong>: 溝の幅・断面が<strong>フェース全域で一定</strong>であること。傾けた溝、不等間隔溝、変則形状の禁止。</li>
+</ol>
+<h3>適用タイムライン (二段階)</h3>
+<p>USGA は実用上の混乱を避けるため<strong>段階的施行</strong>を採用：</p>
+<ul>
+<li><strong>2010-01-01〜</strong>: PGA Tour、メジャー (マスターズ・USオープン・全英・全米プロ) で必須。<strong>Condition of Competition (大会条件)</strong> として導入。</li>
+<li><strong>2014-01-01〜</strong>: USGA/R&amp;A 公認の全競技 (アマチュア含む)。</li>
+<li><strong>2024-01-01〜</strong>: 一般のハンディキャップ計算 (Handicap Index) でも非適合クラブ使用不可 (実質的に普及完了)。</li>
+</ul>
+<p>ただし<strong>カジュアルゴルフ・友人ラウンド</strong>ではいまだに非適合の旧クラブを使う愛好者は多い。</p>
+<h3>スピンの物理学 — なぜグルーブが効くのか</h3>
+<p>ボールスピンは <strong>接触時間の摩擦</strong> で決まる。接触時間は約 450〜500 マイクロ秒 (高速度カメラで測定)、その間にクラブフェースとボールカバー (ウレタン or サーリン) の間で <strong>滑り (slip)</strong> と <strong>転がり (rolling)</strong> が起こる。</p>
+<ul>
+<li><strong>乾燥フェアウェイから</strong>: ボールとフェースが直接接触する。鋭利溝でも丸い溝でも、フェース表面の摩擦係数が支配的で、スピン量はほぼ変わらない (差 &lt; 5%)。</li>
+<li><strong>ラフから</strong>: ボールとフェース間に<strong>草の繊維と水分</strong>が挟まる。これが<strong>摩擦の潤滑膜</strong>になり、スピンを激減させる ── 通称 <strong>"flyer"</strong> (草で滑って距離が伸びる現象) と低スピン化。鋭い溝は (1) 接触面積を局所的に減らし圧力を集中、(2) <strong>草と水分を溝の中に「掃き出す」</strong> ことで再びカバーとフェースを接触させる ── これがラフでもスピンを生む仕組み。</li>
+<li><strong>新規制の効果</strong>: 溝の体積を減らし、エッジを丸めることで、<strong>ラフからの草排出能力が低下</strong>。結果としてラフからのスピンが乾燥フェアウェイ比で 50% 以下に落ち、フライヤーが頻発し、グリーン上で止まらなくなる。</li>
+</ul>
+<h3>戦略への影響 — Scott Fawcett の DECADE 理論との関係</h3>
+<p>DECADE システムや Mark Broadie の Strokes Gained 統計が示すように、<strong>ティーショットの精度の価値</strong>が新グルーブ規則で約 0.15〜0.25 ストローク/ホール上昇した。これは PGA Tour 全体で<strong>ドライビングディスタンス偏重からアキュラシー再評価への揺り戻し</strong>を引き起こし、2010 年代の Justin Rose, Henrik Stenson, Jordan Spieth ら「フェアウェイヒッター」の台頭の一因になった。一方で<strong>ラフから止まらない</strong>ことを前提にしたコース戦略 ── ピンを直接狙わず手前から転がす、グリーン手前のレイアップを増やす ── が再び主流になった。</p>
+<h3>Condition of Competition モデル</h3>
+<p>グルーブ規制は USGA Rules of Golf 本体の改正ではなく、<strong>「ローカルルール (Condition of Competition) として大会主催者が選択的に課す」</strong> 形で導入された。これは USGA が<strong>段階的・選択的な技術規制</strong>を行う標準パターンになっており、後の (R&amp;A 2024 発表の)<strong>ボール規制 (golf ball rollback)</strong> も同じ Condition of Competition モデルで 2028 年に開始予定。</p>
+<h2>気づき・洞察</h2>
+<h3>「装備のインフレ」をどう抑えるかという永遠の問題</h3>
+<p>ゴルフ史は技術と規則のいたちごっこ。ガッタパーチャ → ハスケル (1898) → 高反発ドライバー (1990s) → 大型ヘッド (2000s) → グルーブ (2000s) → ボールロールバック (2028) と、メーカーの技術革新が<strong>コースの戦略性を破壊</strong>するたびに USGA/R&amp;A が規制を入れる。<strong>技術進化と戦略性の保存はゼロサムゲーム</strong>であり、ルール制定者は「歴史的なホール (オーガスタ 13 番、リトル・アイランドの全英オープン会場) を陳腐化させない」ことを最重要視する。</p>
+<h3>物理ベースの規制設計</h3>
+<p>2010 年規則は単に「鋭い溝禁止」と書くのではなく、<strong>断面積・エッジ曲率半径・溝間隔という測定可能な物理パラメータ</strong>で規制した。これにより (1) メーカーは規格内で創意工夫できる、(2) 検査が客観的、(3) 後の技術進歩にも適用可能。<strong>規制を抽象パラメータで書く</strong>手法は、ソフトウェアの API 互換性 (実装ではなくインターフェイスを規定) と類似の設計思想。</p>
+<h3>ラフのペナルティの哲学的位置</h3>
+<p>ゴルフはもともと「ボールがあるがままに打つ」スコットランドの草原のゲーム。リンクスではラフは punishingly hard で、ヒースとフェスキューがクラブをからめとる。アメリカの parkland コースでも本来ラフは 3-4 インチで、<strong>「フェアウェイを外したらリスクを引き受ける」</strong> ことがゴルフの戦略的本質だった。グルーブ技術がこの本質を消しかけたとき、USGA は技術規制で<strong>ゲームの哲学的根幹を救った</strong>。これは<strong>「テクノロジーから伝統を守る」介入</strong>の好例。</p>
+<h3>Vokey や Cleveland のクラブが「グレー化」した</h3>
+<p>2010 年に多くの Vokey SM (2008 製) や Cleveland 588 RTX (2009 製) ウェッジが<strong>プロ大会では使用不可</strong>になり、<strong>ハンディキャップ計算では 2024 年まで猶予</strong>だった。これは「個人の物的資産が規則変更で価値を失う」典型例で、PGA Tour プロが新しい SM6 や SM7 (Vokey 2016/2018) に入れ替えた一方、アマチュアの間では中古市場が活況になり、「規則違反だけど飛ぶウェッジ」のグレー使用が問題化した。<strong>規制と所有権のテンション</strong>は技術規制全般に通じる課題。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>anatomy (筋紡錘・固有受容)</strong>: ラフからのスピン低下は感触として手に伝わる ── 「飛びすぎた」「止まらなかった」のフィードバックは GTO (張力感知) と筋紡錘 (位置感知) の協働でしか成立しない。クラブを通じた接地感の精緻化。</li>
+<li><strong>piano (タッチと音色の物理学)</strong>: グルーブとボールカバーの接触微視 (450 μs) は、ピアニストの指とハンマー作用の接触微視と相似。両者ともに<strong>短時間の摩擦・圧力分布が出力 (スピン or 倍音) を決める</strong>。</li>
+<li><strong>bread (クロワッサンのラミネーション物理)</strong>: 溝とエッジの形状規定は、バターと生地の層構造規定と類似 ── <strong>微視的構造が巨視的特性を決定する</strong>設計思想。</li>
+<li><strong>tech (Sigstore の技術中立規制)</strong>: グルーブ規制が「特定形状ではなく物理パラメータで規定」したのは、Sigstore が「特定の鍵管理システムではなく OIDC + 透明ログという抽象で規定」したのと同じ ── <strong>抽象による規制の柔軟性</strong>。</li>
+<li><strong>cs (B-tree の節点設計)</strong>: 溝間隔と溝幅の比率規定は、B-tree のノード分裂閾値設定と類比 ── <strong>データ構造の自由度を局所制約で規定する</strong>設計。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>ボールロールバック (2028 年施行予定)</strong> の技術詳細 ── overall distance standard の変更内容と、それがアマチュアゴルフへ与える影響。</li>
+<li><strong>PGA Tour プロ別の Strokes Gained: Approach の 2009 と 2011 の比較</strong>で、グルーブ規制の実効を定量化。</li>
+<li><strong>Vokey ウェッジの設計者 Bob Vokey とエンジニアリング哲学</strong> ── どうやって規制内で最大スピンを得るか (グルーブ表面のマイクロテクスチャ "Spin Milled")。</li>
+<li><strong>Wet condition (雨天) のスピン特性</strong> ── グルーブ規制下で雨天プレーがどう変わったか。</li>
+<li><strong>ロブウェッジ (60°〜64°) の戦略的価値</strong>が規制でどう変化したか。</li>
+</ul>
+<hr>
+<p><strong>主要参考ソース</strong>:</p>
+<ul>
+<li><a href="https://www.usga.org/content/usga/home-page/equipment-standards/equipment-changes-2010-grooves-model-local-rule.html">USGA: Update on 2010 Equipment Changes Related to Grooves</a></li>
+<li><a href="https://www.usga.org/rules-hub/grooves/common-questions-answers.html">USGA: Grooves Common Questions and Answers</a></li>
+<li><a href="https://cdn.cybergolf.com/images/1244/Grooves-Rule-Explanation.pdf">USGA: Grooves Rule Explanation (PDF)</a></li>
+<li><a href="https://mygolfspy.com/news-opinion/usga-2010-groove-rule/">MyGolfSpy: USGA 2010 Groove Rule Explained</a></li>
+<li><a href="https://www.globalgolf.com/articles/usga-groove-rule/">GlobalGolf: USGA Groove Rule</a></li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/golf/2026-05-10_ウェッジグルーブ規制2010とスピン物理学.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-anatomy" class="card card-anatomy domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-anatomy">anatomy</span> <span class="card-title">筋紡錘とゴルジ腱器官の固有受容感覚</span></span>
+          <span class="card-abstract">筋紡錘 (筋長) と GTO (張力) は独立物理量を別チャネルで送る固有受容感覚の二大センサー。<strong>ガンマ運動ニューロンによる感度可変制御</strong>は感覚器が運動制御を受ける唯一の例で active inference の生体実装。Mileusnic 2013 が「位置と力の両方が必要」を理論証明 ── 生体は数億年前にカルマンフィルタを発明していた。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#MuscleSpindle</span> <span class="tag">#GolgiTendonOrgan</span> <span class="tag">#Proprioception</span> <span class="tag">#GammaMotorNeuron</span> <span class="tag">#FeedbackControl</span></div>
+<h2>学んだこと</h2>
+<h3>固有受容感覚 (Proprioception) — 第六感</h3>
+<p>固有受容感覚は身体の位置・動き・力を感知する内的感覚で、<strong>皮膚感覚 (触覚)・前庭感覚 (平衡)・視覚</strong> とは独立の第六感とされる。シェリントンが 1906 年に proprioception (own + reception) と命名した。中枢神経への入力は主に 2 種類の機械受容器 ── <strong>筋紡錘 (muscle spindle)</strong> が筋の長さと長さ変化速度を、<strong>ゴルジ腱器官 (Golgi Tendon Organ, GTO)</strong> が筋の張力 (force) を感知する。両者は「位置」と「力」という独立した物理量を別チャネルで中枢に送る。</p>
+<h3>筋紡錘の解剖と生理</h3>
+<p>筋紡錘は錘外筋 (extrafusal fibers, 通常の筋線維) と並列に位置する <strong>梭状の感覚器</strong>。1 個あたり 5〜10 本の <strong>錘内筋線維 (intrafusal fibers)</strong> を結合組織カプセルが包む。錘内筋線維には <strong>核袋線維 (nuclear bag fiber, dynamic タイプ)</strong> と <strong>核鎖線維 (nuclear chain fiber, static タイプ)</strong> の 2 種があり、それぞれ異なる動的特性を示す。</p>
+<p>求心性線維 (sensory afferent) は 2 種:</p>
+<ul>
+<li><strong>Ia 線維 (primary ending)</strong> — 直径 12〜20 μm、伝導速度 70〜120 m/s。bag fiber と chain fiber 両方に annulospiral ending として巻きつき、<strong>長さの絶対値と長さ変化速度</strong>の両方を発火頻度として伝える。</li>
+<li><strong>II 線維 (secondary ending)</strong> — 直径 6〜12 μm、伝導速度 25〜70 m/s。主に chain fiber に flower-spray ending として終わり、<strong>長さの絶対値</strong>を主に伝える。</li>
+</ul>
+<p>これらは脊髄後角を経由して、(1) <strong>単シナプス反射</strong> (伸張反射 stretch reflex, 膝蓋腱反射の本質)、(2) <strong>小脳への登上線維</strong>、(3) <strong>脊髄視床路を経由した大脳皮質体性感覚野</strong> へ投射される。</p>
+<h3>ガンマ運動ニューロンによるゲイン制御</h3>
+<p>筋紡錘は<strong>遠心性 (efferent) 運動制御を受ける唯一の感覚器</strong>。錘内筋線維の両極は収縮性で、<strong>ガンマ運動ニューロン (γ-MN)</strong> が脊髄前角から伸びてこれを支配する。錘外筋線維を支配するのは <strong>アルファ運動ニューロン (α-MN)</strong> で、両者は通常<strong>α-γ 共活性化 (α-γ co-activation)</strong> によって連動し、筋が短縮しても紡錘の感度 (gain) が維持される。これがなければ、筋を縮めるたびに紡錘がたるんで感度を失ってしまう。</p>
+<p>ガンマには 2 種類:</p>
+<ul>
+<li><strong>Dynamic γ-MN</strong> — bag fiber を支配し、Ia 線維の動的応答 (速度感度) を強化。</li>
+<li><strong>Static γ-MN</strong> — chain fiber を支配し、Ia/II の静的応答 (位置感度) を強化。</li>
+</ul>
+<p>これにより中枢は<strong>「いま速度を重視するか、位置を重視するか」</strong>を文脈に応じて切り替えられる ── <strong>ハードウェアレベルでの感度可変センサー</strong>。</p>
+<h3>ゴルジ腱器官 (GTO) の解剖と機能</h3>
+<p>GTO は筋腱接合部に<strong>直列 (in-series)</strong> に位置するコラーゲン束に絡まる感覚終末。Ib 求心性線維 (直径 12〜20 μm、伝導速度 70〜120 m/s) が情報を脊髄に送る。<strong>直列配置</strong>こそが鍵: 筋が収縮すると腱が引っ張られ、GTO が圧縮されて発火する。能動的収縮でも受動的伸張でも反応するが、感度は<strong>能動的収縮で約 50 倍高い</strong> (1 個の運動単位の収縮で発火する閾値)。</p>
+<p>GTO は脊髄レベルで <strong>Ib 抑制 (autogenic inhibition)</strong> を介し、<strong>自分の所属筋の α-MN を抑制</strong>する。これは「過剰張力からの保護機構」と古典的に説明されてきたが、現代の運動制御モデルでは<strong>「筋張力の精密フィードバック制御」</strong>としての役割が強調される ── すなわち単なる安全装置ではなく、<strong>目標張力に対する誤差信号源</strong>。</p>
+<h3>筋紡錘と GTO の協働 — Ia/Ib 複合信号</h3>
+<p>2013 年の Mileusnic らによる研究で、<strong>位置・運動制御は筋紡錘 (Ia/II) のみでは破綻する</strong>ことが理論的に示された。理由は: 筋が長さを変えなくても、外部負荷で<strong>腱が伸びると関節角度は変わる</strong>。筋紡錘は筋の長さしか知らないので、腱の伸びによる関節変位を感知できない。GTO が張力を測ることで<strong>「筋の長さ + 腱の長さ = 関節角度」</strong>を中枢が再構成できる。<strong>位置と力は独立に必要な情報</strong>であり、両者の融合 (sensor fusion) が脊髄・小脳・運動野で行われる。</p>
+<h3>末梢の分子マーカー (2021 Nature Communications)</h3>
+<p>Wu et al. (2021) は single-cell RNA-seq で proprioceptor の遺伝子発現を解析し、Ia / II / Ib のサブクラスを <strong>PVALB (parvalbumin), CALB1, NEFH</strong> などのマーカーで区別できることを示した。さらに <strong>Pou4f3</strong> が筋紡錘特異的、<strong>Etv1</strong> が GTO 特異的という分子レベルの phenotype 差が判明 ── これは proprioceptor neuropathy (例: PIEZO2 変異による先天性筋紡錘無感覚症) の理解と治療への基盤。</p>
+<h2>気づき・洞察</h2>
+<h3>「センサーが運動制御を受ける」という入れ子構造</h3>
+<p>通常、感覚器は受動的に外界を検出するだけ (網膜が光を受けるように)。だが筋紡錘は<strong>ガンマ運動ニューロンによって感度が能動制御される</strong>点で異例。これは<strong>「中枢が自分のセンサーを調整しながら使う」ベイズ的な能動推論 (active inference)</strong> の生体実装。文脈に応じて重要な情報を強調するセンサーは、脳科学の予測符号化モデルと完全に一致する。</p>
+<h3>「位置だけ」も「力だけ」も不十分という洞察</h3>
+<p>Mileusnic らの理論は、<strong>位置センサーと力センサーが両方必要</strong>であることを数学的に示した。これは<strong>フィードバック制御理論の sensor fusion 原理</strong>そのもの ── ロボット工学で IMU (位置) とトルクセンサー (力) を融合するのと、生体は何百万年も前に同じ解に到達していた。<strong>進化が情報理論的最適性を発見した</strong>例。</p>
+<h3>α-γ co-activation の「先回り」哲学</h3>
+<p>「筋が縮むと紡錘がたるむ」問題を、中枢は<strong>α-MN を発火させると同時に γ-MN も発火させる</strong>ことで解決した。これは<strong>「変化を起こすのと同時に、その変化を計測する基準も調整する」</strong>という入れ子的フィードフォワード。Kalman フィルターの予測ステップと類比的な構造で、<strong>生体が予測モデルを内蔵している</strong>証拠。</p>
+<h3>固有受容感覚は「無意識の身体の声」</h3>
+<p>固有受容感覚は通常意識に上らない (関節痛のような病理時のみ顕在化)。だが演奏家・スポーツ選手・ダンサーは<strong>この感覚を意識的に磨く</strong>ことで超常的な技能に到達する。Bar-Niv のピアノ Invisible Rotation や、ゴルファーのフェース感、ヨガの shavasana ── すべて<strong>通常見えないチャネルを意識化する訓練</strong>。<strong>「身体内部の見えない情報を可視化する」のが熟達の本質</strong>。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>piano (Invisible Rotation)</strong>: トリル奏法における前腕の微小回旋は、視覚では捉えられないが筋紡錘の感覚としてピアニストには明確に知覚される。<strong>Invisible Rotation の存在を支える神経基盤</strong>。</li>
+<li><strong>piano (スロープラクティス)</strong>: ゆっくりの練習で筋紡錘・GTO の感覚が解像度を上げ、神経表象が精緻化される。<strong>速い練習では情報過多で学習できない</strong>理由。</li>
+<li><strong>golf (ウェッジのフィーリング)</strong>: ボールとフェースの接触 (450 μs) はあまりに短いが、<strong>インパクト後のクラブ振動が GTO 経由で「打感」として手に伝わる</strong>。プロが「重い当たり」「軽い当たり」を区別できるのは GTO の感度の結果。</li>
+<li><strong>anatomy (前庭系)</strong>: 前庭・視覚・固有受容の 3 系統が姿勢制御を支える ── 1 つでも失うと残りが代償する (糖尿病性末梢神経障害患者の歩行困難)。<strong>冗長な多モーダル統合</strong>。</li>
+<li><strong>cs (Sensor fusion / Kalman filter)</strong>: 位置センサー (筋紡錘) と力センサー (GTO) の融合は、自動運転車の IMU + LIDAR 融合と同じ問題。<strong>生体は数億年前にカルマンフィルタを発明した</strong>。</li>
+<li><strong>music (Shostakovich の DSCH 動機)</strong>: DSCH の「自己モニタリング」が音楽に書き込まれるのと、固有受容感覚が「身体の自己モニタリング」を行うのは同型 ── <strong>自己認識のフィードバックループ</strong>。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>PIEZO2 変異患者</strong> の臨床像 ── 触覚・固有受容両方を失った人がどう適応するか (視覚代償の限界)。</li>
+<li><strong>小脳における Ia 線維の登上線維情報処理</strong> ── プルキンエ細胞の電位変化と運動誤差信号の関係。</li>
+<li><strong>脊髄中枢パターン生成器 (CPG)</strong> と Ia/Ib の相互作用 ── 歩行リズム生成のメカニズム。</li>
+<li><strong>ピアノ・ゴルフの熟達者と初心者の固有受容感覚の差</strong> を測定する方法 (joint position sense test, force matching task)。</li>
+<li><strong>筋膜 (前回学習)</strong> と固有受容感覚の関係 ── 筋膜にも機械受容器が密集しており、「身体マップ」の解剖学的基盤になっている。</li>
+</ul>
+<hr>
+<p><strong>主要参考ソース</strong>:</p>
+<ul>
+<li><a href="https://www.nature.com/articles/s41467-021-21880-3">Wu et al. (2021) "Molecular correlates of muscle spindle and Golgi tendon organ afferents", Nature Communications</a></li>
+<li><a href="https://journals.physiology.org/doi/full/10.1152/jn.00751.2012">Mileusnic et al. (2013) "Control of position and movement is simplified by combined muscle spindle and Golgi tendon organ feedback", J. Neurophysiology</a></li>
+<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7769215/">Oliver et al. (2021) "Regulating muscle spindle and Golgi tendon organ proprioceptor phenotypes", PMC</a></li>
+<li><a href="https://www.physio-pedia.com/Muscle_Spindles">Physiopedia: Muscle Spindles</a></li>
+<li><a href="https://www.physio-pedia.com/Golgi_Tendon_Organ">Physiopedia: Golgi Tendon Organ</a></li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/anatomy/2026-05-10_筋紡錘とゴルジ腱器官の固有受容感覚.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-bread" class="card card-bread domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-bread">bread</span> <span class="card-title">長時間冷蔵発酵リターディングの科学と風味形成</span></span>
+          <span class="card-abstract">冷蔵 (4〜10°C) 下では酵母活性が 1/10 になるが LAB・プロテアーゼ・アミラーゼは活発を維持。この<strong>並列パイプラインの直列化</strong>で、エチル酢酸 (果実香) 3 倍・3-メチルブタナール (モルト香) 増・メイラード前駆物質増を制御可能。「温度は時間とともに化学経路の重みを変える」操作で、室温発酵では生成しない化合物プロファイルが現れる。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#ColdRetarding</span> <span class="tag">#BulkFermentation</span> <span class="tag">#FlavorDevelopment</span> <span class="tag">#Protease</span> <span class="tag">#LacticAcid</span> <span class="tag">#AceticAcid</span></div>
+<h2>学んだこと</h2>
+<h3>リターディング (Retarding) とは何か</h3>
+<p><strong>冷蔵発酵 (cold retarding / cold fermentation)</strong> とは、生地の発酵温度を意図的に 4〜10°C (家庭用冷蔵庫の温度帯) に下げ、酵母の活性を抑えながら<strong>他の生化学プロセスは進行させる</strong>技術。リターディングには 2 種類ある:</p>
+<ul>
+<li><strong>バルク・リターディング (cold bulk fermentation)</strong>: 一次発酵を冷蔵庫で行う。生地のガス発生を遅らせつつ、グルテン構造の調整と酵素分解を進める。</li>
+<li><strong>ファイナル・リターディング (cold final proof / cold retard)</strong>: 成形後の最終発酵を冷蔵庫で行う (12〜18 時間)。商業ベーカリーが「焼く 12 時間前にカット・成形して冷蔵庫に入れ、朝に焼く」運用で広く採用される。</li>
+</ul>
+<p>冷蔵温度帯 (38〜40°F = 約 3〜4°C) では酵母は約 1/8〜1/10 の活性に低下、<strong>乳酸菌 (LAB)</strong> はやや低下するがまだ活発。この活性差が<strong>酸味のコントロール</strong>の鍵になる。</p>
+<h3>風味形成のメカニズム — 4 つの並行プロセス</h3>
+<h4>1. 酵母代謝 (slowed)</h4>
+<p>酵母 (Saccharomyces cerevisiae) はグルコースを CO₂ + エタノールに変換するが、低温でも止まらず<strong>ゆっくり進行する</strong>。冷蔵庫から出した直後の生地はわずかにアルコールの匂いがする。エタノールは焼成時にメイラード反応の前駆物質となり、複雑な香気成分 (例: アセトアルデヒド、エチル乳酸) を生む。</p>
+<h4>2. 乳酸菌 (Lactobacillus) の代謝</h4>
+<p>LAB は 4〜10°C でも生き続け、<strong>乳酸 (lactic acid)</strong> と <strong>酢酸 (acetic acid)</strong> を産生する。</p>
+<ul>
+<li><strong>ホモ発酵 LAB</strong> (L. delbrueckii など): グルコースから乳酸のみ生成 → まろやかな酸味。</li>
+<li><strong>ヘテロ発酵 LAB</strong> (L. brevis, L. sanfranciscensis など): グルコース→乳酸+酢酸+CO₂+エタノール → 鋭い酸味。</li>
+</ul>
+<p><strong>冷蔵下では酢酸生成比が上がる</strong> (低温・酸素豊富な条件で酢酸経路が優位)。これがサワードウの「シャープな酸味」の源。商業サワードウベーカリーは温度と時間で<strong>乳酸:酢酸比</strong>を制御する ── 暖かいバルク+冷蔵プルーフで酢酸を強める、暖かい全工程でまろやかな乳酸主体にする等。</p>
+<h4>3. プロテアーゼによるグルテン分解</h4>
+<p>小麦粉自身に含まれる <strong>プロテアーゼ (protease)</strong> が、低温でゆっくりとグルテン分子間結合を切断する。これは諸刃の剣:</p>
+<ul>
+<li><strong>適度な分解</strong>: 過剰に強いグルテン構造をほぐし、<strong>伸展性 (extensibility) を高め</strong>、成形しやすくし、クラム (内相) を空気の入りやすい構造にする。バゲットの大きな気泡や、ピザ生地の伸びる薄い円形はこのため。</li>
+<li><strong>過剰分解</strong> (&gt;72 時間): グルテン構造が崩壊し、生地が緩んで形を保てず、焼成時にスプリング (oven spring) が出ない。</li>
+</ul>
+<h4>4. アミラーゼによるデンプン分解</h4>
+<p><strong>α-アミラーゼ (α-amylase)</strong> がデンプンを <strong>マルトース (麦芽糖) と デキストリン</strong>に分解する。低温でも活性が完全には消えない。マルトースは:</p>
+<ul>
+<li>酵母の発酵基質となり、長時間発酵を支える糖源。</li>
+<li><strong>メイラード反応の還元糖</strong>として焼成時にクラスト (外皮) の褐色化と香気を生成。</li>
+</ul>
+<p>長時間発酵の最終段階で生地に残るマルトース量が、<strong>焼き上がりの色と香り</strong>を決定する。</p>
+<h3>温度・時間と pH 軌跡</h3>
+<p>プロのベーカリーは<strong>生地の pH 推移</strong>で発酵段階を判断する。新しい生地は pH 5.8〜6.0、最適発酵で pH 4.3〜4.5、過発酵で pH 4.0 以下。冷蔵下では pH 低下が緩やか (1 日で約 0.3〜0.5 単位) で、<strong>pH の窓</strong>が広がるため、焼成タイミングの柔軟性が増す。これが「業務効率」の側面 ── 同じ生地を朝の異なる時刻に焼ける。</p>
+<h3>アロマ化合物の冷蔵特異性</h3>
+<p>GC-MS 分析でリターディング生地と直焼き生地を比較すると:</p>
+<ul>
+<li><strong>アセトアルデヒド</strong> (青リンゴ香): 冷蔵で 1.5〜2 倍、特に酵母由来。</li>
+<li><strong>エチル酢酸 (ethyl acetate)</strong>: 冷蔵で 3 倍以上、果実香の主因。</li>
+<li><strong>2,3-ブタンジオール</strong>: 冷蔵 LAB 由来の甘い香気。</li>
+<li><strong>3-メチルブタナール (3-methylbutanal)</strong>: ロイシン分解 → 冷蔵下のプロテアーゼ活性で増加、モルト様風味。</li>
+<li><strong>フラン化合物</strong> (焼成時に生成): メイラード基質となる遊離アミノ酸とマルトースの量が冷蔵で増えるため、結果的にクラスト香も強まる。</li>
+</ul>
+<p>つまり<strong>「冷蔵で香りが増す」のは 2 段階</strong>: (1) 冷蔵中に揮発性化合物が直接生成、(2) 冷蔵中に増えた前駆物質が焼成時にメイラードでさらに変換される。</p>
+<h2>気づき・洞察</h2>
+<h3>「時間でしか作れない味」がある</h3>
+<p>化学的にはすべての風味化合物が<strong>反応速度に依存</strong>する。室温 (28°C) で 4 時間では達成できない化合物多様性が、冷蔵 (4°C) で 24 時間 = 室温 6 時間相当の生化学進行ながら、<strong>酵母 vs 乳酸菌 vs 酵素 vs 揮発性物質拡散</strong>の各速度比が変わるため、室温では生成しないユニークな化合物プロファイルが現れる。<strong>温度は時間とともに「化学経路の重み」を変える</strong>操作。</p>
+<h3>並列プロセスの位相差</h3>
+<p>リターディングの本質は <strong>酵母 (止まる) ・LAB (続く) ・酵素 (続く) ・揮発拡散 (止まる) の位相差を作る</strong>こと。室温発酵ではこれらが同時進行して打ち消し合う ── 酵母が CO₂ を出して生地が膨らむと、揮発成分が逃げる; 酵母が支配的だと LAB の酸が育たない。低温化はこの<strong>並列パイプラインを直列化</strong>し、<strong>各プロセスの寄与を制御可能にする</strong>。これは情報処理の pipelining 思想と同型。</p>
+<h3>「生地は生き物」の科学的意味</h3>
+<p>パン作りの古典的表現「生地は生きている」は単なる詩的修辞ではない。<strong>酵母・LAB・酵素</strong>という三層の生物学的・酵素学的活動が並列に進行するため、生地は時刻によって<strong>異なる味・物性・色</strong>を取る。これは microbial ecology であり、リターディングは<strong>「生態系の活動を選択的に減速させる介入」</strong> ── マイクロバイオームの動的制御。</p>
+<h3>商業性 vs 風味の最適点</h3>
+<p>古典的フランスパン (1950 年代) は短時間直焼きで、酸味は薄く、保存性も低かった。現代の Tartine (Chad Robertson) や Poilâne を代表とする「アーティザンブレッド」は 24〜72 時間冷蔵発酵を採用し、<strong>深い風味 + 業務時間管理 + 保存性向上</strong>を一挙に達成。これは「複雑な味を意図的に作る」生物工学的選択であり、<strong>消費者が味の差を区別できる程度に成熟したから成立した市場</strong>。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>cs (HyperLogLog の harmonic mean)</strong>: 並列に進行する 4 プロセス (酵母・LAB・プロテアーゼ・アミラーゼ) の出力を「生地の味」として統合するのは、独立な確率推定を harmonic mean で統合する HLL と類比的。<strong>並列プロセスの統合</strong>。</li>
+<li><strong>anatomy (固有受容感覚)</strong>: 筋紡錘がガンマ運動ニューロンで感度を能動制御するように、ベーカーは温度で生地の発酵感度を能動制御する ── <strong>コントロール変数による速度比調整</strong>。</li>
+<li><strong>piano (スロープラクティス)</strong>: ゆっくりの練習が早すぎる練習では学習されない神経表象を作るのと、低温発酵が高温発酵では生成しない化合物を作るのは同型 ── <strong>遅さが質を生む</strong>。</li>
+<li><strong>music (Shostakovich の DSCH の長い Largo)</strong>: 長い時間スケールでしか現れない情緒・構造がある。冷蔵発酵が時間軸上で異なる化学を実現するのと同じ。</li>
+<li><strong>tech (Sigstore の transparency log)</strong>: Rekor の append-only log が「時間の不可逆性」を信頼の基盤にするのと、リターディングが「不可逆な化学変化の蓄積」を風味の基盤にするのは構造的に類似。</li>
+<li><strong>golf (グリーン上のスピン)</strong>: ボールカバーの摩擦特性は生地のグルテン同様に<strong>短時間スケールで決定される物性</strong>だが、両者ともに<strong>ミクロな構造変化が マクロな結果を決める</strong>。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>イタリア式 Biga + 冷蔵プルーフ vs フランス式直接法 + 冷蔵プルーフ</strong> ── 風味プロファイルがどう異なるか。</li>
+<li><strong>ホエイ・ヨーグルト</strong> など発酵乳製品を生地に加える効果 ── pre-acidification で LAB の優位性をさらに高められるか。</li>
+<li><strong>冷蔵発酵下のフィチン酸分解</strong> ── 全粒粉でフィチン酸が分解されるとミネラル吸収が改善する。冷蔵時間との相関。</li>
+<li><strong>GC-MS 分析で家庭リターディング生地と直焼き生地を比較</strong> する論文 (おそらく Cereal Chemistry 誌)。</li>
+<li><strong>Tartine 法のオートリーズ + リターディング</strong>の正確なタイミングと温度プロファイル ── Chad Robertson の手法を時間化学的に再構成する。</li>
+</ul>
+<hr>
+<p><strong>主要参考ソース</strong>:</p>
+<ul>
+<li><a href="https://www.theperfectloaf.com/guides/the-ultimate-guide-to-bread-dough-bulk-fermentation/">The Perfect Loaf: Ultimate Guide to Bread Dough Bulk Fermentation</a></li>
+<li><a href="https://www.sourdoughhome.com/retarding-dough-for-flavor-enhancement-and-process-control/">Sourdough Home: Retarding Dough For Flavor Enhancement and Process Control</a></li>
+<li><a href="https://thebakersguide.com/retarding-loaves">The Baker's Guide: Retarding Loaves Fermentation Technique</a></li>
+<li><a href="https://www.chainbaker.com/cold-fermentation/">ChainBaker: Cold Bulk Fermentation Science</a></li>
+<li><a href="https://breadtopia.com/experimenting-with-refrigerated-final-proofing/">Breadtopia: Experimenting with Refrigerated Final Proofing</a></li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/bread/2026-05-10_長時間冷蔵発酵リターディングの科学と風味形成.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-cs" class="card card-cs domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-cs">cs</span> <span class="card-title">HyperLogLog と Count-Min Sketch — ストリーミング近似アルゴリズム</span></span>
+          <span class="card-abstract">HyperLogLog (Flajolet 2007) は調和平均でカーディナリティ推定の分散を最小化、12 KB で 1 兆要素を誤差 1% で計測。Count-Min Sketch (Cormode 2003) は d 個独立ハッシュ + min で頻度推定し<strong>過大誤差のみ保証</strong>。「正確を諦めて巨大スケールに到達」というパラダイム転換、<strong>確率的データ構造の美しい設計空間</strong>。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#HyperLogLog</span> <span class="tag">#CountMinSketch</span> <span class="tag">#StreamingAlgorithms</span> <span class="tag">#Probabilistic</span> <span class="tag">#Flajolet</span> <span class="tag">#Cormode</span></div>
+<h2>学んだこと</h2>
+<h3>ストリーミングモデルの問題設定</h3>
+<p>ストリーミングモデルでは、無限長のデータ列 $a_1, a_2, \ldots$ が一度ずつ流れ、<strong>メモリは O(polylog n)</strong> に制限される。このモデルで以下の問いに答える:</p>
+<ol>
+<li><strong>Count-distinct (cardinality)</strong>: 異なる要素が何種類あるか?</li>
+<li><strong>Frequency estimation</strong>: 要素 $x$ が何回出現したか?</li>
+<li><strong>Heavy hitters</strong>: 最頻要素 (top-k) は?</li>
+<li><strong>Quantile estimation</strong>: 中央値・90 パーセンタイルは?</li>
+</ol>
+<p>正確解は要素を全保存する必要がありメモリ O(n)。<strong>これを O(polylog n) で近似する</strong>のがストリーミングアルゴリズム。HyperLogLog (1) と Count-Min Sketch (2,3) は最も成功した実装。</p>
+<h3>HyperLogLog (HLL) の発明史と核心アイデア</h3>
+<p>1984 年の <strong>Flajolet–Martin (FM) アルゴリズム</strong> が出発点: ハッシュ値 $h(x) \in {0,1}^L$ の <strong>末尾連続 0 ビット数</strong> $\rho(h(x))$ を取り、その最大値 $R = \max \rho$ を観測すれば、カーディナリティ $n \approx 2^R$ と推定できる。理由: $\rho \geq k$ となる確率は $2^{-k}$ なので、$n$ 個の要素から最大 $\rho$ を取れば期待値は $\log_2 n$。</p>
+<p>しかし FM は分散が大きすぎる ── <strong>1 つのハッシュで運悪く高い $\rho$ が出ると推定値が爆発</strong>する。1985 年の <strong>LogLog</strong> (Durand &amp; Flajolet) は要素を $m$ バケットに分け、各バケットで $\rho$ の最大値を独立に取り、<strong>算術平均</strong> を取った。さらに 2007 年の <strong>HyperLogLog</strong> (Flajolet, Fusy, Gandouet, Meunier) は算術平均ではなく <strong>調和平均 (harmonic mean)</strong> を使うことで分散を最小化:</p>
+<p>$$<br>
+\hat{n} = \alpha_m m^2 \left(\sum_{j=1}^{m} 2^{-M_j}\right)^{-1}<br>
+$$</p>
+<p>ここで $M_j$ はバケット $j$ の最大 $\rho$、$\alpha_m$ は数値定数 (約 0.7213 for m=16384)。</p>
+<p><strong>メモリ</strong>: バケット数 $m = 2^{14}$ (16384) なら各 5-6 ビットで合計 <strong>約 12 KB</strong>。<strong>精度</strong>: 標準誤差 $\approx 1.04 / \sqrt{m} \approx 0.81\%$。これで<strong>カーディナリティが 1 兆でも 10 兆でも誤差 1% 程度</strong>。Redis、Google BigQuery、AWS Redshift などで実装され、ユニークビジター計測の事実上の標準。</p>
+<h3>Count-Min Sketch (CMS) の構造</h3>
+<p>2003 年の <strong>Cormode &amp; Muthukrishnan</strong>。$d$ 個の独立ハッシュ関数 $h_1, \ldots, h_d : U \to [w]$ を持ち、$d \times w$ の整数配列 $C$ を保持する。</p>
+<p><strong>更新</strong> (要素 $x$ の出現): 各 $i = 1, \ldots, d$ について $C[i, h_i(x)] \mathrel{+}= 1$.</p>
+<p><strong>クエリ</strong> (要素 $x$ の頻度推定): $\hat{f}(x) = \min_{i} C[i, h_i(x)]$.</p>
+<p><strong>理論保証</strong>: パラメータを $w = \lceil e/\epsilon \rceil$, $d = \lceil \ln(1/\delta) \rceil$ と取れば、確率 $1 - \delta$ で誤差 $\leq \epsilon \cdot N$ ($N$ は総出現数)。<strong>特徴</strong>: 推定値は<strong>常に過大</strong> (overestimate)。理由は他要素のカウントが衝突で加算されるから。<strong>過小はない</strong>ことが正確性保証の鍵 ── 「最低でもこれだけは出現した」が保証される。</p>
+<p><strong>メモリ</strong>: $\epsilon = 0.001$ (0.1% 誤差), $\delta = 0.01$ (99% 信頼) なら $w = 2719$, $d = 5$ で<strong>約 54 KB</strong>。実用的に小さい。</p>
+<h3>設計対比 — HLL と CMS</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>HyperLogLog</th>
+<th>Count-Min Sketch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>解く問題</td>
+<td>異なり数 (cardinality)</td>
+<td>個別要素の頻度</td>
+</tr>
+<tr>
+<td>ハッシュ数</td>
+<td>1 個 (バケット分割)</td>
+<td>$d$ 個 (独立)</td>
+</tr>
+<tr>
+<td>統計値</td>
+<td>最大 $\rho$ + 調和平均</td>
+<td>最小値</td>
+</tr>
+<tr>
+<td>誤差バイアス</td>
+<td>なし (両側)</td>
+<td>常に過大</td>
+</tr>
+<tr>
+<td>メモリ</td>
+<td>$O(\log \log n)$ per bucket</td>
+<td>$O(d \times w)$</td>
+</tr>
+<tr>
+<td>集合演算</td>
+<td>union 容易 (max), intersection 困難</td>
+<td>重み付け加算で union</td>
+</tr>
+</tbody>
+</table>
+<p>両者ともに<strong>「データを直接保存せず、構造を記録する」確率的データ構造</strong>。ロスレスではないが、<strong>情報理論的に最適</strong>な圧縮率 (HLL の場合 Munro-Paterson 1980 の下限に漸近一致)。</p>
+<h3>実装上のチューニング</h3>
+<p><strong>HLL Sparse Encoding</strong>: バケットの大半が 0 の状態 (要素少数時) を、ペアのリストで疎表現。Redis HLL は 16384 バケットの dense (12 KB) と 約 3 KB の sparse を<strong>自動切り替え</strong>。<br>
+<strong>HLL++</strong> (Heule et al. 2013, Google): 小カーディナリティでの bias 補正、sparse 表現の効率化、64 ビットハッシュへの拡張。Google BigQuery が採用。<br>
+<strong>HyperLogLogLog</strong> (Karppa &amp; Pagh 2022): HLL を<strong>さらに圧縮</strong>して同じ精度を約 70% のメモリで達成。バケット内の最大値の差分を Golomb-Rice 符号化。<br>
+<strong>Conservative Update for CMS</strong> (Estan &amp; Varghese): 更新時にカウンタを最小値の合のみ増やす変種で、過大誤差を約 3 倍削減。実用的な最適化。</p>
+<h3>応用例</h3>
+<ul>
+<li><strong>HLL</strong>: Google Analytics ユニークユーザー数、Twitter のフォロワー差分、Facebook の DAU/MAU 統計、Reddit のユニーク投票者集計、ネットワークトラフィック分析 (異なる送信元 IP 数)。</li>
+<li><strong>CMS</strong>: Google AdSense クリック頻度推定、Cisco のフロー分析 (heavy hitters 検出 → DDoS 緩和)、Cassandra/ScyllaDB の hot key 検出、ML 特徴量カウンティング (TensorFlow の <code>count_table</code> 内部実装)、自然言語処理の n-gram 頻度 (Google の Web 1T 5-gram 大規模データ)。</li>
+</ul>
+<h2>気づき・洞察</h2>
+<h3>「正確を諦めることで巨大スケールに到達」</h3>
+<p>古典的アルゴリズム理論は worst-case complexity を最小化する設計を追求した。だがビッグデータ時代には<strong>「計算可能な近似」が「不可能な厳密解」より価値がある</strong>。HLL と CMS は <strong>誤差を確率的に保証することで O(polylog) 空間に到達</strong>した。これは<strong>「絶対精度から確率精度への転換」</strong>であり、機械学習の確率的勾配降下 (SGD) と同じ哲学転換。</p>
+<h3>Harmonic Mean の優位性</h3>
+<p>HLL が算術平均 (LogLog) より調和平均で分散を減らす理由は深い。<strong>調和平均は外れ値 (極端に大きな値) の影響を受けにくい</strong>。$2^{-M_j}$ という指数減衰量に対して調和平均を取ることは、$M_j$ そのものに対しては log-mean を取ることに近い。<strong>統計的推定量の選択がメモリ効率を決定する</strong>好例。</p>
+<h3>Min vs Max の対称性</h3>
+<p>HLL は max を取る、CMS は min を取る ── 一見対称だが背後の原理は異なる。HLL の max は <strong>「観測した最も希少な事象の珍しさ」を活用</strong> (希少な要素の出現確率が cardinality と相関)。CMS の min は <strong>「衝突による過大推定の最小化」</strong> (複数推定の min は偽陽性を減らす)。<strong>最大と最小はそれぞれ異なる情報を抽出する</strong>。</p>
+<h3>Bloom Filter ファミリーとの関係</h3>
+<p><strong>Bloom Filter</strong> (1970) → 集合所属判定。<strong>Cuckoo Filter</strong> (2014) → 削除可能な Bloom。<strong>HyperLogLog</strong> (2007) → 異なり数。<strong>Count-Min Sketch</strong> (2003) → 頻度推定。<strong>Quotient Filter</strong> (2012) → SSD 効率的な Bloom。<strong>MinHash</strong> (1997) → Jaccard 類似度。これらは<strong>「ハッシュベース確率的圧縮」</strong>ファミリーの異なる用途への展開。各々がトレードオフを別の場所に置いた美しい設計空間。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>bread (並列発酵プロセス)</strong>: 4 種類の独立な発酵プロセス (酵母・LAB・プロテアーゼ・アミラーゼ) の独立性は、HLL の独立バケットと類比的。<strong>独立な部分の統合で全体を推定</strong>。</li>
+<li><strong>anatomy (固有受容感覚)</strong>: 筋紡錘 (位置) と GTO (張力) の sensor fusion は、HLL のバケット平均と同じ「複数の独立観測の統合」。<strong>冗長な観測を統合することで誤差を圧縮</strong>。</li>
+<li><strong>piano (Invisible Rotation の合成)</strong>: 指運動と前腕回旋の合成で速度限界を超えるのは、HLL の harmonic mean が分散を圧縮するのと類比的。<strong>独立要素の合成で単独限界を超える</strong>。</li>
+<li><strong>golf (DECADE / Strokes Gained)</strong>: 個別ショットの統計を集計してプレーヤー総合スコアを推定するのは、CMS の頻度カウントから集約統計を作るのと同型。<strong>個別観測から全体傾向を抽出</strong>。</li>
+<li><strong>tech (Rekor transparency log)</strong>: Rekor は Bloom filter で entry の高速検索を行う。<strong>確率的データ構造が分散システムの実用解</strong>。</li>
+<li><strong>music (Shostakovich の引用)</strong>: 第 8 番が過去作の主題を「圧縮表現」として埋め込むのは、HLL がストリームを圧縮表現で要約するのと類比的。<strong>情報の選択的保存</strong>。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>t-digest</strong> (Ted Dunning 2013) ── パーセンタイル推定の確率的データ構造。CMS と異なる原理 (centroid clustering)。</li>
+<li><strong>Theta Sketches</strong> (Apache DataSketches) ── HLL より union/intersection 共に高速な集合演算用スケッチ。</li>
+<li><strong>Differential Privacy との関係</strong> ── HLL/CMS のノイズはプライバシー保護に転用可能か (RAPPOR, Apple iOS の telemetry)。</li>
+<li><strong>Quantum streaming algorithms</strong> ── 量子ビットを使ったストリーミング近似の理論限界。</li>
+<li><strong>HyperLogLog の bias</strong> が小カーディナリティで大きい理由を harmonic mean の数値解析で深く理解する。</li>
+</ul>
+<hr>
+<p><strong>主要参考ソース</strong>:</p>
+<ul>
+<li><a href="https://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf">Flajolet, Fusy, Gandouet, Meunier (2007) "HyperLogLog: the analysis of a near-optimal cardinality estimation algorithm" (PDF)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/HyperLogLog">Wikipedia: HyperLogLog</a></li>
+<li><a href="https://redis.io/blog/count-min-sketch-the-art-and-science-of-estimating-stuff/">Redis: Count-Min Sketch — The Art and Science of Estimating Stuff</a></li>
+<li><a href="https://arxiv.org/pdf/2205.11327v1">Karppa &amp; Pagh (2022) "HyperLogLogLog: Cardinality Estimation With One Log More" (arXiv)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Count-distinct_problem">Wikipedia: Count-distinct problem</a></li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/cs/2026-05-10_HyperLogLogとCount-Min_Sketchストリーミング近似アルゴリズム.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-house-hunting" class="card card-house-hunting domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-house-hunting">house</span> <span class="card-title">固定資産税評価額と都市計画税の評価メカニズム</span></span>
+          <span class="card-abstract">日本の不動産には公示地価・基準地価・相続税路線価・固定資産税評価額の<strong>4 つの公的価格</strong>があり、それぞれ用途が異なる。固定資産税評価額は時価の約 70% で 3 年に 1 度の評価替え、住宅用地特例 1/6 や負担調整措置で「評価額と税額の連動を緩和」。<strong>保守的な見積もりが制度の安定性を生む</strong>設計思想。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#固定資産税</span> <span class="tag">#都市計画税</span> <span class="tag">#固定資産税評価額</span> <span class="tag">#路線価</span> <span class="tag">#再建築価格方式</span></div>
+<h2>学んだこと</h2>
+<h3>4 つの「価格」の使い分け</h3>
+<p>日本の不動産には<strong>4 つの公的価格</strong>があり、用途に応じて異なる:</p>
+<ol>
+<li><strong>公示地価</strong> — 国土交通省が毎年 1 月 1 日時点で全国 26,000 地点を公示。<strong>実勢価格の最も近い目安</strong>。土地収用や金融機関評価の基準。</li>
+<li><strong>基準地価</strong> — 都道府県が 7 月 1 日時点で公表。公示地価の中間補完。</li>
+<li><strong>相続税路線価</strong> — 国税庁が<strong>公示地価の約 80%</strong>で 7 月に公表。相続税・贈与税の課税基準。</li>
+<li><strong>固定資産税評価額</strong> — 各市町村が<strong>公示地価の約 70%</strong>で 3 年に 1 度評価替え (2024 → 2027 → 2030 …)。<strong>固定資産税・都市計画税・登録免許税・不動産取得税</strong>の課税基準。</li>
+</ol>
+<p>実勢価格 (取引価格) を 100 とすると、公示地価 ≈ 90、相続税路線価 ≈ 80、固定資産税評価額 ≈ 70 が典型的な比率。<strong>評価額が時価より 30% 低いのは「課税の安定性」を担保するため</strong> ── 市場価格の急変で税額が乱高下しないように、公的価格は時価より低く・滑らかに動く設計。</p>
+<h3>固定資産税の計算式と税率</h3>
+<p>$$<br>
+\text{固定資産税額} = \text{固定資産税評価額} \times \text{標準税率 1.4\%}<br>
+$$<br>
+$$<br>
+\text{都市計画税額} = \text{固定資産税評価額} \times \text{制限税率 0.3\% (上限)}<br>
+$$</p>
+<p><strong>固定資産税は全国共通 1.4%</strong> が標準だが市町村によっては超過課税 (例: 愛知県大治町 1.6%) もある。<strong>都市計画税は 0.3% が上限</strong>で多くの自治体は 0.2〜0.3% の範囲。<strong>市街化区域内のみ課税</strong> ── 市街化調整区域の物件は都市計画税ゼロ。</p>
+<h3>土地の評価方式 — 市街地宅地評価法</h3>
+<p>市街地では <strong>「市街地宅地評価法 (路線価方式)」</strong> が使われる。手順:</p>
+<ol>
+<li><strong>状況類似地区</strong>の区分: 同じ用途・地形・環境の地域を一つの単位にする。</li>
+<li><strong>標準宅地の選定</strong>: 各地区で代表的な宅地を 1 つ選ぶ。</li>
+<li><strong>標準宅地の鑑定評価額算出</strong>: 不動産鑑定士が公示地価の 70% を目安に算出。</li>
+<li><strong>路線価の付設</strong>: 街路ごとに 1 m² あたりの<strong>固定資産税路線価</strong>を決定。</li>
+<li><strong>個別宅地評価</strong>: 路線価 × 面積 × 補正率 (奥行・間口・形状・角地等) で個別宅地の評価額を算出。</li>
+</ol>
+<p><strong>補正率の例</strong>:</p>
+<ul>
+<li><strong>奥行価格補正</strong>: 奥行が極端に深いと利用効率が落ちるため減額 (奥行 40 m 超で 0.85 倍など)。</li>
+<li><strong>角地加算</strong>: 2 つの道路に接する角地は <strong>+5〜10%</strong> (利便性が高いため)。</li>
+<li><strong>不整形地補正</strong>: 三角形・台形・旗竿地は <strong>0.6〜0.95 倍</strong> (建物配置が困難なため)。</li>
+<li><strong>がけ地補正</strong>: 30 度以上のがけを含む土地は最大 50% 減額。</li>
+</ul>
+<h3>建物の評価方式 — 再建築価格方式</h3>
+<p>建物には<strong>再建築価格方式 (replacement cost method)</strong> が適用される。<strong>「同じ場所に同じ建物を新築するなら今いくらかかるか」</strong>を算出し、そこから経年減点補正で築年数分を差し引く。具体的には:</p>
+<p>$$<br>
+\text{建物評価額} = \text{再建築費評点数} \times \text{経年減点補正率} \times \text{1 点単価}<br>
+$$</p>
+<p><strong>再建築費評点数</strong>: 屋根・外壁・基礎・床・天井・建具などの<strong>部位別単価表</strong>から計算。総務省の「固定資産評価基準」が全国統一表を定める。</p>
+<p><strong>経年減点補正率</strong>: 木造住宅で築 20 年で約 0.20 (新築の 20%)、築 35 年で<strong>下限 0.20</strong> (これ以上下がらない)。鉄筋コンクリートは耐用年数が長く築 60 年で 0.20。<strong>「使い続ける限り評価額は 0 にならない」</strong>点が減価償却 (会計上は 0 になりうる) と異なる。</p>
+<h3>評価替え制度と負担調整措置</h3>
+<p>評価額は <strong>3 年に 1 度の評価替え</strong> (2024 → 2027 → 2030)。地価が急上昇すると評価額もジャンプするが、税額の急増を抑える <strong>負担調整措置</strong> がある:</p>
+<ul>
+<li><strong>負担水準</strong> = 前年度課税標準額 / 当年度評価額。</li>
+<li>負担水準が<strong>70% 超</strong>なら 70% に引き下げ。</li>
+<li><strong>20〜70%</strong> なら据え置き。</li>
+<li><strong>20% 未満</strong>なら 20% まで引き上げ + 5% 上限の漸進。</li>
+</ul>
+<p>これにより<strong>評価額の変動と税額の変動が乖離する</strong> ── 地価急上昇地域でも税額は緩やかに上がるだけ。逆に地価下落地域では評価額が下がっても税額が下がりにくい仕組み。</p>
+<h3>住宅用地特例 — 最大 1/6 への大幅減額</h3>
+<p><strong>住宅用地</strong> (人が居住する土地) には強力な軽減措置:</p>
+<ul>
+<li><strong>小規模住宅用地</strong> (200 m² 以下部分): 固定資産税の課税標準は<strong>評価額の 1/6</strong>、都市計画税は <strong>1/3</strong>。</li>
+<li><strong>一般住宅用地</strong> (200 m² 超部分): 固定資産税 <strong>1/3</strong>、都市計画税 <strong>2/3</strong>。</li>
+</ul>
+<p>これは<strong>「住居の安定確保」を目的とした政策</strong>で、戦後ベビーブーム期の持ち家政策の名残。<strong>空き家でも住宅用地特例は適用される</strong>ことが社会問題化し、2015 年の <strong>空家対策特別措置法</strong> で「特定空家」に指定されると特例除外 (税額 6 倍化) になる仕組みが導入された。</p>
+<h3>新築住宅の減額措置</h3>
+<p>新築住宅は<strong>3 年間 (マンションは 5 年間) に限り、120 m² 以下部分の固定資産税が 1/2</strong> に減額される。長期優良住宅認定なら 5 年 (マンション 7 年)。これは<strong>新築取得後の負担軽減</strong>で、ライフサイクル初期の総支出を抑える設計。</p>
+<h3>2026 年 (令和 8 年度) の納期</h3>
+<p>東京 23 区の固定資産税・都市計画税の令和 8 年度納期: 第 1 期 6/1〜6/30、第 2 期 9/1〜9/30、第 3 期 12/1〜12/27、第 4 期 翌 2/1〜2/28。<strong>4 期分割納付</strong>または<strong>全期一括前納</strong> (1% 割引) が選べる。</p>
+<h3>評価額の調べ方</h3>
+<ul>
+<li><strong>固定資産税課税明細書</strong> (毎年 4〜6 月に郵送される納付通知に同封)。</li>
+<li><strong>固定資産課税台帳の閲覧</strong> (市区町村役場の資産税課で本人確認のうえ閲覧可)。</li>
+<li><strong>路線価図</strong> (国土地理院 + 国税庁の web)。</li>
+<li><strong>全国地価マップ</strong> (一般財団法人資産評価システム研究センター運営、無料)。</li>
+</ul>
+<h2>気づき・洞察</h2>
+<h3>「実勢の 70%」という保守的設計の意味</h3>
+<p>評価額が時価より 30% 低いのは<strong>「過大徴税のリスクを回避する」保守的なクッション</strong>。市場価格は急変するが、税は安定して徴収できねばならない。これは<strong>ベイズ統計の事前分布 (prior) で保守的な値を取る</strong>のと同じ思想 ── <strong>不確実性を構造で吸収する</strong>。これがまさに信頼区間設計と同型。</p>
+<h3>「路線価」というインフラ</h3>
+<p>日本の路線価制度は世界的にも<strong>極めて緻密な公的インフラ</strong>。街路 1 本ごとに 1 m² 単価が決まる ── これにより不動産が「個別交渉ではなく公式評価で取引できる」基盤が成立。<strong>透明性は流動性を生む</strong>: 価格情報が公開されるほど取引が活発化する。これは Sigstore の transparency log と思想的に同型 ── <strong>公開インフラが信頼の基盤</strong>。</p>
+<h3>「住宅用地 1/6」の社会工学</h3>
+<p>住宅用地特例 1/6 は税収の柔軟さを犠牲に持ち家政策を支えた制度設計。だがこれが<strong>空き家放置のインセンティブ</strong>を生んだ ── 解体すると 6 倍課税されるので空き家のまま放置する。<strong>良い意図の制度が悪い結果を生む</strong>典型例で、空家対策特別措置法 (2015) で部分的修正された。<strong>長期的副作用を考慮した制度設計の困難さ</strong>。</p>
+<h3>評価替え 3 年の慣性</h3>
+<p>3 年サイクルは「行政コストの抑制」と「経済への配慮」のトレードオフ。だが地価が年単位で変動する都市部では、評価替え直前の物件と直後の物件で<strong>実質税負担が大きく異なる</strong>ことになる。これは<strong>「離散的サンプリングが連続現象を捉えきれない」</strong>という根本的問題 ── 信号処理のサンプリング定理と類比的。</p>
+<h3>マンション評価の特殊性</h3>
+<p>マンションは<strong>敷地権</strong> (土地の共有持分) と <strong>専有部</strong> (建物部分) で別個に評価される。タワーマンションの上層階は<strong>眺望や利便性の市場価値が高い</strong>が、固定資産税評価上は床面積基準のため<strong>上層階も下層階もほぼ同じ評価額</strong>だった ── これが<strong>節税目的のタワマン購入</strong>を生んだ。2017 年改正で<strong>「階層別専有床面積補正率」</strong> が導入され、20 階以上は階層 +1 ごとに +0.26% の補正。<strong>租税回避と税制対応の永続的いたちごっこ</strong>。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>tech (Sigstore の transparency log)</strong>: 路線価制度は「公的価格を全公開し、誰でも検証できる」点で transparency log と同型。<strong>信頼を可視化に置く</strong>思想。</li>
+<li><strong>cs (Count-Min Sketch の保守的な過大推定)</strong>: 評価額が時価より低い「保守的な見積もり」は CMS が確率的に過大誤差を保証するのと類比的。<strong>誤差方向の予測可能性が制度の安定性を生む</strong>。</li>
+<li><strong>bread (リターディング)</strong>: 評価替えサイクル 3 年の慣性は、長時間冷蔵発酵の「時間スケールの差」と類比的 ── <strong>遅いプロセスと速いプロセスの並走</strong>。</li>
+<li><strong>golf (グルーブ規制の段階的施行)</strong>: 2010 年から 2024 年まで段階的に普及した USGA グルーブ規制は、固定資産評価制度の 3 年サイクルと同じ「<strong>段階的・計画的な制度移行</strong>」。</li>
+<li><strong>anatomy (筋紡錘のガンマ調整)</strong>: 負担調整措置の「評価額 vs 税額の連動を緩和する」仕組みは、ガンマ運動ニューロンが筋紡錘感度を環境に応じて調整するのと類比的 ── <strong>動的調整による安定性確保</strong>。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>タワマン階層別補正</strong> の詳細式と、2017 年改正以降の市場行動変化。</li>
+<li><strong>不動産取得税</strong> との関係 ── 取得時にかかる税で評価額の 4% (住宅・土地は 3%)。固定資産税評価額が連動する。</li>
+<li><strong>マンション管理組合と固定資産税</strong> ── 共用部の評価はどう按分されるか。</li>
+<li><strong>令和 6 年度 (2024) 評価替え</strong>で都心部マンションの評価額がどれだけ上昇したか、横浜の具体例。</li>
+<li><strong>横浜の特殊事情</strong> ── 港北区・青葉区など住宅街と西区・中区などビジネス街での評価メカニズムの差。</li>
+<li><strong>長期優良住宅・認定低炭素住宅</strong>の固定資産税減額延長効果 (5 年→7 年)。</li>
+</ul>
+<hr>
+<p><strong>主要参考ソース</strong>:</p>
+<ul>
+<li><a href="https://www.tax.metro.tokyo.lg.jp/shitsumon/real_estate/o">東京都主税局: 固定資産税・都市計画税(土地・家屋)</a></li>
+<li><a href="https://chester-tax.com/encyclopedia/14719.html">税理士法人チェスター: 固定資産税評価額と路線価の違い</a></li>
+<li><a href="https://land.home4u.jp/guide/land-others-83-15655">HOME4U: 固定資産税評価額の計算方法</a></li>
+<li><a href="https://suumo.jp/article/oyakudachi/oyaku/tochi/tochi_money/rosenka_koteishisanzei/">SUUMO: 固定資産税路線価とは</a></li>
+<li><a href="https://www.rosenka.nta.go.jp/docs/ref_rtof.htm">国税庁: 評価倍率表(一般の土地等用)</a></li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/house-hunting/2026-05-10_固定資産税評価額と都市計画税の評価メカニズム.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-deutsch" class="card card-deutsch domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-deutsch">deutsch</span> <span class="card-title">Im Restaurant — Bestellen und Reklamieren</span></span>
+          <span class="card-abstract">ドイツ語のレストラン会話は<strong>モーダル助詞 (denn, eigentlich, aber)</strong> が会話の 30〜50% に登場し、これが B1 と B2/C1 の決定的差。「過去完了で間違いを指摘する」(Das hatte ich aber nicht bestellt.) という時間軸強調修辞、ドイツの個人主義+平等主義に根ざす <strong>getrennt zahlen 文化</strong>、苦情を伝えることに罪悪感を持たない Reklamieren 文化。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#Restaurant</span> <span class="tag">#Bestellen</span> <span class="tag">#Reklamieren</span> <span class="tag">#Smalltalk</span> <span class="tag">#B1Plus</span></div>
+<h2>学んだこと</h2>
+<p>レストランでの注文・苦情・支払いに関する、教科書的でない<strong>ネイティブが実際に使う</strong>フレーズを 4 つ。フォーマル度は formal / neutral / umgangssprachlich の 3 段階で示す。</p>
+<hr>
+<h3>Phrase 1: 注文時 — 「これは何が入ってるの?」を自然に聞く</h3>
+<p><strong>Was ist da eigentlich alles drin?</strong></p>
+<blockquote>
+<p>これって何が入ってるんですか?</p>
+</blockquote>
+<p><strong>日本語訳</strong>: 「この料理、結局何が入ってるの?」のニュアンス。メニューの説明だけでは分からない時に料理の中身を尋ねる。</p>
+<p><strong>単語リスト</strong>:</p>
+<ul>
+<li><em>eigentlich</em> — 「本来は・実のところ」(モーダル助詞的に「ところで・実際」のニュアンス)</li>
+<li><em>drin</em> — 「中に」(<em>darin</em> の口語形)</li>
+<li><em>alles</em> — 「全部の (もの)」</li>
+</ul>
+<p><strong>使う場面</strong>: メニューに "Schwäbischer Sauerbraten" などローカル料理名だけ書かれていて、何が入ってるか分からない時。アレルギーや食べられない食材の有無を確認したい時。</p>
+<p><strong>フォーマル度</strong>: <strong>umgangssprachlich</strong> (口語的)。スーツ着てミシュラン店では使わない。普段のカフェ・ビアホール・社員食堂・友人のレストランで自然。</p>
+<p><strong>キーワード解説</strong>:</p>
+<ul>
+<li><em>eigentlich</em> は「本来は X だけど…」のニュアンスを持つモーダル助詞。"Ich wollte eigentlich gehen, aber..." (本当は行こうとしたんだけど)。質問文に入ると「実際のところは?」と本質を尋ねるトーンになる。</li>
+<li><em>drin</em> (= darin) はカジュアル。文章では <em>darin</em> を使う。"Was ist darin enthalten?" は formal、"Was ist da drin?" は neutral、"Was ist da eigentlich alles drin?" は umgangssprachlich。</li>
+<li>語順: <em>Was ist da drin?</em> (中性的) → <em>Was ist da alles drin?</em> (全部リストアップしてほしい) → <em>Was ist da eigentlich alles drin?</em> (もっと興味津々で詳しく聞きたい)</li>
+</ul>
+<p><strong>関連表現</strong>:</p>
+<ul>
+<li><strong>Was kommt da rein?</strong> — 「何が入ってるの?」(<em>reinkommen</em> = 中に入る、料理されて入っているもの)。さらに口語的。</li>
+<li><strong>Aus was besteht das?</strong> — 「何で出来てるの?」 (<em>bestehen aus</em> + 与格 = ~から成る)。Formal/neutral。文法的に正しいのは "Woraus besteht das?" だが現代口語では "Aus was" もよく聞く。</li>
+<li><strong>Hat das Nüsse / Laktose / Gluten?</strong> — 「ナッツ/乳糖/グルテン入ってますか?」アレルギー確認の直接形。</li>
+</ul>
+<hr>
+<h3>Phrase 2: 注文時 — 「おすすめは?」を聞く自然な言い方</h3>
+<p><strong>Was können Sie denn empfehlen?</strong></p>
+<blockquote>
+<p>ちなみに何かおすすめあります?</p>
+</blockquote>
+<p><strong>日本語訳</strong>: 直訳「何をあなたはお勧めできますか?」だが、<em>denn</em> が入ることで「で、ちなみに/ところで」のニュアンスが加わり親しみやすくなる。</p>
+<p><strong>単語リスト</strong>:</p>
+<ul>
+<li><em>empfehlen</em> — 「推薦する・お勧めする」(<em>empfehl-, empfahl, empfohlen</em>, 強変化)</li>
+<li><em>denn</em> — モーダル助詞 (質問文で柔らかさ・興味を加える)</li>
+</ul>
+<p><strong>使う場面</strong>: メニューを見ても何にするか決められない時、または地元の特色を知りたい時。ウェイターとの会話を始めるきっかけにもなる。観光地で「この店の名物は?」と聞きたい時。</p>
+<p><strong>フォーマル度</strong>: <strong>neutral</strong>。Sie で話しているので失礼ではないが、<em>denn</em> を抜いた "Was können Sie empfehlen?" よりも自然で親しみやすい。</p>
+<p><strong>キーワード解説</strong>:</p>
+<ul>
+<li><strong>モーダル助詞 <em>denn</em></strong> はドイツ語の重要な口語的特徴。質問文に入ると「ちなみに」「で、」のような柔らかさを加える ── これがないと尋問風で冷たく聞こえる。"Wo wohnst du?" (どこに住んでる?) より "Wo wohnst du denn?" の方がはるかに自然。</li>
+<li><em>empfehlen</em> は <em>Dat</em> + <em>Akk</em> を取る:「Können Sie <strong>mir</strong> (Dat) <strong>etwas Besonderes</strong> (Akk) empfehlen?」(私に何か特別なもの推薦できますか?) ── 二重対格言語の英語と異なる点。</li>
+<li>過去形は <em>empfahl</em> (強変化), 接続法 II は <strong>empföhle</strong> または <strong>empfähle</strong> (両方可、稀に <em>empfühle</em> も古形で残る)。</li>
+</ul>
+<p><strong>関連表現</strong>:</p>
+<ul>
+<li><strong>Was würden Sie an meiner Stelle nehmen?</strong> — 「私の立場ならあなた何にします?」(接続法 II)。よりパーソナルなおすすめ要請。</li>
+<li><strong>Was ist denn heute besonders gut?</strong> — 「今日は特に何がおいしいんですか?」(本日のおすすめを聞く)。</li>
+<li><strong>Was ist hier die Spezialität des Hauses?</strong> — 「ここのスペシャリテは?」(ややformal、観光地で使える)。</li>
+<li><strong>Was nehmen die Stammgäste hier?</strong> — 「常連さんは何取りますか?」(ローカル度高い、umgangssprachlich)。</li>
+</ul>
+<hr>
+<h3>Phrase 3: 苦情 — 料理が冷たい・違う料理が来た</h3>
+<p><strong>Entschuldigung, das hatte ich aber nicht bestellt.</strong></p>
+<blockquote>
+<p>すみません、これ注文してないんですけど。</p>
+</blockquote>
+<p><strong>日本語訳</strong>: 「失礼ですが、これは注文していませんが」。穏やかだが明確に間違いを指摘する標準的な言い方。</p>
+<p><strong>単語リスト</strong>:</p>
+<ul>
+<li><em>Entschuldigung</em> — 「すみません/失礼ですが」(直訳: 「許し」)</li>
+<li><em>hatte bestellt</em> — 「注文していた」(過去完了; bestellen の Plusquamperfekt)</li>
+<li><em>aber</em> — 「しかし・でも」(ここでは強調の小辞)</li>
+<li><em>bestellt</em> — <em>bestellen</em> の過去分詞</li>
+</ul>
+<p><strong>使う場面</strong>: 違う料理が運ばれてきた、サイドが付いてない、頼んだ飲み物と違う等。<strong>直接的に文句を言うのを避け、自分の側から「ちょっと違うかも」と提示する</strong>ニュアンスが鍵。</p>
+<p><strong>フォーマル度</strong>: <strong>neutral</strong>。Restaurant で標準的な丁寧度。フォーマルなレストランでも問題ない。</p>
+<p><strong>キーワード解説</strong>:</p>
+<ul>
+<li><strong>過去完了 (Plusquamperfekt) の使用</strong>が興味深い: 単純過去 <em>Ich bestellte das nicht</em> や現在完了 <em>Ich habe das nicht bestellt</em> も文法的に正しいが、過去完了 <em>Ich hatte das nicht bestellt</em> には「(料理が来る前に) 注文した時点ではこれではなかった」という時間的奥行きが含まれる。 → ウェイターに「あなたが運んでくる前の時点で、私の注文はこれではなかった」と過去の自分の行為を強調する効果。</li>
+<li><strong><em>aber</em></strong> はここでは「逆接」ではなく「強調・主張のニュアンス」。"Das ist aber teuer!" (これホント高いね!) の aber と同じ。文末の "aber" 単独 (Ich gehe jetzt, aber!) は無いが、こうした内部での「主張強調」は umgangssprachlich でも使う。</li>
+<li>文の主語省略形: 口語では "Hatte ich aber nicht bestellt." と Ich を省くこともある。</li>
+</ul>
+<p><strong>関連表現</strong>:</p>
+<ul>
+<li><strong>Das ist nicht das, was ich bestellt habe.</strong> — 「これ私が注文したものじゃないです」(より直接的、現在完了)。</li>
+<li><strong>Ich glaube, da ist eine Verwechslung.</strong> — 「何か取り違えがあるみたいです」(<em>Verwechslung</em> = 取り違え。婉曲的)。</li>
+<li><strong>Das Essen ist leider kalt.</strong> — 「料理が残念ながら冷たいです」(温度の苦情)。<em>leider</em> で柔らかく。</li>
+<li><strong>Könnten Sie das bitte aufwärmen?</strong> — 「これ温め直してもらえます?」(具体的解決を求める)。</li>
+<li><strong>Da ist ein Haar drin.</strong> — 「髪の毛が入ってます」(<em>drin</em> = 中に。umgangssprachlich)。</li>
+</ul>
+<hr>
+<h3>Phrase 4: 支払い — 「別々で」「割り勘で」</h3>
+<p><strong>Können wir bitte getrennt zahlen?</strong></p>
+<blockquote>
+<p>別々に払えますか?</p>
+</blockquote>
+<p><strong>日本語訳</strong>: 「別々にお会計できますか?」。ドイツ・オーストリアでは<strong>それぞれが自分の分を払う</strong>のが標準的で、レストランでもまったく失礼ではない。</p>
+<p><strong>単語リスト</strong>:</p>
+<ul>
+<li><em>getrennt</em> — 「別々に・分かれて」(<em>trennen</em> の過去分詞、副詞用法)</li>
+<li><em>zahlen</em> — 「支払う」(<em>bezahlen</em> も同義、<em>zahlen</em> の方が口語的)</li>
+<li><em>bitte</em> — 「お願いします」</li>
+</ul>
+<p><strong>使う場面</strong>: 友人・同僚とのレストラン、デート以外の食事、出張の同僚との食事 (ドイツ企業では基本的に各自払い)。会計時にウェイターを呼んで最初に言うフレーズ。</p>
+<p><strong>フォーマル度</strong>: <strong>neutral</strong>。完全に標準的で、丁寧でも乱暴でもない。</p>
+<p><strong>キーワード解説</strong>:</p>
+<ul>
+<li>ドイツ・オーストリア・スイスでは <strong>getrennt zahlen が文化的標準</strong>。日本のように「ここは私が」と一人が全員分を払うのは、特別な祝事や年配者がご馳走する場合のみ。同僚との通常の昼食は当然各自払い。<strong>この文化差を知らないと混乱する</strong>。</li>
+<li><em>getrennt</em> は <em>zusammen</em> (一緒に) の対義語。「Zahlen Sie zusammen oder getrennt?」(ご一緒ですか別々ですか?) はウェイターの定番質問。</li>
+<li><em>zahlen</em> と <em>bezahlen</em>: ほぼ同義だが微妙な差 — <em>zahlen</em> は「お金を渡す行為」、<em>bezahlen</em> は「対価を完済する」の意味合い。"Ich zahle die Rechnung" (私が会計を払う) と "Ich bezahle die Rechnung" は両方使われ、後者がやや formal。</li>
+</ul>
+<p><strong>関連表現</strong>:</p>
+<ul>
+<li><strong>Zahlen, bitte!</strong> — 「会計お願い!」(極めて口語的・率直)。手を挙げて呼ぶ時の定型。</li>
+<li><strong>Die Rechnung, bitte.</strong> — 「お会計をお願いします」(neutral, 全国共通)。</li>
+<li><strong>Zusammen, bitte.</strong> — 「一緒で」(まとめて支払い)。</li>
+<li><strong>Stimmt so.</strong> — 「お釣りはいいです」(<em>stimmen</em> = 合う、直訳「これで合っています」、つまり「これで全額として」=チップ込み)。チップを残す時の重要表現。</li>
+<li><strong>Auf 50 (Euro), bitte.</strong> — 「50 ユーロでお願いします」(60 €の請求にチップ含めて 50 €払いたい時の指定方法。<em>aufrunden</em> = 切り上げる文化)。</li>
+<li><strong>Ich übernehme das.</strong> — 「私が出します」(<em>übernehmen</em> = 引き受ける)。誰かにご馳走したい時。</li>
+</ul>
+<h2>気づき・洞察</h2>
+<h3>モーダル助詞こそがドイツ語の「肌触り」</h3>
+<p><em>denn, eigentlich, ja, doch, mal, halt, nun mal, eben...</em> これらの<strong>モーダル助詞 (Modalpartikeln)</strong> はテクストブックではほぼ説明されないが、<strong>ネイティブの会話の 30〜50%</strong> に登場する。文の意味は変えないが、<strong>話者の立場・態度・感情を微妙に伝える</strong>。例: "Komm her!" (こっち来い、命令) vs "Komm doch her!" (こっち来てよ、誘い) vs "Komm halt her!" (もう来いよ、諦め半分)。<strong>モーダル助詞を使えるかどうかが B1 と B2/C1 の決定的な差</strong>。</p>
+<h3>過去完了 (Plusquamperfekt) の意外な口語使用</h3>
+<p>教科書では「過去のさらに過去」と説明される過去完了が、苦情の場面で「自分の注文時点」を指すのに使われるのが面白い。"Das hatte ich nicht bestellt" は時間的に「(料理が来る) 前の時点で」を強調することで、<strong>ウェイターのミスを当事者の時間軸ではなく自分の時間軸で記述する</strong> ── これは責任の所在を明確化する微妙な修辞。</p>
+<h3>支払い文化の本質的差異</h3>
+<p>日本では「ご馳走文化」(目上が払う、男性が払う、誘った側が払う) が支配的。ドイツでは <strong>getrennt zahlen が大人の標準</strong> ── これは<strong>個人主義 + 平等主義の表れ</strong>。誰かに支払いを「させる」ことは相手への負債を作るので避ける、という文化。<strong>経済的な独立は社会的尊厳に直結する</strong>という考え方が根底。これはドイツの労働組合文化や社会保障制度設計とも通底する。</p>
+<h3>Reklamieren の文化的位置</h3>
+<p>ドイツ人は<strong>苦情を伝えることに罪悪感を持たない</strong>。"Ich möchte mich beschweren" (苦情を申し上げます) は完全に礼節ある行為で、店側も真摯に対応する文化。日本の「クレーマー」のネガティブニュアンスはなく、<strong>「商品の質を求めるのは消費者の権利」</strong>という意識。これは Verbraucherschutz (消費者保護) が法的・文化的に強いドイツの土壌。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>music (Shostakovich の DSCH)</strong>: モーダル助詞で「私の主観的態度」を埋め込むドイツ語は、音楽動機で「私の主体性」を埋め込む DSCH と同じ — <strong>言語と音楽の自己署名性</strong>。</li>
+<li><strong>bread (パンの伝統文化)</strong>: ドイツ・オーストリアのレストランで提供されるパンの種類 (Brezel, Roggenbrot, Vollkornbrot) は地域文化を強く反映。"Was haben Sie für Brot da?" (どんなパンがあります?) は地元理解の窓。</li>
+<li><strong>piano (Taubman の系譜)</strong>: Tobias Matthay (英) と Heinrich Neuhaus (露) の対比はドイツ系・スラブ系の身体観・芸術観の差を反映 ── 文化が技法を規定する例。</li>
+<li><strong>house-hunting (ドイツの賃貸文化)</strong>: ドイツでは持ち家率が低く賃貸が長期化する文化、レストランで getrennt zahlen が標準なのと同じ「<strong>個人の経済的独立を社会システムが支える</strong>」設計思想。</li>
+<li><strong>golf (ゴルフ場でのマナー)</strong>: ドイツのゴルフクラブはメンバーシップ文化が強く、各自が自分の責任で行動する個人主義文化が浸透 ── レストランの getrennt zahlen と同じ社会的価値観。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>モーダル助詞のさらに深い使い分け</strong> ── <em>halt</em> (バイエルン的) vs <em>eben</em> (北部) vs <em>nun mal</em> (説得) の地域差・場面差。</li>
+<li><strong>Trinkgeld (チップ) 文化</strong> ── ドイツ・オーストリア・スイスでチップ慣習がどう違うか。10% が標準だがどこまで強制?</li>
+<li><strong>Speisekarte の地域語彙</strong> ── バイエルン (<em>Brotzeit</em>, <em>Schmankerl</em>), 北ドイツ (<em>Frikadelle, Labskaus</em>), オーストリア (<em>Schnitzel, Knödel</em>, <em>Topfen</em>) の語彙。</li>
+<li><strong>ベジタリアン・ヴィーガン語彙</strong> ── 現代ドイツで急速に普及している菜食文化のレストラン語彙。</li>
+<li><strong>苦情エスカレーション語彙</strong> ── "Ich möchte den Geschäftsführer sprechen" (店長を呼んでください) など、reklamierenが解決しない場合の語彙。</li>
+</ul>
+<hr>
+<p><strong>主要参考ソース</strong>:</p>
+<ul>
+<li><a href="https://www.fluentu.com/blog/german/german-restaurant-phrases/">FluentU: 15 German Restaurant Phrases</a></li>
+<li><a href="https://www.olesentuition.co.uk/single-post/essential-german-words-and-phrases-for-restaurant-visits">Olesen Tuition: Essential German Words and Phrases for Restaurant Visits</a></li>
+<li><a href="https://migaku.com/blog/language-fun/german-restaurant-phrases-order-food">Migaku: German Restaurant Phrases</a></li>
+<li><a href="https://www.rocketlanguages.com/german/vocabulary/ordering-in-german">Rocket Languages: Ordering in German</a></li>
+<li><a href="https://www.thegermanproject.com/german-lessons/restaurant">The German Project: Restaurant Lessons with Audio</a></li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/deutsch/2026-05-10_Im_Restaurant_Bestellen_und_Reklamieren.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+      <details id="card-other" class="card card-other domain-details">
+        <summary>
+          <span class="card-head"><span class="badge badge-other">other</span> <span class="card-title">クマムシのクリプトビオシスと Tun 状態</span></span>
+          <span class="card-abstract">クマムシは tun 状態 (代謝 0.01% 未満) で 150°C・絶対零度・宇宙真空に耐える。東京大学発見の <strong>Dsup タンパク質</strong>は IDR (内在性無秩序領域) でヌクレオソームに結合し DNA をシールド、ヒト細胞でも放射線損傷を 40% 低減。<strong>「死なずに止まる」生命の第三状態</strong>の存在と冗長な保護機構の進化的洞察。</span>
+        </summary>
+        <div class="domain-body">
+          <div class="domain-tags"><span class="tag">#Tardigrade</span> <span class="tag">#Cryptobiosis</span> <span class="tag">#Anhydrobiosis</span> <span class="tag">#Dsup</span> <span class="tag">#Trehalose</span> <span class="tag">#Extremotolerance</span></div>
+<h2>学んだこと</h2>
+<h3>クマムシ (Tardigrada) という分類群</h3>
+<p>クマムシは<strong>緩歩動物門 (Tardigrada)</strong> に属する微小な多細胞動物 (体長 0.05〜1.2 mm)。<strong>「水熊 water bear」</strong> または <strong>「moss piglet (苔のブタ)」</strong> とも呼ばれる。8 本の足、頭部の感覚器、咀嚼装置 (stylet) を持つ。世界 1,300 種以上が記載されており、海・淡水・湿った苔 (mosses)・地衣類・土壌中に生息する。エディアカラ紀の前カンブリア期 (約 5 億年前) に既に存在した可能性が高く、5 大量絶滅イベントすべてを生き延びた。</p>
+<h3>クリプトビオシス (Cryptobiosis) — 「隠された生命」</h3>
+<p><strong>クリプトビオシス (cryptobiosis = "hidden life")</strong> とは、生物が代謝活動を<strong>測定不可能なレベル (通常代謝の 0.01% 未満)</strong> まで一時停止する状態。1959 年にデイヴィッド・キーリン (David Keilin) が命名。クマムシは 5 種類のクリプトビオシスを示す:</p>
+<ol>
+<li><strong>Anhydrobiosis (脱水耐性)</strong>: 水分を失った時。最も研究が進む。</li>
+<li><strong>Cryobiosis (凍結耐性)</strong>: -200°C 以下まで耐える。</li>
+<li><strong>Osmobiosis (浸透圧耐性)</strong>: 高塩濃度環境。</li>
+<li><strong>Anoxybiosis (無酸素耐性)</strong>: 酸素 0% でも生存。</li>
+<li><strong>Chemobiosis (化学物質耐性)</strong>: 強酸・強アルカリ・有機溶媒中で生存。</li>
+</ol>
+<p><strong>極限耐性記録</strong>: クマムシは tun 状態で (1) 真空 + 紫外線 (2007 年 ESA TARDIS 実験で<strong>宇宙空間 10 日間</strong>生還)、(2) <strong>150°C 数分</strong>、(3) <strong>-272°C</strong> (絶対零度近傍)、(4) <strong>6,000 気圧</strong> (マリアナ海溝の 6 倍)、(5) <strong>5,000 Gy の電離放射線</strong> (ヒト致死量の約 1,000 倍) に耐える。</p>
+<h3>Tun 状態の形態学</h3>
+<p>脱水時、クマムシは段階的に <strong>tun 状態 (tönnchenform = 樽型)</strong> に変態する:</p>
+<ol>
+<li>体液から自由水が蒸散開始。</li>
+<li>8 本の足が体内側に<strong>収縮 (retract)</strong> される。</li>
+<li>体表が<strong>縦方向に収縮</strong>し、樽型または種子のような形状に。</li>
+<li>表皮が<strong>蝋様の脂質層</strong>を形成し、残存水の蒸散を防止。</li>
+<li>細胞内で<strong>ガラス化 (vitrification)</strong> が起こる ── 細胞質が結晶化せず非晶質固体になる。</li>
+</ol>
+<p>この状態で<strong>代謝はほぼゼロ、長期保存可能</strong>。再水和すると数分〜数時間で活動再開する。1948 年の研究では<strong>120 年前の苔から取り出した tun から復活した個体</strong>の報告がある (ただし再現性に議論あり)。</p>
+<h3>Dsup タンパク質 — DNA を抱きしめる盾</h3>
+<p>2016 年に東京大学の <strong>国枝武和</strong> らが発表した画期的発見が <strong>Dsup (Damage Suppressor protein)</strong>。<strong>緩歩動物 <em>Ramazzottius varieornatus</em></strong> から単離されたユニークなタンパク質で:</p>
+<ul>
+<li><strong>445 アミノ酸残基</strong>、構造的に<strong>内在性無秩序領域 (intrinsically disordered region, IDR)</strong> を多く含む。</li>
+<li>大量の<strong>酸性アミノ酸 (Asp, Glu)</strong> と<strong>塩基性アミノ酸 (Lys, Arg)</strong> を持つ両親媒性。</li>
+<li><strong>核内に局在</strong> し、<strong>ヌクレオソームに結合</strong> ── 具体的には DNA とヒストンの両方に弱く結合し、染色体を物理的に<strong>シールド</strong>する。</li>
+<li><strong>ヒドロキシラジカル (・OH)</strong> がイオン化放射線で生成され DNA を切断するが、Dsup は DNA 周囲に巻きつき<strong>ラジカル接近を阻害する</strong>。</li>
+</ul>
+<p>驚くべきことに、Dsup 遺伝子を<strong>ヒト培養細胞 (HEK293)</strong> にトランスフェクトすると、<strong>X 線照射による DNA 損傷を約 40% 低減</strong>できた。これは「クマムシの耐性遺伝子をヒトで機能させる」初の実証で、宇宙飛行士の放射線防護や癌治療への応用が議論されている。</p>
+<h3>TDPs と Trehalose — もう一つの保存戦略</h3>
+<p>Dsup 以外にも、クマムシは <strong>TDPs (Tardigrade Disordered Proteins)</strong> という IDR タンパク質群を持つ:</p>
+<ul>
+<li><strong>CAHS (Cytoplasmic Abundant Heat Soluble)</strong>: 細胞質に豊富、脱水時にゲル化して細胞構造を物理的に支える。</li>
+<li><strong>SAHS (Secreted Abundant Heat Soluble)</strong>: 細胞外液に分泌される。</li>
+<li><strong>MAHS (Mitochondrial Abundant Heat Soluble)</strong>: ミトコンドリア膜の保護。</li>
+</ul>
+<p>これらは脱水時に<strong>ガラス転移</strong>を起こし、細胞質をガラス化させる。ガラス化は氷結晶を作らず、<strong>膜・タンパク質・DNA を機械的に「フリーズ・フレーム」する</strong>。</p>
+<p>加えて多くの (すべてではない) クマムシ種は<strong>トレハロース (trehalose, グルコース 2 量体)</strong> を蓄積する。トレハロースは水分子に類似した分子間水素結合を作り、<strong>「水分子の代わり」</strong>として膜の極性頭部基を安定化する ── これを <strong>water replacement hypothesis</strong> と呼ぶ。出芽酵母やワムシも同じ機構を使う。</p>
+<h3>復活の生理学 — Rehydration</h3>
+<p>水を加えると tun は数分から数時間で復活する:</p>
+<ol>
+<li>水が表皮に浸透し、徐々に体内に再水和。</li>
+<li>ATP 合成が再開、代謝の各経路が起動。</li>
+<li>8 本の足が伸び、運動が再開。</li>
+<li>産卵・摂食まで完全復元。</li>
+</ol>
+<p>ただし<strong>復活率は脱水期間と条件に依存</strong> ── 数か月〜数年なら 90% 以上、数十年だと 10% 以下に落ちることが多い。Dsup や CAHS は<strong>「保存」を担当するが、「修復」は再水和後の通常の DNA 修復酵素</strong> (BER, NHEJ, HR pathway) が担う。クリプトビオシス耐性は「休眠 + 修復」の二段構成。</p>
+<h3>化学耐性 (Chemobiosis) の最新発見 (2023)</h3>
+<p>2023 年の bioRxiv プレプリント (Kamilari et al.) で、<strong>化学物質暴露でも tun 形成が起こる</strong>ことが示された。従来は脱水・凍結が主因と考えられていたが、強アルコールや塩化ナトリウム高濃度溶液中でも tun 状態に移行する ── これは tun 形成が<strong>「水活性 (water activity) の低下」という普遍的シグナル</strong>で誘起される可能性を示唆。<strong>普遍的なストレス応答プログラム</strong>の存在が示された。</p>
+<h2>気づき・洞察</h2>
+<h3>「死なずに止まる」という生命の選択肢</h3>
+<p>通常の生物にとって<strong>生 vs 死</strong>は二値的だが、クリプトビオシスは<strong>「生でも死でもない第三の状態」</strong>の存在を示す。これは生命の定義を揺るがす ── <strong>代謝なしで「生きている」とはどういうことか?</strong> 生物学者の中には<strong>「クマムシは tun 状態では生命ではなく、復活時に新しい生命が再構築される」</strong>と主張する者もいる。<strong>生命と非生命の境界はビット連続体</strong>であり、デジタルな分類は便宜的なものにすぎない。</p>
+<h3>内在性無秩序 (IDR) タンパク質という新しい構造観</h3>
+<p>20 世紀の構造生物学は<strong>「タンパク質は決まった 3 次構造を持つ」</strong>を中心テーゼとした (Anfinsen のドグマ)。だが Dsup や CAHS は<strong>機能発揮時にも明確な 3 次構造を持たない (intrinsically disordered)</strong>。これは<strong>「無秩序こそが機能を担う」</strong>という構造生物学の革命であり、IDR は人間プロテオームの <strong>30%</strong> を占めると現在は推定される。<strong>機能 = 構造の単純対応</strong>は崩壊した。</p>
+<h3>Water Replacement Hypothesis の哲学的含意</h3>
+<p>トレハロースが「水分子の代わり」になるというアイデアは<strong>「生命に必須なのは特定の物質ではなく特定の機能 (関係性)」</strong>を示唆する。生命は H₂O に依存しているのではなく、<strong>「分子間水素結合のネットワーク」</strong>に依存しているだけ。代替分子があれば生命は水なしでも存在可能 ── これは<strong>地球外生命体の生化学</strong>の議論にも通じる根本的洞察。</p>
+<h3>進化の冗長戦略</h3>
+<p>クマムシは<strong>Dsup, CAHS, SAHS, MAHS, トレハロース</strong>と複数の保護機構を並行に持つ。一つでも欠けると耐性は減るが致命的ではない。これは<strong>「単一の解より冗長な解の方が頑健」</strong>という進化的洞察 ── 工学のリダンダンシー設計と同じ原理。<strong>進化は最適化ではなく冗長化を選ぶ</strong>ことが多い。</p>
+<h3>5 億年生き延びた者の哲学</h3>
+<p>クマムシは大量絶滅 5 回をすべて生き延びた数少ない動物群。その秘訣は (1) <strong>小ささ</strong> (環境変動の局地差を乗り切れる)、(2) <strong>クリプトビオシス</strong> (時間軸での待機)、(3) <strong>広範な生息域</strong> (空間軸での冗長性)。これは<strong>「強くなる」ではなく「目立たず・静かに・冗長に」生き残る戦略</strong>で、進化の正解は派手さではない。<strong>スケール戦略の対極</strong> にある成功例。</p>
+<h2>他分野との接続</h2>
+<ul>
+<li><strong>bread (リターディング)</strong>: 冷蔵発酵で酵母の代謝を 10 分の 1 に下げるのは、クマムシのクリプトビオシスの極端版に相当。<strong>代謝速度を制御することで時間軸を引き延ばす</strong>生物的・生化学的共通技法。</li>
+<li><strong>anatomy (筋紡錘の固有受容感覚)</strong>: クマムシは tun 状態で「自分の状態」を感知できないが、復活後の身体マッピングは正常に再起動する ── <strong>休眠中も基本構造が保存される</strong>ことの生体内アナログ。</li>
+<li><strong>piano (スロープラクティスの神経科学)</strong>: ゆっくりの練習で神経表象が深く定着するように、クマムシは<strong>ゆっくりの代謝</strong>で生命情報を保存する ── <strong>時間スケールが質を作る</strong> 共通原理。</li>
+<li><strong>cs (HyperLogLog の圧縮表現)</strong>: クマムシの tun 状態は「自身の身体情報を最小エネルギーで保存する圧縮表現」と見做せる。<strong>情報の本質を保ったまま物理スペース・時間スペースを最小化する</strong>設計。</li>
+<li><strong>tech (Sigstore の Rekor 不変ログ)</strong>: tun 状態は「時間に対する不変性」を生物学的に達成 ── 100 年経っても自身の生命情報を改竄なしに保持する。<strong>情報の永続性をどう実現するか</strong>は生物・暗号で同型問題。</li>
+<li><strong>golf (グルーブ規制の段階的施行)</strong>: クマムシが<strong>段階的に tun 状態に入る</strong> (脱水 → 足収縮 → ガラス化) のは、ルール改正が段階的に施行されるのと同じ「<strong>位相を分けた変態</strong>」。</li>
+<li><strong>music (Shostakovich の自伝的回帰)</strong>: クマムシが脱水→復活で「過去の自分」を取り戻すのと、第 8 番が引用で「過去の自分の作品」を取り戻すのは構造的に類似 ── <strong>時間を超えた自己保存</strong>。</li>
+<li><strong>house-hunting (固定資産税評価替え 3 年)</strong>: 評価額が 3 年単位で「凍結」されるのは、クマムシのクリプトビオシスの社会工学的アナログ。<strong>時間軸での状態保存</strong>。</li>
+</ul>
+<h2>次に深掘りしたいこと</h2>
+<ul>
+<li><strong>国枝武和の研究室</strong> (東大新領域) の最新出版物 ── Dsup の構造解明や応用研究の現状。</li>
+<li><strong>クマムシのゲノム</strong> ── 1.3 万遺伝子を持つ Hypsibius dujardini と 比較する ── 多くの遺伝子が<strong>水平伝播 (horizontal gene transfer)</strong> で他生物 (バクテリア・菌類) から獲得されたという仮説の真偽。</li>
+<li><strong>宇宙生物学への応用</strong> ── ESA の生物宇宙暴露実験 (BIOMEX, EXPOSE プロジェクト) でクマムシを ISS 外に置いた結果。Mars 移住での放射線防護生物学。</li>
+<li><strong>ガラス化 (vitrification) の物理学</strong> ── ガラス転移温度と細胞内代謝速度の関係。</li>
+<li><strong>パンスペルミア仮説</strong>との関係 ── クマムシは隕石中の極限環境に耐えられるか。</li>
+<li><strong>Dsup を導入した遺伝子組み換えヒト細胞</strong>の臨床応用倫理 ── どこまでが治療でどこからが拡張か。</li>
+</ul>
+<hr>
+<p><strong>主要参考ソース</strong>:</p>
+<ul>
+<li><a href="https://www.nature.com/articles/ncomms12808">Hashimoto et al. (2016) "Extremotolerant tardigrade genome and improved radiotolerance of human cultured cells by tardigrade-unique protein", Nature Communications</a></li>
+<li><a href="https://www.biorxiv.org/content/10.1101/2023.05.15.540801v1.full.pdf">Kamilari et al. (2023) "Chemobiosis reveals tardigrade tun formation is" (bioRxiv preprint)</a></li>
+<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10620314/">Møbjerg et al. (2023) "New insights into osmobiosis and chemobiosis in tardigrades", PMC</a></li>
+<li><a href="https://www.the-scientist.com/tardigrade-research-on-extreme-survival-mechanisms-73816">The Scientist: Tardigrade Research On Extreme Survival Mechanisms</a></li>
+<li><a href="https://asknature.org/strategy/cryptobiosis-protects-from-extremes/">AskNature: Cryptobiosis Protects From Extremes</a></li>
+</ul>
+          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/other/2026-05-10_クマムシのクリプトビオシスとTun状態.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+        </div>
+      </details>
+    </section>
+    <section class="section" id="accumulation">
+      <h2 class="section-title">蓄積サマリー</h2>
+      <p><strong>学習開始日</strong>: 2026-03-04 (tech/music/golf/bread/house-hunting/other)、2026-03-05 (piano/anatomy)、2026-03-09 (deutsch)、2026-03-19 (cs)<br>
+<strong>経過日数</strong>: 67 日 (主要分野)、56 日 (cs)、62 日 (deutsch)<br>
+<strong>総エントリ数</strong>: <strong>421 エントリ</strong> (10 主要分野 + philosophy 16 + sdv 6 = 全 443)</p>
+<table>
+<thead>
+<tr>
+<th>分野</th>
+<th>エントリ数</th>
+<th>カバー済み主要領域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tech</td>
+<td>45</td>
+<td>LLM/MCP/AI ガバナンス → クラウド (Cloudflare, CXL, Confidential Computing) → カーネル (eBPF, io_uring) → ネットワーク (WebRTC, WebTransport, ActivityPub, MLS) → AI 推論 (vLLM) → ストリーミング (DuckDB, Iceberg) → CRDT (Automerge) → <strong>サプライチェーンセキュリティ (Sigstore)</strong></td>
+</tr>
+<tr>
+<td>music</td>
+<td>45</td>
+<td>バロック (Bach, Monteverdi) → 古典派 → ロマン派 (Wagner, Bruckner, Mahler) → 印象派 (Debussy) → 表現主義 (Berg) → 12 音 (Schoenberg) → 後期前衛 (Cage, Xenakis, Ligeti, Pärt) → <strong>ソ連体制下 (Shostakovich)</strong></td>
+</tr>
+<tr>
+<td>piano</td>
+<td>43</td>
+<td>解剖学的奏法 (Matthay, Taubman, Neuhaus) → 個別技法 (オクターブ、トリル、ペダリング、跳躍、ダブルノーツ) → 練習法 (スロー、暗譜、視奏、メンタル) → 音色物理 → <strong>神経筋制御</strong></td>
+</tr>
+<tr>
+<td>golf</td>
+<td>45</td>
+<td>戦略 (DECADE, Strokes Gained) → コース建築 (MacKenzie, リンクス) → ルール (2019/2023 改正) → メンタル (チョーキング、Tour Tempo) → ショートゲーム (AimPoint, Lag putting, Pelz) → <strong>装備規制 (グルーブ 2010)</strong></td>
+</tr>
+<tr>
+<td>anatomy</td>
+<td>43</td>
+<td>関節 (TMJ, 仙腸, 股関節, 頸椎, 肩甲胸郭) → 筋骨格 (筋膜, 腱) → 神経 (M1, 小脳 ×2, 海馬, 基底核, 迷走神経, 前庭, 喉頭) → <strong>固有受容感覚 (筋紡錘・GTO)</strong></td>
+</tr>
+<tr>
+<td>bread</td>
+<td>45</td>
+<td>サワードウ生態系 → 製パン化学 (グルテン, アミラーゼ, アロマ) → 分類 (バゲット, ライ麦, ピザ, クロワッサン ×2, ブリオッシュ, パネトーネ) → 工程 (オートリーズ, 湯種, ラミネーション) → <strong>時間制御 (リターディング)</strong></td>
+</tr>
+<tr>
+<td>cs</td>
+<td>29</td>
+<td>DB (LSM, MVCC, B-tree) → ネットワーク (TCP, Kademlia) → 言語処理系 (HM, SSA, Curry-Howard) → 分散 (Paxos/Raft, HLC, Lamport, 一貫性, MESI) → 情報理論 (Shannon, Reed-Solomon, NP 完全) → <strong>ストリーミング近似 (HLL/CMS)</strong></td>
+</tr>
+<tr>
+<td>house-hunting</td>
+<td>45</td>
+<td>区分所有 (建替え, 修繕積立, 管理組合, 共有名義) → 法令 (区分所有法, 都市計画法, 接道, 省エネ法 2025) → リスク評価 (耐震, 地盤, ハザード) → 金融 (NPV, 住宅ローン, 路線価) → デューデリジェンス (重説, インスペクション) → <strong>税制 (固定資産税評価)</strong></td>
+</tr>
+<tr>
+<td>deutsch</td>
+<td>36 (フレーズ 144)</td>
+<td>日常 (Smalltalk, Komplimente, Verkehr) → 役所・医療 (Bürokratie, Beim Arzt) → 仕事・生活 (Termine, Geld, Wohnungssuche) → 趣味 (Filme, Museum, Sport) → 不満・苦情 (Frust, Konfliktlösung) → コミュニケーション (Telefon, Wegbeschreibung) → <strong>食 (Im Restaurant)</strong></td>
+</tr>
+<tr>
+<td>other</td>
+<td>45</td>
+<td>生物学 (深海熱水, ハチドリ, ミツバチ, タコ) → 言語学 (印欧祖語, 手話) → 地球科学 (ミランコビッチ, 火山 VEI, 地図投影) → 美学 (能, 蒸留, コンサートホール音響, 香水) → 数学 (ゲーム理論, リーマン予想) → 古生物 (カンブリア爆発) → <strong>極限環境生物学 (クマムシ)</strong></td>
+</tr>
+</tbody>
+</table>
+    </section>
+    <section class="section" id="patterns">
+      <h2 class="section-title">今日の横断的パターン</h2>
+      <div class="insight">
+        <h3>1. 「並列独立観測の統合」が複数分野に同型構造で出現</h3>
+        <p>今日のテーマには<strong>「複数の独立した観測・プロセス・要素を統合することで単独の限界を超える」</strong>という共通構造が<strong>5 分野横断</strong>で現れた:</p>
+<ul>
+<li><strong>cs</strong>: HyperLogLog の m バケットの調和平均統合</li>
+<li><strong>anatomy</strong>: 筋紡錘 (位置) と GTO (張力) の sensor fusion (Mileusnic 2013 が「単独では不十分」を理論証明)</li>
+<li><strong>piano</strong>: 指運動 + 前腕回旋の位相合成でトリル速度限界を超える</li>
+<li><strong>bread</strong>: 4 並列プロセス (酵母・LAB・プロテアーゼ・アミラーゼ) の独立性が冷蔵で顕在化</li>
+<li><strong>other</strong>: クマムシの Dsup・CAHS・SAHS・MAHS・トレハロースの<strong>冗長な並列保護</strong></li>
+</ul>
+<p>これは情報理論的に見れば「<strong>独立した低信頼観測の統合で高信頼推定を作る</strong>」(ベイズ統合)、生物進化的に見れば「<strong>冗長性が頑健性を生む</strong>」(redundancy = robustness)。<strong>最適化ではなく冗長化が解として選ばれる場面が多い</strong>。</p>
+      </div>
+      <div class="insight">
+        <h3>2. 「過去への回帰・履歴の保持」を構造に組み込む設計思想</h3>
+        <p>今日 4 分野で<strong>「過去の状態・情報を不変に保持する設計」</strong>が中心テーマだった:</p>
+<ul>
+<li><strong>tech</strong>: Rekor の append-only Merkle tree が「永久に検証可能な署名履歴」を作る</li>
+<li><strong>music</strong>: ショスタコーヴィチ第 8 番が<strong>過去作品の引用層</strong>を垂直に重ねる</li>
+<li><strong>other</strong>: クマムシの tun 状態が「100 年前の自分」を保存する</li>
+<li><strong>house-hunting</strong>: 固定資産税評価替えの 3 年慣性が「過去の評価」を保護する</li>
+</ul>
+<p>すべて<strong>「時間に対する不変性」</strong>を物理・暗号・生物学・社会工学の異なる手段で実装している。<strong>情報の永続性は普遍問題</strong>であり、解は領域横断的に類似の構造を取る。</p>
+      </div>
+      <div class="insight">
+        <h3>3. 「抽象パラメータでの規制・規定」がインターフェイス設計の共通パターン</h3>
+        <ul>
+<li><strong>golf</strong>: グルーブ規制を「断面積・エッジ曲率半径・間隔」という測定可能パラメータで規定 (特定形状を禁止しない)</li>
+<li><strong>tech</strong>: Sigstore が「OIDC + 短命証明書 + 不変ログ」という抽象で規定 (特定の鍵管理を強制しない)</li>
+<li><strong>house-hunting</strong>: 都市計画税が「市街化区域内 × 0.3% 上限」という抽象基準 (市町村の裁量を残す)</li>
+</ul>
+<p><strong>抽象による規制は実装の自由度を保ちつつ目的を達成</strong>する設計思想。これはソフトウェアの API 互換性と完全に同型 ── 「実装ではなくインターフェイスで結合する」。</p>
+      </div>
+      <div class="insight">
+        <h3>4. 「速度限界を構造で超える」生体・人工システムの共通戦略</h3>
+        <ul>
+<li><strong>piano</strong>: 単一筋の反復速度限界を、複数筋の位相合成で超える</li>
+<li><strong>anatomy</strong>: 筋紡錘単独の制御限界を、GTO との sensor fusion で超える</li>
+<li><strong>cs</strong>: 厳密解 O(n) の空間計算量限界を、確率的近似 O(polylog n) で超える</li>
+<li><strong>bread</strong>: 室温発酵の風味多様性限界を、温度制御による位相差で超える</li>
+</ul>
+<p><strong>いずれも「単一の解の限界」を「複数の解の組み合わせ」で構造的に回避</strong>している。これは進化論・人間工学・アルゴリズム理論で同型に現れる根本原理。</p>
+      </div>
+    </section>
+    <section class="section" id="connections">
+      <h2 class="section-title">意外な接続点</h2>
+      <div class="connection">
+        <h3>Sigstore の Rekor とクマムシの tun 状態 — 「永続性」の二つの実装</h3>
+        <p><strong>最も意外な接続</strong>: Sigstore の Rekor (append-only transparency log) と、クマムシの tun 状態 (代謝停止での生命情報保存) は、<strong>「時間に対する不変性をどう実装するか」</strong>という同一問題への<strong>全く異なる解</strong>である。</p>
+<ul>
+<li>Rekor は <strong>暗号学的不変性</strong> (Merkle tree のハッシュチェーンで改竄を計算不能にする)</li>
+<li>クマムシは <strong>生物学的不変性</strong> (代謝を停止することで化学的劣化を時間軸で凍結)</li>
+</ul>
+<p>両者ともに「自分の状態を未来へ送り届ける」点で共通。Rekor の signed tree head は約 1 時間ごとに gossip protocol で配信されるが、これは<strong>「外部の証人を増やすことで不変性を強化する」</strong>戦略。一方クマムシは<strong>「内部の保護機構 (Dsup, CAHS, トレハロース) を冗長化することで不変性を強化する」</strong>戦略。<strong>「内部冗長」と「外部分散」は永続性の二つの軸</strong>。</p>
+      </div>
+      <div class="connection">
+        <h3>ショスタコーヴィチの DSCH と Sigstore の OIDC subject — 自己署名性の同型</h3>
+        <p><strong>第二の意外な接続</strong>: DSCH 動機が「私が私であること」を音楽の永続構造に埋め込むのと、Sigstore が GitHub Actions の <code>repo:foo/bar:ref:refs/heads/main</code> を証明書 subject に埋め込むのは、<strong>「自己の不可逆な証明」</strong>として完全に同型。</p>
+<ul>
+<li>ショスタコーヴィチは <strong>「私が死んでも誰も四重奏曲を書いてくれそうにない」</strong> という不安から DSCH を全楽章に書き込んだ</li>
+<li>Sigstore は <strong>「鍵が紛失・盗難されても署名が偽装されないように」</strong> workflow URL を不変ログに刻む</li>
+</ul>
+<p><strong>自己の存在を時間を超えて保証する技術</strong>は、芸術と暗号で構造的に同型。両者ともに「内側の決意を外側の不可逆構造に変換する」。</p>
+      </div>
+      <div class="connection">
+        <h3>筋紡錘のガンマ調整と CMS の Conservative Update — 「観測の能動制御」</h3>
+        <p><strong>第三の意外な接続</strong>: 筋紡錘がガンマ運動ニューロンによって<strong>感度を能動制御される</strong>のと、Count-Min Sketch の Conservative Update が<strong>衝突影響を最小化するため最小値の行のみ更新する</strong>のは、両者ともに <strong>「観測装置の挙動を文脈に応じて能動調整する」</strong> 思想で同型。</p>
+<ul>
+<li>筋紡錘は文脈 (静止か運動か) に応じて感度を変える</li>
+<li>CMS は更新時に他要素への影響を最小化する更新戦略を取る</li>
+</ul>
+<p><strong>観測そのものが受動的でなく能動的に最適化される</strong>点で、生体と人工システムは同じ解に到達。</p>
+      </div>
+      <div class="connection">
+        <h3>グルーブ規制の段階的施行とクマムシの段階的 tun 形成</h3>
+        <p><strong>第四の意外な接続</strong>: USGA がグルーブ規制を 2010 → 2014 → 2024 と<strong>段階的に施行</strong>したのと、クマムシが脱水時に<strong>段階的に tun 状態に変態する</strong> (足収縮 → 体表縮減 → 蝋層形成 → ガラス化) のは、<strong>「不可逆な状態変化を位相的に制御する」</strong>思想で同型。両者ともに<strong>急激な転換を避け、各段階で適応させる</strong>。</p>
+      </div>
+      <div class="connection">
+        <h3>固定資産税評価額と HyperLogLog の保守的推定</h3>
+        <p><strong>第五の意外な接続</strong>: 固定資産税評価額が時価より 30% 低い「保守的な見積もり」と、CMS が常に過大誤差で頻度推定するのは、<strong>「誤差方向の予測可能性が制度・アルゴリズムの安定性を生む」</strong>点で同型。<strong>双方とも「正確さ」より「予測可能な偏り」を選ぶ</strong>設計判断。</p>
+      </div>
+    </section>
+    <section class="section" id="insights">
+      <h2 class="section-title">統合的洞察</h2>
+      <div class="insight">
+        <h3>「永続性 × 自己性 × 冗長性」の三角構造</h3>
+        <p>今日のテーマを統合すると、<strong>「自己の情報・状態をどう未来へ送るか」</strong>という根本問題への 3 つの軸が浮かび上がる:</p>
+<ol>
+<li><strong>永続性 (Time-invariance)</strong>: Rekor、クマムシ、固定資産税評価替え、ショスタコーヴィチの引用 ── すべて時間軸で情報を保護する技術。</li>
+<li><strong>自己性 (Self-identity)</strong>: DSCH 動機、Sigstore の OIDC subject、Dsup タンパク質 ── 「私が私であること」を構造に刻む技術。</li>
+<li><strong>冗長性 (Redundancy)</strong>: 筋紡錘+GTO、HLL の m バケット、クマムシの 5 重保護機構、ピアノの指+回旋 ── 単一の解では達成できない頑健性を冗長で実現。</li>
+</ol>
+<p><strong>この三軸は分野を超えた普遍的設計問題</strong>であり、<strong>今日のテーマは偶然にもこの三角構造の異なる頂点を照らした</strong>。</p>
+      </div>
+      <div class="insight">
+        <h3>「速度を諦める / 正確さを諦める / 単一解を諦める」三つの諦め</h3>
+        <p>今日のテーマを別角度で統合すると、<strong>「何を諦めることで何を得るか」</strong>のパターンが浮かぶ:</p>
+<ul>
+<li><strong>bread・クマムシ</strong>: 速度 (代謝・発酵) を諦めて、深さ・永続性を得る</li>
+<li><strong>HLL/CMS</strong>: 正確さを諦めて、巨大スケール (1 兆要素) を得る</li>
+<li><strong>ピアノ・anatomy・進化</strong>: 単一の解 (単独筋・単一センサー・単一保護) を諦めて、冗長性 = 頑健性を得る</li>
+</ul>
+<p><strong>「諦める」とは「トレードオフを意識的に選ぶ」</strong>ことで、<strong>設計の本質はトレードオフ空間の中で最適点を選ぶこと</strong>。今日のすべてのテーマは「何を諦めて何を得たか」という観点から再記述できる。</p>
+      </div>
+      <div class="insight">
+        <h3>「過去への回帰」と「未来への告別」 — マーラー vs ショスタコーヴィチの哲学的対極</h3>
+        <p>昨日のマーラー第 9 番が<strong>「未来への告別 (Abschied)」</strong> であったのに対し、今日のショスタコーヴィチ第 8 番は<strong>「過去への回帰」</strong>である。両者とも「自分の死」を意識した作品だが:</p>
+<ul>
+<li>マーラー: 自分が消えていく、未来に何かを残さず手放す美学</li>
+<li>ショスタコーヴィチ: 過去の自分の作品を引用で集約して、自分自身に弔辞を捧げる</li>
+</ul>
+<p><strong>「死との向き合い方」</strong>が東欧 (ボヘミア出身マーラー) と東欧+ソ連 (ショスタコーヴィチ) で正反対の音楽的解を取った。これは<strong>個人主義 vs 集団主義の文化差</strong>ではなく、<strong>「永続性をどう確保するか」の二つの解</strong>: 手放すか、刻み込むか。</p>
+      </div>
+      <div class="insight">
+        <h3>「モーダル助詞」と「モーダル助詞的構造」 — 言語と音楽と暗号の共通点</h3>
+        <p>ドイツ語のモーダル助詞 (denn, eigentlich, aber) は<strong>意味は変えないが態度を変える</strong>。これは音楽の DSCH 動機 (主旋律ではないが「私」を刻む)、Sigstore の OIDC subject (署名の本体ではないが「誰が」を刻む) と構造的に同型 ── すべて<strong>「メイン情報の周縁に自己性のメタ情報を埋め込む」</strong>手法。<strong>言語・音楽・暗号は同じ構造で「主体性を刻む」</strong>。</p>
+      </div>
+    </section>
+    <section class="section" id="next-actions">
+      <h2 class="section-title">次のアクション</h2>
+      <details class="card card-tech">
+        <summary><span class="badge badge-tech">tech</span> テクノロジー</summary>
+        <div class="detail-content"><ul>
+<li><strong>TUF (The Update Framework)</strong> との関係調査 ── 配布信頼の root of trust の設計</li>
+<li><strong>EU Cyber Resilience Act (CRA, 2027 適用)</strong> で SBOM 配布が義務化される動向</li>
+</ul></div>
+      </details>
+      <details class="card card-music">
+        <summary><span class="badge badge-music">music</span> 音楽</summary>
+        <div class="detail-content"><ul>
+<li><strong>エマーソン・パヴェル・ハース四重奏団</strong>による第 8 番の解釈比較 (テンポ設定と引用部のアクセント)</li>
+<li><strong>第 15 番 Op.144</strong> との比較 (こちらも全楽章 Adagio)</li>
+<li>ショスタコーヴィチ「証言」(ヴォルコフ編) の真贋論争と第 8 番の自伝的解釈の整合</li>
+</ul></div>
+      </details>
+      <details class="card card-piano">
+        <summary><span class="badge badge-piano">piano</span> ピアノ</summary>
+        <div class="detail-content"><ul>
+<li><strong>ホロヴィッツのトリル</strong>動画分析 (前腕回旋の振幅・周波数実測)</li>
+<li><strong>ベートーヴェン Op.111 第 2 楽章コーダ</strong>の長大トリル奏法</li>
+<li><strong>ピアニストの focal dystonia</strong> とトリル過剰練習の文献</li>
+</ul></div>
+      </details>
+      <details class="card card-golf">
+        <summary><span class="badge badge-golf">golf</span> ゴルフ</summary>
+        <div class="detail-content"><ul>
+<li><strong>2028 ボールロールバック</strong>の技術詳細と影響予測</li>
+<li><strong>PGA Tour プロ別 Strokes Gained: Approach</strong> の 2009 vs 2011 比較で規制効果定量化</li>
+<li><strong>Bob Vokey の設計哲学</strong> ── 規制内で最大スピンを得る "Spin Milled" 技法</li>
+</ul></div>
+      </details>
+      <details class="card card-anatomy">
+        <summary><span class="badge badge-anatomy">anatomy</span> 解剖学</summary>
+        <div class="detail-content"><ul>
+<li><strong>PIEZO2 変異患者</strong>の臨床像 (触覚+固有受容両喪失の適応)</li>
+<li><strong>小脳プルキンエ細胞</strong>の登上線維 vs 平行線維入力の電気生理</li>
+<li><strong>ピアノ・ゴルフ熟達者と初心者の固有受容差</strong>の測定法 (joint position sense test)</li>
+</ul></div>
+      </details>
+      <details class="card card-bread">
+        <summary><span class="badge badge-bread">bread</span> パン</summary>
+        <div class="detail-content"><ul>
+<li><strong>イタリア式 Biga + 冷蔵プルーフ vs フランス式直接法</strong>の風味プロファイル比較</li>
+<li><strong>Tartine 法 (Chad Robertson)</strong> のオートリーズ + リターディングの正確な時系列再構成</li>
+<li><strong>GC-MS 分析論文</strong> (Cereal Chemistry 誌) の冷蔵 vs 直焼きの定量比較</li>
+</ul></div>
+      </details>
+      <details class="card card-cs">
+        <summary><span class="badge badge-cs">cs</span> CS</summary>
+        <div class="detail-content"><ul>
+<li><strong>t-digest</strong> (Ted Dunning 2013) によるパーセンタイル推定</li>
+<li><strong>Theta Sketches</strong> (Apache DataSketches) の集合演算</li>
+<li><strong>Differential Privacy</strong> との関係 ── HLL/CMS のノイズはプライバシー保護に転用可能か</li>
+</ul></div>
+      </details>
+      <details class="card card-house-hunting">
+        <summary><span class="badge badge-house-hunting">house</span> 家探し</summary>
+        <div class="detail-content"><ul>
+<li><strong>タワマン階層別補正</strong> (2017〜) の式詳細と市場行動変化</li>
+<li><strong>令和 6 年度 (2024) 評価替え</strong>で都心部マンションの評価額変動</li>
+<li><strong>横浜西区・港北区・青葉区</strong>の評価メカニズム差</li>
+</ul></div>
+      </details>
+      <details class="card card-deutsch">
+        <summary><span class="badge badge-deutsch">deutsch</span> ドイツ語</summary>
+        <div class="detail-content"><ul>
+<li><strong>モーダル助詞の地域差</strong> ── halt (バイエルン) vs eben (北部) vs nun mal の使い分け</li>
+<li><strong>Trinkgeld 文化</strong>のドイツ・オーストリア・スイス比較</li>
+<li><strong>Speisekarte の地域語彙</strong> (Schmankerl, Knödel, Topfen の地理分布)</li>
+</ul></div>
+      </details>
+      <details class="card card-other">
+        <summary><span class="badge badge-other">other</span> その他</summary>
+        <div class="detail-content"><ul>
+<li><strong>国枝武和研究室</strong>の最新出版物</li>
+<li><strong>ESA BIOMEX/EXPOSE</strong>プロジェクトのクマムシ結果</li>
+<li><strong>ガラス化 (vitrification) 物理学</strong>とガラス転移温度</li>
+</ul></div>
+      </details>
+    </section>
+    <footer class="footer">
+      <p><em>Generated by 知識統合システム</em></p>
+    </footer>
+  </div>
+  <script>
+(function () {
+  function openHash() {
+    var h = (location.hash || '').replace('#', '');
+    if (!h) return;
+    var el = document.getElementById(h);
+    if (el && el.tagName === 'DETAILS') {
+      el.open = true;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+  window.addEventListener('hashchange', openHash);
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a[href^="#card-"]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var el = document.getElementById(a.getAttribute('href').slice(1));
+        if (el && el.tagName === 'DETAILS') el.open = true;
+      });
+    });
+    var ex = document.getElementById('expand-all'), co = document.getElementById('collapse-all');
+    if (ex) ex.addEventListener('click', function () {
+      document.querySelectorAll('details.domain-details').forEach(function (d) { d.open = true; });
+    });
+    if (co) co.addEventListener('click', function () {
+      document.querySelectorAll('details.domain-details').forEach(function (d) { d.open = false; });
+    });
+    openHash();
+  });
+})();
+  </script>
+</body>
+</html>
