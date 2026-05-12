@@ -102,6 +102,7 @@ WebSearch の結果は**信頼性の高いソースのみ**から情報を採用
 python3 scripts/build_report_html.py "$DATE"
 ```
 これで `docs/reports/YYYY-MM-DD.html`（統合レポート＋全10ドメインの全文を1ファイルに埋め込んだ自己完結 HTML。各ドメインはクリックで開く折りたたみカード）と `docs/index.html`（レポート一覧）が生成・更新される。`$DATE` は Step 全体で使っている `date +%Y-%m-%d` の値。ローカルの `domains/` 配下の .md は一切変更しない（ドメイン別 Markdown のまま）。
+なお `data/x/<DATE>.json`（`scripts/fetch_x.py` が `daily_run.sh` の中で当日朝に取得する、気になる人のXの直近投稿）が存在すれば、`build_report_html.py` がレポート上部に「今日のX」セクションとして自動で埋め込む。存在しなければそのセクションは出ないだけ。`data/x/` は `.gitignore` 済み（埋め込み済みの HTML だけが公開される）。
 
 ### Step 7: Git コミット & プッシュ
 新しいエントリ、更新したサマリー、統合レポート（.md）、および `docs/`（生成された HTML）を git add → commit → push する。

@@ -41,6 +41,7 @@
   --color-house-hunting: #ea580c;
   --color-deutsch: #ca8a04;
   --color-other: #6b7280;
+  --color-x: #536471;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -133,6 +134,7 @@ body {
 .badge-house-hunting { background: var(--color-house-hunting); }
 .badge-deutsch { background: var(--color-deutsch); }
 .badge-other { background: var(--color-other); }
+.badge-x { background: var(--color-x); font-family: var(--font-serif); }
 
 /* --- Topic Table --- */
 .topic-table {
@@ -199,6 +201,7 @@ body {
 .card-house-hunting { border-left-color: var(--color-house-hunting); }
 .card-deutsch { border-left-color: var(--color-deutsch); }
 .card-other { border-left-color: var(--color-other); }
+.card-x { border-left-color: var(--color-x); }
 
 .card-header {
   display: flex;
@@ -459,6 +462,106 @@ details .detail-content {
   font-size: 0.85em;
 }
 
+/* --- 今日のX section (collapsible per-account tweet list) --- */
+.x-account { padding: 0; overflow: hidden; }
+.x-account > summary {
+  display: block;
+  cursor: pointer;
+  padding: 0.85rem 1.3rem;
+  list-style: none;
+  position: relative;
+}
+.x-account > summary::-webkit-details-marker { display: none; }
+.x-account > summary::marker { content: ""; }
+.x-account > summary::before { content: none; }
+.x-account > summary:hover { background: var(--border-light); }
+.x-account .card-head {
+  display: block;
+  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+.x-account .card-head::before {
+  content: "▸";
+  display: inline-block;
+  color: var(--text-muted);
+  font-size: 0.8em;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+.x-account[open] .card-head::before { transform: rotate(90deg); }
+.x-account .card-title { vertical-align: middle; }
+.x-count {
+  margin-left: 0.5rem;
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.x-count-err { color: var(--color-anatomy); }
+
+.x-body {
+  padding: 0.4rem 1.3rem 1.1rem;
+  border-top: 1px solid var(--border-light);
+}
+.x-tweet {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+.x-tweet:last-of-type { border-bottom: none; }
+.x-time {
+  display: inline-block;
+  min-width: 3.2em;
+  margin-right: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  vertical-align: top;
+}
+.x-time:hover { color: var(--accent); }
+.x-text { color: var(--text); }
+.x-text a, .x-quote a { color: var(--accent); text-decoration: none; }
+.x-text a:hover, .x-quote a:hover { text-decoration: underline; }
+.x-rt { color: var(--text-secondary); }
+.x-rt .x-text { color: var(--text-secondary); }
+.x-rt-mark, .x-reply-mark {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-right: 0.15rem;
+}
+.x-media {
+  display: inline-block;
+  margin-left: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.x-quote {
+  display: block;
+  margin: 0.4rem 0 0.1rem;
+  padding: 0.4rem 0.7rem;
+  border-left: 2px solid var(--border);
+  background: var(--border-light);
+  border-radius: 0 6px 6px 0;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+.x-error { color: var(--color-anatomy); font-size: 0.85rem; margin: 0.4rem 0; }
+.x-profile { margin-top: 0.9rem; font-size: 0.8rem; }
+.x-profile a { color: var(--text-muted); text-decoration: none; }
+.x-profile a:hover { text-decoration: underline; }
+.x-quiet {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.x-quiet a { color: var(--text-muted); text-decoration: none; }
+.x-quiet a:hover { text-decoration: underline; }
+
 /* --- Section heading controls (expand / collapse all) --- */
 .section-controls {
   float: right;
@@ -656,6 +759,39 @@ details .detail-content {
       <h1>デイリーレポート</h1>
       <div class="report-date">2026-05-12</div>
     </header>
+    <section class="section" id="today-x">
+      <h2 class="section-title">今日のX<span class="section-controls"><button type="button" id="x-expand-all">すべて展開</button><button type="button" id="x-collapse-all">すべて閉じる</button></span></h2>
+      <p class="section-note">1 アカウント / 23 投稿（過去 24 時間、取得 05/12 22:23）</p>
+      <details class="card card-x x-account" id="x-fladdict">
+        <summary><span class="card-head"><span class="badge badge-x">𝕏</span> <span class="card-title">@fladdict · 深津 貴之 / THE GUILD, note</span> <span class="x-count">23 投稿</span></span></summary>
+        <div class="x-body">
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054182704309317902" target="_blank" rel="noopener">21:51</a> <span class="x-text">僕の好みでいうと、「脳」「認知」「健康」など、賞味期限が1000年以上あるジャンルの知識は、だいたいAI時代でも生き延びやすいものが多いかと… <a href="https://note.com/qa/fladdict/q/a4bf778428ce8f69a776fcd24c39d1a3" target="_blank" rel="noopener">note.com/qa/fladdict/q/…</a></span></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054171501713318060" target="_blank" rel="noopener">21:07</a> <span class="x-text">たぶん、政府が危惧してるクロードミュトスのサイバー攻撃の使い方より、僕の心配してるヤベェ使い方のほうがエグい</span></div>
+        <div class="x-tweet x-rt"><a class="x-time" href="https://x.com/fladdict/status/2054154546214322501" target="_blank" rel="noopener">19:59</a> <span class="x-rt-mark">🔁 RT</span> <a href="https://x.com/kimoto_adi" target="_blank" rel="noopener">@kimoto_adi</a>: <span class="x-text">自己資金はわずか1%。残りの99%は他人資本。それでいてリターンは600%に達する。<br><br>プライベート・エクイティの思考回路を知ったとき、他人の褌で相撲を取るとはこのことか、と思った。<br><br>資本主義は、この「レバレッジ」がエッセンスだ。フェアかどうかを論じる前に、まずは「ゲームのルール」を理解することが重要ではないか。<br><br>ルールを理解し、それに勝っていくプロセスは面白い。資本主義を泳ぐためのレバレッジの本質について、記事で整理してみました。<br><a href="https://note.com/adi_hirokikimoto/n/n12bb4fa85b94" target="_blank" rel="noopener">note.com/adi_hirokikimo…</a><br><a href="https://x.com/hashtag/帝国不動産" target="_blank" rel="noopener">#帝国不動産</a></span></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054154315510771718" target="_blank" rel="noopener">19:58</a> <span class="x-text">え、そっちに行くの？</span> <blockquote class="x-quote"><a href="https://x.com/nikkei/status/2054089874630644101" target="_blank" rel="noopener">@nikkei</a>: 西日本シティ銀行、スマホ持ち込み禁止に　情報流出対策に各社苦慮<br><a href="https://www.nikkei.com/article/DGXZQOJC116HS0R10C26A5000000/?n_cid=SNSTW001&amp;n_tw=1778568022" target="_blank" rel="noopener">nikkei.com/article/DGXZQO…</a></blockquote></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054126096514445412" target="_blank" rel="noopener">18:06</a> <span class="x-text">インフルエンサー、作家、企業、店舗のみなさまへ。noteに質問募集の機能がついたよ。そのまま返事を書くとnote記事になるよ。</span> <blockquote class="x-quote"><a href="https://x.com/fladdict/status/2054125794675585189" target="_blank" rel="noopener">@fladdict</a>: noteの新機能のテスト。キャリア・人生相談、記事への質問など、気軽にぽんと投げてみて。<br><br>note質問箱ベータ版だよ。<br><br><a href="https://note.com/qa/fladdict" target="_blank" rel="noopener">note.com/qa/fladdict</a></blockquote></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054125794675585189" target="_blank" rel="noopener">18:05</a> <span class="x-text">noteの新機能のテスト。キャリア・人生相談、記事への質問など、気軽にぽんと投げてみて。<br><br>note質問箱ベータ版だよ。<br><br><a href="https://note.com/qa/fladdict" target="_blank" rel="noopener">note.com/qa/fladdict</a></span></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054121350810542541" target="_blank" rel="noopener">17:47</a> <span class="x-text">ビッグテックが月額500円ぐらいでストレージサービスとかやってるじゃろ？  ああいうノリで、安価な自動開発サービスがくる未来に備えてる。</span> <blockquote class="x-quote"><a href="https://x.com/fladdict/status/2054109560970068342" target="_blank" rel="noopener">@fladdict</a>: みんな「人日5万円の開発とか、ビッグテックやらん」と思っとるじゃろ？ でも、「人日5万円の開発を、GPU日3万円で受託できたら、無限スケールで地球の全案件を受託すれば勝つ」のよ。だから、最終的にはAIビッグテックはクソやすい開発もやる。労働集約じゃない労働とはそういうこと。</blockquote></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054120002345931157" target="_blank" rel="noopener">17:42</a> <span class="x-text">あまり指摘されてない点として、「アニメ」はコスト上限が実写よりも低い性質があるので、実写ドラマ映画の価格高騰にたいして時間がたつほど優位になっていく感。</span> <blockquote class="x-quote"><a href="https://x.com/daisakku/status/2054113937877279011" target="_blank" rel="noopener">@daisakku</a>: Forbesの記事が面白い。<br>・アニメは米国でもニッチではなく、メインストリーム化<br>・総視聴時間は450億分超<br>・ファンの4分の1は年収約1,500万円以上<br><br>「アニメファン＝オタク」という見方は、かなり古い。<br><a href="https://forbesjapan.com/articles/detail/96671" target="_blank" rel="noopener">forbesjapan.com/articles/detai…</a></blockquote></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054109560970068342" target="_blank" rel="noopener">17:00</a> <span class="x-text">みんな「人日5万円の開発とか、ビッグテックやらん」と思っとるじゃろ？ でも、「人日5万円の開発を、GPU日3万円で受託できたら、無限スケールで地球の全案件を受託すれば勝つ」のよ。だから、最終的にはAIビッグテックはクソやすい開発もやる。労働集約じゃない労働とはそういうこと。</span></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054105722171072719" target="_blank" rel="noopener">16:45</a> <span class="x-text">よい</span> <blockquote class="x-quote"><a href="https://x.com/asobodesign/status/2054009219993718873" target="_blank" rel="noopener">@asobodesign</a>: イラストレーターさんにイラストをお願いして広告をつくることがある。AIじゃないよという意味も込めて「イラスト制作:〇〇」とイラスト横に入れてみては？とお客さんに提案したら、確かに！！と快諾されることが。<br><br>イラストレーターさんに依頼することが、一層値打ちのあることになっているのかも。昔なら広告のノイズになるし嫌がっただろう。<br><br>イラストレーター側にとってもメリットがあるし、皆さんも提案してみては。</blockquote></div>
+        <div class="x-tweet x-rt"><a class="x-time" href="https://x.com/fladdict/status/2054100947396444271" target="_blank" rel="noopener">16:26</a> <span class="x-rt-mark">🔁 RT</span> <a href="https://x.com/minowanowa" target="_blank" rel="noopener">@minowanowa</a>: <span class="x-text">まさにすぎる。<br><br>“「この人と仕事をしたら勝てる」と思われよ<br>このように資本主義においては「自分より時間単価が低い（状況の）人」にお願いして、自分が持てる有限な時間にレバレッジをかけ、より質の高い、多くの仕事が引き受けられるようになることが重要だ。<br><br>若いうちからこういう意識で仕事をしている者と、ただ漫然と仕事をこなして「いやあ、今日も疲れたな」と言っている者とでは、ものすごい差がついていくだろう。”<br><br>社会人になったら知っておきたい「レバレッジ」の話｜木本 啓紀 │ 株式会社アーキテクト・ディベロッパー代表取締役社長 <a href="https://x.com/kimoto_adi" target="_blank" rel="noopener">@kimoto_adi</a> <a href="https://x.com/hashtag/仕事について話そう" target="_blank" rel="noopener">#仕事について話そう</a> <a href="https://note.com/adi_hirokikimoto/n/n12bb4fa85b94" target="_blank" rel="noopener">note.com/adi_hirokikimo…</a></span></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054070896495923621" target="_blank" rel="noopener">14:27</a> <span class="x-text">ついにUnitreeからレイバーのプロトタイプが。<br> <a href="https://t.co/iUFoUSbJG8" target="_blank" rel="noopener">https://t.co/iUFoUSbJG8</a></span> <a class="x-media" href="https://x.com/fladdict/status/2054070896495923621" target="_blank" rel="noopener">📷 メディア</a></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054041930506670347" target="_blank" rel="noopener">12:32</a> <span class="x-text">大手SIや開発系で悩んでる人は、みんなでコレを読んでで、みんなでどうすればいいか考えたい。感想とか適当に書いて。あと、年収100億円で特別アドバイザーとか対策委員会に混ぜてほしいw</span> <blockquote class="x-quote"><a href="https://x.com/fladdict/status/2054028478035767364" target="_blank" rel="noopener">@fladdict</a>: 最近モニョモニョとスキルやキャリアで悩んでること、どうしよ⋯というようなこと、開発や制作受託業界でこれから起きそうな予想をメモってみた。あと本の宣伝。<br><br>writing... AI企業が「受託」を始めた日。エンジニア、PM、デザイナーはどうこの先生きのこるか<br><br><a href="https://note.com/fladdict/n/nd42977e5443e" target="_blank" rel="noopener">note.com/fladdict/n/nd4…</a></blockquote></div>
+        <div class="x-tweet x-rt"><a class="x-time" href="https://x.com/fladdict/status/2054034272227606930" target="_blank" rel="noopener">12:01</a> <span class="x-rt-mark">🔁 RT</span> <a href="https://x.com/blogucci" target="_blank" rel="noopener">@blogucci</a>: <span class="x-text">AI企業が「受託」を始めた日。エンジニア、PM、デザイナーはどうこの先生きのこるか｜深津 貴之 (fladdict) <a href="https://x.com/fladdict" target="_blank" rel="noopener">@fladdict</a> <a href="https://note.com/fladdict/n/nd42977e5443e?sub_rt=share_b" target="_blank" rel="noopener">note.com/fladdict/n/nd4…</a></span></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054033282376044852" target="_blank" rel="noopener">11:57</a> <span class="x-text">21世紀にもなって、こんなメチャクチャなムーブが見れるとは思いもしなかった。</span> <blockquote class="x-quote"><a href="https://x.com/47news_official/status/2053962364559732836" target="_blank" rel="noopener">@47news_official</a>: 【速報】ベネズエラを51番目の州に「真剣に検討」<br><a href="https://www.47news.jp/14286193.html?utm_source=twitter&amp;utm_medium=social&amp;utm_campaign=api" target="_blank" rel="noopener">47news.jp/14286193.html?…</a></blockquote></div>
+        <div class="x-tweet x-rt"><a class="x-time" href="https://x.com/fladdict/status/2054032922160910551" target="_blank" rel="noopener">11:56</a> <span class="x-rt-mark">🔁 RT</span> <a href="https://x.com/sbr_m" target="_blank" rel="noopener">@sbr_m</a>: <span class="x-text">ものすごく今感じてる不安を言語化してくれてるので本買う</span></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054031395572621536" target="_blank" rel="noopener">11:50</a> <span class="x-text">GPTへの命令が、「つづけて。粒度を細く切りすぎないで、ガッツリ作業して、まとめて報告して」ぐらいの雑なのになってきてる</span></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054028478035767364" target="_blank" rel="noopener">11:38</a> <span class="x-text">最近モニョモニョとスキルやキャリアで悩んでること、どうしよ⋯というようなこと、開発や制作受託業界でこれから起きそうな予想をメモってみた。あと本の宣伝。<br><br>writing... AI企業が「受託」を始めた日。エンジニア、PM、デザイナーはどうこの先生きのこるか<br><br><a href="https://note.com/fladdict/n/nd42977e5443e" target="_blank" rel="noopener">note.com/fladdict/n/nd4…</a></span></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2054008606765600819" target="_blank" rel="noopener">10:19</a> <span class="x-text">AIとゲームの企画つくってて、「AIカンパニーの地下室で、ニセ生成AIとして働く労働タッチタイピングゲーム」という最高の企画が爆誕した。</span></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2053976128768114833" target="_blank" rel="noopener">08:10</a> <span class="x-text">とりあえず今期の仕事（と年収）を半分ぐらいまで縮小して、来季以降の生き残りのためのリサーチと基礎体力と生存模索に時間を使うことにした。みんな考えが甘すぎる。</span></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2053846622833144281" target="_blank" rel="noopener">5/11 23:36</a> <span class="x-text">「我が社でAIをどう活用するか委員会」にメンバーとして呼んでくれる新規の大手クライアントさん、ちょっとほしい。</span></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2053840742465048739" target="_blank" rel="noopener">5/11 23:12</a> <span class="x-text">OpenAIとAnthoropicとGoogleがAIDeployment会社をそれぞれ作ると、そのあとにNTTやソフトバンクやKDDIがそれぞれと日本合弁つくって、それに乗り遅れた（アクセス権のない）大手SIerがみんな衰退するか買収される未来になるんか？</span> <blockquote class="x-quote"><a href="https://x.com/OpenAI/status/2053824997777457651" target="_blank" rel="noopener">@OpenAI</a>: Today we’re launching the OpenAI Deployment Company to help businesses build and deploy AI.<br><br>It&#x27;s majority-owned and controlled by OpenAI. It brings together 19 leading investment firms, consultancies, and system integrators to help organizations deploy frontier AI to production for business impact. <a href="https://openai.com/index/openai-launches-the-deployment-company/" target="_blank" rel="noopener">openai.com/index/openai-l…</a></blockquote></div>
+        <div class="x-tweet"><a class="x-time" href="https://x.com/fladdict/status/2053840356291248230" target="_blank" rel="noopener">5/11 23:11</a> <span class="x-text">SP500全チェックして、ファンダメンタル分析を定期的にするシステムつくった。</span></div>
+        <p class="x-profile"><a href="https://x.com/fladdict" target="_blank" rel="noopener">@fladdict のプロフィール ↗</a></p>
+        </div>
+      </details>
+    </section>
     <section class="section" id="topics">
       <h2 class="section-title">今日のトピック一覧</h2>
       <table class="topic-table">
@@ -1789,13 +1925,16 @@ details .detail-content {
         if (el && el.tagName === 'DETAILS') el.open = true;
       });
     });
-    var ex = document.getElementById('expand-all'), co = document.getElementById('collapse-all');
-    if (ex) ex.addEventListener('click', function () {
-      document.querySelectorAll('details.domain-details').forEach(function (d) { d.open = true; });
-    });
-    if (co) co.addEventListener('click', function () {
-      document.querySelectorAll('details.domain-details').forEach(function (d) { d.open = false; });
-    });
+    function wire(btnId, selector, open) {
+      var b = document.getElementById(btnId);
+      if (b) b.addEventListener('click', function () {
+        document.querySelectorAll(selector).forEach(function (d) { d.open = open; });
+      });
+    }
+    wire('expand-all', 'details.domain-details', true);
+    wire('collapse-all', 'details.domain-details', false);
+    wire('x-expand-all', 'details.x-account', true);
+    wire('x-collapse-all', 'details.x-account', false);
     openHash();
   });
 })();

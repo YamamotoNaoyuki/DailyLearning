@@ -41,6 +41,7 @@
   --color-house-hunting: #ea580c;
   --color-deutsch: #ca8a04;
   --color-other: #6b7280;
+  --color-x: #536471;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -133,6 +134,7 @@ body {
 .badge-house-hunting { background: var(--color-house-hunting); }
 .badge-deutsch { background: var(--color-deutsch); }
 .badge-other { background: var(--color-other); }
+.badge-x { background: var(--color-x); font-family: var(--font-serif); }
 
 /* --- Topic Table --- */
 .topic-table {
@@ -199,6 +201,7 @@ body {
 .card-house-hunting { border-left-color: var(--color-house-hunting); }
 .card-deutsch { border-left-color: var(--color-deutsch); }
 .card-other { border-left-color: var(--color-other); }
+.card-x { border-left-color: var(--color-x); }
 
 .card-header {
   display: flex;
@@ -458,6 +461,106 @@ details .detail-content {
   color: var(--text-muted);
   font-size: 0.85em;
 }
+
+/* --- 今日のX section (collapsible per-account tweet list) --- */
+.x-account { padding: 0; overflow: hidden; }
+.x-account > summary {
+  display: block;
+  cursor: pointer;
+  padding: 0.85rem 1.3rem;
+  list-style: none;
+  position: relative;
+}
+.x-account > summary::-webkit-details-marker { display: none; }
+.x-account > summary::marker { content: ""; }
+.x-account > summary::before { content: none; }
+.x-account > summary:hover { background: var(--border-light); }
+.x-account .card-head {
+  display: block;
+  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+.x-account .card-head::before {
+  content: "▸";
+  display: inline-block;
+  color: var(--text-muted);
+  font-size: 0.8em;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+.x-account[open] .card-head::before { transform: rotate(90deg); }
+.x-account .card-title { vertical-align: middle; }
+.x-count {
+  margin-left: 0.5rem;
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.x-count-err { color: var(--color-anatomy); }
+
+.x-body {
+  padding: 0.4rem 1.3rem 1.1rem;
+  border-top: 1px solid var(--border-light);
+}
+.x-tweet {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+.x-tweet:last-of-type { border-bottom: none; }
+.x-time {
+  display: inline-block;
+  min-width: 3.2em;
+  margin-right: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  vertical-align: top;
+}
+.x-time:hover { color: var(--accent); }
+.x-text { color: var(--text); }
+.x-text a, .x-quote a { color: var(--accent); text-decoration: none; }
+.x-text a:hover, .x-quote a:hover { text-decoration: underline; }
+.x-rt { color: var(--text-secondary); }
+.x-rt .x-text { color: var(--text-secondary); }
+.x-rt-mark, .x-reply-mark {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-right: 0.15rem;
+}
+.x-media {
+  display: inline-block;
+  margin-left: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.x-quote {
+  display: block;
+  margin: 0.4rem 0 0.1rem;
+  padding: 0.4rem 0.7rem;
+  border-left: 2px solid var(--border);
+  background: var(--border-light);
+  border-radius: 0 6px 6px 0;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+.x-error { color: var(--color-anatomy); font-size: 0.85rem; margin: 0.4rem 0; }
+.x-profile { margin-top: 0.9rem; font-size: 0.8rem; }
+.x-profile a { color: var(--text-muted); text-decoration: none; }
+.x-profile a:hover { text-decoration: underline; }
+.x-quiet {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.x-quiet a { color: var(--text-muted); text-decoration: none; }
+.x-quiet a:hover { text-decoration: underline; }
 
 /* --- Section heading controls (expand / collapse all) --- */
 .section-controls {

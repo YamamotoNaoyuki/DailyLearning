@@ -21,9 +21,17 @@ log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOGFILE"
 }
 
-log "=== /learn 起動 ==="
-
 cd "$PROJECT_DIR"
+
+# 気になる人の直近ツイートを取得（data/x/<DATE>.json）。失敗しても /learn は止めない
+log "=== X 取得 ==="
+if python3 "$PROJECT_DIR/scripts/fetch_x.py" "$DATE" >> "$LOGFILE" 2>&1; then
+  log "=== X 取得 完了 ==="
+else
+  log "=== X 取得 失敗（続行・exit $?）==="
+fi
+
+log "=== /learn 起動 ==="
 
 if claude -p "/learn" \
   --add-dir "$PROJECT_DIR" \

@@ -21,11 +21,12 @@ from __future__ import annotations
 
 import datetime as _dt
 import html
+import json
 import re
 import subprocess
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 try:
     import markdown as _markdown
@@ -460,6 +461,174 @@ def render_generic_section(title: str, body: str, anchor: str) -> str:
     )
 
 
+# --- 「今日のX」セクション（data/x/<date>.json を埋め込む） ------------------
+X_DATA_DIR = ROOT / "data" / "x"
+_X_MENTION_RE = re.compile(r"(?<![\w@/])@(\w{1,20})")
+_X_HASHTAG_RE = re.compile(r"(?<![\w&#＃])[#＃](\w+)")
+_X_TCO_RE = re.compile(r"https?://t\.co/\w+")
+
+
+def load_x_data(date: str) -> Optional[Dict[str, Any]]:
+    p = X_DATA_DIR / f"{date}.json"
+    if not p.is_file():
+        return None
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
+def _parse_x_time(s: str) -> Optional[_dt.datetime]:
+    if not s:
+        return None
+    s = s.strip()
+    try:
+        d = _dt.datetime.fromisoformat(s.replace("Z", "+00:00"))
+        return d if d.tzinfo else d.replace(tzinfo=_dt.timezone.utc)
+    except ValueError:
+        pass
+    for fmt in ("%a %b %d %H:%M:%S %z %Y", "%Y-%m-%d %H:%M:%S %z", "%Y-%m-%dT%H:%M:%S%z"):
+        try:
+            return _dt.datetime.strptime(s, fmt)
+        except ValueError:
+            continue
+    return None
+
+
+def _fmt_x_time(created_at: str, report_date: str) -> str:
+    d = _parse_x_time(created_at)
+    if d is None:
+        return esc(created_at or "")
+    local = d.astimezone()  # ビルドはユーザのローカル TZ（JST）で走る
+    if local.strftime("%Y-%m-%d") == report_date:
+        return local.strftime("%H:%M")
+    return f"{local.month}/{local.day} {local:%H:%M}"
+
+
+def linkify_tweet_text(text: str, urls: Optional[List[Dict[str, str]]]) -> str:
+    s = esc(text or "")
+    s = _X_HASHTAG_RE.sub(
+        lambda m: f'<a href="https://x.com/hashtag/{m.group(1)}" target="_blank" rel="noopener">#{m.group(1)}</a>', s
+    )
+    s = _X_MENTION_RE.sub(
+        lambda m: f'<a href="https://x.com/{m.group(1)}" target="_blank" rel="noopener">@{m.group(1)}</a>', s
+    )
+    umap = {u["tco"]: u for u in (urls or []) if u.get("tco")}
+
+    def _u(m: "re.Match[str]") -> str:
+        u = umap.get(m.group(0))
+        if u and u.get("expanded"):
+            return f'<a href="{esc(u["expanded"])}" target="_blank" rel="noopener">{esc(u.get("display") or u["expanded"])}</a>'
+        return f'<a href="{esc(m.group(0))}" target="_blank" rel="noopener">{esc(m.group(0))}</a>'
+
+    s = _X_TCO_RE.sub(_u, s)
+    return s.replace("\n", "<br>")
+
+
+def _x_profile_url(handle: str) -> str:
+    return f"https://x.com/{handle}"
+
+
+def render_tweet(t: Dict[str, Any], report_date: str) -> str:
+    handle = (t.get("author") or {}).get("userName") or ""
+    url = t.get("url") or (f"{_x_profile_url(handle)}/status/{t.get('id')}" if handle and t.get("id") else "#")
+    time_html = (
+        f'<a class="x-time" href="{esc(url)}" target="_blank" rel="noopener">{_fmt_x_time(t.get("createdAt",""), report_date)}</a>'
+    )
+    classes = "x-tweet"
+    body_bits: List[str] = []
+    rt = t.get("retweet_of")
+    if isinstance(rt, dict):
+        classes += " x-rt"
+        ra = (rt.get("author") or {}).get("userName") or ""
+        body_bits.append(
+            f'<span class="x-rt-mark">🔁 RT</span> '
+            f'<a href="{esc(_x_profile_url(ra))}" target="_blank" rel="noopener">@{esc(ra)}</a>: '
+            f'<span class="x-text">{linkify_tweet_text(rt.get("text",""), rt.get("urls"))}</span>'
+        )
+        if rt.get("media"):
+            ru = rt.get("url") or url
+            body_bits.append(f'<a class="x-media" href="{esc(ru)}" target="_blank" rel="noopener">📷 メディア</a>')
+    else:
+        if t.get("isReply"):
+            who = t.get("inReplyToUsername") or ""
+            who_html = f'<a href="{esc(_x_profile_url(who))}" target="_blank" rel="noopener">@{esc(who)}</a>' if who else ""
+            body_bits.append(f'<span class="x-reply-mark">↩ {who_html}</span>')
+        body_bits.append(f'<span class="x-text">{linkify_tweet_text(t.get("text",""), t.get("urls"))}</span>')
+        if t.get("media"):
+            body_bits.append(f'<a class="x-media" href="{esc(url)}" target="_blank" rel="noopener">📷 メディア</a>')
+        qt = t.get("quote_of")
+        if isinstance(qt, dict):
+            qa = (qt.get("author") or {}).get("userName") or ""
+            qurl = qt.get("url") or ""
+            qlink = f'<a href="{esc(qurl)}" target="_blank" rel="noopener">@{esc(qa)}</a>' if qurl else f"@{esc(qa)}"
+            body_bits.append(
+                f'<blockquote class="x-quote">{qlink}: '
+                f'{linkify_tweet_text(qt.get("text",""), qt.get("urls"))}'
+                + (f' <a class="x-media" href="{esc(qurl or url)}" target="_blank" rel="noopener">📷</a>' if qt.get("media") else "")
+                + "</blockquote>"
+            )
+    return f'        <div class="{classes}">{time_html} {" ".join(body_bits)}</div>'
+
+
+def render_x_section(x_data: Dict[str, Any], report_date: str) -> str:
+    accounts = x_data.get("accounts") or []
+    shown = [a for a in accounts if (a.get("tweets") or a.get("error"))]
+    quiet = [a.get("handle", "") for a in accounts if not a.get("tweets") and not a.get("error")]
+    total = sum(len(a.get("tweets") or []) for a in accounts)
+    fetched = ""
+    fd = _parse_x_time(x_data.get("fetched_at", ""))
+    if fd is not None:
+        fetched = f"、取得 {fd.astimezone():%m/%d %H:%M}"
+    win = x_data.get("window_hours") or 24
+    note = f'{len([a for a in accounts if a.get("tweets")])} アカウント / {total} 投稿（過去 {win} 時間{esc(fetched)}）'
+
+    cards: List[str] = []
+    for a in shown:
+        handle = a.get("handle", "")
+        name = a.get("name") or ""
+        tweets = a.get("tweets") or []
+        err = a.get("error")
+        name_html = f' · {esc(name)}' if name else ""
+        count_html = f'<span class="x-count">{len(tweets)} 投稿</span>' if tweets else '<span class="x-count x-count-err">取得失敗</span>'
+        rows = []
+        if err:
+            rows.append(f'        <p class="x-error">取得失敗: {esc(str(err))}</p>')
+        rows += [render_tweet(t, report_date) for t in tweets]
+        rows.append(
+            f'        <p class="x-profile"><a href="{esc(_x_profile_url(handle))}" target="_blank" rel="noopener">@{esc(handle)} のプロフィール ↗</a></p>'
+        )
+        cards.append(
+            f'      <details class="card card-x x-account" id="x-{esc(handle)}">\n'
+            f'        <summary><span class="card-head"><span class="badge badge-x">𝕏</span> '
+            f'<span class="card-title">@{esc(handle)}{name_html}</span> {count_html}</span></summary>\n'
+            f'        <div class="x-body">\n' + "\n".join(rows) + "\n        </div>\n"
+            f"      </details>"
+        )
+    quiet_html = ""
+    if quiet:
+        quiet_html = (
+            '      <p class="x-quiet">投稿なし: '
+            + "、".join(f'<a href="{esc(_x_profile_url(h))}" target="_blank" rel="noopener">@{esc(h)}</a>' for h in quiet if h)
+            + "</p>\n"
+        )
+    if not cards and not quiet_html:
+        return ""
+    controls = (
+        '<span class="section-controls">'
+        '<button type="button" id="x-expand-all">すべて展開</button>'
+        '<button type="button" id="x-collapse-all">すべて閉じる</button></span>'
+    )
+    return (
+        '    <section class="section" id="today-x">\n'
+        f'      <h2 class="section-title">今日のX{controls}</h2>\n'
+        f'      <p class="section-note">{note}</p>\n'
+        + ("\n".join(cards) + "\n" if cards else "")
+        + quiet_html
+        + "    </section>\n"
+    )
+
+
 # --- ナビ / ページ骨格 -------------------------------------------------------
 def nav_html(date: str, report_dates: List[str]) -> str:
     idx = report_dates.index(date) if date in report_dates else -1
@@ -512,13 +681,16 @@ PAGE_SCRIPT = """
         if (el && el.tagName === 'DETAILS') el.open = true;
       });
     });
-    var ex = document.getElementById('expand-all'), co = document.getElementById('collapse-all');
-    if (ex) ex.addEventListener('click', function () {
-      document.querySelectorAll('details.domain-details').forEach(function (d) { d.open = true; });
-    });
-    if (co) co.addEventListener('click', function () {
-      document.querySelectorAll('details.domain-details').forEach(function (d) { d.open = false; });
-    });
+    function wire(btnId, selector, open) {
+      var b = document.getElementById(btnId);
+      if (b) b.addEventListener('click', function () {
+        document.querySelectorAll(selector).forEach(function (d) { d.open = open; });
+      });
+    }
+    wire('expand-all', 'details.domain-details', true);
+    wire('collapse-all', 'details.domain-details', false);
+    wire('x-expand-all', 'details.x-account', true);
+    wire('x-collapse-all', 'details.x-account', false);
     openHash();
   });
 })();
@@ -597,6 +769,9 @@ def build_report_html(date: str, report_dates: List[str]) -> Optional[str]:
             insert_at = 1 if used_topic and body_parts else 0
             body_parts.insert(insert_at, cards)
 
+    x_data = load_x_data(date)
+    x_section = render_x_section(x_data, date) if x_data else ""
+
     css = inline_css()
     html_doc = f"""<!DOCTYPE html>
 <html lang="ja">
@@ -614,7 +789,7 @@ def build_report_html(date: str, report_dates: List[str]) -> Optional[str]:
       <h1>デイリーレポート</h1>
       <div class="report-date">{esc(date)}</div>
     </header>
-{''.join(body_parts)}    <footer class="footer">
+{x_section}{''.join(body_parts)}    <footer class="footer">
       <p><em>{esc(GENERATED_BY)}</em></p>
     </footer>
   </div>
