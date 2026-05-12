@@ -1,9 +1,20 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 30
-**最終更新日**: 2026-05-12
+**エントリ数**: 31
+**最終更新日**: 2026-05-13
 
 ## 蓄積された知識
+
+### TLS 1.3 ハンドシェイクの設計哲学 — なぜ過去の設計を根本から捨てたか (2026-05-13)
+- **MAC-then-Encrypt の構造的欠陥**: TLS 1.2 の CBC + MAC-then-Encrypt は原理的に修正不可能なレベルで壊れていた。BEAST (2011) / Lucky 13 (2013) / POODLE (2014) は全て同じ根本欠陥の表れ。TLS 1.3 は MAC-then-Encrypt を廃止し AEAD のみに統一した
+- **静的 RSA 鍵交換の廃止と前方秘匿性の強制**: TLS 1.2 の RSA 鍵交換では、サーバーの長期秘密鍵が漏洩すれば記録していた全過去通信を復号できた（前方秘匿性なし）。TLS 1.3 はすべての鍵交換を一時 ECDHE/DHE に限定し、前方秘匿性を強制
+- **暗号スイートの大幅削減（数十種類→5種類）**: 「柔軟性がある限り弱い選択肢を選ぶ人がいる」という現実への対処。暗号スイートのグレシャムの法則を制限で排除した設計
+- **1-RTT ハンドシェイク**: ClientHello に key_share（DH公開値）を最初から含めることで、ServerHello 受信直後に DH 共有秘密を計算できる。**サーバーはその後の全メッセージ（証明書を含む）を暗号化**できる。TLS 1.2 では証明書は平文だった
+- **HKDF 三段階キースケジュール（Krawczyk OPTLS設計）**: Early Secret → Handshake Secret → Master Secret の連鎖。PSK と ECDHE を独立した段階で混入し、片方が漏洩しても他方が守る。各段階でトランスクリプトハッシュを混入してダウングレード攻撃を防止。目的別（ハンドシェイク/アプリケーション/再開）に鍵を分離
+- **0-RTT の意図的なトレードオフ**: PSK を使って最初のリクエストを 0 往復で送れるが、replay 保護がない。RFC 8446 はこれを設計上の明示的なトレードオフとして記載し、「idempotent 操作（GETなど）にのみ使え」とアプリケーションに責任を委ねた。完全な replay 保護 = 最低 1-RTT 必要は数学的に証明可能
+- **SIGMA プロトコルと暗号化された証明書**: CertificateVerify は DH 鍵交換との identity misbinding 攻撃を防ぐためハンドシェイクトランスクリプトへの署名を含む。証明書は ServerHello 後に暗号化されるが、SNI は ClientHello 内で平文のまま（ECH RFC 9849 で対処中）
+- **削除カタログが欠陥の歴史書**: 廃止された RSA鍵交換・CBC暗号・RC4・MD5/SHA-1・Export暗号・圧縮・Renegotiation は全て実際に悪用された攻撃の根拠。特に Export 暗号（FREAK/Logjam 2015）は冷戦期の輸出規制の遺物が30年後に攻撃に使われた
+- **核心洞察**: 「削除こそが最大の設計成果」——TLS 1.3 は追加した機能より削除した機能の方が重要。後方互換性への政治的圧力に抗して危険な機能を廃止した IETF TLS WG の 4 年間（2014〜2018）の仕事。「柔軟性は脆弱性の母」「制限が安全性を生む」の典型例。0-RTT のトレードオフ明示化は CAP定理・RUM予想と同型の「何を犠牲にするかの明示」設計哲学
 
 ### 計算可能性理論 — チューリングマシン・停止問題・Rice の定理 (2026-05-12)
 - **チャーチ・チューリングのテーゼ**: 「直感的に計算可能 ⟺ チューリングマシンで計算可能」。λ計算・再帰関数・TM が等価。数学的定理でなく自然法則的主張だが90年以上反例なし。量子計算ですら計算可能性の範囲は変えない（変えるのは計算量だけ）。TM の本質＝「無限のテープ × 有限の制御」という非対称が万能性を生む
@@ -350,7 +361,7 @@
 | 分散システム | 2 |
 | 計算理論 | 3 |
 | コンピュータアーキテクチャ | 2 |
-| セキュリティ | 1 |
+| セキュリティ | 2 |
 | ストレージシステム | 1 |
 | 並行性・同期 | 1 |
 
@@ -391,6 +402,9 @@
 - **CAS のユニバーサリティ**: Herlihyの consensus hierarchy で CAS が ∞-consensus オブジェクトであることが、現代全CPUが CAS を持つ理論的正当化。命令セット設計への数学的ガイダンスが機能した稀なケース
 - **ヘルプパターン(cooperative helping)**: MS-queue の tail ヘルプ、RCU、分散合意の Byzantine helping — 「他人が詰まったら自分が代行」。individualism ではなく collectivism が lock-free progress の本質
 - **不可能性結果は設計指針**: FLP、Herlihy consensus hierarchy、CAP、RUM予想 — 全て「何を諦めるか」を示す。ネガティブ結果がポジティブ設計を駆動するパターン
+- **削除こそが最大の設計成果**: TLS 1.3 は追加した機能より削除した機能が重要。「柔軟性は脆弱性の母」——選択肢の存在が弱い選択を許す。制限・廃止・禁止が安全性・正確性・理解可能性を生む（Raft の状態空間削減、AEAD のみへの集約、ebpf の bounded loops と同型）
+- **責任の再分配としてのトレードオフ明示**: 0-RTT の replay 非保証を RFC に明記して「idempotent 操作にのみ使え」とアプリに委ねる設計は、CAP/RUM の「何を犠牲にするかの明示」哲学と同型。「完全に守る」ではなく「何を守り何を守らないかを明示する」が成熟したプロトコル設計
+- **段階的秘密鍵導出（キースケジュール）の耐障害性**: TLS 1.3 の Early/Handshake/Master Secret 連鎖は「片方の秘密が漏洩しても他方が守る」ハイブリッド強度設計。各段階に独立した情報源を混入し、一点の妥協が全体を壊さない — Reed-Solomon の冗長性、Raft のクォーラム、HLC の物理+論理ハイブリッドと同じ「多重保護」パターン
 
 ## 未解決の疑問
 
@@ -425,7 +439,9 @@
 - **格子ベース暗号（Lattice-based）の数学**: LWE（Learning With Errors）と Module-LWE の構造、ML-KEM/ML-DSA の内部
 - **ペアリング暗号（Pairing-based）**: BLS 署名、Identity-based encryption、ゼロ知識証明（zk-SNARKs）の数学的基礎
 - **同型暗号（Homomorphic Encryption）**: BFV/CKKS スキーム、暗号化されたデータ上での演算
-- **TLS 1.3 のハンドシェイク詳細**: ECDHE_X25519 + AEAD-ChaCha20-Poly1305 の組み合わせ
+- **ECH（Encrypted Client Hello, RFC 9849）詳細**: SNI の暗号化、Outer/Inner ClientHello 二層構造、DNS HTTPS レコードでの公開鍵配布
+- **QUIC + TLS 1.3 統合設計**: HTTP/3 では TLS 1.3 が QUIC に組み込まれ、0-RTT の replay 保護をトランスポート層が担う。TLS over TCP との設計差異
+- **Post-Quantum TLS ハイブリッドモード**: X25519 + ML-KEM の組み合わせ鍵交換、Cloudflare/Google 2024-2025 展開、格子暗号と楕円曲線のハイブリッド強度保証の数学
 - **量子鍵配送（QKD）**: BB84プロトコル、無条件安全性の物理的根拠
 - **TAGE-SC-L**: CBP-5優勝の Statistical Corrector + Loop predictor の構造
 - **Transient Execution Attacks系譜**: L1TF/Foreshadow、MDS/ZombieLoad、LVI、Retbleed、Inception (Zen 3/4)

@@ -1,7 +1,7 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-12
-**エントリ数**: 46
+**最終更新**: 2026-05-13
+**エントリ数**: 47
 
 ---
 
@@ -368,6 +368,14 @@
 - **コンピュートシェーダ**: GPUComputePipeline + dispatchWorkgroups。ワークグループ内の共有メモリ・バリア同期がGEMMタイル化に必須。2026年でサブグループ操作が標準化間近でAttention高速化を支える
 - **Q2 2026性能**: 計算集約的タスクでWebGPU vs WebGL = 3-5倍。WebLLM・Transformers.jsがブラウザ内LLM推論を実現し「推論のエッジ移動」パラダイムを決定的にした
 
+- **LoRA（Low-Rank Adaptation）の理論的基盤 (2026-05-13)**——固有次元仮説（Aghajanyan et al. 2021）：事前学習済みモデルのタスク適応は〜200次元のサブスペースに収まる。ΔW = BA（B∈ℝ^(d×r), A∈ℝ^(r×k)）の低ランク分解で訓練可能パラメータを10,000倍削減。推論時は W₀ + (α/r)·BA にマージしてオーバーヘッドゼロ（Adapter Tuning との決定的な差）
+- **rsLoRA（Rank-Stabilized LoRA、Kalajdzievski 2023）**——標準 LoRA の `α/r` スケーリングが高ランクで学習不安定になる問題を理論的に証明し `α/√r` に修正。高ランク（r=64+）を実用的に使えるようにした。Hugging Face PEFT に標準実装済み
+- **QLoRA（Dettmers et al. 2023、NeurIPS 2023）**——3 技術の組み合わせ：①NF4（4-bit NormalFloat：正規分布重みへの情報理論最適符号化）②Double Quantization（量子化定数をさらに量子化、0.37 bits/param 節約）③Paged Optimizers（NVIDIA Unified Memory で AdamW 状態を CPU RAM に退避して OOM 防止）。65B モデルを 48GB 単一 GPU でファインチューニング可能に。代償：訓練時間 39% 増
+- **DoRA（Weight-Decomposed LoRA、Liu et al. 2024、ICML Oral）**——重み行列を magnitude（m）と direction（V）に分解。フルファインチューニングでは m と direction 変化に負の相関がある一方、LoRA では相関してしまう。DoRA は magnitude をフルパラメータ更新・direction のみ LoRA で更新し、フルファインチューニングに近い学習軌跡を実現。LLaMA-7B でコモンセンス推論 +3.4 ポイント
+- **"Illusion of Equivalence"（NeurIPS 2025、arXiv:2410.21228）**——LoRA 微調整後の重み行列 SVD に "intruder dimensions"（高ランク特異ベクトル）が発生。フルファインチューニングにはない。事前学習分布への適合劣化・逐次マルチタスクでの破滅的忘却悪化につながる。解決は高ランク + rsLoRA の組み合わせ
+- **GaLore（Zhao et al. 2024、arXiv:2403.03507）**——LoRA と異なり**全パラメータをフルランクで更新しつつ勾配空間のみ低ランク射影**してオプティマイザ状態を O(mn)→O((m+n)r) 削減。LoRA が苦手な**事前学習フェーズ**にも適用可能。7B モデルを RTX 4090（24GB）単一 GPU で事前学習。GaLore 2（2025/04）で Randomized SVD（15x 高速化）+ FSDP 統合、500B トークン・256×H100 での Llama 7B 事前学習実証
+- **LoRA 実践的知見**——対象層：Q/V のみ（元論文）から MLP up_proj まで（2025 年の実践デフォルト、GRPO でリウォード感度 21.4%）。ランク：r=4〜8（シンプルタスク）→ r=16〜32（命令チューニング）→ r=64+（最高品質）。rsLoRA 前提なら α=16 固定で r を変化させるのがシンプル。「制約をパラメータ空間に移動させる」設計哲学はすべての PEFT 手法に共通
+
 ---
 
 ## キーコンセプト
@@ -413,7 +421,7 @@
 - Firefox/Safari対応方針——WebMCP標準化のブラウザベンダー動向
 - AgentGatewayのセッションアフィニティ問題——水平スケール時のステートフルMCP管理
 - A2A Agent Card v2の動向——能力ベースの動的発見
-- LoRA/QLoRA——量子化＋低ランク適応によるファインチューニング効率化の詳細
+- ~~LoRA/QLoRA——量子化＋低ランク適応によるファインチューニング効率化の詳細~~ → 2026-05-13 に学習済み
 - MoE推論最適化——DeepSeek-V3 671Bの効率的サービング手法
 - SGLang vs vLLM——次世代推論エンジンの詳細比較（RadixAttention等）
 - エッジデバイスLLM——Gemini Nano、Apple Intelligenceの技術的詳細
@@ -461,3 +469,7 @@
 - E2EE for group calls——Insertable Streams APIによるSFU通過後のメディア暗号化、Signal/WhatsApp/Zoom実装差
 - WHIP/WHEP——WebRTC-HTTP Ingestion/Egress Protocol、RTMP置換プロトコル
 - WebCodecs+WebTransport+Wasm——ブラウザで独自低遅延通信を組む新潮流（Zoom実用化）
+- LoRA マージ技術——TIES-Merging・DARE・SLERP で複数 LoRA/モデルを重みスペースで合成する手法
+- LongLoRA——sparse attention + LoRA による LLaMA の 4K→128K コンテキスト拡張の仕組み
+- EWC（Elastic Weight Consolidation）+ LoRA——継続的学習での破滅的忘却防止の組み合わせ設計
+- AdaLoRA の実装詳細——SVD 形式での重み更新と動的ランク刈り込みアルゴリズム

@@ -1,14 +1,15 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-05-12
-**エントリ数**: 37
-**フレーズ数**: 148
+**最終更新**: 2026-05-13
+**エントリ数**: 38
+**フレーズ数**: 152
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
 ---
 
 ## カバー済みテーマ
+- **2026-05-13**: 人を慰める・共感を示す (Jemanden trösten und Mitgefühl zeigen) — 相手の告白への受け止め (Das ist wirklich nicht leicht — ich bin froh, dass du mir das erzählt hast. — *nicht leicht* 婉曲共感、*froh sein dass* 副文、*erzählen* vs *sagen* の使い分け、関連 *für jdn. da sein* / *Das klingt wirklich hart*)、言葉が見つからないときの正直な表現 (Ich weiß ehrlich gesagt nicht, was ich sagen soll — aber ich bin für dich da. — *ehrlich gesagt* 挿入句、*was ich sagen soll* 間接疑問 + Konj. I *soll*、*für jdn. da sein* サポート慣用句、関連 *Ich bin in Gedanken bei dir* / *Das tut mir wirklich leid*)、元気を出させる自然なフレーズ (Das wird schon wieder — gib dir ein bisschen Zeit. — 楽観的保証の心態詞 *schon*、再帰 Dativ *gib dir Zeit*、関連 *Kopf hoch!* / *Wein es ruhig raus*)、具体的サポート申し出 (Wenn du irgendwas brauchst — sei es auch nur zum Reden — sag einfach Bescheid. — **接続法 I** 譲歩用法 *sei es auch nur*、*irgendwas*=口語 *irgendetwas*、*einfach* 心態詞機能、*Bescheid sagen* 汎用連絡動詞)。**ドイツ語の共感表現は「感情の共鳴」より「行動の申し出・意志表明」で示す**傾向（*da sein / sich melden / Bescheid sagen* 等の動詞群）、「言葉が見つからないこと」を言語化する誠実さ（Phrase 2）、Konjunktiv I の口語的生き残り（*sei es auch nur* / *wie dem auch sei* / *es sei denn*）、心態詞 *schon* の楽観コミットメント用法再確認
 - **2026-05-12**: 職場・オフィスでの会話 (Im Büro — Berufsalltag, Kollegen und Besprechungen) — 朝の声かけ (Na, viel los heute? — *na* 呼びかけ間投詞、*viel los* = 忙しい/賑わっている、*los sein* = 起きている、関連 *Bei mir brennt's gerade* / *Ich komm heute zu gar nichts*)、会議で割り込む (Darf ich da kurz einhaken? — *einhaken* = 話に食いつく〔自分の発言には *unterbrechen/dazwischenreden* より穏やか〕、*da/dazu/dabei* で議論のどこに反応しているか明示、許可の *darf* vs 可能の *kann*、関連 *Können wir das parken?* = 議題を脇に置く〔英語 "park it" の借用〕)、依頼を後回しにする (Sorry, ich steck gerade mitten in was — kann ich später auf dich zukommen? — *mitten in etwas stecken* = 真っ只中、*auf jdn. zukommen* = あとで連絡する〔ビジネス頻出〕、*in was* = in etwas 口語、関連 *Hast du kurz?* / *Schreib mir eine Mail, dann geht's nicht unter*)、終業・休暇 (Ich mach für heute Feierabend — bis morgen! — **Feierabend** = 終業〔後の時間〕、ドイツでは定時退社は当然の権利で罪悪感不要、*Schönen Feierabend!* は帰る人・残る人双方が言う、関連語 *Überstunden abbauen* / *Gleitzeit* / *Zeitkonto* / *Urlaub beantragen* / *sich krankmelden* / *AU*、*sich ausklinken*)。**Feierabend という独立した名詞が「労働が終わったらそこで私生活が始まる」文化的前提を物語る**（英語・日本語に一語の等価物なし）、ビジネスドイツ語の英語化レイヤー（Sorry/parken/Meeting/Deadline/Feedback、純ドイツ語だけだとお役所っぽく聞こえる→レジスター使い分け）、モーダル助詞 *mal* のぼかし機能（*Ich bin dann mal weg* — *mal* を抜くと唐突・冷たい）、*Sie/du* の境界が会社の文化を表す（伝統的大企業は社内でも *Sie*、IT/スタートアップは初日から *du*、*„Sollen wir uns duzen?"* が人間関係の節目）
 - **2026-05-10**: レストランで注文・苦情 (Im Restaurant — Bestellen und Reklamieren) — 中身を聞く (Was ist da eigentlich alles drin? — *eigentlich* モーダル助詞、*drin*=darin 口語、*Aus was besteht das?* 関連表現)、おすすめを聞く (Was können Sie denn empfehlen? — *denn* で柔らかさ、*empfehlen* は Dat+Akk 二格、接続法 II *empföhle/empfähle*)、注文間違いの指摘 (Entschuldigung, das hatte ich aber nicht bestellt. — **過去完了**で「料理が来る前の時点」強調、*aber* は逆接ではなく主張強調)、別払い (Können wir bitte getrennt zahlen? — getrennt zahlen はドイツ・オーストリアの**文化的標準**、Stimmt so. でチップ込み、aufrunden 文化)。**モーダル助詞 (denn/eigentlich/aber/halt/eben...) は会話の 30〜50% に登場し B1→B2/C1 の決定的差**、過去完了の口語的時間軸強調用法、ドイツの個人主義+平等主義に基づく Reklamieren 文化 (苦情を伝えることに罪悪感がない)
 - **2026-05-09**: 道案内 (Wegbeschreibung und Orientierung) — 道を聞く (Entschuldigung, wie komme ich am besten zum Hauptbahnhof? — `am besten`が一番良い行き方を示す丁寧語、`nach`+都市vs`zu`+施設、`zum/zur` 融合)、口語の方向 (Geh die Straße runter, an der Ampel rechts, dann siehst du's schon. — `runter`=hinunter口語短縮、`siehst du's schon`の `schon`=「すぐに」、`an der Ampel`は3格)、迷ったときの謝罪 (Tut mir leid, ich bin selber nicht von hier. Aber ich glaube, das ist da hinten irgendwo. — 道聞かれ最頻出謝罪、`selber`の同情共感、`da hinten/vorn/drüben`位置語、`irgendwo`不確実ヘッジ)、複雑経路 (Du gehst hier links raus, dann immer geradeaus über die Brücke. Auf der anderen Seite siehst du gleich den Park – da musst du dann einmal um die Ecke. — `raus`=hinaus/heraus口語、**Wechselpräpositionen**: `über die Brücke`(4格・移動)vs`auf der Brücke`(3格・静止)、`einmal um die Ecke`慣用句、`gleich`時間/空間多義)。Wechselpräpositionenの精密性、口語短縮形（runter/raus/rein）、**南独/オーストリアの`halt/Servus`**、ドイツ流親切=誠実な情報提供
@@ -54,6 +55,15 @@
 - **2026-04-29**: お金と財政（Geld und Finanzen II — pleite, ins Geld gehen, jeden Cent zweimal umdrehen, Haushalt durchforsten）
 
 ## 蓄積された知識
+- **Jemanden trösten / Mitgefühl zeigen（2026-05-13）**: `Das ist wirklich nicht leicht — ich bin froh, dass du mir das erzählt hast.`（neutral、告白の受け止め。*nicht leicht* 婉曲共感、*erzählen* = 語る〔*sagen* より深い打ち明け〕）、`Ich weiß ehrlich gesagt nicht, was ich sagen soll — aber ich bin für dich da.`（neutral、言葉が見つからないときの正直な表現。*für jdn. da sein* = そばにいる〔慰めの核心慣用句〕）、`Das wird schon wieder — gib dir ein bisschen Zeit.`（umgangssprachlich、自然な励まし。楽観的保証の心態詞 *schon* + 再帰 Dativ *gib dir Zeit*）、`Wenn du irgendwas brauchst — sei es auch nur zum Reden — sag einfach Bescheid.`（neutral、敷居の低いサポート申し出。接続法 I 譲歩 *sei es auch nur* + 心態詞 *einfach*）
+- **`für jdn. da sein`**: 「誰かのためにそこにいる」→「精神的・物理的にそばにいる、サポートする」。*„Ich bin immer für dich da."* が「いつでも頼って」の最頻慰め表現。
+- **`Bescheid sagen/geben`**: 「知らせる・一報入れる」の汎用連絡動詞。*kurz Bescheid sagen*（ちょっと知らせる）、職場でも日常でも幅広く使える。
+- **接続法 I（Konjunktiv I）の口語慣用句**: *sei es auch nur*（たとえ〜だけでも）/ *wie dem auch sei*（いずれにせよ）/ *es sei denn, dass...*（〜でない限り）/ *sei's drum*（それはそれとして）——固定化した譲歩・条件の慣用句として口語に定着。
+- **再帰 Dativ「自分への利益」**: *gib dir Zeit* の *dir*、*ich hol mir was* の *mir*——主語と再帰代名詞が同一人物で Dativ を取る「利益受け手」構造（Dativ der Interessenrichtung）。
+- **`nicht leicht / nicht einfach / kein Spaß`**: ドイツ語共感表現の婉曲パターン——「つらい」を直接 *schlimm/schwer* と言う代わりに否定形で程度を柔らかく示す。
+- **`ehrlich gesagt` 挿入句**: 文中どこにでも挿入でき V2 語順に影響しない。「建前を外して本音を言う」合図。同系: *unter uns gesagt*, *meiner Meinung nach*。
+- **慰め表現のスペクトル**: *„Das klingt wirklich hart."*（共感の第一声）→ *für dich da sein*（存在のサポート）→ *gib dir Zeit*（時間の提案）→ *sag Bescheid*（具体的申し出）——状況の深刻さに応じて使い分ける。
+
 - **Im Büro / Berufsalltag（2026-05-12）**: `Na, viel los heute?`（umgangssprachlich、朝の声かけ。返事は *Geht so* / *Ja, ganz schön viel* / *Eigentlich ganz ruhig*）、`Darf ich da kurz einhaken?`（neutral、会議で割り込む。よりフォーマルなら *Wenn ich kurz ergänzen darf …*）、`Sorry, ich steck gerade mitten in was — kann ich später auf dich zukommen?`（umgangssprachlich、依頼を後回しに。*Sie* なら *darf ich später auf Sie zukommen?*）、`Ich mach für heute Feierabend — bis morgen!`（neutral〜umg.、退勤。*Schönen Feierabend!* は双方が言う別れ言葉）
 - **`Feierabend`**: 「労働 vs 余暇」をはっきり分けるドイツ文化の象徴語。*Feierabend machen* = 仕事を切り上げる、*nach Feierabend* = 仕事終わりに、*Feierabendbier*、*jetzt ist Feierabend!* = もうおしまい（比喩的に交渉や子どもの遊びの打ち切りにも）。英語 *holiday* に引きずられて *Urlaub*（個人の有給）と *Feiertag*（国民の祝日）を混同しないこと
 - **`los sein`**: 「（場所・状況で）何かが起きている」。*Was ist hier los?* / *Auf der Party war richtig was los* / *viel los* = 忙しい・賑わっている。仕事の文脈では *viel zu tun*（自分のタスク量）と近いが *los* は「周りの慌ただしさ」に寄る
@@ -187,6 +197,9 @@
 - „Hast du meine Nachricht überhaupt gelesen? Da standen alle Infos drin." — メッセージちゃんと読んだ？（überhaupt=苛立ちの強調、drinstehen分離動詞）
 
 ## 重要文法パターン
+- **Konjunktiv I の口語慣用句**: *sei es auch nur* / *wie dem auch sei* / *es sei denn* / *sei's drum*——間接話法・新聞文体だけでなく、固定慣用句として口語に定着
+- **再帰 Dativ（Dativ der Interessenrichtung）**: *gib dir Zeit / ich hol mir was*——主語 = 再帰代名詞（Dativ）、行為の受益者が自分自身を示す
+- **婉曲共感の否定形**: *nicht leicht / nicht einfach / kein Spaß*——「つらい」を直接言わず否定形で柔らかく程度を示す慰め文体
 - **enttäuscht von + Dat.**: ～に失望した（über + Akk.も可だがvonが自然）
 - **warten auf + Akk.**: ～を待つ（auf + Dat.と混同注意）
 - **seit + Dat.**: ～以来（期間にも時点にも使える）
@@ -350,6 +363,9 @@
 - Beschwerden描写の形容詞（dumpf, stechend, pochend等）
 - Kneipe（居酒屋）でのカジュアルな注文表現
 - Bäckerei（パン屋）での注文ドイツ語
+- 哀悼の定型表現（Kondolenz）: *Mein herzliches Beileid* / *Ich bin tief betroffen* のフォーマル度差
+- Konjunktiv I 慣用句の体系化: sei es auch nur / wie dem auch sei / es sei denn / sei's drum 一覧
+- 「時間が解決する」自動詞群: *sich geben / sich legen / sich einpendeln*（推移・自然変化のドイツ語パターン）
 - Beschwerden im Restaurant（レストランでのクレーム表現）
 - ドイツ料理の名前の語源（Schnitzel, Knödel, Strudel等）
 - Wetter-Idiome体系整理（Rückenwind bekommen, den Wind aus den Segeln nehmen等）
