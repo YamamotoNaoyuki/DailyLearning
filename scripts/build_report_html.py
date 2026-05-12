@@ -710,6 +710,10 @@ def main(argv: List[str]) -> int:
 
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    # GitHub Pages の Jekyll 処理を無効化（手組みの静的 HTML をそのまま配信させる）
+    nojekyll = DOCS_DIR / ".nojekyll"
+    if not nojekyll.exists():
+        nojekyll.touch()
 
     written = []
     final_dates = []
