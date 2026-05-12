@@ -2042,7 +2042,13 @@ $$</p>
     document.querySelectorAll('button.collapse-card').forEach(function (b) {
       b.addEventListener('click', function () {
         var d = b.closest('details');
-        if (d) { d.open = false; d.scrollIntoView({ block: 'start' }); }
+        if (!d) return;
+        d.open = false;
+        // CSS の scroll-behavior:smooth を一時無効化して即スナップ
+        var root = document.documentElement, prev = root.style.scrollBehavior;
+        root.style.scrollBehavior = 'auto';
+        d.scrollIntoView({ block: 'start', behavior: 'instant' });
+        root.style.scrollBehavior = prev;
       });
     });
     function wire(btnId, selector, open) {
