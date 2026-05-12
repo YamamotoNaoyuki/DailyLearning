@@ -430,6 +430,28 @@ details .detail-content {
    Self-contained report additions
    ============================================ */
 
+/* --- Quick links bar (template links at the very top) --- */
+.quicklinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.1rem;
+  padding: 0.55rem 0.1rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--border-light);
+}
+.quicklinks a {
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.quicklinks a:hover { text-decoration: underline; }
+.quicklinks a::after {
+  content: " ↗";
+  color: var(--text-muted);
+  font-size: 0.85em;
+}
+
 /* --- Section heading controls (expand / collapse all) --- */
 .section-controls {
   float: right;
