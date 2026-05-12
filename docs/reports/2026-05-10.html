@@ -760,6 +760,25 @@ details .detail-content {
 .domain-source { margin-top: 1.75rem; font-size: 0.8rem; }
 .domain-source a { color: var(--text-muted); }
 
+/* --- 展開カード下端の「閉じる」 --- */
+.collapse-card {
+  display: block;
+  width: 100%;
+  margin-top: 1.25rem;
+  padding: 0.55rem 0;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.8rem;
+  text-align: center;
+  cursor: pointer;
+}
+.collapse-card:hover { background: var(--border-light); color: var(--text-secondary); }
+.domain-details, .x-account { scroll-margin-top: 0.8rem; }
+.x-feed .collapse-card { margin-top: 0; }
+
 /* --- Generic section tables (e.g. accumulation summary) --- */
 .section > table {
   width: 100%;
@@ -824,24 +843,6 @@ details .detail-content {
       <h1>デイリーレポート</h1>
       <div class="report-date">2026-05-10</div>
     </header>
-    <section class="section" id="topics">
-      <h2 class="section-title">今日のトピック一覧</h2>
-      <table class="topic-table">
-        <thead><tr><th>分野</th><th>テーマ</th><th></th></tr></thead>
-        <tbody>
-          <tr><td><span class="badge badge-tech">tech</span></td><td><a href="#card-tech">Sigstore とソフトウェアサプライチェーンセキュリティ</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/tech/2026-05-10_Sigstoreとソフトウェアサプライチェーンセキュリティ.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
-          <tr><td><span class="badge badge-music">music</span></td><td><a href="#card-music">ショスタコーヴィチ弦楽四重奏曲第8番とDSCH動機</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/music/2026-05-10_ショスタコーヴィチ弦楽四重奏曲第8番とDSCH動機.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
-          <tr><td><span class="badge badge-piano">piano</span></td><td><a href="#card-piano">トリルとトレモロの神経筋制御</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/piano/2026-05-10_トリルとトレモロの神経筋制御.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
-          <tr><td><span class="badge badge-golf">golf</span></td><td><a href="#card-golf">ウェッジグルーブ規制2010とスピン物理学</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/golf/2026-05-10_ウェッジグルーブ規制2010とスピン物理学.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
-          <tr><td><span class="badge badge-anatomy">anatomy</span></td><td><a href="#card-anatomy">筋紡錘とゴルジ腱器官の固有受容感覚</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/anatomy/2026-05-10_筋紡錘とゴルジ腱器官の固有受容感覚.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
-          <tr><td><span class="badge badge-bread">bread</span></td><td><a href="#card-bread">長時間冷蔵発酵リターディングの科学と風味形成</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/bread/2026-05-10_長時間冷蔵発酵リターディングの科学と風味形成.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
-          <tr><td><span class="badge badge-cs">cs</span></td><td><a href="#card-cs">HyperLogLog と Count-Min Sketch — ストリーミング近似アルゴリズム</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/cs/2026-05-10_HyperLogLogとCount-Min_Sketchストリーミング近似アルゴリズム.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
-          <tr><td><span class="badge badge-house-hunting">house</span></td><td><a href="#card-house-hunting">固定資産税評価額と都市計画税の評価メカニズム</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/house-hunting/2026-05-10_固定資産税評価額と都市計画税の評価メカニズム.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
-          <tr><td><span class="badge badge-deutsch">deutsch</span></td><td><a href="#card-deutsch">Im Restaurant — Bestellen und Reklamieren</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/deutsch/2026-05-10_Im_Restaurant_Bestellen_und_Reklamieren.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
-          <tr><td><span class="badge badge-other">other</span></td><td><a href="#card-other">クマムシのクリプトビオシスとTun状態</a></td><td class="src-col"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/other/2026-05-10_クマムシのクリプトビオシスとTun状態.md" class="ext-link" target="_blank" rel="noopener">md&nbsp;↗</a></td></tr>
-        </tbody>
-      </table>
-    </section>
     <section class="section" id="domains">
       <h2 class="section-title">今日のテーマ概要        <span class="section-controls"><button type="button" id="expand-all">すべて展開</button><button type="button" id="collapse-all">すべて閉じる</button></span></h2>
       <p class="section-note">各カードをクリックすると、そのドメインの全文が開きます。</p>
@@ -893,6 +894,7 @@ details .detail-content {
 <li>Flajolet et al., "HyperLogLog: the analysis of a near-optimal cardinality estimation algorithm" (Rekor 内部実装関連)</li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/tech/2026-05-10_Sigstoreとソフトウェアサプライチェーンセキュリティ.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+          <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
       <details id="card-music" class="card card-music domain-details">
@@ -949,6 +951,7 @@ details .detail-content {
 <li><a href="https://www.brentanoquartet.com/notes/shostakovich-quartet-8/">Brentano String Quartet: Shostakovich Quartet #8</a></li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/music/2026-05-10_ショスタコーヴィチ弦楽四重奏曲第8番とDSCH動機.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+          <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
       <details id="card-piano" class="card card-piano domain-details">
@@ -1003,6 +1006,7 @@ details .detail-content {
 <li><a href="https://www.tonebase.co/piano-blog-posts/what-are-single-and-double-rotation-at-the-piano">tonebase Piano: Single and Double Rotation</a></li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/piano/2026-05-10_トリルとトレモロの神経筋制御.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+          <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
       <details id="card-golf" class="card card-golf domain-details">
@@ -1076,6 +1080,7 @@ details .detail-content {
 <li><a href="https://www.globalgolf.com/articles/usga-groove-rule/">GlobalGolf: USGA Groove Rule</a></li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/golf/2026-05-10_ウェッジグルーブ規制2010とスピン物理学.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+          <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
       <details id="card-anatomy" class="card card-anatomy domain-details">
@@ -1147,6 +1152,7 @@ details .detail-content {
 <li><a href="https://www.physio-pedia.com/Golgi_Tendon_Organ">Physiopedia: Golgi Tendon Organ</a></li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/anatomy/2026-05-10_筋紡錘とゴルジ腱器官の固有受容感覚.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+          <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
       <details id="card-bread" class="card card-bread domain-details">
@@ -1235,6 +1241,7 @@ details .detail-content {
 <li><a href="https://breadtopia.com/experimenting-with-refrigerated-final-proofing/">Breadtopia: Experimenting with Refrigerated Final Proofing</a></li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/bread/2026-05-10_長時間冷蔵発酵リターディングの科学と風味形成.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+          <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
       <details id="card-cs" class="card card-cs domain-details">
@@ -1357,6 +1364,7 @@ $$</p>
 <li><a href="https://en.wikipedia.org/wiki/Count-distinct_problem">Wikipedia: Count-distinct problem</a></li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/cs/2026-05-10_HyperLogLogとCount-Min_Sketchストリーミング近似アルゴリズム.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+          <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
       <details id="card-house-hunting" class="card card-house-hunting domain-details">
@@ -1472,6 +1480,7 @@ $$</p>
 <li><a href="https://www.rosenka.nta.go.jp/docs/ref_rtof.htm">国税庁: 評価倍率表(一般の土地等用)</a></li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/house-hunting/2026-05-10_固定資産税評価額と都市計画税の評価メカニズム.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+          <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
       <details id="card-deutsch" class="card card-deutsch domain-details">
@@ -1632,6 +1641,7 @@ $$</p>
 <li><a href="https://www.thegermanproject.com/german-lessons/restaurant">The German Project: Restaurant Lessons with Audio</a></li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/deutsch/2026-05-10_Im_Restaurant_Bestellen_und_Reklamieren.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+          <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
       <details id="card-other" class="card card-other domain-details">
@@ -1734,6 +1744,7 @@ $$</p>
 <li><a href="https://asknature.org/strategy/cryptobiosis-protects-from-extremes/">AskNature: Cryptobiosis Protects From Extremes</a></li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/other/2026-05-10_クマムシのクリプトビオシスとTun状態.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
+          <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
     </section>
@@ -2026,6 +2037,12 @@ $$</p>
       a.addEventListener('click', function () {
         var el = document.getElementById(a.getAttribute('href').slice(1));
         if (el && el.tagName === 'DETAILS') el.open = true;
+      });
+    });
+    document.querySelectorAll('button.collapse-card').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var d = b.closest('details');
+        if (d) { d.open = false; d.scrollIntoView({ block: 'start' }); }
       });
     });
     function wire(btnId, selector, open) {

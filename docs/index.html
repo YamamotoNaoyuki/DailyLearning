@@ -760,6 +760,25 @@ details .detail-content {
 .domain-source { margin-top: 1.75rem; font-size: 0.8rem; }
 .domain-source a { color: var(--text-muted); }
 
+/* --- 展開カード下端の「閉じる」 --- */
+.collapse-card {
+  display: block;
+  width: 100%;
+  margin-top: 1.25rem;
+  padding: 0.55rem 0;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.8rem;
+  text-align: center;
+  cursor: pointer;
+}
+.collapse-card:hover { background: var(--border-light); color: var(--text-secondary); }
+.domain-details, .x-account { scroll-margin-top: 0.8rem; }
+.x-feed .collapse-card { margin-top: 0; }
+
 /* --- Generic section tables (e.g. accumulation summary) --- */
 .section > table {
   width: 100%;

@@ -381,6 +381,7 @@ def render_domain_cards(theme_overview: Dict[str, str], topic_links: Dict[str, s
             f"{tag_block}"
             f"{body_html}\n"
             f'          <p class="domain-source"><a href="{esc(link)}" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>\n'
+            f'          <button type="button" class="collapse-card">▲ 閉じる</button>\n'
             f"        </div>\n"
             f"      </details>"
         )
@@ -463,7 +464,7 @@ def render_generic_section(title: str, body: str, anchor: str) -> str:
 
 # --- 「今日のX」セクション（data/x/<date>.json を X 風に埋め込む） -----------
 X_DATA_DIR = ROOT / "data" / "x"
-_X_MAX_PER_ACCOUNT = 80          # レポートが肥大化しないよう、1アカウントあたりの表示上限
+_X_MAX_PER_ACCOUNT = 100          # レポートが肥大化しないよう、1アカウントあたりの表示上限
 _X_MENTION_RE = re.compile(r"(?<![\w@/])@(\w{1,20})")
 _X_HASHTAG_RE = re.compile(r"(?<![\w&#＃])[#＃](\w+)")
 _X_TCO_RE = re.compile(r"https?://t\.co/\w+")
@@ -785,6 +786,7 @@ def render_x_section(x_data: Dict[str, Any], report_date: str) -> str:
                         f'<a href="{esc(_x_profile_url(handle))}" target="_blank" rel="noopener">@{esc(handle)} を X で見る ↗</a></p>')
         feed.append(f'        <p class="x-profile"><a href="{esc(_x_profile_url(handle))}" target="_blank" rel="noopener">'
                     f'@{esc(handle)} のプロフィールを X で開く ↗</a></p>')
+        feed.append('        <button type="button" class="collapse-card">▲ 閉じる</button>')
         cards.append(
             f'      <details class="card card-x x-account" id="x-{esc(handle)}">\n'
             f'        <summary class="x-acc-summary">{_avatar_img(avatar, "x-avatar x-acc-avatar")}'
@@ -868,6 +870,12 @@ PAGE_SCRIPT = """
         if (el && el.tagName === 'DETAILS') el.open = true;
       });
     });
+    document.querySelectorAll('button.collapse-card').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var d = b.closest('details');
+        if (d) { d.open = false; d.scrollIntoView({ block: 'start' }); }
+      });
+    });
     function wire(btnId, selector, open) {
       var b = document.getElementById(btnId);
       if (b) b.addEventListener('click', function () {
@@ -925,11 +933,10 @@ def build_report_html(date: str, report_dates: List[str]) -> Optional[str]:
         used_anchors.add(a)
         return a
 
-    used_topic = used_overview = False
+    used_overview = False
     for idx, (head, body) in enumerate(sections):
-        if "トピック" in head and not used_topic:
-            body_parts.append(render_topic_table(topic_rows) or render_generic_section(head, body, uniq("topics-fb")))
-            used_topic = True
+        if "トピック" in head:
+            continue  # トピック一覧テーブルは出さない（テーマ概要カードが代替し、リンクは↑で取得済み）
         elif is_overview_head(head) and not used_overview:
             cards = render_domain_cards(theme_overview, topic_links, date)
             body_parts.append(cards or render_generic_section(head, body, uniq("domains-fb")))
@@ -948,13 +955,11 @@ def build_report_html(date: str, report_dates: List[str]) -> Optional[str]:
             slug = re.sub(r"[^a-z0-9]+", "-", head.lower()).strip("-")
             body_parts.append(render_generic_section(head, body, uniq(f"sec-{idx}-{slug}" if slug else f"sec-{idx}")))
 
-    # テーマ概要セクションが統合レポートに無くてもカードは出す
+    # テーマ概要セクションが統合レポートに無くてもカードは先頭に出す
     if not used_overview:
         cards = render_domain_cards(theme_overview, topic_links, date)
         if cards:
-            # トピック表の直後に挿入
-            insert_at = 1 if used_topic and body_parts else 0
-            body_parts.insert(insert_at, cards)
+            body_parts.insert(0, cards)
 
     x_data = load_x_data(date)
     x_section = render_x_section(x_data, date) if x_data else ""
