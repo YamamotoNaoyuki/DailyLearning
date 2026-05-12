@@ -461,11 +461,49 @@ def render_generic_section(title: str, body: str, anchor: str) -> str:
     )
 
 
-# --- 「今日のX」セクション（data/x/<date>.json を埋め込む） ------------------
+# --- 「今日のX」セクション（data/x/<date>.json を X 風に埋め込む） -----------
 X_DATA_DIR = ROOT / "data" / "x"
+_X_MAX_PER_ACCOUNT = 80          # レポートが肥大化しないよう、1アカウントあたりの表示上限
 _X_MENTION_RE = re.compile(r"(?<![\w@/])@(\w{1,20})")
 _X_HASHTAG_RE = re.compile(r"(?<![\w&#＃])[#＃](\w+)")
 _X_TCO_RE = re.compile(r"https?://t\.co/\w+")
+
+# X 風アイコン: <symbol> を一度だけ定義し、各所で <use> で参照（HTML サイズ削減）
+_X_ICON_PATHS = {
+    "reply": ('M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 '
+              '7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 '
+              '2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z'),
+    "rt": ('M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 '
+           '9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 '
+           '1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z'),
+    "like": ('M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 '
+             '1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 '
+             '1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 '
+             '2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z'),
+    "link": ('M11.96 14.945c-.067 0-.136-.01-.203-.027-1.13-.318-2.097-.986-2.795-1.932-.832-1.125-1.176-2.508-.968-3.893s.945-2.605 '
+             '2.07-3.438l3.79-2.81c2.31-1.71 5.575-1.225 7.29 1.084 1.71 2.31 1.225 5.576-1.084 7.286l-1.51 1.121c-.443.328-1.068.236-1.396-.207-.33-.443-.237-1.068.206-1.397l1.51-1.12c1.43-1.06 '
+             '1.732-3.09.672-4.518-1.06-1.43-3.09-1.732-4.52-.672l-3.79 2.81c-.692.513-1.143 1.265-1.27 2.118s.083 1.704.59 2.396c.43.583 1.034 1 1.726 1.193.53.15.84.7.69 1.23-.123.443-.527.737-.96.737zm-2.21 '
+             '5.451l3.79-2.81c1.42-1.05 1.72-3.061.67-4.491-1.05-1.43-3.061-1.722-4.491-.672l-1.51 1.12c-.443.327-1.068.236-1.396-.207-.33-.443-.237-1.068.206-1.397l1.51-1.12c2.31-1.71 '
+             '5.576-1.225 7.286 1.084 1.71 2.31 1.225 5.576-1.084 7.286l-3.79 2.81c-.831.616-1.81.911-2.78.911-1.6 0-3.172-.736-4.181-2.103-.832-1.125-1.176-2.509-.968-3.894s.945-2.605 '
+             '2.07-3.438l1.51-1.12c.443-.328 1.068-.237 1.396.206.33.443.237 1.068-.206 1.397l-1.51 1.12c-1.43 1.06-1.731 3.091-.671 4.521 1.06 1.43 3.09 1.72 4.52.67z'),
+    "verified": ('M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.443C11.276 '
+                 '1.413 10.647 1.215 10 1.196c-.646.018-1.275.215-1.816.57-.54.354-.972.852-1.246 1.438-.607-.223-1.264-.27-1.897-.14-.634.131-1.218.437-1.687.882-.445.47-.75 1.053-.882 1.687-.13.633-.083 1.29.14 '
+                 '1.897-.587.273-1.086.704-1.443 1.245C.413 10.724.215 11.353.196 12c.018.646.215 1.275.57 1.816.354.54.852.972 1.438 1.246-.223.607-.27 1.264-.14 1.897.131.634.437 1.218.882 1.687.47.445 1.053.75 1.687.882.633.13 '
+                 '1.29.083 1.897-.14.273.587.704 1.086 1.245 1.443.541.357 1.17.555 1.816.574.646-.018 1.275-.215 1.816-.57.54-.354.972-.852 1.246-1.438.607.223 1.264.27 1.897.14.634-.131 1.218-.437 1.687-.882.445-.47.75-1.053.882-1.687.13-.633.083-1.29-.14-1.897.587-.273 '
+                 '1.086-.704 1.443-1.245.357-.541.555-1.17.574-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z'),
+}
+_X_ICON_VIEWBOX = {"reply": "0 0 24 24", "rt": "0 0 24 24", "like": "0 0 24 24", "link": "0 0 24 24", "verified": "0 0 22 22"}
+X_ICON_DEFS = (
+    '<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">'
+    + "".join(f'<symbol id="x-i-{k}" viewBox="{_X_ICON_VIEWBOX[k]}"><path d="{v}"></path></symbol>'
+             for k, v in _X_ICON_PATHS.items())
+    + "</svg>"
+)
+_X_ICO_REPLY = '<svg class="x-ico" aria-hidden="true"><use href="#x-i-reply"></use></svg>'
+_X_ICO_RT = '<svg class="x-ico" aria-hidden="true"><use href="#x-i-rt"></use></svg>'
+_X_ICO_LIKE = '<svg class="x-ico" aria-hidden="true"><use href="#x-i-like"></use></svg>'
+_X_ICO_LINK = '<svg class="x-ico" aria-hidden="true"><use href="#x-i-link"></use></svg>'
+_X_ICO_VERIFIED = '<svg class="x-verified" aria-hidden="true"><use href="#x-i-verified"></use></svg>'
 
 
 def load_x_data(date: str) -> Optional[Dict[str, Any]]:
@@ -495,14 +533,64 @@ def _parse_x_time(s: str) -> Optional[_dt.datetime]:
     return None
 
 
-def _fmt_x_time(created_at: str, report_date: str) -> str:
+def _rel_time(created_at: str, ref: Optional[_dt.datetime]) -> Tuple[str, str]:
+    """X 風の相対時刻 (表示文字列, ツールチップ用の絶対時刻) を返す。"""
     d = _parse_x_time(created_at)
     if d is None:
-        return esc(created_at or "")
-    local = d.astimezone()  # ビルドはユーザのローカル TZ（JST）で走る
-    if local.strftime("%Y-%m-%d") == report_date:
-        return local.strftime("%H:%M")
-    return f"{local.month}/{local.day} {local:%H:%M}"
+        return (created_at or ""), ""
+    local = d.astimezone()
+    abs_str = local.strftime("%Y-%m-%d %H:%M")
+    base = ref or _dt.datetime.now(_dt.timezone.utc)
+    delta = max(0.0, (base - d).total_seconds())
+    if delta < 60:
+        rel = "今"
+    elif delta < 3600:
+        rel = f"{int(delta // 60)}分"
+    elif delta < 86400:
+        rel = f"{int(delta // 3600)}時間"
+    elif delta < 86400 * 7:
+        rel = f"{int(delta // 86400)}日"
+    elif local.year == base.astimezone().year:
+        rel = f"{local.month}月{local.day}日"
+    else:
+        rel = f"{local.year}年{local.month}月{local.day}日"
+    return rel, abs_str
+
+
+def _fmt_count(n: Any) -> str:
+    try:
+        n = int(n or 0)
+    except (TypeError, ValueError):
+        return ""
+    if n <= 0:
+        return ""
+    if n < 10000:
+        return f"{n:,}"
+    if n < 10 ** 8:
+        return f"{n / 10000:.1f}".rstrip("0").rstrip(".") + "万"
+    return f"{n / 10 ** 8:.1f}".rstrip("0").rstrip(".") + "億"
+
+
+_X_TWEET_PERMALINK_RE = re.compile(r"https?://(?:www\.)?(?:x|twitter)\.com/\w+/status/\d+", re.I)
+_X_TRAILING_TCO_RE = re.compile(r"\s*https?://t\.co/\w+\s*$")
+
+
+def _clean_tweet_text(text: str, urls: Any, has_card: bool) -> str:
+    """X 同様、メディア／引用ツイートを指す末尾の t.co を本文から取り除く。"""
+    s = (text or "").rstrip()
+    if not has_card:
+        return s
+    umap = {u.get("tco"): (u.get("expanded") or "") for u in (urls or []) if isinstance(u, dict) and u.get("tco")}
+    while True:
+        m = _X_TRAILING_TCO_RE.search(s)
+        if not m:
+            break
+        tco = m.group(0).strip()
+        exp = umap.get(tco)
+        if tco in umap and exp and not _X_TWEET_PERMALINK_RE.match(exp):
+            break  # 通常の外部リンク → 残す
+        s = s[: m.start()].rstrip()
+    return s
 
 
 def linkify_tweet_text(text: str, urls: Optional[List[Dict[str, str]]]) -> str:
@@ -529,98 +617,197 @@ def _x_profile_url(handle: str) -> str:
     return f"https://x.com/{handle}"
 
 
-def render_tweet(t: Dict[str, Any], report_date: str) -> str:
-    handle = (t.get("author") or {}).get("userName") or ""
-    url = t.get("url") or (f"{_x_profile_url(handle)}/status/{t.get('id')}" if handle and t.get("id") else "#")
-    time_html = (
-        f'<a class="x-time" href="{esc(url)}" target="_blank" rel="noopener">{_fmt_x_time(t.get("createdAt",""), report_date)}</a>'
+def _tweet_url(o: Dict[str, Any]) -> str:
+    if o.get("url"):
+        return o["url"]
+    h = (o.get("author") or {}).get("userName") or ""
+    return f"{_x_profile_url(h)}/status/{o['id']}" if h and o.get("id") else "#"
+
+
+def _avatar_img(url: str, cls: str = "x-avatar") -> str:
+    if not url:
+        return f'<span class="{cls} x-avatar-empty" aria-hidden="true"></span>'
+    return f'<img class="{cls}" src="{esc(url)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="">'
+
+
+def _media_list(o: Dict[str, Any]) -> List[Dict[str, Any]]:
+    m = o.get("media")
+    if isinstance(m, list):
+        return [x for x in m if isinstance(x, dict) and x.get("image")]
+    return []
+
+
+def _has_media(o: Dict[str, Any]) -> bool:
+    m = o.get("media")
+    return bool(m) if isinstance(m, list) else (isinstance(m, int) and m > 0)
+
+
+def _x_media_html(o: Dict[str, Any], fallback_url: str, small: bool = False) -> str:
+    media = _media_list(o)
+    if not media:
+        c = o.get("media")
+        if isinstance(c, int) and c > 0:
+            return (f'<div class="x-media-chip"><a href="{esc(fallback_url)}" target="_blank" rel="noopener">'
+                    f'📷 メディア{c if c > 1 else ""}</a></div>')
+        return ""
+    n = len(media)
+    cells = []
+    for m in media[:4]:
+        link = m.get("link") or fallback_url
+        is_video = (m.get("type") or "").lower() in ("video", "animated_gif")
+        overlay = '<span class="x-play" aria-hidden="true">▶</span>' if is_video else ""
+        cells.append(
+            f'<a class="x-media-cell" href="{esc(link)}" target="_blank" rel="noopener">'
+            f'<img src="{esc(m["image"])}" loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="">{overlay}</a>'
+        )
+    more = f'<span class="x-media-more">+{n - 4} 枚</span>' if n > 4 else ""
+    cls = f'x-media-grid x-media-{min(n, 4)}' + (' x-media-small' if small else '')
+    return f'<div class="{cls}">{"".join(cells)}{more}</div>'
+
+
+def _render_quote_card(q: Dict[str, Any], ref: Optional[_dt.datetime]) -> str:
+    qa = q.get("author") or {}
+    qh = qa.get("userName") or ""
+    qn = qa.get("name") or qh
+    qurl = _tweet_url(q)
+    rel, abs_t = _rel_time(q.get("createdAt", ""), ref)
+    vcheck = _X_ICO_VERIFIED if qa.get("verified") else ""
+    time_bit = (f'<span class="x-sep">·</span><span class="x-quote-time" title="{esc(abs_t)}">{esc(rel)}</span>'
+                if rel else "")
+    head = (
+        f'<div class="x-quote-head">{_avatar_img(qa.get("avatar", ""), "x-avatar-mini")}'
+        f'<span class="x-quote-name">{esc(qn)}</span>{vcheck}'
+        f'<span class="x-quote-handle">@{esc(qh)}</span>{time_bit}</div>'
     )
-    classes = "x-tweet"
-    body_bits: List[str] = []
+    qclean = _clean_tweet_text(q.get("text", ""), q.get("urls"), _has_media(q))
+    qtext = (f'<div class="x-quote-text">{linkify_tweet_text(qclean, q.get("urls"))}</div>'
+             if qclean.strip() else "")
+    qmedia = _x_media_html(q, qurl, small=True)
+    open_link = (f'<div class="x-quote-open"><a href="{esc(qurl)}" target="_blank" rel="noopener">X で開く ↗</a></div>'
+                 if qurl and qurl != "#" else "")
+    return f'<div class="x-quote-card">{head}{qtext}{qmedia}{open_link}</div>'
+
+
+def _render_tweet_card(
+    author: Dict[str, Any], text: str, urls: Any, media_src: Dict[str, Any],
+    created: str, url: str, counts: Dict[str, Any], ref: Optional[_dt.datetime],
+    reply_to: Optional[str] = None, quote: Optional[Dict[str, Any]] = None,
+) -> str:
+    handle = author.get("userName") or ""
+    name = author.get("name") or handle or "（不明）"
+    prof = _x_profile_url(handle)
+    rel, abs_t = _rel_time(created, ref)
+    vcheck = _X_ICO_VERIFIED if author.get("verified") else ""
+    head = (
+        f'<div class="x-tweet-head">'
+        f'<a class="x-name" href="{esc(prof)}" target="_blank" rel="noopener">{esc(name)}</a>{vcheck}'
+        f'<span class="x-handle">@{esc(handle)}</span>'
+        f'<span class="x-sep">·</span>'
+        f'<a class="x-time" href="{esc(url)}" target="_blank" rel="noopener" title="{esc(abs_t)}">{esc(rel)}</a>'
+        f'</div>'
+    )
+    reply_html = ""
+    if reply_to:
+        reply_html = (f'<div class="x-replyto">返信先: '
+                      f'<a href="{esc(_x_profile_url(reply_to))}" target="_blank" rel="noopener">@{esc(reply_to)}</a> さん</div>')
+    has_card = _has_media(media_src) or isinstance(quote, dict)
+    clean = _clean_tweet_text(text, urls, has_card)
+    text_html = f'<div class="x-text">{linkify_tweet_text(clean, urls)}</div>' if clean.strip() else ""
+    media_html = _x_media_html(media_src, url)
+    quote_html = _render_quote_card(quote, ref) if isinstance(quote, dict) else ""
+    c = counts or {}
+    actions = (
+        '<div class="x-actions">'
+        f'<span class="x-act x-act-reply">{_X_ICO_REPLY}<span class="x-act-n">{_fmt_count(c.get("reply"))}</span></span>'
+        f'<span class="x-act x-act-rt">{_X_ICO_RT}<span class="x-act-n">{_fmt_count(c.get("retweet"))}</span></span>'
+        f'<span class="x-act x-act-like">{_X_ICO_LIKE}<span class="x-act-n">{_fmt_count(c.get("like"))}</span></span>'
+        f'<a class="x-act x-act-link" href="{esc(url)}" target="_blank" rel="noopener" title="X で開く">{_X_ICO_LINK}</a>'
+        '</div>'
+    )
+    return (
+        '<div class="x-tweet-row">'
+        f'<a class="x-avatar-link" href="{esc(prof)}" target="_blank" rel="noopener">{_avatar_img(author.get("avatar", ""))}</a>'
+        f'<div class="x-tweet-main">{head}{reply_html}{text_html}{media_html}{quote_html}{actions}</div>'
+        '</div>'
+    )
+
+
+def render_tweet(t: Dict[str, Any], ref: Optional[_dt.datetime]) -> str:
     rt = t.get("retweet_of")
     if isinstance(rt, dict):
-        classes += " x-rt"
-        ra = (rt.get("author") or {}).get("userName") or ""
-        body_bits.append(
-            f'<span class="x-rt-mark">🔁 RT</span> '
-            f'<a href="{esc(_x_profile_url(ra))}" target="_blank" rel="noopener">@{esc(ra)}</a>: '
-            f'<span class="x-text">{linkify_tweet_text(rt.get("text",""), rt.get("urls"))}</span>'
+        reposter = t.get("author") or {}
+        rh = reposter.get("userName") or ""
+        rn = reposter.get("name") or rh
+        head = (f'<div class="x-repost-line">{_X_ICO_RT}<span>'
+                f'<a href="{esc(_x_profile_url(rh))}" target="_blank" rel="noopener">{esc(rn)}</a> がリポスト</span></div>')
+        body = _render_tweet_card(
+            rt.get("author") or {}, rt.get("text", ""), rt.get("urls"), rt,
+            rt.get("createdAt", ""), _tweet_url(rt), t.get("counts") or {}, ref,
         )
-        if rt.get("media"):
-            ru = rt.get("url") or url
-            body_bits.append(f'<a class="x-media" href="{esc(ru)}" target="_blank" rel="noopener">📷 メディア</a>')
-    else:
-        if t.get("isReply"):
-            who = t.get("inReplyToUsername") or ""
-            who_html = f'<a href="{esc(_x_profile_url(who))}" target="_blank" rel="noopener">@{esc(who)}</a>' if who else ""
-            body_bits.append(f'<span class="x-reply-mark">↩ {who_html}</span>')
-        body_bits.append(f'<span class="x-text">{linkify_tweet_text(t.get("text",""), t.get("urls"))}</span>')
-        if t.get("media"):
-            body_bits.append(f'<a class="x-media" href="{esc(url)}" target="_blank" rel="noopener">📷 メディア</a>')
-        qt = t.get("quote_of")
-        if isinstance(qt, dict):
-            qa = (qt.get("author") or {}).get("userName") or ""
-            qurl = qt.get("url") or ""
-            qlink = f'<a href="{esc(qurl)}" target="_blank" rel="noopener">@{esc(qa)}</a>' if qurl else f"@{esc(qa)}"
-            body_bits.append(
-                f'<blockquote class="x-quote">{qlink}: '
-                f'{linkify_tweet_text(qt.get("text",""), qt.get("urls"))}'
-                + (f' <a class="x-media" href="{esc(qurl or url)}" target="_blank" rel="noopener">📷</a>' if qt.get("media") else "")
-                + "</blockquote>"
-            )
-    return f'        <div class="{classes}">{time_html} {" ".join(body_bits)}</div>'
+        return f'        <article class="x-tweet x-is-repost">{head}{body}</article>'
+    reply_to = (t.get("inReplyToUsername") or "") if t.get("isReply") else None
+    body = _render_tweet_card(
+        t.get("author") or {}, t.get("text", ""), t.get("urls"), t,
+        t.get("createdAt", ""), _tweet_url(t), t.get("counts") or {}, ref,
+        reply_to=reply_to or None, quote=t.get("quote_of"),
+    )
+    return f'        <article class="x-tweet">{body}</article>'
 
 
 def render_x_section(x_data: Dict[str, Any], report_date: str) -> str:
     accounts = x_data.get("accounts") or []
+    ref = _parse_x_time(x_data.get("fetched_at", ""))
     shown = [a for a in accounts if (a.get("tweets") or a.get("error"))]
-    quiet = [a.get("handle", "") for a in accounts if not a.get("tweets") and not a.get("error")]
+    quiet = [a for a in accounts if not a.get("tweets") and not a.get("error")]
     total = sum(len(a.get("tweets") or []) for a in accounts)
-    fetched = ""
-    fd = _parse_x_time(x_data.get("fetched_at", ""))
-    if fd is not None:
-        fetched = f"、取得 {fd.astimezone():%m/%d %H:%M}"
+    n_with = len([a for a in accounts if a.get("tweets")])
+    fetched_str = f"・取得 {ref.astimezone():%-m/%-d %H:%M}" if ref is not None else ""
     win = x_data.get("window_hours") or 24
-    note = f'{len([a for a in accounts if a.get("tweets")])} アカウント / {total} 投稿（過去 {win} 時間{esc(fetched)}）'
+    note = f'{n_with} アカウント / {total} 投稿（過去 {win} 時間{esc(fetched_str)}）'
 
     cards: List[str] = []
     for a in shown:
         handle = a.get("handle", "")
         name = a.get("name") or ""
+        avatar = a.get("avatar") or ""
         tweets = a.get("tweets") or []
         err = a.get("error")
-        name_html = f' · {esc(name)}' if name else ""
-        count_html = f'<span class="x-count">{len(tweets)} 投稿</span>' if tweets else '<span class="x-count x-count-err">取得失敗</span>'
-        rows = []
+        vcheck = _X_ICO_VERIFIED if a.get("verified") else ""
+        name_part = f'<span class="x-acc-name">{esc(name)}</span>{vcheck}' if name else ""
+        count_html = (f'<span class="x-count">{len(tweets)} 投稿</span>' if tweets
+                      else '<span class="x-count x-count-err">取得失敗</span>')
+        feed: List[str] = []
         if err:
-            rows.append(f'        <p class="x-error">取得失敗: {esc(str(err))}</p>')
-        rows += [render_tweet(t, report_date) for t in tweets]
-        rows.append(
-            f'        <p class="x-profile"><a href="{esc(_x_profile_url(handle))}" target="_blank" rel="noopener">@{esc(handle)} のプロフィール ↗</a></p>'
-        )
+            feed.append(f'        <p class="x-error">取得失敗: {esc(str(err))}</p>')
+        feed += [render_tweet(t, ref) for t in tweets[:_X_MAX_PER_ACCOUNT]]
+        if len(tweets) > _X_MAX_PER_ACCOUNT:
+            feed.append(f'        <p class="x-more">他に {len(tweets) - _X_MAX_PER_ACCOUNT} 件 — '
+                        f'<a href="{esc(_x_profile_url(handle))}" target="_blank" rel="noopener">@{esc(handle)} を X で見る ↗</a></p>')
+        feed.append(f'        <p class="x-profile"><a href="{esc(_x_profile_url(handle))}" target="_blank" rel="noopener">'
+                    f'@{esc(handle)} のプロフィールを X で開く ↗</a></p>')
         cards.append(
             f'      <details class="card card-x x-account" id="x-{esc(handle)}">\n'
-            f'        <summary><span class="card-head"><span class="badge badge-x">𝕏</span> '
-            f'<span class="card-title">@{esc(handle)}{name_html}</span> {count_html}</span></summary>\n'
-            f'        <div class="x-body">\n' + "\n".join(rows) + "\n        </div>\n"
+            f'        <summary class="x-acc-summary">{_avatar_img(avatar, "x-avatar x-acc-avatar")}'
+            f'<span class="x-acc-id"><span class="x-acc-line">{name_part}'
+            f'<span class="x-acc-handle">@{esc(handle)}</span></span>{count_html}</span>'
+            f'<span class="x-acc-caret" aria-hidden="true">▾</span></summary>\n'
+            f'        <div class="x-feed">\n' + "\n".join(feed) + "\n        </div>\n"
             f"      </details>"
         )
     quiet_html = ""
     if quiet:
-        quiet_html = (
-            '      <p class="x-quiet">投稿なし: '
-            + "、".join(f'<a href="{esc(_x_profile_url(h))}" target="_blank" rel="noopener">@{esc(h)}</a>' for h in quiet if h)
-            + "</p>\n"
-        )
+        quiet_html = ('      <p class="x-quiet">投稿なし: '
+                      + "、".join(f'<a href="{esc(_x_profile_url(a.get("handle", "")))}" target="_blank" rel="noopener">@{esc(a.get("handle", ""))}</a>'
+                                  for a in quiet if a.get("handle"))
+                      + "</p>\n")
     if not cards and not quiet_html:
         return ""
-    controls = (
-        '<span class="section-controls">'
-        '<button type="button" id="x-expand-all">すべて展開</button>'
-        '<button type="button" id="x-collapse-all">すべて閉じる</button></span>'
-    )
+    controls = ('<span class="section-controls">'
+                '<button type="button" id="x-expand-all">すべて展開</button>'
+                '<button type="button" id="x-collapse-all">すべて閉じる</button></span>')
     return (
-        '    <section class="section" id="today-x">\n'
+        '    <section class="section x-section" id="today-x">\n'
+        f'      {X_ICON_DEFS}\n'
         f'      <h2 class="section-title">今日のX{controls}</h2>\n'
         f'      <p class="section-note">{note}</p>\n'
         + ("\n".join(cards) + "\n" if cards else "")

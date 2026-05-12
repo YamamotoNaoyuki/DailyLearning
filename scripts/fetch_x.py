@@ -108,11 +108,18 @@ def parse_created_at(s: str) -> Optional[dt.datetime]:
     return None
 
 
-def _author(o: Dict[str, Any]) -> Dict[str, str]:
+def _bigger_avatar(url: str) -> str:
+    # pbs.twimg.com の profile_images は "_normal.jpg" → "_bigger.jpg" で少し高解像度
+    return re.sub(r"_normal(\.\w+)(\?.*)?$", r"_bigger\1", url) if url else url
+
+
+def _author(o: Dict[str, Any]) -> Dict[str, Any]:
     a = o.get("author") or o.get("user") or {}
     return {
         "userName": a.get("userName") or a.get("screen_name") or a.get("username") or "",
         "name": a.get("name") or "",
+        "avatar": _bigger_avatar(a.get("profilePicture") or a.get("profile_image_url_https") or ""),
+        "verified": bool(a.get("isBlueVerified") or a.get("isVerified")),
     }
 
 
@@ -126,12 +133,24 @@ def _urls(o: Dict[str, Any]) -> List[Dict[str, str]]:
     return out
 
 
-def _media_count(o: Dict[str, Any]) -> int:
+def _media(o: Dict[str, Any]) -> List[Dict[str, Any]]:
+    items: List[Dict[str, Any]] = []
+    raw = None
     for src in ("extendedEntities", "extended_entities", "entities"):
         v = o.get(src)
         if isinstance(v, dict) and v.get("media"):
-            return len(v["media"])
-    return 0
+            raw = v["media"]
+            break
+    for m in raw or []:
+        if not isinstance(m, dict):
+            continue
+        mtype = (m.get("type") or "photo").lower()
+        img = m.get("media_url_https") or m.get("media_url") or m.get("preview_image_url") or ""
+        link = m.get("expanded_url") or m.get("expandedUrl") or m.get("url") or ""
+        if not img:
+            continue
+        items.append({"type": mtype, "image": img, "link": link})
+    return items
 
 
 def _slim_min(o: Dict[str, Any]) -> Dict[str, Any]:
@@ -142,7 +161,7 @@ def _slim_min(o: Dict[str, Any]) -> Dict[str, Any]:
         "url": o.get("url") or o.get("twitterUrl") or "",
         "author": _author(o),
         "urls": _urls(o),
-        "media": _media_count(o),
+        "media": _media(o),
     }
 
 
@@ -173,7 +192,7 @@ def _ts(o: Dict[str, Any]) -> dt.datetime:
 # --- 1アカウント分の取得 -----------------------------------------------------
 def fetch_user(handle: str, key: str, cutoff: dt.datetime) -> Dict[str, Any]:
     tweets: List[Dict[str, Any]] = []
-    display_name = ""
+    profile: Dict[str, Any] = {}
     cursor = ""
     pages = 0
     err: Optional[str] = None
@@ -192,8 +211,9 @@ def fetch_user(handle: str, key: str, cutoff: dt.datetime) -> Dict[str, Any]:
         for t in page:
             if not isinstance(t, dict):
                 continue
-            if not display_name:
-                display_name = _author(t).get("name") or ""
+            au = _author(t)
+            if not profile and (au.get("userName", "").lower() == handle.lower()):
+                profile = au
             cat = parse_created_at(t.get("createdAt") or t.get("created_at") or "")
             if cat is not None and cat < cutoff:
                 stop = True
@@ -207,7 +227,15 @@ def fetch_user(handle: str, key: str, cutoff: dt.datetime) -> Dict[str, Any]:
             break
         time.sleep(0.3)
     tweets.sort(key=_ts, reverse=True)
-    return {"handle": handle, "name": display_name, "tweets": tweets, "error": err, "pages_fetched": pages}
+    return {
+        "handle": handle,
+        "name": profile.get("name", ""),
+        "avatar": profile.get("avatar", ""),
+        "verified": bool(profile.get("verified")),
+        "tweets": tweets,
+        "error": err,
+        "pages_fetched": pages,
+    }
 
 
 # --- メイン ------------------------------------------------------------------
