@@ -1,11 +1,15 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-13
-**エントリ数**: 47
+**最終更新**: 2026-05-14
+**エントリ数**: 48
 
 ---
 
 ## 蓄積された知識
+- **Apache Arrow と列指向ゼロコピー・データ交換 (2026-05-14)**——2016 年に Wes McKinney らが開始、2026 年 2 月で 10 周年。**「シリアライゼーション税」**（Spark→pandas で CPU 80% 消費）を「**言語非依存・プロセス間共有可能な列指向インメモリ・フォーマット**」で撲滅。Validity Bitmap + 値バッファ + 子配列の単純構造、64-byte アライメントで SIMD 直動作
+- **IPC・Flight・ADBC**——Flatbuffers でメタデータも parse 不要、mmap で複数プロセスが同じ物理メモリページ参照。**ADBC** が JDBC/ODBC を置き換え、DB が Arrow RecordBatch ストリームを直接返す（Snowflake で JDBC 比 8 倍）。**Arrow Flight** = gRPC 上の Arrow 専用 RPC、Flight SQL が Dremio/InfluxDB 採用
+- **DataFusion**——Rust 製組み込みクエリエンジン、2024 年 ASF トップレベル昇格、SIGMOD 2024。Polars / Comet / InfluxDB 3.0 / Greptime DB が内部採用。**「クエリ最適化器とベクトル化実行をモジュール化」**で新規 OLAP の構築コストを激減
+- **核心洞察**——Arrow は「メモリレイアウトだけ」を仕様化し、計算（Compute）・転送（Flight）・接続（ADBC）・ストレージ（Parquet）を分離。**仕様の最小化が普及を生む**。ホスト・デバイス・分散ノード・別プロセスのすべての境界で同レイアウトを共有
 - **Mixture of Experts（MoE）と大規模LLMのスパース化 (2026-05-12)**——FFN を E 個のエキスパートに分割し、ルーター（gating network）が各トークンに上位 k 個だけ割り当てる sparse activation。**容量（総パラメータ）と計算量（活性パラメータ）を分離**する設計。2024–2026 のフロンティアはほぼ全部 MoE（dense はエッジ・研究用）
 - **ルーティング崩壊（routing collapse）と負荷分散**——一部のエキスパートばかり選ばれる悪循環＋容量上限超過でトークンドロップ。対策の系譜: 補助損失（Switch Transformer、主損失と綱引き）→ Expert Choice routing（エキスパートがトークンを選ぶ）→ **補助損失フリー（DeepSeek-V3）：各エキスパートのスコアに学習可能バイアスを足して混雑度で動的調整（= 混雑料金／ピグー税のメカニズムデザイン）**
 - **DeepSeek-V3 (2024-12)**——671B 総 / 37B 活性。**fine-grained experts**（256 ルーテッド、top-8）で知識を細分化＋**shared expert** 1 個を常時全トークンに適用して共通知識を担わせ他を専門化に専念させる。14.8T トークンを 278 万 H800 GPU 時間という破格の効率で学習。Mixtral 8×7B（top-2 of 8）がオープン MoE の普及点
