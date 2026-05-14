@@ -1,9 +1,20 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 32
-**最終更新日**: 2026-05-14
+**エントリ数**: 33
+**最終更新日**: 2026-05-15
 
 ## 蓄積された知識
+
+### Burrows-Wheeler 変換 (BWT) と FM-index ― 圧縮全文検索の設計哲学 (2026-05-15)
+- **BWT (Wheeler 1983, Burrows-Wheeler 1994)**: 入力文字列の全循環シフトを辞書順ソートし、最終列を取り出す可逆変換。同じ文字が「ラン」になりやすい並び替え。bzip2 (1996) が後段の MTF + ハフマン/算術符号化と組み合わせて gzip を上回る圧縮率を達成
+- **Suffix Array との対応**: BWT[i] = T[SA[i] − 1]（mod n）として計算可能。SA-IS, DC3 で線形時間 O(n) で suffix array を構築できるので BWT も O(n)
+- **FM-index (Ferragina & Manzini 2000)**: 圧縮されたまま全文検索可能な索引。**「圧縮 + 検索」を同時達成**する初めての構造。構成要素は BWT(T)、C 配列、Occ(c, k) 関数、Sampled suffix array。サイズはエンピリカル・エントロピー H_k の n+o(n) ビット
+- **Backward Search**: **パターンを後ろから処理** → O(|P|) で範囲を絞り込み。範囲 [sp, ep] を保持しながら sp = C[c] + Occ(c, sp-1)+1, ep = C[c] + Occ(c, ep) の漸化式を回す。LF mapping (Last-to-First) の本質
+- **Wavelet Tree**: 多文字アルファベットを二分木に再帰的に分解、各ノードで bitmap rank を行う。空間 n log σ + o(n log σ) ビットで O(log σ) クエリ
+- **Sampled SA + LF mapping**: SA を 1/k 間引いて保存し、未保存位置からは LF を繰り返し適用してサンプル位置まで戻る。空間効率と復元時間のトレードオフ
+- **バイオインフォマティクスでの大成功**: ヒトゲノム 3GB → BWT+FM で 1-2GB。短いリード検索が数 ms。**Bowtie (Langmead 2009), BWA (Heng Li 2009)** が NGS 時代の基盤
+- **拡張**: 双方向 FM-index (ロングリード対応)、RLBWT (反復配列で空間を r-bit に圧縮)、r-index (Gagie-Navarro-Prezza 2018) でペタバイト級 PanGenome に対応
+- **核心洞察**——「圧縮された表現は元データの全構造を持つ」——情報理論と計算可能性の境界を押し広げた。「逆順処理」の力（forward では指数的探索が backward では単調絞り込み）。Suffix tree/array/BWT/FM-index は同じ「接尾辞構造」の異なる視点
 
 ### ラムダ計算と型システムの基礎 ― STLC から System F、Curry-Howard へ (2026-05-14)
 - **ラムダ計算 (Church 1932-36)**: 変数 + 抽象 λx.M + 適用 M N の三構成要素でチューリング完全。**「計算とは関数適用そのもの」**――関数型言語の理論基盤

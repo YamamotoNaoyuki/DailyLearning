@@ -1,11 +1,16 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-14
-**エントリ数**: 48
+**最終更新**: 2026-05-15
+**エントリ数**: 49
 
 ---
 
 ## 蓄積された知識
+- **Service Mesh の進化：Sidecar から Ambient/eBPF へ (2026-05-15)**——Linkerd v1 (2016)・Istio (2017) が確立した Sidecar モデル（Pod ごとに Envoy 注入、iptables ハイジャック）が抱える「Pod ごと 50-200MB のメモリオーバーヘッド、p99 1-5ms のレイテンシ、Pod ライフサイクルの絡み、メッシュ全体 Envoy 更新の困難さ」を、二つの新世代アーキテクチャが解決中
+- **Cilium Service Mesh (sidecarless via eBPF)**——L3/L4 はカーネル内 eBPF で処理しユーザー空間プロキシ不経由。L7 機能のみノード単位の共有 Envoy。iptables 脱却で大規模クラスタの N² 問題回避、レイテンシ P99 で 50% 以上短縮の報告。2021 年に sidecarless を提唱
+- **Istio Ambient Mesh (L4/L7 分離)**——**ztunnel**（DaemonSet、Rust 製、L4 専用、mTLS / L4 認可 / テレメトリ）と **Waypoint Proxy**（必要 namespace のみ、Envoy、L7 ルーティング/認可）の二層化。**HBONE プロトコル**（HTTP/2 CONNECT + mTLS）でノード間トンネリング多重化。istiod が xDS で ztunnel と waypoint に別々の設定配信
+- **対立軸の収束**——プロキシ陣営（Istio/Linkerd/Envoy）と eBPF カーネル陣営（Cilium）が、Ambient で部分的に融合。Gateway API/SMI で共通インターフェース化。「アプリ内ライブラリ→Sidecar→カーネル/共有プロキシ」という、インフラ機能を下のレイヤへ押し出す歴史
+- **核心洞察**——「全 Pod に同じ Envoy をコピーする」非効率への気付きが革命の本質。Rust が「カーネルじゃないが性能とメモリ安全性が必要な領域」を占拠（ztunnel, Pingora, Linkerd2-proxy）
 - **Apache Arrow と列指向ゼロコピー・データ交換 (2026-05-14)**——2016 年に Wes McKinney らが開始、2026 年 2 月で 10 周年。**「シリアライゼーション税」**（Spark→pandas で CPU 80% 消費）を「**言語非依存・プロセス間共有可能な列指向インメモリ・フォーマット**」で撲滅。Validity Bitmap + 値バッファ + 子配列の単純構造、64-byte アライメントで SIMD 直動作
 - **IPC・Flight・ADBC**——Flatbuffers でメタデータも parse 不要、mmap で複数プロセスが同じ物理メモリページ参照。**ADBC** が JDBC/ODBC を置き換え、DB が Arrow RecordBatch ストリームを直接返す（Snowflake で JDBC 比 8 倍）。**Arrow Flight** = gRPC 上の Arrow 専用 RPC、Flight SQL が Dremio/InfluxDB 採用
 - **DataFusion**——Rust 製組み込みクエリエンジン、2024 年 ASF トップレベル昇格、SIGMOD 2024。Polars / Comet / InfluxDB 3.0 / Greptime DB が内部採用。**「クエリ最適化器とベクトル化実行をモジュール化」**で新規 OLAP の構築コストを激減
