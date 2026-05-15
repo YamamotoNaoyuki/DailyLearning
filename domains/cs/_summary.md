@@ -1,9 +1,21 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 33
-**最終更新日**: 2026-05-15
+**エントリ数**: 34
+**最終更新日**: 2026-05-16
 
 ## 蓄積された知識
+
+### TLA⁺ と形式手法：並行・分散システムの仕様検証 (2026-05-16)
+- **TLA⁺** = Temporal Logic of Actions Plus、Leslie Lamport（1990年代）。実装ではなく **設計** を検証する形式仕様言語。集合論+一階述語論理+時相演算子で書く。状態=変数値の組、アクション=状態遷移述語（プライム x'）、挙動=状態の無限列、仕様=初期+常に何らかのアクション+公平性
+- **時相演算子**: □P（常に）、◇P（いつかは）、□◇P（公平性）、◇□P（安定性）
+- **PlusCal**: 擬似コード風の構文（while/if/await）で書け、TLA⁺ に自動変換。学習障壁を下げる
+- **TLC モデル検査器**: 仕様から全到達状態を列挙し、安全性属性（不変条件）と活性性属性（liveness）を検査。有限のモデルパラメータ（プロセス数 3 等）で網羅、Small Scope Hypothesis（バグは小さい例で再現される）に依拠
+- **TLAPS（TLA⁺ Proof System）**: 機械支援の定理証明系。Paxos、Disk Paxos、Byzantine Paxos、Memoir、Spire 等の完全証明実績
+- **業界採用**: AWS（DynamoDB / S3 / EBS / Cosmos DB 等で本番投入前検証）、Microsoft（Xbox One メモリマネージャ）、CockroachDB、MongoDB Raft 実装。Chris Newcombe らの CACM 2015 論文「How Amazon Web Services Uses Formal Methods」が転換点。**DynamoDB で 35 ステップ深さの反例発見**（コードレビュー数百時間でも見つからなかった）
+- **対比表**: TLA+（並行・分散、時相論理）vs Alloy（集合論、可視化）vs Coq/Lean（定理証明完備）vs Z（並行性弱い）vs Spin（プロトコル特化）vs CBMC（C コード）
+- **限界**: 学習曲線が急、仕様と実装の乖離、状態空間爆発。**[[FoundationDB と DST]] のような実装レベルテストと補完関係**
+- **新潮流**: PGo（PlusCal→Go 変換、MIT）、Apalache（SMT ベース）、Quint（2024 年、TypeScript 風シンタックス）、Stateright（Rust）
+- **核心洞察**: 「証明する」ツールでなく「設計を強制的に厳密化する」ツール。**検査結果より、書く過程に価値がある**。人間の作業記憶 7±2 チャンクの限界を計算的補綴具で補う（小脳の内部モデルと同型）。「TLA⁺ で設計検証 + DST で実装検証」が現代分散システム品質保証の最先端
 
 ### Burrows-Wheeler 変換 (BWT) と FM-index ― 圧縮全文検索の設計哲学 (2026-05-15)
 - **BWT (Wheeler 1983, Burrows-Wheeler 1994)**: 入力文字列の全循環シフトを辞書順ソートし、最終列を取り出す可逆変換。同じ文字が「ラン」になりやすい並び替え。bzip2 (1996) が後段の MTF + ハフマン/算術符号化と組み合わせて gzip を上回る圧縮率を達成
