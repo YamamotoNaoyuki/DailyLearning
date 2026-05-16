@@ -1,11 +1,19 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-16
-**エントリ数**: 50
+**最終更新**: 2026-05-17
+**エントリ数**: 51
 
 ---
 
 ## 蓄積された知識
+- **Temporal.io と Durable Execution (2026-05-17)**——Uber Cadence の後継としてオープンソース化された **ワークフロー実行プラットフォーム**。コア概念は「実行コンテキストが永続化される」 — クラッシュしても・データセンターが停電しても、数時間後に同じ実行状態から再開できる。Event Sourcing による Event History を replay することで状態復元
+- **Workflow と Activity の二分**——Workflow は決定論的・冪等的・長時間実行可能（外部 I/O 禁止、`workflow.now()` で時計参照）、Activity は非決定論的・副作用あり（at-least-once セマンティクス）。関数型の「純粋関数 vs 副作用」分離をランタイム機構で実装
+- **History Replay と Versioning の難問**——コードを変更すると過去のワークフローが「non-determinism error」を起こす危険。`GetVersion`/`patched()` API でバージョニング。データベースのスキーママイグレーションと同型の難問
+- **Signal / Query / Update**——外部からのインタラクション機構。Signal=非同期メッセージ、Query=同期状態問い合わせ、Update（2024）=同期状態変更。Erlang/OTP のアクターモデル的構造
+- **アーキテクチャ**——Frontend / History / Matching / Worker / Persistence (Cassandra/PostgreSQL/MySQL) / Visibility (Elasticsearch)。History Service は 4096 シャードに分割、ワークフロー ID をハッシュして分散。Kafka のパーティション戦略と同じ哲学
+- **Performance & Limits**——1 Workflow Execution あたり 50-100 更新/秒。Event History 上限 51,200 events / 50MB、`ContinueAsNew` で引き継ぎ。「数億の並行ワークフロー、各々が秒〜日単位で進行」用途に最適化
+- **競合・類似**——AWS Step Functions、Azure Durable Functions、Cadence、Restate（2024 新世代）、DBOS（PostgreSQL ベース）。Stripe、Coinbase、HSBC、Snap、OpenAI 等で本番利用
+- **核心洞察**——「コードと状態の二項対立を解消する」革新。プログラマは普通のコードを書くだけで、Event Sourcing は自動で実行される。**抽象化の質は、利用者がそれを意識しなくていい度合いで測られる**
 - **FoundationDB と決定論的シミュレーションテスト (DST) (2026-05-16)**——Apple 傘下の分散トランザクショナル KV ストア FDB の品質を支える独自テスト方法論。**全ての非決定性源（I/O、時計、乱数、ネットワーク）を抽象化し、シミュレータの単一プロセス内で疑似時間を進めて分散システム全体を決定論的に再現**。Flow 言語（C++ 拡張、ACTOR/Future/Promise）で実装の双対化、IAsyncFile/INetwork/IRandom の抽象境界。離散イベントの時間ジャンプで現実 1 秒を ms で焼ける
 - **Buggify マクロ**——本番コードの随所に `if (BUGGIFY) { do_bad_thing(); }` を埋め込み、シミュレーションモードでのみランダム true。「100 万回に 1 度しか起きない瞬間」（タイムアウト直前、リーダー選挙中、バッファ 1 バイト前）を高頻度で叩く。本番では完全に死ぬ。**コードパス内のエッジに障害をリンク**するアプローチ
 - **シード化された乱数 + 完全再現性**——全乱択（タスクスケジューリング、メッセージ並べ替え、障害注入）を単一シードから派生。バグを見つけたテストはシードだけで 1 ビット違わず再現。「再現性こそが品質の上限を決める」洞察。観測可能性が制御可能性の上限を決めるフィードバック制御理論と同構造
