@@ -1,9 +1,21 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 35
-**最終更新日**: 2026-05-17
+**エントリ数**: 36
+**最終更新日**: 2026-05-18
 
 ## 蓄積された知識
+
+### Spectre/Meltdown と投機実行サイドチャネル：マイクロアーキテクチャ・セキュリティの誕生 (2026-05-18)
+- **2018-01-03 公開** — Paul Kocher, Jann Horn (Google Project Zero), Daniel Genkin, Moritz Lipp, Yuval Yarom らが Meltdown (CVE-2017-5754) / Spectre (CVE-2017-5753, 5715) を発表。**マイクロアーキテクチャレベルでの情報漏洩**を実証、CPU セキュリティ史の地殻変動
+- **投機実行 (Speculative Execution)** — 1990 年代以降の CPU 性能向上の中核技術。分岐結果を待たず両方を投機実行、予測外なら破棄。**アーキテクチャ状態は元に戻るが、マイクロアーキテクチャ状態 (キャッシュ、分岐予測器、TLB) は変化したまま残る**——これが攻撃面
+- **Meltdown** — Intel 特有 (および ARM Cortex-A75)。例外チェックを延期して投機実行を続行する設計上の弱点。ユーザーモードからカーネル空間を投機的ロード → キャッシュタイミング攻撃で再構成。AMD は例外早期チェックで非該当
+- **Spectre Variant 1 (Bounds Check Bypass)** — 分岐予測器を訓練して境界チェック通過を予測させ、配列範囲外を投機的に読む
+- **Spectre Variant 2 (Branch Target Injection)** — 間接ジャンプの予測先 (BTB) を毒する。クラウド同居 VM 間で機密漏洩可能
+- **Flush+Reload 技法** — `clflush` でキャッシュフラッシュ → 被害者の投機実行 → `rdtscp` で各エントリのアクセス時間測定 → 最速エントリのインデックスが secret。間隔 4096 でハードウェアプリフェッチ撹乱回避
+- **Paul Kocher の系譜** — 1996 年「Timing Attacks on Implementations of Diffie-Hellman, RSA, DSS, ...」でサイドチャネル攻撃の理論を確立。20 年越しにマイクロアーキテクチャ全体に拡張
+- **緩和策と代償** — KPTI (Kernel Page Table Isolation, 5-30% I/O 性能低下) / Retpoline (return trampoline で分岐予測回避) / IBRS, IBPB, STIBP / LFENCE 自動挿入。完全対策は「投機実行放棄」=1990 年代性能への退行
+- **続発脆弱性** — Foreshadow (L1TF), MDS/ZombieLoad, RIDL/Fallout, CrossTalk, PACMAN (Apple M1)。すべて**「マイクロアーキテクチャの内部状態が特権境界を超えて観測可能」**の共通テーマ
+- **核心洞察** — 「正しさ」の定義変更——アーキテクチャ仕様忠実 → 観測モデル含めた全状態の制御。「速さと安全のトレードオフ」が本質的、Confidential Computing/TEE 投資加速
 
 ### 線形型・アフィン型と所有権ベースのメモリ管理：Rust の理論的基盤 (2026-05-17)
 - **線形論理 (Linear Logic)** — Jean-Yves Girard 1987 年。「資源としての命題」: P を使うと消費される。古典論理の「再利用可能な真理」とは別の論理体系

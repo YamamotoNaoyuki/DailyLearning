@@ -1,11 +1,16 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-17
-**エントリ数**: 51
+**最終更新**: 2026-05-18
+**エントリ数**: 52
 
 ---
 
 ## 蓄積された知識
+- **TigerBeetle と金融グレード DB の設計哲学 (2026-05-18)**——Stripe/Mollie/Adyen 等の決済プロセッサが PostgreSQL 上で構築している巨大なオーケストレーションへの代替案。**スキーマ固定 (Account/Transfer のみ)・複式簿記が公理・6 ノードクラスタで 1M TPS・Strict Serializability**。Zig 実装、128 バイト固定レコード、io_uring 活用、no allocations in hot path
+- **Viewstamped Replication (VSR)**——Oki & Liskov (1988) の合意アルゴリズム、Paxos 同時期・Raft の祖先。view number と op number で「ログを送る」のではなく「view の遷移を合意する」モデル。View change protocol で過半数からログ集約してリーダー再構築
+- **VOPR (Viewstamped Operation Replicator) と DST**——映画 WarGames の WOPR 由来。ディスク・ネットワーク・システムクロックすべての非決定性源を抽象化し、1 コアで 6 ノードクラスタを 700 倍時間圧縮シミュレート。1,000 CPU コア 24/7 稼働で 1 日あたり「2 千年分」のテスト。FoundationDB DST の Zig 再実装系譜
+- **LSM-Forest と災害耐性**——単一の固定サイズデータファイル、事前確保、上書き型書き込みでファイルシステムのメタデータ更新最小化。BLAKE3 チェックサム + Reed-Solomon erasure coding で bit rot/bad sector に耐性。「ディスクは嘘をつく」前提の極端設計
+- **核心洞察**——「汎用性を捨てて極限性能」が新世代 DB の戦術 (DuckDB=OLAP/TigerBeetle=金融/FoundationDB=KVS)。複式簿記 (1494 年パチョーリ) の 500 年原理が最先端 DB の数学的基盤。決定論はテストではなく「実装の証明前段階」、TLA+ (仕様検証) と DST (実装検証) は補完関係
 - **Temporal.io と Durable Execution (2026-05-17)**——Uber Cadence の後継としてオープンソース化された **ワークフロー実行プラットフォーム**。コア概念は「実行コンテキストが永続化される」 — クラッシュしても・データセンターが停電しても、数時間後に同じ実行状態から再開できる。Event Sourcing による Event History を replay することで状態復元
 - **Workflow と Activity の二分**——Workflow は決定論的・冪等的・長時間実行可能（外部 I/O 禁止、`workflow.now()` で時計参照）、Activity は非決定論的・副作用あり（at-least-once セマンティクス）。関数型の「純粋関数 vs 副作用」分離をランタイム機構で実装
 - **History Replay と Versioning の難問**——コードを変更すると過去のワークフローが「non-determinism error」を起こす危険。`GetVersion`/`patched()` API でバージョニング。データベースのスキーママイグレーションと同型の難問
