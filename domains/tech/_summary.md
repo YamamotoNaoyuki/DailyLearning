@@ -1,11 +1,17 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-18
-**エントリ数**: 52
+**最終更新**: 2026-05-20
+**エントリ数**: 53
 
 ---
 
 ## 蓄積された知識
+- **DPDK とカーネルバイパスネットワーキング (2026-05-20)**——汎用 Linux ソケットの3つのオーバーヘッド（割り込み駆動、メモリコピー3回、システムコール KPTI 緩和後数百ns）を消すために NIC を PCI レベルでユーザー空間にマップする設計。**busy-poll + HugePages + PMD（Poll Mode Driver）** が3本柱。HFT で 850ns 中央値 vs 通常ソケット 18.4μs（21.6x）、HTTP で 1.51M req/s vs 358k req/s（4 vCPU）
+- **F-Stack/Seastar/mTCP/VPP — ユーザー空間 TCP/IP スタック群**——DPDK 単体は L2 まで、L4 を埋めるために FreeBSD カーネルを userspace 移植した F-Stack（Tencent、0.6M RPS/10GE）、Seastar（shard-per-core 設計、ScyllaDB の基盤）、mTCP（学術系）等。**share-nothing per-core**（各コア独立 TCB テーブル）でロック競合ゼロ。Herlihy の wait-free 設計哲学のネットワーキング版
+- **3つのカーネルバイパス層の対比**——**DPDK**: 完全 PCI バイパス、最高性能、運用負担極大。**XDP（eXpress Data Path）**: kernel 内 eBPF、部分バイパス（L2-L3 のみ、L4 触れない）、汎用性高。**io_uring**: kernel 維持、SQ/CQ リング操作、ソケット互換性、2-3x 高速化。HFT/NFV/テレコム は DPDK、Cilium/Meta katran は XDP、汎用 Web/CDN は io_uring の3層棲み分けが2026年に固まった
+- **busy-poll の電力コスト = 第二法則**——CPU 使用率100%固定（10W-40W/core）。電力効率は最悪。データセンタ規模で電力 OPEX が直接効く。HFT は許容、CDN は io_uring 一択、テレコム 5G UPF は SmartNIC 委譲——3層別 ROI 最適化
+- **SmartNIC 主役交代（2024-2026）**——NVIDIA BlueField-3、AMD Pensando Elba、Intel IPU が DPDK ワークロードをハードウェアに吸収。「汎用 CPU 上の DPDK」→「SmartNIC ARM コア上の DPDK/VPP」へ。コンテナ/Kubernetes 統合は Multus + SR-IOV CNI が標準だが運用負担大、ベンダーロックインリスク残存
+- **核心洞察**——カーネルバイパス＝**責任の再分配**。OS が暗黙提供していた抽象（割り込み・コピー・保護・輻輳制御・ファイアウォール・メトリクス）をアプリ作者が再実装する契約に切替。**「制約を受け入れて自由を得る」**——CRDT・Rust 所有権・Nix と同じ設計哲学のネットワーキング版。Spectre/Meltdown 緩和（KPTI）が境界越えコストを引き上げ、結果として境界を越えない設計を経済的にした皮肉（投機実行サイドチャネル対策がネットワーキング設計を書き換えた間接的影響）
 - **TigerBeetle と金融グレード DB の設計哲学 (2026-05-18)**——Stripe/Mollie/Adyen 等の決済プロセッサが PostgreSQL 上で構築している巨大なオーケストレーションへの代替案。**スキーマ固定 (Account/Transfer のみ)・複式簿記が公理・6 ノードクラスタで 1M TPS・Strict Serializability**。Zig 実装、128 バイト固定レコード、io_uring 活用、no allocations in hot path
 - **Viewstamped Replication (VSR)**——Oki & Liskov (1988) の合意アルゴリズム、Paxos 同時期・Raft の祖先。view number と op number で「ログを送る」のではなく「view の遷移を合意する」モデル。View change protocol で過半数からログ集約してリーダー再構築
 - **VOPR (Viewstamped Operation Replicator) と DST**——映画 WarGames の WOPR 由来。ディスク・ネットワーク・システムクロックすべての非決定性源を抽象化し、1 コアで 6 ノードクラスタを 700 倍時間圧縮シミュレート。1,000 CPU コア 24/7 稼働で 1 日あたり「2 千年分」のテスト。FoundationDB DST の Zig 再実装系譜

@@ -1,9 +1,22 @@
 # コンピュータサイエンス 分野サマリー
 
-**エントリ数**: 36
-**最終更新日**: 2026-05-18
+**エントリ数**: 37
+**最終更新日**: 2026-05-20
 
 ## 蓄積された知識
+
+### ゼロ知識証明と PCP 定理：検証可能計算の理論的基盤から zk-SNARKs まで (2026-05-20)
+- **ZKP の3性質**——完全性（真→誠実証明者が高確率で説得）・健全性（偽→悪意者は無視できる確率でしか説得）・**ゼロ知識性（シミュレーション・パラダイム＝対話の transcripts を証明者なしでシミュレートできる→対話から学べることなし）**。Goldwasser-Micali-Rackoff (1985, STOC; 1989 SIAM J.Comp)、Goldwasser 2012 Turing 賞
+- **Σ-protocol (Schnorr 1989)**——コミット→チャレンジ→レスポンスの3ラウンド。離散対数知識証明。シミュレータは $z, c$ をランダム選択し $a = g^z/y^c$ 逆算で transcripts を区別不能に再現
+- **IP = PSPACE (Shamir 1990, JACM)**——対話と無限計算能力の証明者で PSPACE 全部を多項式時間検証者で扱える。Sum-check protocol が中心技法（多変数多項式の和の確率的検証）。MIP = NEXP (Babai-Fortnow-Lund 1991) が PCP への扉
+- **PCP 定理（Arora-Safra 1992、Arora-Lund-Motwani-Sudan-Szegedy 1998、Sudan 2007 Nevanlinna賞、Arora 2010 Gödel賞）**——**NP = PCP[O(log n), O(1)]**: NP 問題は O(log n) ビットのランダム性 + O(1) ビット読み取りで確率的検証可能。**3-4ビット読むだけで証明全体の妥当性を 99% 以上の信頼度で判定**。応用: MAX-3SAT の (7/8+ε)近似は NP困難 (Håstad 1997) など近似アルゴリズムの非近似性証明
+- **Computational Soundness と Argument**: Kilian 1992 が Linear PCP + collision-resistant hash で対数サイズ argument 構築。Soundness は計算的（poly-time prover 仮定）。Micali 1994 が Fiat-Shamir 変換で非対話化 → CS proofs
+- **zk-SNARK の4段階構成 (Bitansky 2012)**: Arithmetic Circuit → R1CS（$Az·Bz=Cz$）→ QAP（$A(x)B(x)-C(x)=H(x)Z(x)$）→ Linear PCP → SNARK（pairing-based 暗号）。**Groth16 (2016) は最小サイズ証明 = 3つの楕円曲線群要素（256バイト）、検証 3回 pairing（数ms）**。trusted setup（per-circuit）必要
+- **zk-STARK (Ben-Sasson 2018) = trusted setup なし + 量子耐性**: ハッシュ関数のみ依存、楕円曲線非依存。**FRI**（Fast Reed-Solomon IOP）が中心、Reed-Solomon 符号の構造を利用して低次性を対数時間確率的検証。サイズ大（数十〜数百 KB）だが透明性が決定的利点
+- **PLONK (2019) = Universal trusted setup**——一度の setup で任意の回路に再利用可能、Groth16 の per-circuit setup の制約解消。Aztec/Aleo/Polygon zkEVM 採用。**Bulletproofs (Bünz 2018) = trusted setup 不要、楕円曲線のみ依存**、Range proof 特化、Monero で confidential transactions
+- **実用システム**: Zcash (2016-、最初の商用 zk-SNARK)、Filecoin (Proof of Storage)、Ethereum L2 (zkSync, StarkNet, Polygon zkEVM, Scroll で rollup によるメインチェーン計算負荷圧縮)、Aleo・Mina (zk-SNARK ネイティブ)、zkEVM = EVM 計算を zk-SNARK で証明
+- **2026年動向**: Halo2/Plonky2/RISC Zero（汎用 zkVM）、Folding schemes (Nova/HyperNova/ProtoStar で再帰的 SNARK 効率化、IVC)、zkML（ニューラルネット推論の検証可能化、Worldcoin・Modulus Labs）、ZK-friendly hash (Poseidon・Reinforced Concrete・Anemoi)、GPU/FPGA/ASIC アクセラレータ (Ingonyama・Cysic)
+- **核心洞察**——「示さないことで示す」の極致。シミュレーション・パラダイムは「学習可能性」を否定的に定式化。**「真理の局所性」の発見**——巨大数学的真理も適切エンコードで局所検証可能（Reed-Solomon・ホログラムと同型）。**「効率と信頼の交換」**——SNARK は trusted setup（信頼）を払って succinctness（効率）を得る、STARK は trusted setup を捨てて証明サイズ大を受け入れる、Bulletproofs はその中間。**「何を信じるか」を設計判断にする** 暗号学の成熟。理論誕生(1985)から大規模実用化(Zcash 2016)まで30年遅延——ニュートン物理・量子力学と同じ理論→技術閾値到達のパターン。**TLS が90年代「ネット商取引のための暗号」として普及したように、ZKP は2030年代に「検証可能計算のための暗号」として普及する可能性**——zk-rollup, zkML, zkVM, zkID は「外部委託計算の信頼問題」の汎用解
 
 ### Spectre/Meltdown と投機実行サイドチャネル：マイクロアーキテクチャ・セキュリティの誕生 (2026-05-18)
 - **2018-01-03 公開** — Paul Kocher, Jann Horn (Google Project Zero), Daniel Genkin, Moritz Lipp, Yuval Yarom らが Meltdown (CVE-2017-5754) / Spectre (CVE-2017-5753, 5715) を発表。**マイクロアーキテクチャレベルでの情報漏洩**を実証、CPU セキュリティ史の地殻変動
