@@ -1,11 +1,18 @@
 # 📚 テクノロジー・開発 分野サマリー
 
-**最終更新**: 2026-05-20
-**エントリ数**: 53
+**最終更新**: 2026-05-21
+**エントリ数**: 54
 
 ---
 
 ## 蓄積された知識
+- **CXL とメモリ・ディスアグリゲーション：プーリングの OS・経済学 (2026-05-21)**——物理層（04-28 既習）の一段上、OS とデータセンター経済の層。出発点は **stranded memory（座礁メモリ）**: コア固定 1:1 のサーバで VM パッキングすると片方が先に枯れ、Azure トレースで **最大 25% の DRAM が誰にも割り当てられず寝る**（中央値 6%、95%ile で 3–27%）。DRAM はサーバ BOM の約 50%
+- **Pond (ASPLOS 2023, Microsoft+Meta)**——CXL Type 3 プールで座礁を複数ホストで共有。設計の非自明点は **「プールを小さく」**: 8–16 ソケットで savings 飽和（+75–90ns）、ラックスケールは +180ns 超で性能が壊れ savings が消える。**未使用メモリ(UM)を LightGBM で予測**しコアなしの **zNUMA ノード**としてプールへ載せ、誤予測は **QoS 監視 → ライブマイグレーションで引き戻す**（投機実行と同型の楽観 + ロールバック）。158 ワークロードで NUMA-local 比 1–5%・DRAM 7% 削減。Microsoft は 2025-11 に **Azure 初の CXL インスタンス**投入（メモリ ~10% / サーバコスト 5% 削減）
+- **TPP (ASPLOS 2023, Meta+U.Michigan)**——プール後の「どのページをどこに」を**アプリ無改変の OS 機構**で。デフォルト Linux は reclaim が同期停止して階層メモリに不向き。4 工夫: (a) migration による軽量デモーション (b) **alloc/reclaim パス分離**で先回り回収 (c) LRU 流用 + ヒステリシスでリアクティブ昇格 (d) **page-type-aware**（anon=ホット→高速層、file=コールド→CXL）。**プロモーション即応 / デモーションは背景**の非対称性が核心（後悔の非対称性）。Linux 18%・既存比 5–17% 改善、**upstream マージ済み**
+- **用途は三分岐 + weighted interleave**——CXL は (1) 容量拡張（単一ホスト・最も枯れている）/ (2) プーリング（座籇削減）/ (3) **帯域アグリゲーション**。Linux 6.9 `MPOL_WEIGHTED_INTERLEAVE` は帯域比でページ按分（**DDR 85%:CXL 15%**）し 1:1 比に対し帯域 **165% 向上**。容量だけでなく帯域も増えるのが見落とされがち
+- **反論：Google「A Case Against CXL Memory Pooling」(HotNets 2023)**——cost/complexity/utility の三点で multi-host プーリング否定。DRAM ~$3/GB、プール側も DRAM+EMC ASIC+スイッチが要り、**スイッチコストの損益分岐に 12.6TB 節約が必要**。Google/Azure トレースで「現代サーバは VM に対し大きく座籇は少ない」と Pond の 25% に真っ向対立。SemiAnalysis「CXL Is Dead In The AI Era」は HBM/UALink が AI クリティカルパスを制し CXL レイテンシは入れないと
+- **2024-26 ハードウェア現実**——売れているのは華々しい sharing(3.0) でなく地味な **expansion(用途1)**: Samsung CMM-D 2.0(128/256GB)、SK hynix CMM-DDR5 96GB(自社コントローラ TSMC 製造へ)、Micron CXL 2.0、E3.S 主流。CXL 4.0(2025-11, PCIe 7.0/128GT/s, bundled ports 1.5TB/s)。本格商用は 2027 予測(ABI)
+- **核心洞察**——「ML 予測 + 楽観実行 + ロールバック」がハード/OS/推論/DB の全層を貫く設計パターン（learned systems）。**レイテンシの物理段差（光速・スイッチ遅延）が規模の経済の上限を直接決める**稀有な例。Pond 25% vs Google「座籇少」は捏造でなく**フリート構成・VM サイズ分布への依存命題**——「CXL は死んだ」も「救う」も事業者ごとに両方正しい
 - **DPDK とカーネルバイパスネットワーキング (2026-05-20)**——汎用 Linux ソケットの3つのオーバーヘッド（割り込み駆動、メモリコピー3回、システムコール KPTI 緩和後数百ns）を消すために NIC を PCI レベルでユーザー空間にマップする設計。**busy-poll + HugePages + PMD（Poll Mode Driver）** が3本柱。HFT で 850ns 中央値 vs 通常ソケット 18.4μs（21.6x）、HTTP で 1.51M req/s vs 358k req/s（4 vCPU）
 - **F-Stack/Seastar/mTCP/VPP — ユーザー空間 TCP/IP スタック群**——DPDK 単体は L2 まで、L4 を埋めるために FreeBSD カーネルを userspace 移植した F-Stack（Tencent、0.6M RPS/10GE）、Seastar（shard-per-core 設計、ScyllaDB の基盤）、mTCP（学術系）等。**share-nothing per-core**（各コア独立 TCB テーブル）でロック競合ゼロ。Herlihy の wait-free 設計哲学のネットワーキング版
 - **3つのカーネルバイパス層の対比**——**DPDK**: 完全 PCI バイパス、最高性能、運用負担極大。**XDP（eXpress Data Path）**: kernel 内 eBPF、部分バイパス（L2-L3 のみ、L4 触れない）、汎用性高。**io_uring**: kernel 維持、SQ/CQ リング操作、ソケット互換性、2-3x 高速化。HFT/NFV/テレコム は DPDK、Cilium/Meta katran は XDP、汎用 Web/CDN は io_uring の3層棲み分けが2026年に固まった
@@ -508,3 +515,10 @@
 - LongLoRA——sparse attention + LoRA による LLaMA の 4K→128K コンテキスト拡張の仕組み
 - EWC（Elastic Weight Consolidation）+ LoRA——継続的学習での破滅的忘却防止の組み合わせ設計
 - AdaLoRA の実装詳細——SVD 形式での重み更新と動的ランク刈り込みアルゴリズム
+- TPP/NUMA Balancing/AutoTiering/TMO の upstream 統合の現状——Linux 6.x のマージ箇所と `demotion_enabled` 等の実チューニングノブ
+- DAMON ベース tiering（DAMOS `migrate_hot`/`migrate_cold`）——TPP の LRU 方式 vs DAMON リージョンサンプリングの精度/オーバーヘッド比較
+- CXL.mem レイテンシ実測——Granite Rapids + 実 CXL モジュールの MLC 実測、論文推定 155–270ns の検証
+- CXL 3.0 sharing のコヒーレンス詳細——Back-Invalidate スヌープ、HDM-DB、複数ホスト同時 RW のディレクトリ管理
+- learned systems の系譜——Pond の GBM のように ML がプリフェッチ/キャッシュ置換/スケジューリングを置換する研究全体像
+- UALink vs CXL の棲み分け——GPU 間 UALink、CPU-メモリ CXL の 2026 収束は安定か、AI クラスタ実配置
+- Google 反 CXL 論文への反論——Pond/TPP 陣営の break-even 批判への応答、VM サイズ分布前提の議論の決着
