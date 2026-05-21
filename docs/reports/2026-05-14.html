@@ -1075,65 +1075,6 @@ details .detail-content {
     <section class="section" id="domains">
       <h2 class="section-title">今日のテーマ概要        <span class="section-controls"><button type="button" id="expand-all">すべて展開</button><button type="button" id="collapse-all">すべて閉じる</button></span></h2>
       <p class="section-note">各カードをクリックすると、そのドメインの全文が開きます。</p>
-      <details id="card-tech" class="card card-tech domain-details">
-        <summary>
-          <span class="card-head"><span class="badge badge-tech">tech</span> <span class="card-title">Apache Arrow と列指向ゼロコピー・データ交換</span></span>
-          <span class="card-abstract">Apache Arrow の 10 周年（2016-2026）。<strong>列指向インメモリ・フォーマット</strong>として<strong>「シリアライゼーション税」</strong>を撲滅した経緯と、ADBC/Flight/DataFusion など派生プロジェクトのエコシステム。「メモリレイアウトだけを仕様化」という<strong>最小化の戦略</strong>で言語境界・プロセス境界・GPU 境界を越えるゼロコピー共有を実現</span>
-        </summary>
-        <div class="domain-body">
-          <div class="domain-tags"><span class="tag">#ApacheArrow</span> <span class="tag">#ColumnarFormat</span> <span class="tag">#ZeroCopy</span> <span class="tag">#ADBC</span> <span class="tag">#DataFusion</span></div>
-<h2>学んだこと</h2>
-<h3>Apache Arrow の存在意義 ― 「シリアライゼーション税」の撤廃</h3>
-<p><strong>Apache Arrow</strong> は 2016 年に Wes McKinney（pandas 作者）と Jacques Nadeau（Drill）らによって始まり、2026 年 2 月で誕生 10 周年を迎えた、<strong>言語非依存・プロセス間共有可能な列指向インメモリ・フォーマット</strong>である。Arrow の解決した問題はそれまでデータ処理スタックを蝕んできた <strong>「シリアライゼーション税」</strong> ――「Spark から pandas へデータを渡すだけで CPU の 80% が消える」という現象であった。原因は、各システムが独自のメモリレイアウト（Spark の InternalRow、pandas の Block Manager、Postgres の wire protocol）を持ち、境界を越えるたびに行→列、列→行の変換と直列化・逆直列化を繰り返していたこと。Arrow は <strong>「共通の物理メモリレイアウト」</strong> を仕様化することで、変換ゼロ・コピーゼロのプロセス間共有を可能にした。</p>
-<h3>物理レイアウト ― Validity Bitmap + Buffers + Children</h3>
-<p>Arrow の列は <strong>(1) Validity Bitmap</strong>（NULL マスクの 1 ビット/要素）、<strong>(2) 値バッファ</strong>（固定長型なら密な値配列、可変長型ならオフセット＋データ）、<strong>(3) 子配列</strong>（List/Struct のネスト構造）という単純な構造で表現される。すべてのバッファは <strong>64-byte アライメント</strong> で配置され、SIMD 命令（AVX2/AVX-512/NEON）が直接動作する。CPU キャッシュラインの境界とアロケータのアロケーションサイズ（typically 64-byte multiples）に合わせた設計で、「ハードウェアの都合に合わせた人工的な制約を仕様にする」発想は DuckDB の vector size 2048 と同じく <strong>L1d/L1i 局所性駆動の設計</strong>。</p>
-<h3>IPC とゼロコピー共有 ― Flatbuffers が鍵</h3>
-<p>Arrow IPC (Inter-Process Communication) フォーマットは <strong>Flatbuffers</strong> でメタデータをエンコードする。Protocol Buffers が「シリアライズ・デシリアライズが必要」なのに対し、Flatbuffers は <strong>「ヘッダから直接ポインタ参照」</strong> できるためメタデータ自体のパースコストもゼロ。実データ部はそのまま mmap でき、複数プロセスが <strong>同じ物理メモリページ</strong> を参照する。これにより Pandas → DuckDB、Polars → DataFusion、PySpark → Ray という言語境界・プロセス境界のデータ受け渡しが「ポインタの貸し借り」になる。<strong><code>pyarrow.Table</code> から <code>polars.from_arrow()</code> が μ 秒で済むのはコピーが発生しないから</strong>。</p>
-<h3>ADBC (Arrow Database Connectivity) ― JDBC/ODBC の現代版</h3>
-<p><strong>ADBC</strong> は 2023 年に登場、2026 年現在 PostgreSQL/Snowflake/BigQuery/DuckDB/SQLite が公式実装を提供する <strong>「列志向ネイティブ」のデータベース接続規格</strong>。従来の JDBC/ODBC は「行単位フェッチ → ドライバ層で列変換 → アプリで列→列変換」という三重変換を強いていた。ADBC では DB サーバが <strong>Arrow RecordBatch ストリームを直接返す</strong>ため、サーバ・ドライバ・アプリの全層で同一のメモリレイアウト。Snowflake の社内ベンチマークで「100M 行の SELECT で <strong>JDBC 比 8 倍</strong>、ピーク CPU は 1/4」が確認されている。BigQuery Storage Read API、Databricks SQL Statement Execution API、ClickHouse Native Protocol も Arrow Flight を内部採用。</p>
-<h3>Arrow Flight と Flight SQL ― gRPC 上の高速転送層</h3>
-<p><strong>Arrow Flight</strong> は gRPC 上に作られた Arrow 専用の RPC 層で、HTTP/2 のマルチストリームを使って <strong>複数 RecordBatch を並列転送</strong>する。<code>Flight SQL</code> は Flight 上の SQL クライアントプロトコルで、Dremio/InfluxDB/Trino が採用。<strong>TLS 1.3 + Arrow + gRPC</strong> で「セキュアな PB 級データ転送」を 10 GbE のワイヤーレートに迫る速度で実現する。Hadoop の HiveServer2 (Thrift over TCP, 行指向) との性能比較で 5-20 倍の差。</p>
-<h3>Apache DataFusion ― Rust 製組み込みクエリエンジン</h3>
-<p><strong>DataFusion</strong> は元々 Arrow のサブプロジェクトだったが 2024 年に Apache トップレベルプロジェクトに昇格。Rust 製の <strong>「組み込み可能・モジュラー・列指向クエリエンジン」</strong> で、論理プラン→物理プラン→ベクトル化実行のパイプライン全体が <strong>Arrow RecordBatch を入出力</strong>として共有する。Polars、Comet（Spark の DataFusion 置換）、Ballista（分散実行）、InfluxDB 3.0、Cube.js、Greptime DB が DataFusion を内部エンジンに採用。<strong>「クエリ最適化器とベクトル化実行を独立コンポーネント化」</strong> することで、SQL 方言や分散レイヤだけを差し替えれば新しい OLAP を作れる。<strong>SIGMOD 2024 論文</strong> で発表され、Velox（Meta）と双璧をなす次世代エンジン。</p>
-<h3>Arrow Compute と UDF Stability</h3>
-<p>Arrow Compute は Arrow 上で動く C++/Rust 製の関数ライブラリ（hash、cast、aggregate、filter）。重要なのは <strong>「カーネルが言語境界を越えて再利用される」</strong> こと。pandas が「dtype を Arrow に統一」する Pandas 2.0 (2023) 以降、<code>pyarrow.compute</code> の関数を Python から呼ぶと <strong>C++ 実装が直接ベクトル化実行</strong>される。Polars の <code>Expr</code> も裏で Arrow Compute を呼ぶ。「<strong>Numpy が pandas/scikit-learn の共通基盤になったように、Arrow Compute は次世代の数値計算共通基盤</strong>」になる予兆。</p>
-<h3>2026 のフロンティア ― Lakehouse の共通言語</h3>
-<p>2026 年現在、Arrow は <strong>Iceberg/Delta/Hudi の Lakehouse スタック共通の中間層</strong>として確立した。Parquet → Arrow → DataFusion/Polars/DuckDB → Arrow → クライアントというパイプラインで、<strong>Parquet の列指向ファイルフォーマットと Arrow の列指向メモリフォーマット</strong>が双子の役割を果たす。Iceberg 1.6 (2026 Q1) で <strong>Arrow-based vectorized reader</strong> がデフォルト化、Delta-rs (Rust 実装) は Arrow ネイティブ。ClickHouse はネイティブフォーマットを保ちつつ Arrow をエクスポート層で採用。<strong>「列指向ストレージと列指向計算の歴史的統合」</strong> が完了しつつある。</p>
-<h2>気づき・洞察</h2>
-<ul>
-<li><strong>「データを動かす vs 動かさない」哲学の双子</strong>——Arrow（共通フォーマットで効率的に動かす）と Iceberg/Delta（動かさず on-disk のままクエリする）は逆ベクトルだが同じ目標（シリアライゼーション削減）に到達する。プロセス境界を越える瞬間だけ Arrow に変換し、それ以外は元のストレージで持つというハイブリッドが現代の標準</li>
-<li><strong>「仕様の最小化」が普及を生む</strong>——Arrow は「メモリレイアウトだけ」を仕様化し、計算・転送・接続・ストレージは別プロジェクト（Compute/Flight/ADBC/Parquet）に分離した。HTTP が「テキストプロトコル」だけを仕様化し REST/GraphQL/SSE/WebSocket を許したのと同じ。<strong>仕様が小さいほど採用が広がる</strong></li>
-<li><strong>共通フォーマットの政治学</strong>——Arrow 普及の最大の障壁は技術ではなく「自社専用フォーマット」への執着だった。Spark の InternalRow、Snowflake のクローズドな型、各社独自のドライバ。2024-2026 にこれらが Arrow に降伏したのは「ベンダーロックインのコストが顧客から見えるようになったから」。<strong>オープン標準は経済的圧力で勝つ</strong></li>
-<li><strong>GPU/CUDA との接続点</strong>——cuDF（NVIDIA RAPIDS）は Arrow をネイティブ・データモデルとし、GPU ↔ CPU 間の memcpy も Arrow フォーマットで行う。<strong>ホスト・デバイス・分散ノード・別プロセス・別言語のすべての境界で同じレイアウト</strong>を使う ―― これは「CRDT が編集の境界を越える」「MCP が AI とツールの境界を越える」のと同型の <strong>「境界を越えるための共通インターフェース」哲学</strong></li>
-<li><strong>「ゼロコピー」は実は「相対コピー削減」</strong>——厳密には NUMA 越え・GPU 越えでは物理コピーが発生する。Arrow が言う zero-copy は「<strong>論理的に同じバッファを複数主体が参照できる</strong>」こと。仮想メモリページの mmap、PCIe DMA、RDMA がそれぞれの境界で物理的最適化を担う</li>
-</ul>
-<h2>他分野との接続</h2>
-<ul>
-<li><strong>cs (列指向ストレージ vs 行指向, B+ tree vs LSM)</strong>: Arrow の列指向は OLAP の典型解だが、行ごとの更新が必要な OLTP では行指向が依然有利。<strong>ワークロード特性が物理レイアウトを決定する</strong>普遍法則</li>
-<li><strong>piano (内的聴感)</strong>: ピアニストが楽譜を見ながら頭の中で音を鳴らすとき、視覚情報と聴覚情報を「変換」しているのではなく <strong>「同じ音楽イメージの異なる表現を並行参照」</strong> している。Arrow の zero-copy も同じく「変換しない、参照する」</li>
-<li><strong>bread (クラスト形成)</strong>: パンの内部（クラム）と表面（クラスト）が「同じ生地」の異なる物理状態であるように、Arrow のデータも「同じバイト列」の異なる解釈（int32 配列か float32 配列か）として読まれる。<strong>物理は一つ、論理は多様</strong></li>
-<li><strong>golf (傾斜地ライ)</strong>: 「同じスイング」が地形によって違うボールフライトを生む ―― Arrow の同じバッファが異なる言語・プロセスで違うインターフェースに見えるのと同型。<strong>変換ではなく適応</strong></li>
-</ul>
-<h2>次に深掘りしたいこと</h2>
-<ul>
-<li>Arrow Flight RPC v2 と HTTP/3 統合の最新状況（QUIC マルチストリームを利用した Flight SQL 改良案）</li>
-<li>Arrow IPC v3 提案（FlatBuffers 廃止と Protobuf 復帰の論争）</li>
-<li>Velox（Meta）と DataFusion の設計判断の違い ―― Vectorized iterator vs Pull-based push 化</li>
-<li>Substrait（クロスエンジン論理プラン IR）との関係：DataFusion が Substrait をデフォルト IR にする日</li>
-</ul>
-<hr>
-<h2>参考ソース</h2>
-<ul>
-<li><a href="https://github.com/apache/arrow">Apache Arrow 公式 GitHub</a> (Tier 1: 公式)</li>
-<li><a href="https://arrow.apache.org/blog/2026/02/12/arrow-anniversary/">Apache Arrow is 10 years old (公式ブログ 2026-02)</a> (Tier 1)</li>
-<li><a href="https://arrow.apache.org/docs/format/Columnar.html">Arrow Columnar Format 仕様</a> (Tier 1: 公式仕様)</li>
-<li><a href="https://dl.acm.org/doi/pdf/10.1145/3626246.3653368">Apache DataFusion: A Fast, Embeddable, Modular Analytic Query Engine (SIGMOD 2024)</a> (Tier 1: 査読論文)</li>
-<li><a href="https://datafusion.apache.org/">Apache DataFusion 公式ドキュメント</a> (Tier 1)</li>
-</ul>
-          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/tech/2026-05-14_Apache_Arrowと列指向ゼロコピー・データ交換.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
-          <button type="button" class="collapse-card">▲ 閉じる</button>
-        </div>
-      </details>
       <details id="card-music" class="card card-music domain-details">
         <summary>
           <span class="card-head"><span class="badge badge-music">music</span> <span class="card-title">モーツァルト晩年のピアノ協奏曲 K.488/K.491 とギャラント様式の限界</span></span>
@@ -1508,309 +1449,6 @@ details .detail-content {
 <li><a href="https://www.physio-pedia.com/Lumbar_Multifidus">Lumbar Multifidus – Physiopedia</a> (Tier 2: 専門家編集)</li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/anatomy/2026-05-14_脊柱起立筋と多裂筋_深層筋と表層筋の機能分化.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
-          <button type="button" class="collapse-card">▲ 閉じる</button>
-        </div>
-      </details>
-      <details id="card-bread" class="card card-bread domain-details">
-        <summary>
-          <span class="card-head"><span class="badge badge-bread">bread</span> <span class="card-title">パンのクラスト形成 ― 表面温度勾配と糊化・Maillard・カラメル化の連続物語</span></span>
-          <span class="card-abstract">クラストとクラムは「<strong>同じ生地の物理状態の二相</strong>」。糊化・Maillard・カラメル化が温度勾配と水分活度 a_w の時間プロファイルで連鎖。a_w 0.6-0.7 で Maillard が最速 ―― 「<strong>表面と内部の境界中間層で反応が最大化</strong>」</span>
-        </summary>
-        <div class="domain-body">
-          <div class="domain-tags"><span class="tag">#Crust</span> <span class="tag">#Maillard</span> <span class="tag">#Caramelization</span> <span class="tag">#HeatTransfer</span> <span class="tag">#Gelatinization</span></div>
-<h2>学んだこと</h2>
-<h3>クラスト ― パンの「皮膚」のような境界相</h3>
-<p><strong>クラスト (crust)</strong> はパンの表面で形成される <strong>乾燥・着色・硬化した層</strong>で、内部のクラム (crumb) とは全く異なる物理化学状態を持つ。厚さは典型的に <strong>2-5 mm</strong>、含水率は <strong>5-15%</strong>（クラムは 40-45%）、密度はクラムの 1.5-2 倍。<strong>「同じ生地が、表面と内部で全く異なる構造に分岐する」</strong> ことがパン焼成の本質的な不思議で、その分岐を駆動するのが <strong>熱と水分の表面勾配</strong>。</p>
-<h3>焼成中の温度勾配 ― 4 つの相</h3>
-<p>オーブン投入直後から焼成終了まで、パンの表面と中心では全く異なる時間スケールの変化が並行する：</p>
-<p><strong>相 1: オーブンスプリング (0–10 分)</strong></p>
-<ul>
-<li>表面温度: 100°C 未満（蒸気と生地表面の蒸発冷却で）</li>
-<li>中心温度: 30–60°C</li>
-<li>重要現象: 酵母の最終発酵（35-50°C で最大活性、60°C で死滅）、<strong>生地表面が湿潤を保つことで弾性的に膨張可能</strong></li>
-<li><strong>スチームの役割</strong>：オーブン内蒸気が表面に凝結し、表面温度を 100°C 以下に抑える → クラスト形成を遅らせて生地膨張を最大化</li>
-</ul>
-<p><strong>相 2: 糊化と凝固 (5–20 分)</strong></p>
-<ul>
-<li>表面温度: 100-140°C</li>
-<li>中心温度: 60-80°C</li>
-<li><strong>デンプン糊化 (gelatinization)</strong>：55-80°C で開始、デンプン粒が水を吸って膨潤・破裂 → ゲル網目を形成</li>
-<li><strong>グルテン凝固 (coagulation)</strong>：60-70°C で開始、70-80°C で完了 → 弾性ネットワークが硬化</li>
-<li><strong>生地構造の「ロック」</strong>：この段階で気泡構造が固定、これ以後膨張しない</li>
-</ul>
-<p><strong>相 3: 表面乾燥と着色開始 (15–30 分)</strong></p>
-<ul>
-<li>表面温度: 140-160°C（水分が局所的に &lt; 5%、表面の水分活度 a_w が急落）</li>
-<li>中心温度: 90-95°C（沸点に達するが、水蒸気は内部圧上昇のみで蒸発できず）</li>
-<li><strong>メイラード反応 (Maillard reaction) 開始</strong>：140-165°C でアミノ酸＋還元糖の縮合が加速、メラノイジン（茶色色素）と数百種の香気成分が生成</li>
-<li>水分蒸発潜熱が表面を冷却するため、水分が枯渇するまで温度は上がりにくい</li>
-</ul>
-<p><strong>相 4: カラメル化と完成 (25–45 分)</strong></p>
-<ul>
-<li>表面温度: 170-200°C</li>
-<li>中心温度: 95-98°C</li>
-<li><strong>カラメル化 (caramelization)</strong>：糖単独の熱分解（160-180°C 以上）、ショ糖は約 180°C、グルコースは約 150°C で開始</li>
-<li>メイラードは依然継続、メラノイジンが深色化</li>
-<li><strong>完了の合図</strong>：中心温度 95-98°C 到達、表面の鳴き音（クラックリング）、底を叩いた中空音</li>
-</ul>
-<h3>Maillard 反応の化学詳細</h3>
-<p><strong>Maillard 反応</strong>（1912 年に Louis-Camille Maillard が発見）は <strong>還元糖</strong>（グルコース、フルクトース、マルトース）と <strong>遊離アミノ酸または遊離アミノ基</strong> の縮合反応：</p>
-<ol>
-<li><strong>第 1 段階: Amadori 転位</strong></li>
-<li>糖のカルボニル基がアミノ基と縮合 → Schiff base → Amadori 化合物</li>
-<li>
-<p>50-100°C で可逆的に進行、まだ着色なし</p>
-</li>
-<li>
-<p><strong>第 2 段階: Strecker 分解とエノール化</strong></p>
-</li>
-<li>100-150°C で Amadori 化合物が分解 → α-ジカルボニル化合物 → 多様な香気分子</li>
-<li>
-<p><strong>Strecker aldehyde</strong>: アミノ酸特有のアロマ（フェニルアラニン → フェニルアセトアルデヒド「バラ・蜂蜜」、メチオニン → メチオナール「焼きジャガイモ」、ロイシン → 3-メチルブタナール「モルティ」）</p>
-</li>
-<li>
-<p><strong>第 3 段階: 重合とメラノイジン形成</strong></p>
-</li>
-<li>高分子量褐色色素 <strong>melanoidin</strong> の生成</li>
-<li>抗酸化性・微弱な抗菌性を持つ</li>
-</ol>
-<h3>カラメル化の化学</h3>
-<p><strong>カラメル化</strong>は糖単独の熱分解（アミノ酸不要）：</p>
-<ul>
-<li>ショ糖: 約 160-180°C で分解開始</li>
-<li>フルクトース: 約 110°C（最も低温）</li>
-<li>グルコース: 約 150°C</li>
-</ul>
-<p>経路：糖 → エノール化 → 脱水 → <strong>HMF (5-ヒドロキシメチルフルフラール)</strong> → 重合 → カラメラン・カラメレン・カラメリン（褐色色素）+ <strong>ジアセチル、フラン、マルトール、ピラジン</strong>（カラメル香気）。</p>
-<p>メイラードとカラメル化は <strong>連続的に起こる</strong>――表面では同時並行し、互いの分解産物が反応に参与する。香味は両者の合作。</p>
-<h3>水分活度 (Water Activity, a_w) の決定的役割</h3>
-<p>クラスト形成を支配するのは温度だけでなく <strong>水分活度 a_w</strong>（純水基準の蒸気圧比）。クラム部は a_w ≈ 0.94-0.96、クラスト部は a_w 0.3-0.5 まで低下。<strong>Maillard 反応は a_w 0.6-0.7 で最速</strong>となる――水が少なすぎても多すぎても進まない。だからパンの <strong>クラスト表面（中央部）で最も Maillard が進む</strong>：表面の最外層は乾燥しすぎ、内部は水分過剰、その中間層で反応が爆発的に進行する。</p>
-<h3>スチームの精密な役割</h3>
-<p>家庭でも商業でもダッチオーブン・スチームインジェクションを使うのは：</p>
-<ol>
-<li><strong>表面温度を 100°C 以下に保ち</strong>、生地膨張時間を最大化（オーブンスプリング延長）</li>
-<li><strong>表面のデンプン糊化を促進</strong>、ガラス化した糊化デンプンがツヤ（gelatinized gloss）を生む</li>
-<li><strong>表面の水分が一時的に増えることで Maillard 開始 a_w に到達</strong>（あまりに乾いた表面はメイラードを起こしにくい）</li>
-</ol>
-<p>20 分以降に <strong>スチームを止めて乾燥環境に切り替える</strong>ことで、表面が乾燥・硬化・着色する。<strong>「最初は湿らせ、後で乾かす」二相戦略</strong>がプロのオーブン操作の核心。</p>
-<h3>クラストの香気プロファイル</h3>
-<p>GC-MS 分析（Schieberle et al., 1998）が示すパン皮の主要香気成分：</p>
-<ul>
-<li><strong>2-Acetyl-1-pyrroline</strong>（ジャスミン米様の焼きたて香、Maillard 由来、閾値 0.1 ng/L という超低閾値）</li>
-<li><strong>3-Methylbutanal</strong>（モルティ、ロイシン由来）</li>
-<li><strong>Methional</strong>（焼きジャガイモ様、メチオニン由来）</li>
-<li><strong>Phenylacetaldehyde</strong>（蜂蜜・バラ様、フェニルアラニン由来）</li>
-<li><strong>2,3-Butanedione (diacetyl)</strong>（バター様、カラメル化と発酵両方から）</li>
-<li><strong>Furaneol</strong>（カラメル・苺様、Maillard 副生成物）</li>
-</ul>
-<p>これらが集合して <strong>「焼きたてパンの匂い」</strong> という単一の香気イメージを生む。</p>
-<h3>クラスト形成の制御因子</h3>
-<ul>
-<li><strong>オーブン温度</strong>: 高温（230-260°C）= 急速で薄いクラスト + 内部水分保持。低温（200-220°C）= 厚いクラスト + 内部乾燥</li>
-<li><strong>オーブン時間</strong>: 長いほど厚く乾燥</li>
-<li><strong>生地表面の処理</strong>: 卵塗布（卵黄たんぱくの Maillard 加速）、水塗布（一時的に a_w 上昇）、粉塗布（粉が表面の Maillard を抑え白いまま残す）</li>
-<li><strong>生地配合</strong>: 砂糖（カラメル化加速＋色濃く）、ミルク・乳製品（ラクトース＋たんぱく質で Maillard 強化）、油脂（油でコーティング → 水蒸気透過低下 → 内部水分保持）</li>
-<li><strong>発酵時間</strong>: 長時間冷蔵発酵 [[長時間冷蔵発酵リターディングの科学と風味形成]] で遊離アミノ酸増加 → Maillard 強化 → 香り豊かなクラスト</li>
-</ul>
-<h2>気づき・洞察</h2>
-<ul>
-<li><strong>「クラストとクラムは同じ生地の物理状態の二相」</strong>——クラストは別の食材ではなく、<strong>温度と水分の境界条件が違うだけの同じ生地</strong>。これは [[筋線維タイプとトレーニング適応]] で同じ筋細胞が訓練刺激で Type I/II に分化する現象と同型。<strong>境界条件が分岐を生む</strong></li>
-<li><strong>「水分活度はクラスト形成の隠れたマスタースイッチ」</strong>——多くのレシピは温度と時間を強調するが、本質は a_w の時間プロファイル。スチーム導入は a_w を一時的に上げ、後半はそれを乾燥環境に晒す。<strong>目に見えない変数を読めるとレシピが言語化される</strong></li>
-<li><strong>「Maillard を最大化する中間層」の普遍性</strong>——表面最外層でも内部でもなく、<strong>両者の境界中間層で反応が最大化</strong>するのは、酵素反応（基質と酵素の中間濃度）、扇形気象（前線の境界）、市場経済（消費者と生産者の中間に流通）など、多くの自然現象で見られるパターン。<strong>反応が起こる場所は「両極の中間」が多い</strong></li>
-<li><strong>「香気は数百分子の合奏」</strong>——「焼きたてパンの匂い」は単一分子ではなく <strong>数百の香気分子の比率パターン</strong>。香水の調香と同じ。AI による香気再現（電子鼻 e-nose）がまだ単純な臭気の判別レベルにとどまるのは、パン皮のような <strong>多次元比率パターンの認知</strong>に人間の嗅覚系が極端に最適化されているから</li>
-<li><strong>「クラストの厚さは保存性の指標」</strong>——薄いクラストは流通向きでない（皮が割れて水分が逃げる）が、保存性も低い。<strong>バゲットは 8 時間で硬くなる</strong>のはクラストが内部水分を急速に失うから。<strong>機能と寿命のトレードオフ</strong></li>
-</ul>
-<h2>他分野との接続</h2>
-<ul>
-<li><strong>anatomy (脊柱起立筋と多裂筋)</strong>: 表層筋（脊柱起立筋）と深層筋（多裂筋）の機能分化は、クラストとクラムの物理状態分化と同型。<strong>同じ生地（同じ骨格筋系）が境界条件で異なる機能に分化する</strong></li>
-<li><strong>tech (Apache Arrow)</strong>: クラストとクラムが「同じ生地の異なる物理状態」であるように、Arrow のバッファも「同じバイト列の異なる解釈」。<strong>物理的不変、論理的多様</strong></li>
-<li><strong>music (モーツァルト K.491)</strong>: K.491 の「形式は古典的、内容は浪漫的」二重性は、パンの「外は硬く、中は柔らか」二重性に対応。<strong>外側の制約が内側の表現を保護する</strong></li>
-<li><strong>piano (内的聴感)</strong>: パン職人が完成パンの音（叩いた中空音）と色を内的に想像してオーブンを操作するのは、ピアニストが内的聴感で音色を想像してから鍵盤を打つのと同じ。<strong>プロは結果イメージから逆算する</strong></li>
-<li><strong>golf (傾斜地ライ)</strong>: クラスト形成のスチーム→乾燥の二相戦略は、傾斜地での「アドレス調整→スイング実行」の二相戦略と同型。<strong>条件付きで段階的に実行する</strong></li>
-</ul>
-<h2>次に深掘りしたいこと</h2>
-<ul>
-<li>ガラス転移温度 (Tg) とクラストのスタリング（老化）速度との関係</li>
-<li>フランス・カンパーニュとサワードウのクラスト香気プロファイル比較（pH と Maillard 速度の関係）</li>
-<li>業務用デッキオーブンとコンベクションオーブンのクラスト形成差異</li>
-<li>「再加熱（refresh）」でクラストを蘇らせる物理化学（水分再分布とガラス化）</li>
-</ul>
-<hr>
-<h2>参考ソース</h2>
-<ul>
-<li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0924224409001307">Crust formation and its role during bread baking - Trends in Food Science &amp; Technology</a> (Tier 1: 査読)</li>
-<li>Schieberle, P. &amp; Grosch, W. (1998). "Identification of the most odor-active compounds in wheat bread crumb and crust." <em>Z. Lebensm.-Unters.-Forsch.</em>, A 207, 235–239. (Tier 1)</li>
-<li><a href="https://www.sciencedirect.com/science/article/pii/002364389590008X">Modelling of Browning Kinetics of Bread Crust During Baking</a> (Tier 1: 査読)</li>
-<li>Belitz, H.-D., Grosch, W., &amp; Schieberle, P., <em>Food Chemistry</em> 4th ed. (Springer, 2009) (Tier 1: 教科書)</li>
-<li>McGee, H., <em>On Food and Cooking</em> (Scribner, 2004) – 第 9 章 (Tier 1: 著名専門書)</li>
-</ul>
-          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/bread/2026-05-14_パンのクラスト形成_表面温度勾配と糊化_Maillard_カラメル化.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
-          <button type="button" class="collapse-card">▲ 閉じる</button>
-        </div>
-      </details>
-      <details id="card-cs" class="card card-cs domain-details">
-        <summary>
-          <span class="card-head"><span class="badge badge-cs">cs</span> <span class="card-title">ラムダ計算と型システムの基礎 ― STLC から System F、Curry-Howard へ</span></span>
-          <span class="card-abstract">型なしラムダ計算のパラドックスから STLC、Curry-Howard 同型対応、System F のパラメトリック多相、依存型・線形型までの<strong>型理論の系譜</strong>。「<strong>型システムは禁止の体系</strong>」という見方、表現力 vs 決定可能性の根本トレードオフ</span>
-        </summary>
-        <div class="domain-body">
-          <div class="domain-tags"><span class="tag">#LambdaCalculus</span> <span class="tag">#TypeTheory</span> <span class="tag">#SystemF</span> <span class="tag">#CurryHoward</span> <span class="tag">#ProofTheory</span></div>
-<h2>学んだこと</h2>
-<h3>ラムダ計算 ― 計算の最小エッセンス</h3>
-<p><strong>ラムダ計算 (λ-calculus)</strong> は Alonzo Church が <strong>1932-1936 年</strong>に導入した、関数定義と適用だけで計算を表現する形式系。3 つの構成要素：</p>
-<ol>
-<li><strong>変数</strong>: x, y, z, …</li>
-<li><strong>抽象</strong>: λx. M（「x を受け取って M を返す関数」）</li>
-<li><strong>適用</strong>: M N（「関数 M に引数 N を渡す」）</li>
-</ol>
-<p>これだけで <strong>チューリング完全</strong>――再帰、データ構造、論理、自然数のすべてが Church 符号化で表現できる。<strong>「計算とは関数適用そのものである」</strong> という哲学が λ-calculus の核心で、関数型プログラミング（Lisp, Haskell, OCaml, F#, Scala）の理論的基盤。</p>
-<p><strong>β-簡約 (β-reduction)</strong>：(λx. M) N → M[x := N]――関数適用を変数置換に還元する。この操作の繰り返しが「計算」。</p>
-<h3>型なしラムダ計算のパラドックス</h3>
-<p>Church の元々の動機は <strong>形式論理の基礎</strong>を作ること。しかし型なしラムダ計算では <strong>自己適用 (self-application)</strong> が許される：</p>
-<p>Ω = (λx. x x)(λx. x x)</p>
-<p>これは無限に β-簡約し続け、停止しない。さらに <strong>Curry のパラドックス</strong>：(λx. x x)(λx. x x) は <strong>論理として解釈すると矛盾を導く</strong>。Russell のパラドックスの λ 計算版。</p>
-<p><strong>型システムはこのパラドックスを排除する装置</strong>として誕生した。</p>
-<h3>単純型付きラムダ計算 (STLC, Simply Typed Lambda Calculus)</h3>
-<p>Church が <strong>1940 年</strong>に導入した STLC は、各項に <strong>型 (type)</strong> をつける：</p>
-<ul>
-<li>基本型: σ, τ（例: Int, Bool）</li>
-<li>関数型: σ → τ（「σ を受け取って τ を返す関数」の型）</li>
-<li>型付け規則:</li>
-<li>変数: Γ ⊢ x : σ if (x : σ) ∈ Γ</li>
-<li>抽象: Γ, x : σ ⊢ M : τ ⟹ Γ ⊢ λx : σ. M : σ → τ</li>
-<li>適用: Γ ⊢ M : σ → τ, Γ ⊢ N : σ ⟹ Γ ⊢ M N : τ</li>
-</ul>
-<p>STLC では <strong>(λx. x x)</strong> が型付けできない（x は σ → τ かつ σ という二つの型を同時に持つ必要があり矛盾）。<strong>自己適用を構文レベルで排除</strong>することで、すべての項が <strong>強正規化 (strong normalization)</strong> ―― 任意の簡約順序で必ず停止 ―― という性質を持つ。</p>
-<p><strong>強正規化定理 (Tait 1967)</strong>：STLC の任意の項は有限ステップで正規形に到達する。<strong>つまり STLC ではチューリング完全性を失う代わりに停止性を獲得</strong>――これがプログラミング言語型システムの基本トレードオフ。</p>
-<h3>Curry-Howard 同型対応 ― プログラム = 証明</h3>
-<p>Curry (1934) と Howard (1969) が独立に発見した <strong>計算と論理の構造同型</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>プログラミング側</th>
-<th>論理側</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>型 σ</td>
-<td>命題 σ</td>
-</tr>
-<tr>
-<td>項 M : σ</td>
-<td>σ の証明 M</td>
-</tr>
-<tr>
-<td>関数型 σ → τ</td>
-<td>含意 σ ⇒ τ</td>
-</tr>
-<tr>
-<td>直積型 σ × τ</td>
-<td>連言 σ ∧ τ</td>
-</tr>
-<tr>
-<td>直和型 σ + τ</td>
-<td>選言 σ ∨ τ</td>
-</tr>
-<tr>
-<td>空型 ⊥</td>
-<td>偽 ⊥</td>
-</tr>
-<tr>
-<td>関数適用</td>
-<td>Modus Ponens</td>
-</tr>
-<tr>
-<td>β-簡約</td>
-<td>証明の正規化</td>
-</tr>
-</tbody>
-</table>
-<p><strong>「型を持つプログラムを書くこと」と「命題を直観主義論理で証明すること」は同じ操作</strong>。これは数学基礎論と計算理論を貫く深い橋。Coq、Lean、Agda などの定理証明支援系はこの対応を基盤に実装される。</p>
-<h3>多相性の必要性 ― STLC の限界</h3>
-<p>STLC では <code>λx. x</code>（恒等関数）も <code>λx : Int. x</code> と <code>λx : Bool. x</code> が別の項で、<strong>型ごとに同じコードを書き直す</strong>必要がある。これは <strong>アドホック多相 (ad-hoc polymorphism)</strong> の不経済。</p>
-<p><strong>解決策</strong>: 型自体を変数として量化する → <strong>System F</strong>。</p>
-<h3>System F ― 第二階ラムダ計算</h3>
-<p><strong>System F</strong>（Jean-Yves Girard, 1972 / John Reynolds, 1974 が独立に発見）は STLC に <strong>全称型 ∀X. τ</strong> を追加する：</p>
-<ul>
-<li>型抽象: ΛX. M : ∀X. τ（「型 X を受け取って M を返す」）</li>
-<li>型適用: M [σ]（「∀X. τ の M に型 σ を渡して τ[X := σ] にする」）</li>
-</ul>
-<p>恒等関数は：</p>
-<p>id = ΛX. λx : X. x : ∀X. X → X</p>
-<p><code>id [Int] 5 = 5</code>、<code>id [Bool] True = True</code>――<strong>一つの定義で多型に動く</strong>。これが <strong>パラメトリック多相 (parametric polymorphism)</strong> ――Haskell、ML、Rust、Java Generics の基盤。</p>
-<h3>System F の表現力</h3>
-<p>System F は STLC を厳密に拡張し、以下を表現できる：</p>
-<ul>
-<li><strong>Church 符号化された自然数・リスト・木</strong>などの代数的データ型</li>
-<li><strong>存在型 ∃X. τ</strong>（モジュール/抽象データ型）</li>
-<li><strong>多相恒等関数、map、fold</strong> などの高階多相関数</li>
-</ul>
-<p>しかも <strong>強正規化性は保持される</strong>（Girard 1971 の証明、後に Tait, Krivine が改善）。STLC ほどの簡潔さは失うが、表現力と停止性のバランスが優れる。</p>
-<h3>型推論不可能性 ― System F の代償</h3>
-<p>System F の致命的欠点：<strong>型推論が決定不能 (undecidable)</strong>（Wells 1994）。Hindley-Milner システム（ML, Haskell）は System F のサブセット（<strong>rank-1 polymorphism</strong> のみ、∀ がトップレベルにのみ現れる）に制限することで型推論可能性を回復した [[Hindley_Milner型推論とlet多相]]。</p>
-<p>Haskell の <strong>Rank-N Types</strong> 拡張は System F に近づくが、型推論を諦め型注釈を要求する。<strong>「型推論可能性 vs 表現力」</strong>の根本トレードオフ。</p>
-<h3>System F の上位系 ― System Fω と Calculus of Constructions</h3>
-<ul>
-<li><strong>System Fω</strong>：型レベルで関数（型コンストラクタ）も多相化。Haskell の type families の基盤</li>
-<li><strong>依存型 (dependent types)</strong>：型が値に依存（例: <code>Vector n</code> のように長さ n を型に含む）。Coq, Lean, Agda, Idris</li>
-<li><strong>Calculus of Constructions (CoC)</strong>（Coquand &amp; Huet, 1988）：System Fω + 依存型。Coq の理論基盤。<strong>Curry-Howard が高階直観主義論理まで拡張</strong></li>
-</ul>
-<h3>実用言語への現れ</h3>
-<ul>
-<li><strong>Haskell</strong>: ベースは Hindley-Milner、拡張で System F、System Fω、依存型に近づける</li>
-<li><strong>Rust</strong>: System F 風の generics + trait（型クラス、ad-hoc 多相）+ ライフタイム（線形/affine 型の影響）</li>
-<li><strong>Scala</strong>: System Fω 相当の higher-kinded types、暗黙引数で type class エミュレート</li>
-<li><strong>Java/C# Generics</strong>: rank-1 多相のみ、しかも <strong>type erasure</strong>（実行時に型情報が消える）――System F の弱められた形</li>
-</ul>
-<h3>Calculus of Constructions と CoC</h3>
-<p>CoC は λ-calculus 階層の極限：</p>
-<ul>
-<li>値の関数（普通の関数）</li>
-<li>値から型を作る関数（依存型）</li>
-<li>型から型を作る関数（type constructors）</li>
-<li>型から値を作る関数（型クラスインスタンス）</li>
-</ul>
-<p>これらすべてが <strong>一つの統一構文</strong>で表現される。Coq、Lean が理論基盤として採用。<strong>数学の証明を機械検証可能にする道具</strong>で、Four Color Theorem (Gonthier 2008)、Feit-Thompson Theorem (Gonthier 2012) など歴史的証明の形式化に使われた。</p>
-<h3>最新動向 ― 線形型と量子計算</h3>
-<p><strong>線形型 (Linear types)</strong>（Girard 1987）：変数を <strong>正確に 1 回だけ使う</strong>ことを型で強制する。Rust の所有権モデル、Haskell GHC の Linear Haskell 拡張、量子プログラミング言語（Qiskit, Q#）の基盤。「リソースを使い切る」プログラミングを型で保証する。</p>
-<p><strong>Quantitative Type Theory</strong> (McBride, 2016)：使用回数を 0, 1, ω の三段階で扱う一般化。Idris 2 が採用。<strong>「計算資源そのものを型で管理する」</strong>未来。</p>
-<h2>気づき・洞察</h2>
-<ul>
-<li><strong>「型システムは禁止の体系」という見方</strong>——型システムは「<strong>ある種のプログラムを書けなくする</strong>」装置。STLC は自己適用を禁じ、強正規化を得る。System F は表現力を増し、型推論を失う。<strong>増えるのは表現、失われるのは決定可能性</strong>――これはほぼ普遍的トレードオフ</li>
-<li><strong>「Curry-Howard は装飾ではなく本質」</strong>——「型 = 命題、プログラム = 証明」は教養的アナロジーに見えるが、<strong>実は型システム設計の本来の駆動力</strong>。論理が許す推論規則だけを言語に許せば、型システムは健全性 (soundness) を自動的に得る。<strong>論理学が型システム設計の最終仲裁者</strong></li>
-<li><strong>「System F の表現力」の謎</strong>——わずか「型を変数化する」だけで Church 符号化された自然数・リスト・木が表現可能になる事実は深い。<strong>変数化が新しい言語を作る</strong>――抽象化の真の力。<strong>言語の表現力は構文の数ではなく抽象化の段数で決まる</strong></li>
-<li><strong>「型推論不可能性」の意味</strong>——System F が「型推論不能」というのは「機械が型を見つけられない」だけで、「人間が書けばコンパイル通る」。<strong>自動化の限界が表現力の上限を決める</strong>ことは、言語設計の現代的制約。AI 補助の型推論はこの境界を押し広げつつある</li>
-<li><strong>「依存型は数学そのもの」</strong>——Coq/Lean では「自然数とは何か」を語る型と「自然数のリストとは何か」を語る型が連続的につながる。<strong>ZF 集合論なしで数学を再構築</strong>する試みが進行中（Univalent Foundations, Homotopy Type Theory）</li>
-</ul>
-<h2>他分野との接続</h2>
-<ul>
-<li><strong>piano (内的聴感)</strong>: 音楽の意味論的「型システム」――各音にメタ情報（機能・調性内の役割・音色目標）が型として付随する。「鳴らせる音」と「鳴らせない音」の文法的判断は、コンパイラの型検査に対応</li>
-<li><strong>anatomy (多裂筋と脊柱起立筋)</strong>: 「ローカル」と「グローバル」の二層構造は、STLC の <strong>rank-1 多相</strong>（局所的）と System F の <strong>任意 rank</strong>（全体的）の構造に対応。<strong>スコープと粒度の階層</strong>は身体にも言語にも現れる</li>
-<li><strong>tech (Apache Arrow)</strong>: Arrow のスキーマは「型システムの実体化」。RecordBatch は <strong>型注釈付き λ-項</strong>――値とその型の対が運ばれる</li>
-<li><strong>music (モーツァルト K.488 ギャラント様式)</strong>: ギャラント様式は「許される進行と禁じられた進行」の <strong>音楽の型システム</strong>――4 度進行、解決規則、終止形式。型システムの簡潔さが優雅な音楽を生む</li>
-<li><strong>golf (傾斜地ライ)</strong>: 「<strong>フォームを変えず傾斜にフォームを合わせる</strong>」は、関数を多相化（傾斜という型パラメータで abstracting）する操作の物理版</li>
-<li><strong>other (ペルシャ絨毯)</strong>: 絨毯の文様の組み合わせ規則は「絨毯デザインの型システム」――組合せ論的な「型」が幾何学的意味を担う</li>
-</ul>
-<h2>次に深掘りしたいこと</h2>
-<ul>
-<li>Homotopy Type Theory (HoTT) と Univalent Foundations の数学基礎論的意味</li>
-<li>線形型と所有権モデル：Rust の borrow checker は System F の何を継承しているか</li>
-<li>Lean 4 vs Coq vs Agda の設計思想比較（自動化、戦術言語、依存型の表現力）</li>
-<li>機械学習における型システム（PyTorch の TensorType, JAX の dtype）と System F の関係</li>
-</ul>
-<hr>
-<h2>参考ソース</h2>
-<ul>
-<li>Pierce, B. C., <em>Types and Programming Languages</em> (MIT Press, 2002) (Tier 1: 標準教科書)</li>
-<li>Girard, J.-Y., Lafont, Y., &amp; Taylor, P., <em>Proofs and Types</em> (Cambridge UP, 1989) (Tier 1)</li>
-<li>Reynolds, J. C. (1974). "Towards a theory of type structure." <em>Lecture Notes in Computer Science</em> 19, 408–425. (Tier 1)</li>
-<li><a href="https://en.wikipedia.org/wiki/Simply_typed_lambda_calculus">Simply typed lambda calculus (Wikipedia)</a> (Tier 2)</li>
-<li><a href="https://en.wikipedia.org/wiki/System_F">System F (Wikipedia)</a> (Tier 2)</li>
-<li><a href="https://www.cs.utexas.edu/~bornholt/courses/cs345h-24sp/lectures/8-system-f/">CS345H: Polymorphism and System F (UT Austin)</a> (Tier 1: 大学講義)</li>
-<li>Software Foundations Volume 2 (Pierce et al.) <a href="https://softwarefoundations.cis.upenn.edu/plf-current/Stlc.html">Plf-Stlc</a> (Tier 1)</li>
-</ul>
-          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/cs/2026-05-14_ラムダ計算と型システムの基礎_STLCからSystem_F.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
           <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
@@ -2332,14 +1970,11 @@ details .detail-content {
     </section>
     <section class="section" id="next-actions">
       <h2 class="section-title">次のアクション</h2>
-      <details class="card card-tech">
-        <summary><span class="badge badge-tech">tech</span> テクノロジー</summary>
-        <div class="detail-content"><ul>
+      <div class="insight"><h3>tech</h3><ul>
 <li>Apache Arrow Flight RPC v2 と HTTP/3 統合の現状を追う</li>
 <li>Velox（Meta）と DataFusion の設計判断の違い ―― Vectorized iterator vs Pull-based</li>
 <li>Substrait（クロスエンジン論理プラン IR）の動向</li>
 </ul></div>
-      </details>
       <details class="card card-music">
         <summary><span class="badge badge-music">music</span> 音楽</summary>
         <div class="detail-content"><ul>
@@ -2372,23 +2007,17 @@ details .detail-content {
 <li>慢性腰痛の中枢感作と多裂筋抑制の関係</li>
 </ul></div>
       </details>
-      <details class="card card-bread">
-        <summary><span class="badge badge-bread">bread</span> パン</summary>
-        <div class="detail-content"><ul>
+      <div class="insight"><h3>bread</h3><ul>
 <li>ガラス転移温度 Tg とクラストのスタリング速度</li>
 <li>フランス・カンパーニュとサワードウのクラスト香気プロファイル比較</li>
 <li>「再加熱（refresh）」でクラストを蘇らせる物理化学</li>
 </ul></div>
-      </details>
-      <details class="card card-cs">
-        <summary><span class="badge badge-cs">cs</span> CS</summary>
-        <div class="detail-content"><ul>
+      <div class="insight"><h3>cs</h3><ul>
 <li>Homotopy Type Theory (HoTT) と Univalent Foundations</li>
 <li>Rust の borrow checker は System F の何を継承しているか</li>
 <li>Lean 4 vs Coq vs Agda の設計思想比較</li>
 <li>機械学習における型システム（PyTorch TensorType, JAX dtype）</li>
 </ul></div>
-      </details>
       <details class="card card-house-hunting">
         <summary><span class="badge badge-house-hunting">house</span> 家探し</summary>
         <div class="detail-content"><ul>

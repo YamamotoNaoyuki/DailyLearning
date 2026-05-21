@@ -846,57 +846,6 @@ details .detail-content {
     <section class="section" id="domains">
       <h2 class="section-title">今日のテーマ概要        <span class="section-controls"><button type="button" id="expand-all">すべて展開</button><button type="button" id="collapse-all">すべて閉じる</button></span></h2>
       <p class="section-note">各カードをクリックすると、そのドメインの全文が開きます。</p>
-      <details id="card-tech" class="card card-tech domain-details">
-        <summary>
-          <span class="card-head"><span class="badge badge-tech">tech</span> <span class="card-title">Sigstore とソフトウェアサプライチェーンセキュリティ</span></span>
-          <span class="card-abstract">Sigstore は OIDC + 短命 x.509 証明書 + Rekor 不変ログで「鍵を持たない署名」を実現するサプライチェーンセキュリティの新標準。Fulcio (CA)・Rekor (transparency log)・Cosign (CLI) の三本柱で SLSA Level 3+ provenance 署名を実装し、npm/PyPI/Maven Central が標準採用。<strong>「鍵管理問題を ID 管理問題に変換」</strong>するパラダイム転換。</span>
-        </summary>
-        <div class="domain-body">
-          <div class="domain-tags"><span class="tag">#Sigstore</span> <span class="tag">#SupplyChain</span> <span class="tag">#SLSA</span> <span class="tag">#Cosign</span> <span class="tag">#Fulcio</span> <span class="tag">#Rekor</span> <span class="tag">#SBOM</span></div>
-<h2>学んだこと</h2>
-<h3>サプライチェーン攻撃という構造的脅威</h3>
-<p>SolarWinds (2020), Codecov (2021), 3CX (2023), XZ Utils backdoor (2024) ── 「コードを書いた人」と「実行されるバイナリ」の間に存在する<strong>ビルド・配布パイプライン全体</strong>が攻撃面になった。従来の署名は「PGP 鍵を作ってサーバに置き、たまに更新する」運用で、(1) 鍵管理が破綻 (Fedora 開発者の鍵の 9 割が紛失または弱い)、(2) 失効が困難 (revoke しても古い署名は依然有効)、(3) <strong>誰が</strong>署名したかは追跡できるが<strong>いつ・どこで</strong>署名したかは検証不能、という三重の弱点を抱えていた。Sigstore は Linux Foundation 傘下の OpenSSF プロジェクトとして 2021 年に Red Hat / Google / Purdue 大学が立ち上げ、2024 年に GA、2026 年現在 npm / PyPI / Maven Central / RubyGems / Homebrew が標準採用している。</p>
-<h3>Keyless Signing — 鍵を持たない署名</h3>
-<p>Sigstore のコア発明は <strong>「永続的な署名鍵を作らず、OIDC ID と短命証明書で署名する」</strong> という発想転換。署名フローは次の 5 段階：(1) 開発者または CI が <strong>OIDC プロバイダ</strong> (GitHub Actions, Google, GitLab) から ID トークンを取得、(2) <strong>Fulcio</strong> (Free CA) が ID を検証して <strong>10 分間有効な x.509 証明書</strong>を発行 (subject に GitHub Actions のワークフロー URL が埋め込まれる)、(3) Cosign がローカルで一時鍵ペアを生成し、その公開鍵を CSR で Fulcio に送付、(4) 受け取った証明書で artifact (コンテナイメージ・SBOM・ファイル) に署名、(5) 署名・証明書・タイムスタンプを <strong>Rekor</strong> という公開トランスペアレンシーログ (Trillian Merkle Tree ベース) に追記。<strong>署名後、秘密鍵は破棄される</strong>。検証時には Rekor から署名エントリを取得し、Fulcio 証明書チェーンと OIDC subject (例: <code>repo:foo/bar:ref:refs/heads/main</code>) を照合する。</p>
-<h3>Fulcio / Rekor / Cosign のアーキテクチャ</h3>
-<p><strong>Fulcio</strong> は CT log (Certificate Transparency) と同じ「全証明書を公開ログに刻む」原則で動く Free Code Signing CA。証明書は 10 分しか有効でないが、その間に Rekor に記録された署名は<strong>永久に検証可能</strong> ── これは「失効ではなく不変ログで信頼を証明する」発想。<strong>Rekor</strong> は append-only Merkle tree で、各エントリはハッシュチェーンで連結され、後から改竄しようとすると tree の root hash がズレる。Sigstore Public Good Instance は Rekor の現在の tree size を毎時間 Twitter ボットで公開しており、誰でも一貫性証明を検証できる。<strong>Cosign</strong> は CLI とライブラリで、<code>cosign sign --keyless image:tag</code> の一行で署名、<code>cosign verify --certificate-identity-regexp ...</code> で検証。</p>
-<h3>SLSA フレームワークとの結合</h3>
-<p><strong>SLSA (Supply-chain Levels for Software Artifacts)</strong> は Google が提唱した成熟度モデルで、Level 1 (provenance あり) → Level 2 (ホスト型ビルド・改竄不可ログ) → Level 3 (隔離ビルド) → Level 4 (二者署名・密閉) と進む。Sigstore は SLSA Level 3+ の provenance 署名の事実上の実装。GitHub Actions の <code>actions/attest-build-provenance</code> は SLSA provenance JSON を Sigstore で署名し Rekor に記録、これにより「このバイナリは確かに main ブランチの commit X からビルドされた」が暗号学的に検証できる。</p>
-<h3>Gitsign と policy-controller</h3>
-<p><strong>Gitsign</strong> は git commit を Sigstore で署名する仕組み。従来 GPG 鍵が必要だった <code>git commit -S</code> を keyless で代替し、commit に埋め込まれた x.509 証明書を Rekor で検証する。<strong>policy-controller</strong> は Kubernetes admission webhook で、ClusterImagePolicy CRD で「<code>registry.io/foo/*</code> のイメージは <code>repo:foo/bar</code> の GitHub Actions ワークフローからの署名のみ許可」のようなポリシーを書ける。</p>
-<h2>気づき・洞察</h2>
-<h3>「鍵管理問題」を「ID 管理問題」に変換した</h3>
-<p>PGP の根本問題は「鍵 = アイデンティティ」と仮定したこと。だが現実には鍵は紛失・盗難・忘失する。Sigstore は <strong>「鍵は使い捨て、アイデンティティは OIDC で検証」</strong> とパラダイムを反転させた。これはクラウド時代の <strong>「鍵を持たない方が安全」</strong> ── サービスアカウント鍵をローテートし忘れて漏洩するなら最初から永続鍵を作らない、という思想と同じ。CI/CD 環境ですでに OIDC ID を持っているなら、署名鍵を別管理する意味はない。</p>
-<h3>Transparency Log の哲学的意義</h3>
-<p>Rekor は <strong>「秘密ではなく公開で守る」</strong> という発想。従来の CRL/OCSP (失効リスト) は「中央が信頼できる」ことを前提にした pull モデルだったが、CT log と Rekor は「世界中の誰もが log の不変性を検証できる」push モデル。これは <strong>Bitcoin のブロックチェーンと同じ思想 — 信頼を中央に置かず、改竄が暗号学的に不可能な公開構造に置く</strong>。ただし Rekor は Proof of Work ではなく gossip protocol と signed tree heads で一貫性を保証する点が異なる。</p>
-<h3>「いつ署名したか」を一級市民にした</h3>
-<p>Rekor のタイムスタンプは TSA (Time Stamping Authority) によって署名されるため、<strong>「Fulcio 証明書は失効していたが、Rekor のタイムスタンプ時点では有効だった」が証明できる</strong>。これは長期保存される署名 (= 配布されたバイナリ) で根本的に重要 ── 「証明書の有効期限と署名の有効期限を分離する」設計判断は、長期署名の永続性問題への正解。</p>
-<h2>他分野との接続</h2>
-<ul>
-<li><strong>cs (分散合意)</strong>: Rekor の Merkle tree は Lamport 論理時計と同じく「時刻ではなく順序」で整合性を保証する。Trillian の signed tree head は分散合意を通じて gossip され、Byzantine fault tolerance の faint version と見ることもできる。</li>
-<li><strong>cs (Bloom filter)</strong>: Rekor は entry の高速検索のため Bloom filter を内部で使用 ── 確率的データ構造が大規模 transparency log の現実解になる。</li>
-<li><strong>音楽 (DSCH 動機)</strong>: Shostakovich が自分の名前を音符に埋め込んだのと同じく、Sigstore は GitHub Actions の workflow URL を証明書 subject に埋め込む。<strong>「私が私であること」をどう不変に証明するか</strong>という問いは、芸術と暗号で同型。</li>
-<li><strong>anatomy (固有受容感覚)</strong>: 筋紡錘が「自分の筋肉の状態」を中枢に伝えるのと、Rekor が「自分のビルド履歴」を世界に伝えるのは構造的に類似。<strong>自己認識のフィードバックループ</strong>。</li>
-</ul>
-<h2>次に深掘りしたいこと</h2>
-<ul>
-<li><strong>TUF (The Update Framework)</strong> との関係 ── TUF も Linux Foundation 傘下で、配布側の役割分離を扱う。Sigstore は署名、TUF は配布信頼の root of trust ── 両者の組み合わせ (例: Pythonの PyPI 採用) を理解する。</li>
-<li><strong>SLSA Build L3 の隔離ビルド要件</strong>を満たす具体的な GitHub Actions 設定。reusable workflow と OIDC subject の関係。</li>
-<li><strong>EU Cyber Resilience Act (CRA, 2027 適用)</strong> で SBOM 配布が義務化される中、Sigstore + SPDX/CycloneDX SBOM 署名の標準化動向。</li>
-<li><strong>Sigsum</strong> (Sigstore に類似する KTH 研究プロジェクト) との設計思想の比較。</li>
-</ul>
-<hr>
-<p><strong>主要参考ソース</strong>:</p>
-<ul>
-<li><a href="https://docs.sigstore.dev/about/overview/">Sigstore Documentation - Overview</a></li>
-<li><a href="https://openssf.org/blog/2024/02/16/scaling-up-supply-chain-security-implementing-sigstore-for-seamless-container-image-signing/">OpenSSF: Scaling Up Supply Chain Security</a></li>
-<li><a href="https://www.csoonline.com/article/572893/sigstore-explained-how-it-helps-secure-the-software-supply-chain.html">CSO Online: Sigstore explained</a></li>
-<li>Flajolet et al., "HyperLogLog: the analysis of a near-optimal cardinality estimation algorithm" (Rekor 内部実装関連)</li>
-</ul>
-          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/tech/2026-05-10_Sigstoreとソフトウェアサプライチェーンセキュリティ.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
-          <button type="button" class="collapse-card">▲ 閉じる</button>
-        </div>
-      </details>
       <details id="card-music" class="card card-music domain-details">
         <summary>
           <span class="card-head"><span class="badge badge-music">music</span> <span class="card-title">ショスタコーヴィチ弦楽四重奏曲第8番とDSCH動機</span></span>
@@ -1152,218 +1101,6 @@ details .detail-content {
 <li><a href="https://www.physio-pedia.com/Golgi_Tendon_Organ">Physiopedia: Golgi Tendon Organ</a></li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/anatomy/2026-05-10_筋紡錘とゴルジ腱器官の固有受容感覚.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
-          <button type="button" class="collapse-card">▲ 閉じる</button>
-        </div>
-      </details>
-      <details id="card-bread" class="card card-bread domain-details">
-        <summary>
-          <span class="card-head"><span class="badge badge-bread">bread</span> <span class="card-title">長時間冷蔵発酵リターディングの科学と風味形成</span></span>
-          <span class="card-abstract">冷蔵 (4〜10°C) 下では酵母活性が 1/10 になるが LAB・プロテアーゼ・アミラーゼは活発を維持。この<strong>並列パイプラインの直列化</strong>で、エチル酢酸 (果実香) 3 倍・3-メチルブタナール (モルト香) 増・メイラード前駆物質増を制御可能。「温度は時間とともに化学経路の重みを変える」操作で、室温発酵では生成しない化合物プロファイルが現れる。</span>
-        </summary>
-        <div class="domain-body">
-          <div class="domain-tags"><span class="tag">#ColdRetarding</span> <span class="tag">#BulkFermentation</span> <span class="tag">#FlavorDevelopment</span> <span class="tag">#Protease</span> <span class="tag">#LacticAcid</span> <span class="tag">#AceticAcid</span></div>
-<h2>学んだこと</h2>
-<h3>リターディング (Retarding) とは何か</h3>
-<p><strong>冷蔵発酵 (cold retarding / cold fermentation)</strong> とは、生地の発酵温度を意図的に 4〜10°C (家庭用冷蔵庫の温度帯) に下げ、酵母の活性を抑えながら<strong>他の生化学プロセスは進行させる</strong>技術。リターディングには 2 種類ある:</p>
-<ul>
-<li><strong>バルク・リターディング (cold bulk fermentation)</strong>: 一次発酵を冷蔵庫で行う。生地のガス発生を遅らせつつ、グルテン構造の調整と酵素分解を進める。</li>
-<li><strong>ファイナル・リターディング (cold final proof / cold retard)</strong>: 成形後の最終発酵を冷蔵庫で行う (12〜18 時間)。商業ベーカリーが「焼く 12 時間前にカット・成形して冷蔵庫に入れ、朝に焼く」運用で広く採用される。</li>
-</ul>
-<p>冷蔵温度帯 (38〜40°F = 約 3〜4°C) では酵母は約 1/8〜1/10 の活性に低下、<strong>乳酸菌 (LAB)</strong> はやや低下するがまだ活発。この活性差が<strong>酸味のコントロール</strong>の鍵になる。</p>
-<h3>風味形成のメカニズム — 4 つの並行プロセス</h3>
-<h4>1. 酵母代謝 (slowed)</h4>
-<p>酵母 (Saccharomyces cerevisiae) はグルコースを CO₂ + エタノールに変換するが、低温でも止まらず<strong>ゆっくり進行する</strong>。冷蔵庫から出した直後の生地はわずかにアルコールの匂いがする。エタノールは焼成時にメイラード反応の前駆物質となり、複雑な香気成分 (例: アセトアルデヒド、エチル乳酸) を生む。</p>
-<h4>2. 乳酸菌 (Lactobacillus) の代謝</h4>
-<p>LAB は 4〜10°C でも生き続け、<strong>乳酸 (lactic acid)</strong> と <strong>酢酸 (acetic acid)</strong> を産生する。</p>
-<ul>
-<li><strong>ホモ発酵 LAB</strong> (L. delbrueckii など): グルコースから乳酸のみ生成 → まろやかな酸味。</li>
-<li><strong>ヘテロ発酵 LAB</strong> (L. brevis, L. sanfranciscensis など): グルコース→乳酸+酢酸+CO₂+エタノール → 鋭い酸味。</li>
-</ul>
-<p><strong>冷蔵下では酢酸生成比が上がる</strong> (低温・酸素豊富な条件で酢酸経路が優位)。これがサワードウの「シャープな酸味」の源。商業サワードウベーカリーは温度と時間で<strong>乳酸:酢酸比</strong>を制御する ── 暖かいバルク+冷蔵プルーフで酢酸を強める、暖かい全工程でまろやかな乳酸主体にする等。</p>
-<h4>3. プロテアーゼによるグルテン分解</h4>
-<p>小麦粉自身に含まれる <strong>プロテアーゼ (protease)</strong> が、低温でゆっくりとグルテン分子間結合を切断する。これは諸刃の剣:</p>
-<ul>
-<li><strong>適度な分解</strong>: 過剰に強いグルテン構造をほぐし、<strong>伸展性 (extensibility) を高め</strong>、成形しやすくし、クラム (内相) を空気の入りやすい構造にする。バゲットの大きな気泡や、ピザ生地の伸びる薄い円形はこのため。</li>
-<li><strong>過剰分解</strong> (&gt;72 時間): グルテン構造が崩壊し、生地が緩んで形を保てず、焼成時にスプリング (oven spring) が出ない。</li>
-</ul>
-<h4>4. アミラーゼによるデンプン分解</h4>
-<p><strong>α-アミラーゼ (α-amylase)</strong> がデンプンを <strong>マルトース (麦芽糖) と デキストリン</strong>に分解する。低温でも活性が完全には消えない。マルトースは:</p>
-<ul>
-<li>酵母の発酵基質となり、長時間発酵を支える糖源。</li>
-<li><strong>メイラード反応の還元糖</strong>として焼成時にクラスト (外皮) の褐色化と香気を生成。</li>
-</ul>
-<p>長時間発酵の最終段階で生地に残るマルトース量が、<strong>焼き上がりの色と香り</strong>を決定する。</p>
-<h3>温度・時間と pH 軌跡</h3>
-<p>プロのベーカリーは<strong>生地の pH 推移</strong>で発酵段階を判断する。新しい生地は pH 5.8〜6.0、最適発酵で pH 4.3〜4.5、過発酵で pH 4.0 以下。冷蔵下では pH 低下が緩やか (1 日で約 0.3〜0.5 単位) で、<strong>pH の窓</strong>が広がるため、焼成タイミングの柔軟性が増す。これが「業務効率」の側面 ── 同じ生地を朝の異なる時刻に焼ける。</p>
-<h3>アロマ化合物の冷蔵特異性</h3>
-<p>GC-MS 分析でリターディング生地と直焼き生地を比較すると:</p>
-<ul>
-<li><strong>アセトアルデヒド</strong> (青リンゴ香): 冷蔵で 1.5〜2 倍、特に酵母由来。</li>
-<li><strong>エチル酢酸 (ethyl acetate)</strong>: 冷蔵で 3 倍以上、果実香の主因。</li>
-<li><strong>2,3-ブタンジオール</strong>: 冷蔵 LAB 由来の甘い香気。</li>
-<li><strong>3-メチルブタナール (3-methylbutanal)</strong>: ロイシン分解 → 冷蔵下のプロテアーゼ活性で増加、モルト様風味。</li>
-<li><strong>フラン化合物</strong> (焼成時に生成): メイラード基質となる遊離アミノ酸とマルトースの量が冷蔵で増えるため、結果的にクラスト香も強まる。</li>
-</ul>
-<p>つまり<strong>「冷蔵で香りが増す」のは 2 段階</strong>: (1) 冷蔵中に揮発性化合物が直接生成、(2) 冷蔵中に増えた前駆物質が焼成時にメイラードでさらに変換される。</p>
-<h2>気づき・洞察</h2>
-<h3>「時間でしか作れない味」がある</h3>
-<p>化学的にはすべての風味化合物が<strong>反応速度に依存</strong>する。室温 (28°C) で 4 時間では達成できない化合物多様性が、冷蔵 (4°C) で 24 時間 = 室温 6 時間相当の生化学進行ながら、<strong>酵母 vs 乳酸菌 vs 酵素 vs 揮発性物質拡散</strong>の各速度比が変わるため、室温では生成しないユニークな化合物プロファイルが現れる。<strong>温度は時間とともに「化学経路の重み」を変える</strong>操作。</p>
-<h3>並列プロセスの位相差</h3>
-<p>リターディングの本質は <strong>酵母 (止まる) ・LAB (続く) ・酵素 (続く) ・揮発拡散 (止まる) の位相差を作る</strong>こと。室温発酵ではこれらが同時進行して打ち消し合う ── 酵母が CO₂ を出して生地が膨らむと、揮発成分が逃げる; 酵母が支配的だと LAB の酸が育たない。低温化はこの<strong>並列パイプラインを直列化</strong>し、<strong>各プロセスの寄与を制御可能にする</strong>。これは情報処理の pipelining 思想と同型。</p>
-<h3>「生地は生き物」の科学的意味</h3>
-<p>パン作りの古典的表現「生地は生きている」は単なる詩的修辞ではない。<strong>酵母・LAB・酵素</strong>という三層の生物学的・酵素学的活動が並列に進行するため、生地は時刻によって<strong>異なる味・物性・色</strong>を取る。これは microbial ecology であり、リターディングは<strong>「生態系の活動を選択的に減速させる介入」</strong> ── マイクロバイオームの動的制御。</p>
-<h3>商業性 vs 風味の最適点</h3>
-<p>古典的フランスパン (1950 年代) は短時間直焼きで、酸味は薄く、保存性も低かった。現代の Tartine (Chad Robertson) や Poilâne を代表とする「アーティザンブレッド」は 24〜72 時間冷蔵発酵を採用し、<strong>深い風味 + 業務時間管理 + 保存性向上</strong>を一挙に達成。これは「複雑な味を意図的に作る」生物工学的選択であり、<strong>消費者が味の差を区別できる程度に成熟したから成立した市場</strong>。</p>
-<h2>他分野との接続</h2>
-<ul>
-<li><strong>cs (HyperLogLog の harmonic mean)</strong>: 並列に進行する 4 プロセス (酵母・LAB・プロテアーゼ・アミラーゼ) の出力を「生地の味」として統合するのは、独立な確率推定を harmonic mean で統合する HLL と類比的。<strong>並列プロセスの統合</strong>。</li>
-<li><strong>anatomy (固有受容感覚)</strong>: 筋紡錘がガンマ運動ニューロンで感度を能動制御するように、ベーカーは温度で生地の発酵感度を能動制御する ── <strong>コントロール変数による速度比調整</strong>。</li>
-<li><strong>piano (スロープラクティス)</strong>: ゆっくりの練習が早すぎる練習では学習されない神経表象を作るのと、低温発酵が高温発酵では生成しない化合物を作るのは同型 ── <strong>遅さが質を生む</strong>。</li>
-<li><strong>music (Shostakovich の DSCH の長い Largo)</strong>: 長い時間スケールでしか現れない情緒・構造がある。冷蔵発酵が時間軸上で異なる化学を実現するのと同じ。</li>
-<li><strong>tech (Sigstore の transparency log)</strong>: Rekor の append-only log が「時間の不可逆性」を信頼の基盤にするのと、リターディングが「不可逆な化学変化の蓄積」を風味の基盤にするのは構造的に類似。</li>
-<li><strong>golf (グリーン上のスピン)</strong>: ボールカバーの摩擦特性は生地のグルテン同様に<strong>短時間スケールで決定される物性</strong>だが、両者ともに<strong>ミクロな構造変化が マクロな結果を決める</strong>。</li>
-</ul>
-<h2>次に深掘りしたいこと</h2>
-<ul>
-<li><strong>イタリア式 Biga + 冷蔵プルーフ vs フランス式直接法 + 冷蔵プルーフ</strong> ── 風味プロファイルがどう異なるか。</li>
-<li><strong>ホエイ・ヨーグルト</strong> など発酵乳製品を生地に加える効果 ── pre-acidification で LAB の優位性をさらに高められるか。</li>
-<li><strong>冷蔵発酵下のフィチン酸分解</strong> ── 全粒粉でフィチン酸が分解されるとミネラル吸収が改善する。冷蔵時間との相関。</li>
-<li><strong>GC-MS 分析で家庭リターディング生地と直焼き生地を比較</strong> する論文 (おそらく Cereal Chemistry 誌)。</li>
-<li><strong>Tartine 法のオートリーズ + リターディング</strong>の正確なタイミングと温度プロファイル ── Chad Robertson の手法を時間化学的に再構成する。</li>
-</ul>
-<hr>
-<p><strong>主要参考ソース</strong>:</p>
-<ul>
-<li><a href="https://www.theperfectloaf.com/guides/the-ultimate-guide-to-bread-dough-bulk-fermentation/">The Perfect Loaf: Ultimate Guide to Bread Dough Bulk Fermentation</a></li>
-<li><a href="https://www.sourdoughhome.com/retarding-dough-for-flavor-enhancement-and-process-control/">Sourdough Home: Retarding Dough For Flavor Enhancement and Process Control</a></li>
-<li><a href="https://thebakersguide.com/retarding-loaves">The Baker's Guide: Retarding Loaves Fermentation Technique</a></li>
-<li><a href="https://www.chainbaker.com/cold-fermentation/">ChainBaker: Cold Bulk Fermentation Science</a></li>
-<li><a href="https://breadtopia.com/experimenting-with-refrigerated-final-proofing/">Breadtopia: Experimenting with Refrigerated Final Proofing</a></li>
-</ul>
-          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/bread/2026-05-10_長時間冷蔵発酵リターディングの科学と風味形成.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
-          <button type="button" class="collapse-card">▲ 閉じる</button>
-        </div>
-      </details>
-      <details id="card-cs" class="card card-cs domain-details">
-        <summary>
-          <span class="card-head"><span class="badge badge-cs">cs</span> <span class="card-title">HyperLogLog と Count-Min Sketch — ストリーミング近似アルゴリズム</span></span>
-          <span class="card-abstract">HyperLogLog (Flajolet 2007) は調和平均でカーディナリティ推定の分散を最小化、12 KB で 1 兆要素を誤差 1% で計測。Count-Min Sketch (Cormode 2003) は d 個独立ハッシュ + min で頻度推定し<strong>過大誤差のみ保証</strong>。「正確を諦めて巨大スケールに到達」というパラダイム転換、<strong>確率的データ構造の美しい設計空間</strong>。</span>
-        </summary>
-        <div class="domain-body">
-          <div class="domain-tags"><span class="tag">#HyperLogLog</span> <span class="tag">#CountMinSketch</span> <span class="tag">#StreamingAlgorithms</span> <span class="tag">#Probabilistic</span> <span class="tag">#Flajolet</span> <span class="tag">#Cormode</span></div>
-<h2>学んだこと</h2>
-<h3>ストリーミングモデルの問題設定</h3>
-<p>ストリーミングモデルでは、無限長のデータ列 $a_1, a_2, \ldots$ が一度ずつ流れ、<strong>メモリは O(polylog n)</strong> に制限される。このモデルで以下の問いに答える:</p>
-<ol>
-<li><strong>Count-distinct (cardinality)</strong>: 異なる要素が何種類あるか?</li>
-<li><strong>Frequency estimation</strong>: 要素 $x$ が何回出現したか?</li>
-<li><strong>Heavy hitters</strong>: 最頻要素 (top-k) は?</li>
-<li><strong>Quantile estimation</strong>: 中央値・90 パーセンタイルは?</li>
-</ol>
-<p>正確解は要素を全保存する必要がありメモリ O(n)。<strong>これを O(polylog n) で近似する</strong>のがストリーミングアルゴリズム。HyperLogLog (1) と Count-Min Sketch (2,3) は最も成功した実装。</p>
-<h3>HyperLogLog (HLL) の発明史と核心アイデア</h3>
-<p>1984 年の <strong>Flajolet–Martin (FM) アルゴリズム</strong> が出発点: ハッシュ値 $h(x) \in {0,1}^L$ の <strong>末尾連続 0 ビット数</strong> $\rho(h(x))$ を取り、その最大値 $R = \max \rho$ を観測すれば、カーディナリティ $n \approx 2^R$ と推定できる。理由: $\rho \geq k$ となる確率は $2^{-k}$ なので、$n$ 個の要素から最大 $\rho$ を取れば期待値は $\log_2 n$。</p>
-<p>しかし FM は分散が大きすぎる ── <strong>1 つのハッシュで運悪く高い $\rho$ が出ると推定値が爆発</strong>する。1985 年の <strong>LogLog</strong> (Durand &amp; Flajolet) は要素を $m$ バケットに分け、各バケットで $\rho$ の最大値を独立に取り、<strong>算術平均</strong> を取った。さらに 2007 年の <strong>HyperLogLog</strong> (Flajolet, Fusy, Gandouet, Meunier) は算術平均ではなく <strong>調和平均 (harmonic mean)</strong> を使うことで分散を最小化:</p>
-<p>$$<br>
-\hat{n} = \alpha_m m^2 \left(\sum_{j=1}^{m} 2^{-M_j}\right)^{-1}<br>
-$$</p>
-<p>ここで $M_j$ はバケット $j$ の最大 $\rho$、$\alpha_m$ は数値定数 (約 0.7213 for m=16384)。</p>
-<p><strong>メモリ</strong>: バケット数 $m = 2^{14}$ (16384) なら各 5-6 ビットで合計 <strong>約 12 KB</strong>。<strong>精度</strong>: 標準誤差 $\approx 1.04 / \sqrt{m} \approx 0.81\%$。これで<strong>カーディナリティが 1 兆でも 10 兆でも誤差 1% 程度</strong>。Redis、Google BigQuery、AWS Redshift などで実装され、ユニークビジター計測の事実上の標準。</p>
-<h3>Count-Min Sketch (CMS) の構造</h3>
-<p>2003 年の <strong>Cormode &amp; Muthukrishnan</strong>。$d$ 個の独立ハッシュ関数 $h_1, \ldots, h_d : U \to [w]$ を持ち、$d \times w$ の整数配列 $C$ を保持する。</p>
-<p><strong>更新</strong> (要素 $x$ の出現): 各 $i = 1, \ldots, d$ について $C[i, h_i(x)] \mathrel{+}= 1$.</p>
-<p><strong>クエリ</strong> (要素 $x$ の頻度推定): $\hat{f}(x) = \min_{i} C[i, h_i(x)]$.</p>
-<p><strong>理論保証</strong>: パラメータを $w = \lceil e/\epsilon \rceil$, $d = \lceil \ln(1/\delta) \rceil$ と取れば、確率 $1 - \delta$ で誤差 $\leq \epsilon \cdot N$ ($N$ は総出現数)。<strong>特徴</strong>: 推定値は<strong>常に過大</strong> (overestimate)。理由は他要素のカウントが衝突で加算されるから。<strong>過小はない</strong>ことが正確性保証の鍵 ── 「最低でもこれだけは出現した」が保証される。</p>
-<p><strong>メモリ</strong>: $\epsilon = 0.001$ (0.1% 誤差), $\delta = 0.01$ (99% 信頼) なら $w = 2719$, $d = 5$ で<strong>約 54 KB</strong>。実用的に小さい。</p>
-<h3>設計対比 — HLL と CMS</h3>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>HyperLogLog</th>
-<th>Count-Min Sketch</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>解く問題</td>
-<td>異なり数 (cardinality)</td>
-<td>個別要素の頻度</td>
-</tr>
-<tr>
-<td>ハッシュ数</td>
-<td>1 個 (バケット分割)</td>
-<td>$d$ 個 (独立)</td>
-</tr>
-<tr>
-<td>統計値</td>
-<td>最大 $\rho$ + 調和平均</td>
-<td>最小値</td>
-</tr>
-<tr>
-<td>誤差バイアス</td>
-<td>なし (両側)</td>
-<td>常に過大</td>
-</tr>
-<tr>
-<td>メモリ</td>
-<td>$O(\log \log n)$ per bucket</td>
-<td>$O(d \times w)$</td>
-</tr>
-<tr>
-<td>集合演算</td>
-<td>union 容易 (max), intersection 困難</td>
-<td>重み付け加算で union</td>
-</tr>
-</tbody>
-</table>
-<p>両者ともに<strong>「データを直接保存せず、構造を記録する」確率的データ構造</strong>。ロスレスではないが、<strong>情報理論的に最適</strong>な圧縮率 (HLL の場合 Munro-Paterson 1980 の下限に漸近一致)。</p>
-<h3>実装上のチューニング</h3>
-<p><strong>HLL Sparse Encoding</strong>: バケットの大半が 0 の状態 (要素少数時) を、ペアのリストで疎表現。Redis HLL は 16384 バケットの dense (12 KB) と 約 3 KB の sparse を<strong>自動切り替え</strong>。<br>
-<strong>HLL++</strong> (Heule et al. 2013, Google): 小カーディナリティでの bias 補正、sparse 表現の効率化、64 ビットハッシュへの拡張。Google BigQuery が採用。<br>
-<strong>HyperLogLogLog</strong> (Karppa &amp; Pagh 2022): HLL を<strong>さらに圧縮</strong>して同じ精度を約 70% のメモリで達成。バケット内の最大値の差分を Golomb-Rice 符号化。<br>
-<strong>Conservative Update for CMS</strong> (Estan &amp; Varghese): 更新時にカウンタを最小値の合のみ増やす変種で、過大誤差を約 3 倍削減。実用的な最適化。</p>
-<h3>応用例</h3>
-<ul>
-<li><strong>HLL</strong>: Google Analytics ユニークユーザー数、Twitter のフォロワー差分、Facebook の DAU/MAU 統計、Reddit のユニーク投票者集計、ネットワークトラフィック分析 (異なる送信元 IP 数)。</li>
-<li><strong>CMS</strong>: Google AdSense クリック頻度推定、Cisco のフロー分析 (heavy hitters 検出 → DDoS 緩和)、Cassandra/ScyllaDB の hot key 検出、ML 特徴量カウンティング (TensorFlow の <code>count_table</code> 内部実装)、自然言語処理の n-gram 頻度 (Google の Web 1T 5-gram 大規模データ)。</li>
-</ul>
-<h2>気づき・洞察</h2>
-<h3>「正確を諦めることで巨大スケールに到達」</h3>
-<p>古典的アルゴリズム理論は worst-case complexity を最小化する設計を追求した。だがビッグデータ時代には<strong>「計算可能な近似」が「不可能な厳密解」より価値がある</strong>。HLL と CMS は <strong>誤差を確率的に保証することで O(polylog) 空間に到達</strong>した。これは<strong>「絶対精度から確率精度への転換」</strong>であり、機械学習の確率的勾配降下 (SGD) と同じ哲学転換。</p>
-<h3>Harmonic Mean の優位性</h3>
-<p>HLL が算術平均 (LogLog) より調和平均で分散を減らす理由は深い。<strong>調和平均は外れ値 (極端に大きな値) の影響を受けにくい</strong>。$2^{-M_j}$ という指数減衰量に対して調和平均を取ることは、$M_j$ そのものに対しては log-mean を取ることに近い。<strong>統計的推定量の選択がメモリ効率を決定する</strong>好例。</p>
-<h3>Min vs Max の対称性</h3>
-<p>HLL は max を取る、CMS は min を取る ── 一見対称だが背後の原理は異なる。HLL の max は <strong>「観測した最も希少な事象の珍しさ」を活用</strong> (希少な要素の出現確率が cardinality と相関)。CMS の min は <strong>「衝突による過大推定の最小化」</strong> (複数推定の min は偽陽性を減らす)。<strong>最大と最小はそれぞれ異なる情報を抽出する</strong>。</p>
-<h3>Bloom Filter ファミリーとの関係</h3>
-<p><strong>Bloom Filter</strong> (1970) → 集合所属判定。<strong>Cuckoo Filter</strong> (2014) → 削除可能な Bloom。<strong>HyperLogLog</strong> (2007) → 異なり数。<strong>Count-Min Sketch</strong> (2003) → 頻度推定。<strong>Quotient Filter</strong> (2012) → SSD 効率的な Bloom。<strong>MinHash</strong> (1997) → Jaccard 類似度。これらは<strong>「ハッシュベース確率的圧縮」</strong>ファミリーの異なる用途への展開。各々がトレードオフを別の場所に置いた美しい設計空間。</p>
-<h2>他分野との接続</h2>
-<ul>
-<li><strong>bread (並列発酵プロセス)</strong>: 4 種類の独立な発酵プロセス (酵母・LAB・プロテアーゼ・アミラーゼ) の独立性は、HLL の独立バケットと類比的。<strong>独立な部分の統合で全体を推定</strong>。</li>
-<li><strong>anatomy (固有受容感覚)</strong>: 筋紡錘 (位置) と GTO (張力) の sensor fusion は、HLL のバケット平均と同じ「複数の独立観測の統合」。<strong>冗長な観測を統合することで誤差を圧縮</strong>。</li>
-<li><strong>piano (Invisible Rotation の合成)</strong>: 指運動と前腕回旋の合成で速度限界を超えるのは、HLL の harmonic mean が分散を圧縮するのと類比的。<strong>独立要素の合成で単独限界を超える</strong>。</li>
-<li><strong>golf (DECADE / Strokes Gained)</strong>: 個別ショットの統計を集計してプレーヤー総合スコアを推定するのは、CMS の頻度カウントから集約統計を作るのと同型。<strong>個別観測から全体傾向を抽出</strong>。</li>
-<li><strong>tech (Rekor transparency log)</strong>: Rekor は Bloom filter で entry の高速検索を行う。<strong>確率的データ構造が分散システムの実用解</strong>。</li>
-<li><strong>music (Shostakovich の引用)</strong>: 第 8 番が過去作の主題を「圧縮表現」として埋め込むのは、HLL がストリームを圧縮表現で要約するのと類比的。<strong>情報の選択的保存</strong>。</li>
-</ul>
-<h2>次に深掘りしたいこと</h2>
-<ul>
-<li><strong>t-digest</strong> (Ted Dunning 2013) ── パーセンタイル推定の確率的データ構造。CMS と異なる原理 (centroid clustering)。</li>
-<li><strong>Theta Sketches</strong> (Apache DataSketches) ── HLL より union/intersection 共に高速な集合演算用スケッチ。</li>
-<li><strong>Differential Privacy との関係</strong> ── HLL/CMS のノイズはプライバシー保護に転用可能か (RAPPOR, Apple iOS の telemetry)。</li>
-<li><strong>Quantum streaming algorithms</strong> ── 量子ビットを使ったストリーミング近似の理論限界。</li>
-<li><strong>HyperLogLog の bias</strong> が小カーディナリティで大きい理由を harmonic mean の数値解析で深く理解する。</li>
-</ul>
-<hr>
-<p><strong>主要参考ソース</strong>:</p>
-<ul>
-<li><a href="https://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf">Flajolet, Fusy, Gandouet, Meunier (2007) "HyperLogLog: the analysis of a near-optimal cardinality estimation algorithm" (PDF)</a></li>
-<li><a href="https://en.wikipedia.org/wiki/HyperLogLog">Wikipedia: HyperLogLog</a></li>
-<li><a href="https://redis.io/blog/count-min-sketch-the-art-and-science-of-estimating-stuff/">Redis: Count-Min Sketch — The Art and Science of Estimating Stuff</a></li>
-<li><a href="https://arxiv.org/pdf/2205.11327v1">Karppa &amp; Pagh (2022) "HyperLogLogLog: Cardinality Estimation With One Log More" (arXiv)</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Count-distinct_problem">Wikipedia: Count-distinct problem</a></li>
-</ul>
-          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/cs/2026-05-10_HyperLogLogとCount-Min_Sketchストリーミング近似アルゴリズム.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
           <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
@@ -1936,13 +1673,10 @@ $$</p>
     </section>
     <section class="section" id="next-actions">
       <h2 class="section-title">次のアクション</h2>
-      <details class="card card-tech">
-        <summary><span class="badge badge-tech">tech</span> テクノロジー</summary>
-        <div class="detail-content"><ul>
+      <div class="insight"><h3>tech</h3><ul>
 <li><strong>TUF (The Update Framework)</strong> との関係調査 ── 配布信頼の root of trust の設計</li>
 <li><strong>EU Cyber Resilience Act (CRA, 2027 適用)</strong> で SBOM 配布が義務化される動向</li>
 </ul></div>
-      </details>
       <details class="card card-music">
         <summary><span class="badge badge-music">music</span> 音楽</summary>
         <div class="detail-content"><ul>
@@ -1975,22 +1709,16 @@ $$</p>
 <li><strong>ピアノ・ゴルフ熟達者と初心者の固有受容差</strong>の測定法 (joint position sense test)</li>
 </ul></div>
       </details>
-      <details class="card card-bread">
-        <summary><span class="badge badge-bread">bread</span> パン</summary>
-        <div class="detail-content"><ul>
+      <div class="insight"><h3>bread</h3><ul>
 <li><strong>イタリア式 Biga + 冷蔵プルーフ vs フランス式直接法</strong>の風味プロファイル比較</li>
 <li><strong>Tartine 法 (Chad Robertson)</strong> のオートリーズ + リターディングの正確な時系列再構成</li>
 <li><strong>GC-MS 分析論文</strong> (Cereal Chemistry 誌) の冷蔵 vs 直焼きの定量比較</li>
 </ul></div>
-      </details>
-      <details class="card card-cs">
-        <summary><span class="badge badge-cs">cs</span> CS</summary>
-        <div class="detail-content"><ul>
+      <div class="insight"><h3>cs</h3><ul>
 <li><strong>t-digest</strong> (Ted Dunning 2013) によるパーセンタイル推定</li>
 <li><strong>Theta Sketches</strong> (Apache DataSketches) の集合演算</li>
 <li><strong>Differential Privacy</strong> との関係 ── HLL/CMS のノイズはプライバシー保護に転用可能か</li>
 </ul></div>
-      </details>
       <details class="card card-house-hunting">
         <summary><span class="badge badge-house-hunting">house</span> 家探し</summary>
         <div class="detail-content"><ul>

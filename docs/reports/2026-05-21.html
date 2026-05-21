@@ -837,7 +837,7 @@ details .detail-content {
     <nav class="nav">
       <a href="2026-05-20.html" class="nav-prev">2026-05-20</a>
       <a href="../index.html">一覧</a>
-      <span></span>
+      <a href="2026-05-22.html" class="nav-next">2026-05-22</a>
     </nav>
     <header class="report-header">
       <h1>デイリーレポート</h1>
@@ -1001,89 +1001,6 @@ details .detail-content {
     <section class="section" id="domains">
       <h2 class="section-title">今日のテーマ概要        <span class="section-controls"><button type="button" id="expand-all">すべて展開</button><button type="button" id="collapse-all">すべて閉じる</button></span></h2>
       <p class="section-note">各カードをクリックすると、そのドメインの全文が開きます。</p>
-      <details id="card-tech" class="card card-tech domain-details">
-        <summary>
-          <span class="card-head"><span class="badge badge-tech">tech</span> <span class="card-title">CXL とメモリ・ディスアグリゲーション — コヒーレント相互接続とメモリプーリングの設計</span></span>
-          <span class="card-abstract">CXLメモリプーリングを「stranded memory（座礁メモリ）」という<strong>経済問題</strong>として捉え直す。賛成派のMicrosoft Pond（ML予測で未使用メモリをプールへ追い出し、外れたらQoS監視でライブマイグレーション）とMeta TPP（アプリ無改変でホット/コールドページをOSが透過配置、Linux upstreamマージ済み）に対し、Google論文は本番トレース分析で「座礁は少ない」と反証。<strong>同じ「本番トレース実証」でMicrosoftは25%座礁・Googleは僅少という正反対の結論</strong>に至り、システム研究の実証が普遍法則でなく組織の運用形態への依存命題であることを露わにする</span>
-        </summary>
-        <div class="domain-body">
-          <div class="domain-tags"><span class="tag">#CXL</span> <span class="tag">#memory_disaggregation</span> <span class="tag">#memory_pooling</span> <span class="tag">#tiered_memory</span> <span class="tag">#NUMA</span> <span class="tag">#Pond</span> <span class="tag">#TPP</span> <span class="tag">#datacenter_economics</span> <span class="tag">#cache_coherence</span></div>
-<h2>学んだこと</h2>
-<p>[[2026-04-28_CXL_メモリ分離アーキテクチャ]] で CXL の物理層（PCIe PHY 共有、CXL.io/.cache/.mem、Type 1/2/3、CXL 2.0 pooling → 3.0 sharing）は押さえた。今回はその一段上、<strong>OS とデータセンター経済学のレイヤ</strong> に降りる。CXL は技術的にはほぼ完成しているのに、2024–2026 で「採用が爆発する」と言われ続けて爆発していない。その理由を、賛成派（Meta/Microsoft の Pond・TPP）と反対派（Google の HotNets 論文）の一次資料を突き合わせて理解するのが今日の主題だ。</p>
-<h3>1. すべては「stranded memory（座礁メモリ）」という一語から始まる</h3>
-<p>データセンターのサーバは CPU コア数とメモリ容量が <strong>物理筐体に 1:1 で固定</strong> されている。VM をパッキングしていくと、片方が先に枯渇する。コアを全部割り当て終えてもメモリが余る（<strong>stranded memory</strong>）、あるいはメモリを使い切ってもコアが余る（<strong>stranded cores</strong>）。Pond 論文（Microsoft Azure + Meta、ASPLOS 2023）の Azure 実トレース分析が衝撃的で、<strong>コア数が増えるほど stranded memory は増え、最大 25% の DRAM が座礁する</strong>。中央値スナップショットでも 6%、95 パーセンタイルで 3–27% が「技術的には存在するが誰にも割り当てられない」状態で寝ている。DRAM はサーバ BOM の約 50%、データセンタ TCO でも巨大な比率を占めるので、この 25% は文字通り数十億ドル単位で床に転がっている札束だ。</p>
-<p>CXL Type 3 のメモリプールは、この座礁分を <strong>複数サーバで共有する小さな外付け DRAM 島</strong> に追い出す発想で解く。各サーバのローカル DRAM を「ちょうど足りる量」まで削り、不足分・突発分をプールから動的に借りる。プールの DRAM は誰でも借りられるので座礁しない。これが memory disaggregation の経済的コアロジックである。</p>
-<h3>2. Pond — 「プールは小さく」「未使用メモリを ML で予測する」二段構え</h3>
-<p>Pond の設計判断で最も非自明なのは <strong>プールを意図的に小さく保つ</strong> 点だ。直感的にはプールは大きいほど統計多重化が効いて座礁が減るはずだが、Pond の貢献は「<strong>8〜16 ソケットで savings のほとんどが取れる</strong>」ことをトレースで示したこと。32 ソケットで 12%、64 ソケットで 13% 削減と、16 を超えると効用がほぼ飽和する。一方レイテンシは規模に比例して悪化する: ローカル DDR5 比で <strong>8–16 ソケットプールは +75〜90ns 程度（≈155–180ns、ローカルの 1.8〜2.1 倍）</strong> で済むが、ラックスケール（32/64 ソケット）になると <strong>+180ns 超、ローカルの 3 倍以上</strong> に跳ねる。だから Pond は「<strong>小プール + ソケットローカル DRAM を必ず残す</strong>」二層設計を採る。プールを束ねるのは <strong>EMC（External Memory Controller）ASIC</strong> で、multi-headed device として複数 CXL ポートを持ち、HDM デコーダで各ホストにアドレス範囲を動的割り当てする。</p>
-<p>第二の鍵が <strong>未使用メモリ（untouched memory, UM）の予測</strong> だ。Pond は VM を起動時に「この VM は将来どれだけのメモリに一度も触らないか」を <strong>LightGBM の勾配ブースティング回帰（GBM）</strong> で予測する。特徴量は VM のメタデータ（サイズ、種別等）、ラベルはハイパーバイザのテレメトリから集めた最小 UM。触られないと予測した分だけを <strong>zNUMA ノード</strong>（コアを持たずメモリだけの CPU-less NUMA ノード。Linux のページアロケータは自然にコア付きノードを優先するので、zNUMA はめったに使われない）として CXL プールに載せ、残りはローカル DRAM に置く。クラスタによっては 50 パーセンタイルで 50% が untouched、最も少ないクラスタでも 50% 超の VM が 20% 以上 untouched という分布で、削れる余地は十分にある。GBM は固定割合ヒューリスティックより <strong>5 倍正確</strong>、過剰予測（OP）は VM の 2.5% のみ。</p>
-<h3>3. 誤予測こそが本丸 — QoS 監視 + ライブマイグレーションの安全網</h3>
-<p>ML 予測は必ず外れる。Pond の真の工学的価値は、<strong>外れたときの自己修復ループ</strong> にある。zNUMA VM に対し Pond は QoS を継続監視し、untouched と予測した領域に実際にアクセスが発生して（=過剰予測で）性能が落ち始めたら、<strong>mitigation manager がメモリ再構成をトリガし、最終的に VM を「全メモリ same-NUMA-node」構成へライブマイグレーション</strong> する。つまり「楽観的にプールへ追い出す → 間違えたら引き戻す」という、投機実行のロールバックや楽観的並行制御と同型の構造だ。結果として 158 ワークロードの評価で、正しい予測下では <strong>同一 NUMA ノード比 1–5% 以内の性能</strong> に収まり、全体の DRAM 必要量を <strong>7%（16 ソケットプール時）削減</strong>。Microsoft は後により大きなプール構成で <strong>総メモリ約 10% 削減 → サーバコスト 5% 削減</strong> と報告し、2025 年 11 月に <strong>業界初の CXL 搭載クラウドインスタンスを Azure で投入</strong> した。これが「研究 → 本番」への最初の踏み越えだ。</p>
-<h3>4. TPP — プールができたら、次は「どのページをどこに置くか」を OS が透過的にやる</h3>
-<p>メモリが階層化されると、ホット/コールドページを正しい層へ動かす責任が生まれる。<strong>TPP（Transparent Page Placement、Meta + U. Michigan、ASPLOS 2023）</strong> は、これを <strong>アプリ無改変（application-transparent）の OS 機構</strong> で行う。問題は、デフォルト Linux は階層メモリ向けにできていないことだった。Linux の reclaim はローカルノードの空きが low watermark を割ると <strong>同期的に止まって（allocation stall）</strong> ページを回収する設計で、CXL のような「捨て先の遅いノード」がある世界では遅延が大きすぎる。TPP の 4 つの工夫:</p>
-<ul>
-<li><strong>(a) 軽量なデモーション（lightweight demotion）</strong>: コールドページを CXL へ「捨てる」のではなく <strong>migration で降格</strong> する。スワップアウトと違い再アクセスが安い。</li>
-<li><strong>(b) アロケーションとリクレイムのパス分離（decoupling）</strong>: 従来は「回収が追いつかないと割り当てが止まる」が密結合だった。TPP は reclaim watermark を割り当てから切り離し、ローカルノードは <strong>常に少し多めに回収して空きを維持</strong>、新しいホットな割り当て（短命でホットになりがち）とプロモーション受け入れの余地を先回りで作る。プロモーションとデモーションの <strong>非対称性</strong>（昇格は即応的に、降格はバックグラウンドで）を明示的に設計している。</li>
-<li><strong>(c) リアクティブなプロモーション</strong>: CXL に取り残されたホットページを検出してローカルへ昇格。判定には既存の <strong>LRU リスト</strong>（active/inactive）を流用し、「inactive LRU の若いページを昇格候補にする」ことで <strong>ヒステリシス</strong> を与え、ホット/コールド境界を行き来するページが ping-pong しないようにする。専用の高コストなアクセスビットサンプリングを避けたのが「軽量」の核心。</li>
-<li><strong>(d) ページ種別を意識した割り当て（page-type-aware）</strong>: 実測で <strong>anon ページ（スタック・ヒープ・mmap）はホットが残りやすく、file-backed ページは相対的にコールド</strong>。だから anon を優先的に高速層、ファイルキャッシュを CXL に置く。</li>
-</ul>
-<p>結果、TPP は <strong>デフォルト Linux 比で最大 18%、NUMA Balancing / AutoTiering 比で 5–17% 高速</strong>、理想（全メモリがローカル）との差は 1% 未満。そしてこの機構は <strong>upstream Linux カーネルにマージ済み</strong>（5.18 以降の memory tiering 系）で、TPP は論文であると同時に「世界中のハイパースケーラが今走らせている本番コード」になった。</p>
-<h3>5. 「容量プーリング」と「帯域アグリゲーション」は別物 — weighted interleave の発見</h3>
-<p>CXL を語るとき暗黙に「容量を増やす/座礁を減らす」話に寄りがちだが、2024 年に Linux 6.9 で入った <strong>MPOL_WEIGHTED_INTERLEAVE</strong> は別の使い方を切り開いた。CXL メモリは容量だけでなく <strong>追加の帯域</strong> ももたらす。問題は素朴に DDR と CXL を 1:1 でインターリーブすると、遅い CXL がボトルネックになって全体帯域が落ちること。weighted interleave は <strong>各ノードの帯域比に応じてページを按分</strong> する（典型値 <strong>DDR 85% : CXL 15%</strong>）。これにより 1:1 比に対し <strong>帯域利用 165% 向上</strong> が報告された。<code>/sys/kernel/mm/mempolicy/weighted_interleave/node*</code> で重みを設定し、<code>numactl -w</code>（2.0.19+）で使う。MemVerge の Memory Machine 等の商用ソフトも同じ「ユーザ選択可能な DRAM:CXL 比で帯域とレイテンシを天秤にかける」ポリシーエンジンを実装している。</p>
-<p>つまり CXL には用途が三つに分岐する: <strong>(1) 容量拡張（単一ホスト、最も枯れている）/ (2) プーリング（複数ホストで座礁削減、Pond）/ (3) 帯域アグリゲーション（weighted interleave で帯域律速ワークロードを加速）</strong>。AI 推論では帯域とレイテンシの両方が効くので (3) と階層オフロードの組み合わせが現実的だ。</p>
-<h3>6. 反論 — Google「A Case Against CXL Memory Pooling」が突きつける算盤</h3>
-<p>ここで一次資料として外せないのが Philip Levis ら <strong>Google の HotNets 2023 論文「A Case Against CXL Memory Pooling」</strong>。彼らは <strong>コスト・複雑性・効用</strong> の三点で multi-host プーリングを否定する。最も鋭いのが経済モデルだ:</p>
-<ul>
-<li>DRAM は今 <strong>約 $3/GB</strong>。CXL プール側も <strong>DRAM + EMC ASIC + CXL スイッチ</strong> を必要とし、その追加ハードがプール DRAM のコストに乗る。Pond の楽観値 9% 削減を実現するには各サーバの RAM を 25% 削る必要があるが、<strong>「スイッチコストだけで損益分岐させるには 12.6TB の RAM を節約しなければならない」</strong> 規模で、現実のプールサイズではコストが savings を食い潰す。</li>
-<li><strong>レイテンシ</strong>: CXL プール経由は switch + 処理 + エンコードの往復が乗り、ローカルの 120–140ns に対し大幅増。これを隠蔽するには <strong>ネットワークアプリの大幅な書き換えが必要</strong> で「透過的」とは言えない。</li>
-<li><strong>効用そのものへの疑問</strong>: Google と Azure の本番トレースを分析し、<strong>現代サーバは大半の VM に対して十分大きく、素朴なパッキングでも座礁メモリはわずか</strong> と結論。Pond の「25% 座礁」と真っ向から対立する。VM が小さいうちはプールが成り立たないという指摘も同根だ。</li>
-</ul>
-<p>SemiAnalysis の「CXL Is Dead In The AI Era」も、HBM/NVLink/UALink が GPU 間の帯域勝負を制し、CXL の遅いレイテンシは AI トレーニングのクリティカルパスに入れないと論じる。実際 2024 年前半には多くのプロジェクトが静かに棚上げされ、ハイパースケーラの一部は撤退した。</p>
-<h3>7. 2024–2026 のハードウェア現実</h3>
-<p>それでも <strong>メモリ拡張（用途 1）</strong> は着実に出荷されている。<strong>Samsung CMM-D</strong>（CMM-D 2.0 で 128/256GB、最大 36GB/s、CXL 2.0/PCIe Gen5、2024 末に 256GB 量産、2.0 サンプル供給中、3.1 を年末ターゲット）、<strong>SK hynix CMM-DDR5</strong>（96GB、当初 Montage 製コントローラ、2025 に自社コントローラ TSMC 製造へ）、<strong>Micron</strong> の CXL 2.0 拡張モジュール。フォームファクタは EDSFF E3.S が主流。CXL 4.0（2025-11、PCIe 7.0 PHY で 128 GT/s、x16 bundled ports で片方向 768GB/s ≈ 1.5TB/s）は H200 の HBM3e 帯域の約 30% に達し、「容量重視・帯域は二番手」の拡張用途には十分。商用プールは 2025 年に 100TiB 級に到達。ただし CXL 3.0/3.1 のソフトウェア成熟による本格商用採用は <strong>2027 年</strong> との予測（ABI Research）が大勢だ。</p>
-<h2>気づき・洞察</h2>
-<h3>「ML 予測 + 楽観実行 + ロールバック」はあらゆる層で再発明される</h3>
-<p>Pond の zNUMA は「untouched と予測 → プールへ追い出す → 外れたら QoS 監視が引き戻す」という構造で、これは [[2026-05-04_vLLM_PagedAttentionによるLLM推論最適化]] の投機的デコーディング（ドラフトで予測 → 検証 → 棄却なら破棄）、CPU の分岐予測 + パイプラインフラッシュ、楽観的並行制御（[[2026-04-29]] Iceberg の CAS リトライ）と完全に同型だ。<strong>「正解は分からないが、楽観的に賭けて、外れたら安全に戻せるなら、平均で得をする」</strong> という設計パターンが、ハードウェア・OS・推論・DB の全層を貫いている。注目すべきは Pond がこの賭けの精度を <strong>ヒューリスティックではなく学習モデルで</strong> 上げた点で、「システムソフトウェアの内部判断を ML で置き換える」(learned systems) 潮流の典型例になっている。</p>
-<h3>プロモーションとデモーションの非対称性は「後悔の非対称性」の反映</h3>
-<p>TPP がプロモーション（昇格）を即応的に、デモーション（降格）をバックグラウンドで非対称に扱うのは美しい。<strong>ホットページをコールド層に取り残す後悔（性能直撃）は、コールドページを高速層に置きっぱなしにする後悔（容量の機会損失）よりずっと大きい</strong>からだ。同じ非対称性は GC の世代別仮説（若いオブジェクトは死にやすい→新世代を頻繁に、旧世代を稀に回収）、キャッシュの書き戻し戦略にも現れる。「<strong>動かすコストと、動かさない後悔の非対称性が、移動ポリシーの形を決める</strong>」という原理。</p>
-<h3>Pond と Google 論文の対立は「データの代表性」の戦争</h3>
-<p>同じ「本番クラウドトレース分析」という手法で、Microsoft Azure は 25% 座礁、Google は「ほとんど座礁しない」と正反対の結論を出した。これは捏造ではなく、<strong>フリート構成・VM サイズ分布・パッキングアルゴリズムの違い</strong> が結論を分けたと読むべきだ。教訓は鋭い: <strong>システム研究の「実トレースで実証」は普遍法則ではなく、その組織の運用形態への依存命題</strong> である。CXL プーリングが効くかどうかは技術ではなく「あなたの VM が小さいか、サーバが大きすぎるか」という運用変数で決まる。だから「CXL は死んだ」も「CXL が救う」も両方正しく、答えは事業者ごとに異なる。</p>
-<h3>レイテンシの段差が「経済性の段差」に化ける</h3>
-<p>前回 (04-28) は「200ns 層がアルゴリズム設計空間を作る」と書いた。今回さらに踏み込むと、<strong>Pond が 8–16 ソケットで止め、ラックスケールを避けた本当の理由は、レイテンシ +180ns がワークロード性能を壊し、性能劣化を補うために結局 DRAM を足す羽目になって savings が消えるから</strong>だ。つまり「レイテンシの物理段差」が「規模の経済の上限」を直接決めている。技術の制約（光速・スイッチ遅延）が、そのまま経済設計の境界条件になる稀有な例。Google の break-even 分析はこの境界を別角度（ASIC コスト）から突いている。</p>
-<h3>CXL の本当の勝者は「sharing」ではなく「expansion」かもしれない</h3>
-<p>華々しいのは複数ホスト coherent sharing（CXL 3.0）だが、2026 年時点で確実に売れているのは単一ホストのメモリ拡張モジュールだ。<strong>最も野心的な機能（sharing/fabric）ではなく、最も地味な機能（expansion）が先に普及する</strong> のは技術史の常で、HTTP/2 push が死に HTTP/2 多重化が生き残ったのと同じ。標準が約束する未来と、実際に現金が動く現在は別物だという冷静さが要る。</p>
-<h2>他分野との接続</h2>
-<ul>
-<li><strong>cs（NUMA / 仮想記憶 / GC 世代別仮説 / 楽観的並行制御）</strong>: TPP のページマイグレーションは仮想記憶のページング機構そのものを階層メモリへ拡張したもの。ホット/コールド分離は GC の世代別仮説と同型。zNUMA の楽観追い出し + ロールバックは MVCC/楽観ロックの構造</li>
-<li><strong>tech（[[2026-05-04_vLLM_PagedAttentionによるLLM推論最適化]]）</strong>: KV キャッシュの GPU HBM → ホスト DRAM → CXL の階層オフロードは PagedAttention のブロック管理と地続き。投機的デコーディングと Pond の untouched 予測は「予測 + 検証 + ロールバック」で同型</li>
-<li><strong>tech（[[2026-05-20_DPDKとカーネルバイパスネットワーキング]] / カーネルバイパス）</strong>: DPDK が「OS が暗黙提供していた抽象をアプリに再分配」したのと逆に、TPP は「階層配置という新責任を OS が透過的に肩代わり」する。責任をどの層に置くかの綱引きの両極</li>
-<li><strong>tech（[[2026-05-18_TigerBeetleと金融グレードDBの設計哲学]] / Apache Arrow ゼロコピー）</strong>: CXL 3.0 の coherent sharing は複数プロセス/ホストが同じ物理ページを参照する究極のゼロコピー。Arrow が「プロセス間で同一メモリレイアウトを共有」したのを、ハードウェア coherence で「ホスト間」へ拡張する延長線上にある</li>
-<li><strong>tech（Confidential Computing / TEE）</strong>: メモリが筐体外プールに出ると信頼境界が物理的に拡大。CXL IDE（リンク暗号化）が必須になり、[[2026-04-25]] の TEE.Fail（メモリバス物理攻撃）の脅威面が CXL ケーブルにも広がる</li>
-<li><strong>golf（コースマネジメントの期待値設計）</strong>: Pond の「楽観的に攻めて外れたら戻す」は、ゴルフの「狙えるが OB リスクがある場面で、リカバリの安さを織り込んで攻めるか刻むか」と同じ期待値計算。後悔の非対称性（OB の打数損失 vs 刻んだ機会損失）が判断を決める構造が一致</li>
-</ul>
-<h2>次に深掘りしたいこと</h2>
-<ul>
-<li><strong>TPP / NUMA Balancing / AutoTiering / TMO の upstream 統合の現状</strong> — Linux 6.x のどのコミットで何がマージされ、<code>/sys/kernel/mm/numa/demotion_enabled</code> 等の実際のチューニングノブはどうなっているか</li>
-<li><strong>DAMON ベースの tiering（DAMOS の <code>migrate_hot</code>/<code>migrate_cold</code> アクション）</strong> — TPP の LRU 方式と DAMON のリージョンサンプリング方式のアルゴリズム比較と精度/オーバーヘッドのトレードオフ</li>
-<li><strong>CXL.mem のレイテンシ実測</strong> — MLC（Intel Memory Latency Checker）等での Sapphire/Granite Rapids + 実 CXL モジュールの実測値、論文の推定 155–270ns が実機でどうか</li>
-<li><strong>CXL 3.0 sharing のコヒーレンスプロトコル詳細</strong> — Back-Invalidate（BI）スヌープ、HDM-DB、複数ホスト同時 RW 時のディレクトリ管理の実装</li>
-<li><strong>learned systems の系譜</strong> — Pond の GBM のように、ML がシステムソフトウェアの内部判断（プリフェッチ、キャッシュ置換、スケジューリング）を置き換える研究の全体像</li>
-<li><strong>UALink vs CXL の棲み分け</strong> — GPU 間は UALink/NVLink、CPU-メモリは CXL という 2026 年の収束が本当に安定なのか、AI クラスタでの実配置</li>
-<li><strong>Google 論文への反論・その後</strong> — 2024–2026 で Pond/TPP 陣営は Google の break-even 批判にどう答えたか、VM サイズ分布の前提を巡る議論の決着</li>
-</ul>
-<h2>参考ソース</h2>
-<ul>
-<li>Huaicheng Li et al., "Pond: CXL-Based Memory Pooling Systems for Cloud Platforms", ASPLOS 2023（Microsoft + Meta）— stranded memory 25%、8–16 ソケット小プール、LightGBM 未使用メモリ予測、zNUMA + QoS ロールバック、158 ワークロードで 1–5%・DRAM 7% 削減。https://dl.acm.org/doi/10.1145/3575693.3578835</li>
-<li>Hasan Al Maruf et al., "TPP: Transparent Page Placement for CXL-Enabled Tiered-Memory", ASPLOS 2023（Meta + U. Michigan）— 軽量デモーション・alloc/reclaim 分離・LRU プロモーション・page-type-aware、Linux 18%・既存比 5–17% 改善、upstream マージ済み。https://arxiv.org/abs/2206.02878</li>
-<li>Philip Levis, Kun Lin, Amy Tai, "A Case Against CXL Memory Pooling", HotNets 2023（Google）— cost/complexity/utility の三反論、$3/GB break-even、スイッチコストで 12.6TB 節約が必要、現代サーバは VM に対し大きく座礁は少ない。https://conferences.sigcomm.org/hotnets/2023/papers/hotnets23_levis.pdf</li>
-<li>LWN.net / MemVerge: "Weighted interleaving for memory tiering"、Linux 6.9 MPOL_WEIGHTED_INTERLEAVE、DDR 85%:CXL 15% で帯域 165% 向上。https://lwn.net/Articles/948037/ , https://memverge.com/introducing-weighted-interleaving-in-linux-for-enhanced-memory-bandwidth-management/</li>
-<li>CXL Consortium 公式（CXL 4.0、2025-11、PCIe 7.0 / 128 GT/s / bundled ports 1.5TB/s）。https://computeexpresslink.org/</li>
-<li>TrendForce / ServeTheHome / Tom's Hardware: Samsung CMM-D 2.0（128/256GB、CXL 2.0）、SK hynix CMM-DDR5 96GB 自社コントローラ、Micron CXL 2.0 モジュールの 2024–2026 出荷状況。https://www.trendforce.com/news/2025/10/17/news-samsung-unveils-cxl-roadmap-cmm-d-2-0-samples-ready-3-1-targeted-for-year-end/</li>
-<li>Microsoft の Azure CXL インスタンス（2025-11、メモリ約 10% / サーバコスト 5% 削減）、SemiAnalysis「CXL Is Dead In The AI Era」（AI クリティカルパスでの CXL レイテンシ批判、HBM/UALink との対比）</li>
-</ul>
-          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/tech/2026-05-21_CXLとメモリ・ディスアグリゲーション_コヒーレント相互接続とメモリプーリングの設計.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
-          <button type="button" class="collapse-card">▲ 閉じる</button>
-        </div>
-      </details>
       <details id="card-music" class="card card-music domain-details">
         <summary>
           <span class="card-head"><span class="badge badge-music">music</span> <span class="card-title">ギヨーム・ド・マショーとアルス・ノヴァ——14世紀の多声音楽とアイソリズム</span></span>
@@ -1592,222 +1509,6 @@ details .detail-content {
 <li>PRMD prevalence: Frontiers Psychol 2024 (PMC11075168) ／ photogrammetry study (PubMed 33763681) ― ピアニストの肩・頸障害有病率と FHP/RSP の関与</li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/anatomy/2026-05-21_肩関節複合体と肩甲上腕リズム_回旋筋腱板とゴルフ・ピアノの肩.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
-          <button type="button" class="collapse-card">▲ 閉じる</button>
-        </div>
-      </details>
-      <details id="card-bread" class="card card-bread domain-details">
-        <summary>
-          <span class="card-head"><span class="badge badge-bread">bread</span> <span class="card-title">塩の科学とパン — グルテン強化・浸透圧・発酵速度・無塩パンの比較</span></span>
-          <span class="card-abstract">ベーカーズ%わずか1.8–2.2%のNaClが、グルテン構造・発酵速度・酵素活性・味覚・保存性の<strong>5経路に同時介入する</strong>分子機構。核心は(1)<strong>電荷遮蔽</strong>——Debye–Hückel理論でκ⁻¹∝1/√Iがグルテンタンパク質間の静電反発を消して締める、(2)<strong>Hofmeister系列</strong>でイオン種ごとに塩析↔塩溶、(3)浸透圧ストレスとHOG/グリセロール経路による発酵遅延、(4)プロテアーゼ&gt;アミラーゼの非対称抑制が<strong>オートリーズ後入れ塩</strong>を説明、(5)無塩パン（パーネ・トスカーノ）の密なクラム・速い老化</span>
-        </summary>
-        <div class="domain-body">
-          <div class="domain-tags"><span class="tag">#塩</span> <span class="tag">#NaCl</span> <span class="tag">#charge_screening</span> <span class="tag">#Hofmeister</span> <span class="tag">#浸透圧</span> <span class="tag">#HOG経路</span> <span class="tag">#酵素阻害</span> <span class="tag">#無塩パン</span> <span class="tag">#水分活性</span> <span class="tag">#物理化学</span></div>
-<h2>学んだこと</h2>
-<p>ベーカーズ% でわずか <strong>1.8–2.2%</strong> しか入れない塩 (NaCl) が、グルテン構造・発酵速度・酵素活性・味覚・保存性の 5 経路すべてに同時介入する。[[塩の機能と製パン科学]] (2026-04-21) では「4 機能の同時介入」という鳥瞰図を描いたが、本エントリは<strong>その分子機構を物理化学のレベルまで掘り下げる</strong>。核心は「Na⁺/Cl⁻ という最も平凡なイオンが、生地という荷電高分子コロイド系の電気化学パラメータを書き換える」という一点に尽きる。</p>
-<h3>(1) グルテン強化の分子機構 — 電荷遮蔽 (charge screening) とデバイ長</h3>
-<p>グルテンタンパク質 ([[グリアジンとグルテニン — 小麦タンパク質の分子構造]]) は中性 pH では<strong>正味の負電荷</strong>を帯びる。グルタミン酸・アスパラギン酸の側鎖カルボキシ基 (–COO⁻) が解離し、生地 pH (5.5–6.0) では正電荷のリジン・アルギニン (–NH₃⁺) より優勢だからだ。同符号の電荷を持つタンパク質鎖どうしは<strong>静電反発</strong>で互いに遠ざかり、ネットワークの緊密化を妨げる。</p>
-<p>ここに NaCl を溶かすと、解離した Na⁺ と Cl⁻ がそれぞれの逆符号の荷電部位の周囲に<strong>イオン雰囲気 (ionic atmosphere)</strong> を形成し、電荷を遮蔽する。これは Debye–Hückel 理論そのもので、定量的には<strong>デバイ遮蔽長 (Debye length) κ⁻¹</strong> で記述される:</p>
-<p>κ⁻¹ ∝ 1/√I (I はイオン強度)</p>
-<p>純水のグルテン系では静電反発が長距離 (数 nm) に及ぶが、2% NaCl (約 0.34 M) を加えると I が跳ね上がり、κ⁻¹ が 1 nm 未満に短縮される。<strong>反発が「画面の解像度を上げて隣のドットが見えなくなる」ように消える</strong> — これが charge screening の物理的実体だ。静電反発が消えれば、それまで隠れていた<strong>ファンデルワールス引力</strong>と<strong>疎水性相互作用</strong>が相対的に支配的になり、タンパク質鎖どうしが接近・会合する。Beck ら (2012) のゼータ電位測定はこの会合促進を実測で裏付けた。</p>
-<p>帰結としてグルテンネットワークは:</p>
-<ul>
-<li><strong>β-シート構造の増加</strong>（二次構造の秩序化）</li>
-<li>遊離 SH 基の減少と <strong>S–S 架橋の増加</strong>（イオン強度上昇で thiol–disulfide 交換反応が促進）</li>
-<li>フィブリル状の伸展ネットワーク形成</li>
-</ul>
-<p>これが「塩を入れた生地は締まる・強くなる・ベタつかない、無塩生地はだれてベタつく」というベンチ感覚の正体である。ファリノグラフ上では塩添加で<strong>生地形成時間と安定時間が延びる</strong> ([[パン生地のレオロジー——粘弾性の物理とファリノグラフ・アルベオグラフ・エクステンソグラフ]] の安定時間が伸びる)。</p>
-<h3>(2) Hofmeister 系列 — イオンは「平等」ではない</h3>
-<p>charge screening は本来イオンの<strong>価数とイオン強度だけ</strong>で決まる長距離効果だが、現実のグルテンへの作用はそれを超え、<strong>イオン種ごとの個性 (specific ion effect)</strong> が効く。これが Hofmeister 系列だ。アニオンの「塩析 (salting-out) ↔ 塩溶 (salting-in)」順序:</p>
-<p>CO₃²⁻ &gt; SO₄²⁻ &gt; H₂PO₄⁻ &gt; <strong>F⁻ &gt; Cl⁻ &gt; Br⁻ &gt; NO₃⁻ &gt; I⁻ &gt; ClO₄⁻ &gt; SCN⁻</strong></p>
-<ul>
-<li>左側 (F⁻ 側) = <strong>コスモトロープ (kosmotrope, 水構造形成体)</strong>。水和殻が強く、タンパク質を脱水・凝集させる (salting-out)。グルテンを締める。</li>
-<li>右側 (SCN⁻ 側) = <strong>カオトロープ (chaotrope, 水構造破壊体)</strong>。水構造を壊しタンパク質表面に結合して変性・可溶化 (salting-in)。グルテンを緩める。</li>
-</ul>
-<p>Cl⁻ はちょうど中間に位置する。<strong>パンに NaCl が使われるのは偶然ではなく</strong>、Cl⁻ がほどよい締め効果を与え、過度な凝集 (= 硬くて脆い生地) を起こさない最適点だからだとも読める。Tuhumury ら (2016, <em>Food Chemistry</em>) の「Hofmeister 系列とグルテンネットワーク形成」研究 (アニオン編・カチオン編) では、ミキシングプロファイルや %UPP (unextractable polymeric protein, 不溶性ポリマータンパク質画分) の変化が系列順に並ぶことを示した。<strong>KCl 置換 (減塩パン) で食感が変わる</strong>のは、カチオンが Na⁺ → K⁺ になり Hofmeister 系列上の位置がずれるためでもある (苦味だけが理由ではない)。これは [[低ナトリウムパンの技術]] の未解決問題に対する物理化学的回答の一端になる。</p>
-<h3>(3) 発酵抑制 — 浸透圧ストレスと HOG 経路</h3>
-<p>塩の第二の役割は<strong>発酵を遅らせる</strong>こと。これは「塩が酵母を殺す」という俗説とは異なる ([[塩の機能と製パン科学]] でも否定済み)。機構は<strong>浸透圧ストレス (osmotic stress)</strong> だ。</p>
-<p>2% NaCl は生地水相の浸透圧を上げ、酵母 (<em>S. cerevisiae</em>) 細胞内の水を細胞外へ引き出そうとする (細胞は脱水・収縮しかける)。酵母はこれに対し <strong>HOG 経路 (High-Osmolarity Glycerol MAP キナーゼカスケード)</strong> で応答する:</p>
-<ol>
-<li>細胞膜の浸透圧センサー (Sln1 分枝と Sho1 分枝の 2 系統) が高浸透圧を検知</li>
-<li>MAP キナーゼ Hog1 がリン酸化・核移行 (高浸透圧シフト後 <strong>1–10 分</strong>で起動)</li>
-<li>GPD1 (NADH 依存性グリセロール-3-リン酸脱水素酵素) 遺伝子の転写が誘導 (mRNA は約 20 分でピーク)</li>
-<li>細胞内に<strong>グリセロール (適合溶質, compatible solute)</strong> を合成・蓄積し、内外の浸透圧を均衡化</li>
-</ol>
-<p>このグリセロール合成・適応に<strong>ラグタイム</strong>がかかるぶん、発酵全体が後ろにずれる。重要なのは<strong>発酵速度の低下は意外に小さい</strong>こと: 1.5% 塩の生地でガス生成は<strong>わずか 9% 程度の遅延</strong>にとどまる (AIB のガス生成測定)。つまり「ラグフェーズが伸びるだけで、定常状態の発酵力はほぼ落ちない」。</p>
-<p>この<strong>わずかな遅延が「機能であってバグではない」</strong>: 発酵がゆっくり進むぶん、エステル・有機酸・アルデヒドなど風味前駆体の蓄積に時間を稼げる ([[ポーリッシュとビガの事前発酵]] / [[長時間冷蔵発酵リターディングの科学と風味形成]] の「時間を資源として風味に変える」哲学と同根)。Poolish (1840s)・Biga などの歴史的長時間発酵法は、暗黙にこの塩の遅延効果を前提に組まれている。なお<strong>サワードウの LAB は酵母より塩耐性が高い</strong> (特に <em>L. plantarum</em>) ため、塩濃度を動かすと乳酸/酢酸比・酵母/LAB 比が微妙に変わる ([[発酵管理の科学：pH と TTA とサワードウのフィードバックループ]] の FQ 制御に塩という新パラメータが加わる)。</p>
-<h3>(4) 酵素活性 — プロテアーゼとアミラーゼへの非対称な抑制</h3>
-<p>塩はグルテンの内在性酵素も抑える。重要なのは<strong>抑制の非対称性</strong>: <strong>塩はプロテアーゼをアミラーゼより強く抑制する</strong>。</p>
-<ul>
-<li><strong>プロテアーゼ抑制 → グルテン保護</strong>: プロテアーゼが働きすぎるとグルテニンが過度に切断され生地がだれる。塩はこれを抑えて間接的にグルテンを守る。</li>
-<li><strong>α-アミラーゼの軽度抑制 → 過剰糖化の抑止</strong>: 低 Falling Number の粉で gummy crumb を防ぐ手段として「塩量を増やす」が有効 ([[アミラーゼと糖変換の科学]] のオーバーアミラーゼ対策に「酸性化 (サワードウ pH)」と並んで「塩量増 (競合阻害)」が挙がっていたのと一致)。</li>
-</ul>
-<h3>(5) なぜオートリーズで塩を後入れするのか — 酵素を「自由に走らせる」設計</h3>
-<p>[[オートリーズ (Autolyse) 法とグルテン形成の最適化]] で学んだ「塩なしの理由 = 酵素自由化」が、(4) の機構で完全に説明できる。<strong>オートリーズ中に塩を入れないのは、α-アミラーゼと protease を阻害せず自由に働かせるため</strong>だ:</p>
-<ul>
-<li>α-アミラーゼ: 損傷デンプン → マルトース分解で酵母の餌を準備</li>
-<li>protease: glutenin ループを限定加水分解 → extensibility (伸展性) 向上</li>
-</ul>
-<p>オートリーズが終わってグルテンが十分水和・予備形成された後に塩を投入することで、(a) 酵素活性を最大化した時間を確保しつつ、(b) その後 charge screening でグルテンを締める — <strong>「先に緩めて働かせ、後で締める」二段階の時間設計</strong>である。Hamelman は熱湯/冷水ソーカー (soaker) には塩を加えることを勧めるが、これは「生地破壊を防ぐ」というより<strong>過剰なアミラーゼ活性が生むオフフレーバーを抑える</strong>ためだという (機構の主目的が風味側にある好例)。塩の投入タイミングは「同時投入 (シンプル、グルテン制御重視)」と「遅延塩添加 (saltolyse 含む、酵素活性最大化)」の二択になる。</p>
-<h3>(6) 味覚・知覚と保存性 (水分活性)</h3>
-<p>塩は単に塩味を足すのでなく、<strong>他の風味を引き立てる味の増幅器 (flavor enhancer)</strong> として働く。閾値下の塩でも甘味・うま味の知覚を底上げし、無塩パンは「ぼやけて間が抜けた味」になる。保存性面では塩が<strong>水分活性 a_w を下げる</strong> ([[塩の機能と製パン科学]]: 焼きたて a_w 0.90–0.95 が塩 2% で約 0.93)。これは味噌・醤油・生ハム・キムチと同じ a_w 低下による微生物抑制ファミリーの末席。ただし塩は吸湿性でもあり、<strong>湿度の高い環境ではむしろ空気中の水分を吸ってクラストをしけらせる</strong>両刃の性質を持つ。</p>
-<h3>(7) 無塩パン — パーネ・トスカーノ/シャート (pane sciapo/sciocco) の食感</h3>
-<p>塩を 0% にすると上記すべてが逆回しになる。歴史的経緯 (12 世紀ピサの塩封鎖・塩税への抵抗) は [[塩の機能と製パン科学]] で扱ったので、ここでは<strong>物性の帰結</strong>に焦点を当てる:</p>
-<ul>
-<li><strong>緻密でタイトなクラム</strong>: charge screening がないぶんグルテンは締まらないが、塩がない → 発酵がやや速く進み (浸透圧ストレスなし)、ガス保持の弱いだれた生地で焼くため、結果として<strong>密で目の詰まったクラム</strong>になる。</li>
-<li><strong>速い老化 (硬化)</strong>: 塩は水を引きつけクラムをしっとり保つ ([[スターチ・リトログラデーション（澱粉の老化）とパンの硬化]] の自由水を介した可塑化に寄与) が、無塩パンは水分保持が弱く<strong>1 日で固くなる</strong>。トスカーナで無塩パンが翌日以降に <em>ribollita</em>・<em>panzanella</em>・<em>pappa al pomodoro</em> など「固くなったパンを再活用する料理」と一体で発達したのは、この物性の必然的帰結だ。</li>
-<li><strong>食文化の補完設計</strong>: 塩辛い加工肉 (prosciutto, finocchiona) や濃厚なラグーに対し、無塩パンは塩味を中和する「白紙」として機能する。<strong>物性 (速い老化) と味覚 (中和役) の両方が、料理体系と噛み合って一つの生態系</strong>をなす。</li>
-</ul>
-<h2>気づき・洞察</h2>
-<ul>
-<li>
-<p><strong>「最も平凡なイオンが、系の電気化学パラメータを書き換える」</strong>。NaCl は化学的に最も退屈な塩だが、生地という荷電高分子コロイドにとっては「デバイ長を縮めるノブ」「浸透圧を上げるノブ」「酵素を抑えるノブ」を同時に回す多機能制御子だ。[[塩の機能と製パン科学]] で触れた「生地中の Na⁺ によるグルテン電荷中和とニューロン膜電位制御が Gouy–Chapman 電気二重層の同じ原理」という対応が、本エントリの Debye–Hückel / 電荷遮蔽でさらに精密化された。<strong>パン生地も神経膜も「荷電界面を電解質で遮蔽する電気化学系」</strong>として同一の数式 (κ⁻¹ ∝ 1/√I) で記述される。</p>
-</li>
-<li>
-<p><strong>charge screening (長距離・イオン強度依存) と Hofmeister 効果 (短距離・イオン種依存) の二層構造</strong>。前者は「どれだけ塩か」、後者は「どの塩か」で効く。これは [[発酵管理の科学：pH と TTA とサワードウのフィードバックループ]] の「pH = 強度量 / TTA = 容量量」という強度量 vs 容量量の二項対立と同型で、<strong>「量で効くパラメータ」と「種類で効くパラメータ」が独立に重なる</strong>自然界の組織化原理がここでも現れる。</p>
-</li>
-<li>
-<p><strong>抑制が「機能」になる逆説</strong>。塩は発酵を遅らせ・酵素を抑え・グルテンを締める — すべて「抑える」方向だが、それぞれが (風味時間確保 / gummy crumb 回避 / ガス保持向上) という正の機能になる。<strong>「ブレーキを掛けることで制御可能性が上がる」</strong>設計は、過剰な α-アミラーゼをサワードウの酸で抑える ([[アミラーゼと糖変換の科学]] の「酸性化は風味でなく酵素ガバナンス」) のと完全に同型。塩もまた<strong>酵素ガバナンス機構</strong>なのだ。</p>
-</li>
-<li>
-<p><strong>タイミングが機構を逆手に取る</strong>。オートリーズの「後入れ塩」は、塩の阻害効果を<strong>時間軸でオン/オフ</strong>する操作。「酵素が必要な間は塩を入れず、グルテンを締めたくなったら入れる」 — 同じ試薬を時間で切り替える発想は、サワードウの bagnetto (酢酸だけ後で洗い流す negative selection, [[パネトーネとリエヴィト・マードレ]]) や、アルカリを焼成中に CO₂ で中和して消す自己消去型試薬 ([[プレッツェルとベーグルのアルカリ処理]]) と同じ「試薬の時間制御」パラダイムに属する。</p>
-</li>
-</ul>
-<h2>他分野との接続</h2>
-<ul>
-<li><strong>[[cs]] / 分散システム</strong>: 「1 パラメータ (塩量) で複数機能を同時制御」は CS の単一責任原則の逆を行く<strong>意図的多機能性 (intentional multi-functionality)</strong>。進化的・経験的に最適化された系の特徴で、単純系では分離すべき関心事 (separation of concerns) が、最適化の極限では融合する。</li>
-<li><strong>[[anatomy]] / 神経生理学</strong>: Debye 遮蔽長 κ⁻¹ ∝ 1/√I は、ニューロン膜の電気二重層・細胞外イオン濃度による膜電位制御と完全に同じ電気化学。生地の塩と神経の塩は同じ Gouy–Chapman 理論で動く。さらに浸透圧ストレス応答の HOG 経路は、ヒト細胞の浸透圧調節 (腎髄質の有機浸透圧物質蓄積、脳浮腫時のイディオジェニック・オスモル) と相同の「適合溶質を貯めて内外を均衡化する」普遍戦略。</li>
-<li><strong>タンパク質化学一般</strong>: Hofmeister 系列の salting-out/salting-in は、硫安沈殿によるタンパク質精製・クロマトグラフィの溶出設計と同じ原理。グルテンを締める塩は、試験管でタンパク質を沈殿させる塩と同じ理屈で動いている。</li>
-<li><strong>[[other]] / 食文化と政治</strong>: 無塩パンは「塩税への抵抗」という政治史が物性 (速い老化) を経て料理体系 (パン再活用料理) まで規定した。<strong>制度 → 化学 → 物性 → 食文化</strong>の因果連鎖は、フランス Décret pain や日本 JAS のような「制度による食文化の固定化」 ([[パネトーネとリエヴィト・マードレ]] の Disciplinare di Produzione) と表裏一体。</li>
-</ul>
-<h2>次に深掘りしたいこと</h2>
-<ul>
-<li><strong>塩濃度とサワードウ pH/FQ の定量関係</strong>: 塩 1.5% / 2.0% / 2.5% で乳酸/酢酸比、最終 pH、酵母/LAB 比がどう動くか。LAB の塩耐性差を介した生態系シフトの実測値 (既存の未解決疑問「塩とサワードウの pH 相互作用」の精密化)。</li>
-<li><strong>KCl/MgCl₂ 置換の Hofmeister 的予測</strong>: Na⁺ → K⁺ → Mg²⁺ と置換したとき、Hofmeister カチオン系列上の位置から食感変化を予測できるか。減塩パンの食感劣化を「苦味問題」と「電荷遮蔽効率の変化」に分解する ([[低ナトリウムパンの技術]] の精密化)。</li>
-<li><strong>塩の結晶形状・溶解速度と生地中の分布均一性</strong>: 精製塩・海塩 (フルール・ド・セル)・岩塩で溶解動力学が異なり、ミキシング中の局所イオン強度の不均一が局所的なグルテン形成差を生むか (未解決疑問の検証)。</li>
-<li><strong>デバイ長の実測オーダー検算</strong>: 2% NaCl 生地でのイオン強度 I を実測 (他のイオン: 重炭酸、リン酸、有機酸も寄与) から見積もり、κ⁻¹ を計算してグルテン鎖間距離と比較する定量化。</li>
-<li><strong>減塩トレンドと公衆衛生</strong>: WHO の塩摂取削減目標とパン (主要なナトリウム源) の技術的減塩限界。微細塩による表面集中戦略 (encapsulated salt, 表面散布) で「知覚塩味は保ち総量を減らす」アプローチの工学。</li>
-</ul>
-<h2>参考ソース</h2>
-<ul>
-<li>Tuhumury, Day &amp; Small (2014). "The effect of sodium chloride on gluten network formation and rheology." <em>Journal of Cereal Science</em>. （charge screening によるグルテン強化の機構とレオロジー実測）</li>
-<li>Tuhumury, Small &amp; Day (2016). "Effects of Hofmeister salt series on gluten network formation: Part I. Cation series / Part II. Anion series." <em>Food Chemistry</em>. （Hofmeister 系列とミキシングプロファイル・%UPP の対応）</li>
-<li>Beck, Jekle &amp; Becker (2012). 塩のグルテンネットワーク・生地微細構造・レオロジーへの影響（ゼータ電位による charge screening の分子的裏付け）</li>
-<li>Hohmann (2002). "Osmotic Stress Signaling and Osmoadaptation in Yeasts." <em>Microbiology and Molecular Biology Reviews</em> 66(2):300-372. （HOG 経路とグリセロール蓄積による浸透圧適応の機構）</li>
-<li>ASM / Frontiers in Microbiology — <em>S. cerevisiae</em> の高浸透圧応答 (Sln1/Sho1 分枝、GPD1 誘導動力学)</li>
-<li>Hofmeister series — kosmotrope/chaotrope の分類と salting-out/salting-in（アニオン・カチオン系列の標準的整理）</li>
-<li>Hamelman, J. <em>Bread: A Baker's Book of Techniques and Recipes</em>（塩の役割、ソーカーへの塩添加、塩投入タイミング）</li>
-<li>AIB (American Institute of Baking) — 1.5% 塩でガス生成 9% 遅延の定量データ</li>
-<li>King Arthur Baking (Pro Reference: Salt), Wild Yeast, Cargill "Salt in Bread Dough" — ベーカーズ% 1.8–2.2% の実務基準と無塩生地のだれ・ベタつき</li>
-<li><em>Pane sciocco/sciapo</em>（トスカーナ無塩パン）— 緻密なクラム・速い老化・塩税起源と料理体系との補完</li>
-</ul>
-          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/bread/2026-05-21_塩の科学とパン_グルテン強化・浸透圧・発酵速度・無塩パンの比較.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
-          <button type="button" class="collapse-card">▲ 閉じる</button>
-        </div>
-      </details>
-      <details id="card-cs" class="card card-cs domain-details">
-        <summary>
-          <span class="card-head"><span class="badge badge-cs">cs</span> <span class="card-title">正規表現エンジンとオートマトン — Thompson NFA・DFA変換・ReDoS の病理</span></span>
-          <span class="card-abstract">正規表現の線形時間照合は<strong>Thompson 1968</strong>で確立済みだったのに、主流エンジン（Perl/PCRE/Python）は後方参照などの機能要求から<strong>最悪指数時間のバックトラッキング型</strong>を採用し続けた——理論と実用の40年ギャップ。Thompson NFAの多状態シミュレーション（O(mn)）が「経路履歴を捨てる」ことで線形性を得る一方、後方参照は非正規言語を表現でき照合がNP完全化する（Aho）。<strong>Cloudflare 2019障害</strong>（<code>.*.*=.*</code>でCPU100%・27分停止）を実害例に、RE2/Go/Rustが「危険構文を削除して線形保証を得る」設計判断を論じた</span>
-        </summary>
-        <div class="domain-body">
-          <div class="domain-tags"><span class="tag">#正規表現</span> <span class="tag">#オートマトン</span> <span class="tag">#NFA</span> <span class="tag">#DFA</span> <span class="tag">#Thompson構成</span> <span class="tag">#ReDoS</span> <span class="tag">#catastrophic-backtracking</span> <span class="tag">#RE2</span> <span class="tag">#形式言語</span> <span class="tag">#計算量</span></div>
-<h2>学んだこと</h2>
-<h3>中心命題：理論は1968年に完成していたのに、世界は遅い実装を選んだ</h3>
-<p>この分野の最も衝撃的な事実は、<strong>「正規表現は線形時間で確実に照合できる」という結果が Thompson の 1968 年 CACM 論文（"Regular Expression Search Algorithm"）で実用化されていた</strong>にもかかわらず、Perl・PCRE・Python <code>re</code>・Java <code>java.util.regex</code>・JavaScript（V8 Irregexp）といった現代の主要エンジンの大半が、最悪指数時間に陥りうるバックトラッキング型を採用している、という点だ。Russ Cox の "Regular Expression Matching Can Be Simple And Fast"（2007, swtch.com）はこのギャップを暴いた決定的な一次資料で、本エントリの背骨をなす。</p>
-<p><strong>数字が残酷</strong>だ。病的なパターン <code>a?ⁿaⁿ</code>（<code>a?</code> を n 回 + <code>a</code> を n 回）に対し、n=29 で <strong>Perl は 60 秒以上</strong>、Thompson NFA シミュレーションは <strong>20 マイクロ秒</strong>——百万倍の差。n=100 では Perl は理論上「10¹⁵ 年以上」、NFA は 200 マイクロ秒未満。同じ「正規表現マッチング」という看板の下で、計算量クラスが指数 vs 線形に分かれている。</p>
-<h3>形式言語の階層：正規言語と有限オートマトンの等価性</h3>
-<p>基礎を押さえる。Kleene の定理（1956）が <strong>「正規表現が表す言語 = 有限オートマトンが受理する言語 = 正規言語」</strong> という三位一体を確立した。有限オートマトンには2種類ある：</p>
-<ul>
-<li><strong>DFA（決定性）</strong>: 各状態・各入力文字に対し遷移先が一意。1文字読むごとに1状態。照合は入力長 n に対し <strong>厳密に O(n)</strong>、しかも1文字あたり定数仕事。だが状態数が爆発しうる。</li>
-<li><strong>NFA（非決定性）</strong>: 同一入力に複数遷移を許し、ε遷移（入力を消費しない遷移）も持つ。「全ての可能性を同時に追う」モデル。Rabin-Scott（1959）の <strong>部分集合構成法（subset construction）</strong> で任意の NFA は等価な DFA に変換できる——ただし NFA の k 状態に対し DFA は最悪 <strong>2^k 状態</strong>（状態爆発）。</li>
-</ul>
-<p>ここに最初のトレードオフがある。DFA は実行が速いが構築・保持が高くつき、NFA は構築が安い（正規表現サイズに線形）が素朴に実行すると遅くなりうる。<strong>設計の核心は「この2極のどこに座るか」だ。</strong></p>
-<h3>Thompson 構成法と「NFA シミュレーション」——指数を回避する鍵</h3>
-<p>正規表現 → NFA の変換が <strong>Thompson 構成法</strong>。各演算子（連接・選択 <code>|</code>・閉包 <code>*</code>）に対し ε遷移つきの小さな部品を再帰的に組み立てる。<strong>正規表現の文字・メタ文字1個につき状態1個</strong>しか作らないので、NFA のサイズは正規表現長に線形（重要：照合時間の線形性の前提）。Thompson の 1968 年の天才的工夫は、NFA 状態を<strong>機械語の小片</strong>として表現し、可能状態のリストを関数呼び出し命令の列として実行時に動的生成したこと——1960 年代のマシンでの JIT 的発想だった。</p>
-<p>線形時間を生む決定的アイデアは <strong>「NFA を多状態で同時シミュレートする」</strong> こと。バックトラッキングが「1つの経路を試し、失敗したら戻ってやり直す」のに対し、Thompson 法は <strong>現在到達可能な NFA 状態の集合を1つ持ち、入力を1文字読むごとに集合全体を一斉に進める</strong>。状態数は高々 m（正規表現長）なので、各ステップの仕事は O(m)、入力 n 文字で <strong>O(mn)</strong>。</p>
-<blockquote>
-<p><strong>核心</strong>: 効率の源泉は「どの経路で到達したか」を<strong>捨てる</strong>こと。到達可能な<strong>状態の集合だけ</strong>を覚え、経路の履歴は持たない。バックトラッキングは経路を覚えるから 2ⁿ 通りを辿る羽目になる。Thompson は集合を覚えるから経路の組合せ爆発を<strong>情報として捨てている</strong>。</p>
-</blockquote>
-<p>これは事実上、部分集合構成で得られる DFA を<strong>実行時に遅延構築（lazy/on-the-fly DFA）している</strong>のと等価だ。状態集合をキャッシュすれば、訪れた DFA 状態だけを作るので、2^k の状態爆発を「実際に必要な分だけ」に抑えられる。これが grep の高速さの正体である。</p>
-<h3>Glushkov 構成という別解</h3>
-<p>Thompson と並ぶもう一つの正規表現→NFA 変換が <strong>Glushkov 構成（position automaton, 1961）</strong>。各記号出現に一意の「位置」を割り当て、firstpos/lastpos/followpos 集合を計算して位置を状態とする。決定的な違いは <strong>ε遷移を一切作らない</strong>こと。状態数は「正規表現の記号数 + 1」ちょうど。NYU の Mohri らが示したように、<strong>Thompson NFA から ε遷移を除去すると Glushkov NFA が得られる</strong>——両者は同じ自動機の別の視点だ。ε-free であることはコンパイラ的に扱いやすく、ハードウェア NFA 実装や一部の高速マッチャ（dual Glushkov など）で好まれる。</p>
-<h3>Unix の系譜：知っていたのに使わなかった歴史</h3>
-<p>皮肉な歴史がある。Thompson は QED エディタ（CTSS, 1960年代）に正規表現を持ち込み、それが ed・grep へ流れた。<strong>ところが ed や初期 grep はバックトラッキングを使った</strong>——Thompson 自身がより良いアルゴリズムを知っていたのに。Al Aho の <strong>egrep</strong>（Seventh Edition Unix, 1979）が初めて完全な正規表現構文を<strong>事前計算した DFA</strong>で実装。Eighth Edition（1985）では Rob Pike が sam エディタ用に部分マッチ追跡つきの効率的 NFA シミュレーションを書いたが、<strong>この技法は注目されなかった</strong>。代わりに Henry Spencer の 1980 年代のバックトラッキング再実装が広く採用され、Perl・PCRE・Python・Tcl の祖先になった。<strong>速いアルゴリズムが「忘れられ」、遅いアルゴリズムが事実上の標準になった</strong>——技術の経路依存性の教科書的事例。</p>
-<h3>なぜバックトラッキングを選ぶのか：後方参照という麻薬</h3>
-<p>ここが最も深い論点だ。なぜ世界は遅い方を選んだのか？答えは<strong>機能</strong>——とりわけ<strong>後方参照（backreference, <code>\1</code>）</strong>だ。<code>(cat|dog)\1</code> は「最初のキャプチャ群が捕まえた<strong>まさにその部分文字列</strong>」の繰り返しを要求する。これは「マッチするか否か」だけでなく「何を捕まえたか」を覚えて後で文字列比較する必要があり、<strong>正規言語の枠を超える</strong>。</p>
-<p>決定的な事実：<strong>後方参照つき正規表現は <code>{wcw | w ∈ {a,b}*}</code> のような非正規言語を表せる</strong>。ポンプの補題（pumping lemma）が証明する有限オートマトンの限界——<code>aⁿbⁿ</code> のような「数を数える」言語は正規言語ではない——を、後方参照は<strong>易々と踏み越える</strong>。つまり <strong>「正規表現」と呼ばれているものは、もはや形式言語論の正規言語ではない</strong>。名前が実体を裏切っている。</p>
-<p>そして致命的な帰結：<strong>Aho が示したように、後方参照つき正規表現のマッチング問題は NP 完全</strong>（Perl 正規表現マッチングは NP 困難, perl.plover.com）。包含・等価・普遍性といった判定問題は<strong>決定不能</strong>。つまり後方参照を一般的に効率よく実装する方法は<strong>誰も知らない</strong>（おそらく存在しない）。NFA シミュレーションは「状態集合」という有限の情報しか持たないから、無限に多様な「捕まえた部分文字列」を表現できない——後方参照は構造的に多状態シミュレーションと相容れない。バックトラッキングは経路（=どの分岐でどう捕まえたか）を全部覚えるから後方参照を扱えるが、その代償が指数時間だ。</p>
-<blockquote>
-<p><strong>これが理論と実用のギャップの正体</strong>: 「後方参照（と look-around）が欲しい」→「バックトラッキングしかない」→「最悪指数時間を受け入れる」。POSIX が後方参照を標準化したことで、実装はバックトラッキングに<strong>ロックイン</strong>された。機能要求が計算量クラスを決めてしまった。</p>
-</blockquote>
-<h3>Catastrophic Backtracking と ReDoS — 実害としての指数時間</h3>
-<p>バックトラッキングが指数爆発する具体機序が <strong>catastrophic backtracking</strong>。<code>(a*)*</code> や <code>(a+)+$</code>、<code>(a|a)*$</code> のように <strong>「曖昧な反復のネスト」</strong> があると、エンジンは入力を分割する 2ⁿ 通りの方法をすべて試す。マッチ成功なら早く終わるが、<strong>わずかに失敗する入力</strong>（末尾だけ違う）に対して全分割を網羅し尽くす。</p>
-<p>これを攻撃に使うのが <strong>ReDoS（Regular Expression Denial of Service）</strong>。攻撃者が病的入力を送り込めば、1リクエストで CPU を1コア占有させられる。脆弱な正規表現がリクエストパスにあれば、少数のリクエストでサービス全体を落とせる。</p>
-<h3>Cloudflare 2019-07-02 障害——27分間、世界の一部が止まった</h3>
-<p>これが現実に起きた最も有名な事例（Cloudflare 公式 postmortem, John Graham-Cumming）。WAF の管理ルール（XSS 対策、simulate モードのはずだった）に含まれた正規表現：</p>
-<pre><code>(?:(?:\&quot;|'|\]|\}|\\|\d|(?:nan|infinity|true|false|null|undefined|symbol|math)|\`|\-|\+)+[)]*;?((?:\s|-|~|!|{}|\|\||\+)*.*(?:.*=.*)))
-</code></pre>
-<p>病巣は末尾の <strong><code>.*.*=.*</code></strong>。<code>=</code> を含まない入力に対し、最初の <code>.*</code> が貪欲に全消費 → 失敗 → 1文字戻す → 2番目の <code>.*</code> が試す → … と全分割を試行する。Cloudflare の計測では、<code>x=x</code> は 23 ステップ、<code>x=xxxxxxxxxxxxxxxxxxxx</code>（x が20個）は <strong>555 ステップ</strong>——線形でない伸び。末尾を <code>;</code> 付きにした <code>.*.*=.*;</code> では同じ入力が <strong>5,353 ステップ</strong>に跳ね上がった。</p>
-<p>これがグローバルにデプロイされ（カナリアも段階展開もなく全エッジへ一斉）、<strong>CPU が全サーバでほぼ 100% に張り付き、トラフィックが 80% 落ちた</strong>。13:42 UTC デプロイ、14:09 復旧——<strong>27分間の障害</strong>。Discord・Shopify・Notion など多数のサイトが巻き添え。当時のエンジンは <strong>PCRE（バックトラッキング、暴走を防ぐ機構なし）</strong>。Cloudflare の結論は明快：「パターンをより具体的に書き直す以外の真の解決策は、<strong>このバックトラッキング機構を持つ正規表現エンジンから移行すること</strong>」——<strong>RE2 か Rust regex（共に実行時保証あり）</strong>への移行を表明した。</p>
-<h3>線形時間保証エンジンの設計判断：RE2 と Rust regex</h3>
-<p><strong>RE2</strong>（Google, Russ Cox 主導, 2006 開始, Google Code Search 由来）の設計思想は徹底している：<strong>「バックトラッキングでしか解けない構文はサポートしない」</strong>——だから <strong>後方参照と look-around を意図的に削除した</strong>。これにより<strong>入力長に線形のマッチ時間を保証</strong>する。</p>
-<p>実装は精緻なハイブリッド：</p>
-<ul>
-<li><strong>最大4つの DFA</strong>を持つ（前方の first-match / longest-match、後方の2つ＝unanchored 検索用）。</li>
-<li>DFA は<strong>遅延構築</strong>し、状態を LRU でキャッシュ。フル DFA は最悪 O(2^k) 空間だが、<strong>メモリ予算を超えたら LRU で状態を捨て、必要なら NFA シミュレーションへフォールバック</strong>。</li>
-<li>だが<strong>この NFA は通常の NFA と違い、決して指数時間にならない</strong>（= Thompson 多状態シミュレーション）。</li>
-</ul>
-<p>結果として <strong>「速度（DFA）と空間上限（NFA フォールバック）の両立、しかも全域で線形時間保証」</strong> を達成。Go の <code>regexp</code> パッケージはこの哲学を標準ライブラリに組み込み、設計段階で後方参照を諦めることで「どんな入力でも安全」を言語の保証にした。Rust の <code>regex</code> クレート（RFC 0042）も同じ系譜——「正規言語に閉じる代わりに線形性を保証する」という明示的選択。</p>
-<h2>気づき・洞察</h2>
-<ul>
-<li>
-<p><strong>「名前が実体を超えてしまった」希有な事例</strong>。形式言語論の「正規表現」は正規言語に対応するはずだった。だが実務の「正規表現」は後方参照・look-around で非正規言語まで表現し、Kleene の等価性定理が成り立たない代物になった。理論用語が実装の都合で意味を変質させられた——標準化（POSIX）が経路依存を固定化する力の例。</p>
-</li>
-<li>
-<p><strong>計算量クラスは「機能セット」が決める、という設計教訓</strong>。後方参照という1機能を入れるか否かが、線形 vs NP困難という<strong>計算量クラスそのものを切り替える</strong>。これは [[計算可能性理論 — チューリングマシン・停止問題・Rice の定理]] で見た「決定不能を回避する＝入力（言語）を制限する工学」と完全に同型だ。RE2 が後方参照を捨てたのは、eBPF verifier が無制限ループを禁じて停止性を決定可能にしたのと、全関数型言語が構造的再帰だけ許してチューリング完全性を犠牲に停止保証を得たのと、<strong>まったく同じ設計パターン</strong>。「理論が不可能と言う ⇒ 入力を制限する」の典型。</p>
-</li>
-<li>
-<p><strong>「履歴を捨てることで速くなる」という反直観</strong>。Thompson NFA が線形なのは、経路情報を捨てて状態集合だけ持つから。情報を<strong>減らす</strong>ことが計算量を減らす。これは [[Burrows-Wheeler 変換 (BWT) と FM-index]] の「逆順処理で指数探索が単調絞り込みになる」、HyperLogLog の「正確さを諦めて巨大スケールに到達」と同じ系譜——<strong>正しい忘却が効率を生む</strong>。</p>
-</li>
-<li>
-<p><strong>遅延 DFA 構築は「実行時の世代別キャッシュ」</strong>。RE2 が DFA 状態を LRU でキャッシュし予算超過で捨てる構造は、[[ガベージコレクション]] の世代別管理や Kademlia の k-bucket LRU と発想が通底する。「全部を事前計算（2^k 状態）」と「毎回計算（NFA シミュレーション）」の間に「使った分だけ memoize」を挟む——RUM 空間（Read/Update/Memory）でのバランス点の選択。</p>
-</li>
-<li>
-<p><strong>削除こそ最大の設計成果、再び</strong>。RE2 の本質は「後方参照を消したこと」、すなわち [[TLS 1.3 ハンドシェイクの設計哲学]] の「削除こそが最大の設計成果」と完全に同じ哲学。TLS 1.3 は危険な暗号スイートを削除して安全を得、RE2 は危険な構文を削除して線形性を得た。<strong>「柔軟性は脆弱性の母」「制限が安全性を生む」</strong>がここでも成立する。Cloudflare 障害は「柔軟な PCRE が DoS を許した」一方、Go/RE2 は「制限した設計が DoS を原理的に不可能にした」対比そのもの。</p>
-</li>
-<li>
-<p><strong>理論→実用の数十年遅延</strong>。Thompson 1968 が線形アルゴリズムを実用化していたのに、主流が線形保証エンジン（RE2 2006-2009, Go 2009, Rust regex 2014-）へ動くまで <strong>40年</strong>かかった。これは [[ラムダ計算と型システムの基礎]] の線形型（Girard 1987 → Rust 2015）、ZKP（1985 → Zcash 2016）と同じ「基礎研究の数十年遅れの翻訳」パターン。<strong>良いアルゴリズムが存在することと、それが採用されることは別問題</strong>——技術選択は計算量だけでなく機能要求・歴史・標準化の経路依存で決まる。</p>
-</li>
-</ul>
-<h2>他分野との接続</h2>
-<ul>
-<li><strong>[[計算可能性理論 — チューリングマシン・停止問題・Rice の定理]]</strong>: 正規言語は計算階層（チョムスキー階層）の最底辺。後方参照付き正規表現の包含・等価判定は<strong>決定不能</strong>——停止問題の親戚。「制限すれば判定可能、機能を足すと決定不能/NP困難」という階層の登り方が両分野で共通。</li>
-<li><strong>[[ラムダ計算と型システムの基礎 — STLC から System F、Curry-Howard へ]]</strong>: 「表現力 vs 決定可能性」のトレードオフが同型。型推論可能性（HM）vs 表現力（System F は型推論不能）の対立は、線形時間（正規言語）vs 後方参照（NP困難）と同じ構図。</li>
-<li><strong>[[SSA形式とコンパイラ最適化]]</strong>: NFA→DFA の部分集合構成も、SSA 構築も「再帰的構文木からのグラフ構築」。コンパイラのレキサ（字句解析）は正規表現→DFA そのもの（lex/flex は事前計算 DFA）。Thompson が NFA を機械語に直接コンパイルした発想は SSA/sea-of-nodes の JIT 思想の先駆。</li>
-<li><strong>[[Burrows-Wheeler 変換 (BWT) と FM-index]]</strong>: 文字列照合の2大潮流——オートマトン（正規表現）vs 接尾辞構造（BWT）。FM-index の backward search も「履歴を持たず範囲だけ絞る」点で Thompson 多状態シミュレーションと哲学的に同型。</li>
-<li><strong>anatomy / golf との同型</strong>: 「全可能性を試す（バックトラッキング）vs 状態集合で並行追跡（NFA）」は、把持力制御やコースマネジメントで見た「全数探索を避け良い近似で妥協する」工学パターンの再来。</li>
-</ul>
-<h2>次に深掘りしたいこと</h2>
-<ul>
-<li><strong>Pike の VM アプローチ（Thompson VM）の実装詳細</strong>: 正規表現を「バイトコード」(<code>char</code>/<code>split</code>/<code>jmp</code>/<code>match</code>)にコンパイルし、スレッド集合を進める仮想機械として実装する手法（Russ Cox regexp2 論文）。submatch 追跡（キャプチャ群）を線形時間で行う Pike VM の具体構造。</li>
-<li><strong>JavaScript V8 Irregexp と最近の non-backtracking 実験</strong>: V8 は backtracking だが、ReDoS 対策として実験的な線形時間エンジン（experimental regexp flag）を導入。なぜ後方参照互換性を保ちつつ線形化が難しいか。</li>
-<li><strong>静的 ReDoS 検出</strong>: 正規表現を静的解析して exponential/polynomial backtracking 脆弱性を検出する手法（NFA の「曖昧度 ambiguity」解析、IDA/EDA 判定、recheck・rxxr2 ツール）。substructural logic を使った解析（arxiv 1405.7058）。</li>
-<li><strong>後方参照の多項式時間部分クラス</strong>: 一般には NP困難だが、特定の制限付き後方参照は多項式時間で解けるという最近の結果（arxiv 1903.05896, MFCS 2025）。memoization による backtracking の多項式時間化（Davis らの work）。</li>
-<li><strong>Antimirov 微分（partial derivatives）と Brzozowski 微分</strong>: 正規表現を「微分」して直接 DFA を作る代数的アプローチ。状態最小性の観点での Glushkov/Antimirov/follow automaton の統一理論（Mohri らの NYU TR）。</li>
-<li><strong>ハードウェア正規表現マッチング</strong>: FPGA/専用 ASIC（Intel Hyperscan, ネットワーク IDS の DPI）での NFA 並列実装。SIMD を使った Hyperscan の「文字列分解 + ビット並列」設計。</li>
-</ul>
-<h2>参考ソース</h2>
-<ul>
-<li>Russ Cox, "Regular Expression Matching Can Be Simple And Fast (but is slow in Java, Perl, PHP, Python, Ruby, ...)", swtch.com, 2007. https://swtch.com/~rsc/regexp/regexp1.html （RE2 著者による一次資料・本エントリの背骨）</li>
-<li>Ken Thompson, "Regular Expression Search Algorithm", CACM 11(6), 1968.（NFA を機械語にコンパイルする原典）</li>
-<li>Cloudflare, John Graham-Cumming, "Details of the Cloudflare outage on July 2, 2019". https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/ （公式 postmortem、正規表現とステップ数の一次データ）</li>
-<li>google/re2 リポジトリ・設計ドキュメント. https://github.com/google/re2 （線形時間保証・遅延 DFA・NFA フォールバックの設計判断）</li>
-<li>Rust RFC 0042 "regexps". https://rust-lang.github.io/rfcs/0042-regexps.html （Rust regex の線形時間設計思想）</li>
-<li>Glushkov's construction algorithm, Wikipedia / M. Mohri et al., "A Unified Construction of the Glushkov, Follow, and Antimirov Automata", NYU TR2006-880. https://cs.nyu.edu/~mohri/pub/glush.pdf （ε-free 構成と Thompson との関係）</li>
-<li>"Perl Regular Expression Matching is NP-Hard", perl.plover.com. https://perl.plover.com/NPC/ （後方参照による NP困難性、Aho の結果）</li>
-<li>"Regular Expressions with Backreferences: Polynomial-Time Matching Techniques", arXiv:1903.05896 / "Efficient Matching of Some Fundamental Regular Expressions with Backreferences", MFCS 2025, arXiv:2504.18247.（後方参照の計算量と多項式時間部分クラス）</li>
-</ul>
-          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/cs/2026-05-21_正規表現エンジンとオートマトン_Thompson_NFA_DFA変換_ReDoSの病理.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
           <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
@@ -2379,10 +2080,7 @@ details .detail-content {
     </section>
     <section class="section" id="next-actions">
       <h2 class="section-title">次のアクション</h2>
-      <details class="card card-tech">
-        <summary><span class="badge badge-tech">tech</span> テクノロジー</summary>
-        <div class="detail-content"><p><strong>CXL 3.0のファブリック／マルチレベルスイッチングとメモリ共有（複数ホストが同一メモリ領域をコヒーレントに共有）</strong>、または競合規格<strong>UALink/NVLink Fusion</strong>との比較、Pond/TPP後継の<strong>メモリ階層ML予測の精度向上</strong></p></div>
-      </details>
+      <div class="insight"><h3>tech</h3><p><strong>CXL 3.0のファブリック／マルチレベルスイッチングとメモリ共有（複数ホストが同一メモリ領域をコヒーレントに共有）</strong>、または競合規格<strong>UALink/NVLink Fusion</strong>との比較、Pond/TPP後継の<strong>メモリ階層ML予測の精度向上</strong></p></div>
       <details class="card card-music">
         <summary><span class="badge badge-music">music</span> 音楽</summary>
         <div class="detail-content"><p><strong>アルス・スブティリオル（Ars Subtilior）</strong>——14世紀末の記譜法の極限的複雑化（ハート型楽譜等）、または<strong>イタリア・トレチェント（ランディーニ）</strong>、15世紀<strong>デュファイとブルゴーニュ楽派</strong>への移行（フォブルドンと和声の誕生）</p></div>
@@ -2399,14 +2097,8 @@ details .detail-content {
         <summary><span class="badge badge-anatomy">anatomy</span> 解剖学</summary>
         <div class="detail-content"><p><strong>肩のインピンジメント症候群・SLAP損傷・腱板断裂の臨床機序</strong>、または運動連鎖の続きとして<strong>肘・前腕の回内回外筋群（ゴルフ・ピアノの末端）</strong></p></div>
       </details>
-      <details class="card card-bread">
-        <summary><span class="badge badge-bread">bread</span> パン</summary>
-        <div class="detail-content"><p><strong>低ナトリウムパン技術</strong>——KCl置換・塩の結晶形状（フレーク塩）による減塩、または<strong>塩とサワードウpHの相互作用</strong>の定量（塩が乳酸菌・酵母のニッチ競合に与える影響）</p></div>
-      </details>
-      <details class="card card-cs">
-        <summary><span class="badge badge-cs">cs</span> CS</summary>
-        <div class="detail-content"><p><strong>Brzozowski微分／Glushkov構成による正規表現の別解法</strong>、<strong>Hopcroftのオートマトン最小化アルゴリズム</strong>、またはPEG/parser combinatorと文脈自由文法への拡張</p></div>
-      </details>
+      <div class="insight"><h3>bread</h3><p><strong>低ナトリウムパン技術</strong>——KCl置換・塩の結晶形状（フレーク塩）による減塩、または<strong>塩とサワードウpHの相互作用</strong>の定量（塩が乳酸菌・酵母のニッチ競合に与える影響）</p></div>
+      <div class="insight"><h3>cs</h3><p><strong>Brzozowski微分／Glushkov構成による正規表現の別解法</strong>、<strong>Hopcroftのオートマトン最小化アルゴリズム</strong>、またはPEG/parser combinatorと文脈自由文法への拡張</p></div>
       <details class="card card-house-hunting">
         <summary><span class="badge badge-house-hunting">house</span> 家探し</summary>
         <div class="detail-content"><p><strong>バイヤーズエージェント制度の海外比較</strong>（米国の買主側専任仲介と報酬分離）と日本市場への導入可能性、または2025年施行の囲い込み規制の<strong>実効性検証</strong>（処分事例）</p></div>

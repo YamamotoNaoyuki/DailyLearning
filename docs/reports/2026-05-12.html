@@ -1034,70 +1034,6 @@ details .detail-content {
     <section class="section" id="domains">
       <h2 class="section-title">今日のテーマ概要        <span class="section-controls"><button type="button" id="expand-all">すべて展開</button><button type="button" id="collapse-all">すべて閉じる</button></span></h2>
       <p class="section-note">各カードをクリックすると、そのドメインの全文が開きます。</p>
-      <details id="card-tech" class="card card-tech domain-details">
-        <summary>
-          <span class="card-head"><span class="badge badge-tech">tech</span> <span class="card-title">Mixture of Experts（MoE）と大規模LLMのスパース化</span></span>
-          <span class="card-abstract">Mixture of Experts（MoE）は FFN を多数の「エキスパート」に分割し、ルーターが各トークンに上位 k 個だけ割り当てる sparse activation で、<strong>容量（総パラメータ）と計算量（活性パラメータ）を分離</strong>する。最大の難所は負荷不均衡（routing collapse）で、DeepSeek-V3 の<strong>補助損失フリー均衡</strong>（混雑度に応じてスコアにバイアスを足す＝混雑料金）と <strong>fine-grained experts ＋ shared expert</strong> が現代の標準。「制約を消すのではなく扱いやすい場所（学習 compute → 推論メモリ）に移す」設計。</span>
-        </summary>
-        <div class="domain-body">
-          <div class="domain-tags"><span class="tag">#MoE</span> <span class="tag">#LLM</span> <span class="tag">#スパースモデル</span> <span class="tag">#DeepSeek</span> <span class="tag">#推論効率</span> <span class="tag">#スケーリング則</span></div>
-<h2>学んだこと</h2>
-<h3>なぜ密モデル（dense）のスケーリングが行き詰まったか</h3>
-<p>Transformer の各層は「Attention（トークン間の混合）」と「FFN（トークンごとの非線形変換）」からなり、パラメータの大半は FFN にある。dense モデルでは<strong>すべてのトークンが全 FFN パラメータを通過する</strong>ため、パラメータ数 N に対して 1 トークンあたりの FLOPs も O(N) で増える。Chinchilla 則（学習トークン数はパラメータ数に比例させるのが計算最適）に従うと、性能を上げるには学習・推論コストが二乗的に膨らむ。</p>
-<p>MoE の発想は <strong>「容量（capacity）と計算量（compute）を分離する」</strong>こと。FFN を E 個の小さな「エキスパート」に分割し、各トークンはルーター（gating network）が選んだ k 個（典型的に k=1〜8）だけを通る。総パラメータ数は E 倍に増やせるが、1 トークンあたりの計算量は k/E 倍で済む。これを <strong>sparse activation</strong>（条件付き計算 conditional computation）と呼ぶ。</p>
-<h3>MoE 層の構造</h3>
-<ol>
-<li><strong>ルーター</strong>: 入力ベクトル x に対し、各エキスパートとの親和度スコア s_i = x·w_i を計算し、softmax で正規化。上位 k 個を選ぶ（top-k routing）。</li>
-<li><strong>エキスパート</strong>: 選ばれた k 個の FFN にそれぞれ x を通す。</li>
-<li><strong>重み付き和</strong>: 出力 = Σ (gate_i × Expert_i(x))。gate は softmax 確率（または正規化したもの）。</li>
-</ol>
-<p>ルーティングは<strong>離散選択</strong>なので微分不可能。GShard/Switch Transformer 系は「選ばれたエキスパートの gate 値だけが勾配を受け取る」近似で対処する（選ばれなかったエキスパートには勾配が流れない＝ルーターの学習が遅い、という問題が残る）。</p>
-<h3>最大の難所：負荷不均衡（routing collapse）</h3>
-<p>ルーターを素朴に学習させると、<strong>一部のエキスパートばかりが選ばれる</strong>悪循環に陥る（よく選ばれる→よく学習される→さらに良くなる→さらに選ばれる）。残りのエキスパートは「死んで」しまい、実効的な容量が激減する。さらに、各エキスパートには<strong>容量上限（capacity factor）</strong>があり、溢れたトークンは処理されず素通り（token dropping）になる——分散学習で各エキスパートを別 GPU に置くため、バッファサイズを固定する必要があるからだ。</p>
-<p>対策の系譜：</p>
-<ul>
-<li><strong>補助損失（auxiliary load-balancing loss）</strong>: 「各エキスパートへのトークン割当の分散」をペナルティ項として加える（Switch Transformer）。ただし主タスクの損失と綱引きになり、性能を犠牲にする。</li>
-<li><strong>Expert Choice routing</strong>: トークンがエキスパートを選ぶのではなく、エキスパートが自分の容量分のトークンを選ぶ（逆向き）。負荷は構造的に均等になるが、あるトークンが 0 個のエキスパートにしか割り当てられない可能性がある。</li>
-<li><strong>補助損失フリー（auxiliary-loss-free, DeepSeek-V3, 2024末）</strong>: 各エキスパートのスコアに<strong>学習可能なバイアス項</strong>を足し、混雑しているエキスパートのバイアスを下げ、空いているエキスパートのバイアスを上げる動的調整を行う。バイアスは top-k 選択にだけ使い、最終的な gate 重みには使わない。主損失を汚さずに均衡を取る——現在の事実上の標準。</li>
-</ul>
-<h3>2024–2026 の主要 MoE モデルと設計選択</h3>
-<ul>
-<li><strong>Mixtral 8×7B / 8×22B（Mistral, 2023末–2024）</strong>: エキスパート 8 個・top-2。「8×7B」だが共有部分があるため総パラメータは ~47B、活性は ~13B。オープンウェイト MoE の普及点。</li>
-<li><strong>DeepSeek-V3（2024-12, 671B 総 / 37B 活性）</strong>: 「<strong>fine-grained experts</strong>」——エキスパートを細かく分割（256 ルーテッドエキスパート、各層 top-8）し、知識をより細分化して専門化を促す。加えて<strong>共有エキスパート（shared expert）</strong>1 個を常時全トークンに適用し、共通知識（文法・常識）を担わせて他のエキスパートを専門化に専念させる。補助損失フリー均衡。Multi-head Latent Attention（KV キャッシュ圧縮）と組み合わせ、14.8T トークンを <strong>278 万 H800 GPU 時間</strong>という破格の効率で学習。</li>
-<li><strong>Qwen3-235B-A22B / Llama 4 Scout・Maverick / DBRX / Grok</strong>: いずれも MoE。2025–2026 のフロンティアはほぼ全部 MoE で、「dense は研究用・エッジ用、フロンティアは sparse」という棲み分けが定着した。GPT-4 系も MoE と広く推測されている。</li>
-</ul>
-<h3>推論時のコストモデル：compute は安いが memory は高い</h3>
-<p>MoE の落とし穴は <strong>VRAM</strong>。671B のパラメータは（37B しか使わなくても）全部メモリに載せておかねばならない（次のトークンでどのエキスパートが要るか分からない）。だから MoE は「FLOPs を節約してメモリと帯域を消費する」トレードオフ。さらに分散推論では <strong>expert parallelism</strong>——エキスパートを GPU 群に分散し、トークンを正しい GPU へ all-to-all 通信で送る——が必要で、ネットワークが律速になりやすい。バッチ内のトークンがエキスパート間で偏ると一部 GPU が遊ぶ（負荷不均衡が推論時にも効く）。vLLM/SGLang などのサービングスタックは expert-parallel と continuous batching を組み合わせてこれを緩和する。</p>
-<h2>気づき・洞察</h2>
-<p>MoE は<strong>「専門家の委員会」より「ルーティングテーブル」と捉える</strong>方が正確だ。各エキスパートが「数学担当」「コード担当」のように人間的に解釈できる役割を持つわけではない——可視化研究では、エキスパートはむしろ<strong>トークンの表層的特徴（句読点、特定の語、構文位置）</strong>で分かれることが多い。「fine-grained + shared expert」設計が効くのも、「専門家を増やす」というより「ルックアップの粒度を細かくしつつ、共通項を括り出してキャッシュする」工学だと考えると腑に落ちる。これはデータベースの<strong>インデックス設計</strong>——細かく分割すれば検索は速いが管理コストが増える、ホットスポットを避けるためにシャーディングを工夫する——とほぼ同型の問題で、実際 fine-grained MoE の「256 個に分けて top-8」は「シャード数を増やしてレプリカで負荷分散」の発想そのものだ。</p>
-<p>もう一つの洞察：MoE は <strong>Chinchilla 則を「曲げる」のではなく別の軸に逃がしている</strong>。dense では「compute = データ × パラメータ」が一本の制約だったのを、MoE は「学習 compute は活性パラメータで決まるが、モデルの知識容量は総パラメータで決まる」と二軸に分解した。だから MoE の真の制約は「推論時のメモリ予算」に移った——Sigstore の回（鍵管理問題を ID 管理問題に変換した）と同じく、<strong>制約を消すのではなく、より扱いやすい場所に移動させる</strong>のがシステム設計の常套手段だと再確認できる。</p>
-<h2>他分野との接続</h2>
-<ul>
-<li><strong>cs（今日のエントリ・計算可能性理論）</strong>: ルーティングは離散選択＝本来 NP 的に難しい組合せ最適化。だが「学習で近似的に均衡させる」ことで実用化した。eBPF の verifier が「決定不能な停止性判定を、bounded loop に制限して決定可能にした」のと同型——<strong>理論的に難しい問題を、入力を制約することで実用圏に落とす</strong>設計判断。</li>
-<li><strong>cs（過去エントリ・MESI / 一貫性モデル）</strong>: expert parallelism の all-to-all 通信と負荷不均衡は、分散システムの古典問題（パーティショニング、ホットシャード、コーディネーション・コスト）そのもの。MoE はニューラルネットの皮を被った分散システムだ。</li>
-<li><strong>解剖学（基底核・小脳の機能分化）</strong>: 脳も「全領域が全タスクを処理する」のではなく、領域ごとに役割分担しつつ、視床や基底核が「どの回路を活性化するか」を選択（ゲーティング）する。MoE のルーターは基底核の「行動選択」機能の人工版に近い。</li>
-<li><strong>music（ブラームス4番・オーケストレーション）</strong>: オーケストラも「全楽器が常時鳴る」のではなく、指揮者（ルーター）が場面ごとに楽器群（エキスパート）を選んで前面に出す。総奏（tutti）は shared expert に相当する。</li>
-<li><strong>other（ゲーム理論）</strong>: 補助損失フリー均衡は、各エキスパートの「混雑度に応じてバイアスを動的調整」する——これは<strong>混雑料金（congestion pricing）</strong>＝Pigou 税の発想で、ナッシュ均衡を社会的最適に近づけるメカニズムデザインそのもの。</li>
-</ul>
-<h2>次に深掘りしたいこと</h2>
-<ul>
-<li><strong>MoE の理論</strong>: なぜ fine-grained が効くのか、エキスパート数 E と活性数 k の最適比はスケーリング則でどう決まるか（"MoE scaling laws" の研究）</li>
-<li><strong>モダリティ拡張</strong>: vision MoE、Soft MoE（離散ルーティングを連続化）、MoE と Mixture-of-Depths（層をスキップする）の組み合わせ</li>
-<li><strong>量子化と MoE</strong>: 「使われないエキスパートは積極的に量子化/オフロードする」per-expert quantization、SSD オフロード推論</li>
-<li><strong>upcycling</strong>: dense モデルを後から MoE に「分割」して継続学習する手法（Mixtral がこれと噂される）の実態</li>
-</ul>
-<h2>主要参考ソース</h2>
-<ul>
-<li>DeepSeek-AI, "DeepSeek-V3 Technical Report", arXiv:2412.19437（公式技術レポート、Tier 1）</li>
-<li>Dai et al., "DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models", arXiv:2401.06066（fine-grained + shared expert の原論文）</li>
-<li>Fedus, Zoph, Shazeer, "Switch Transformers", JMLR（補助損失負荷分散の古典）</li>
-<li>Cameron R. Wolfe, "Mixture-of-Experts (MoE) LLMs"（専門家による技術解説、Tier 2）</li>
-<li>DeepLearning.AI The Batch, "DeepSeek-V3 Redefines LLM Performance and Cost Efficiency"（Tier 2）</li>
-</ul>
-          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/tech/2026-05-12_Mixture-of-Experts_MoE_と大規模LLMのスパース化.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
-          <button type="button" class="collapse-card">▲ 閉じる</button>
-        </div>
-      </details>
       <details id="card-music" class="card card-music domain-details">
         <summary>
           <span class="card-head"><span class="badge badge-music">music</span> <span class="card-title">ブラームス交響曲第4番ホ短調 作品98 ——フィナーレのパッサカリアと変奏曲形式の建築</span></span>
@@ -1371,160 +1307,6 @@ details .detail-content {
 <li>Scheibert et al., "The Role of Fingerprints in the Coding of Tactile Information", <em>Science</em> 2009（指紋とパチニ振動、Tier 1）</li>
 </ul>
           <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/anatomy/2026-05-12_指先の皮膚機械受容器と能動的触知覚.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
-          <button type="button" class="collapse-card">▲ 閉じる</button>
-        </div>
-      </details>
-      <details id="card-bread" class="card card-bread domain-details">
-        <summary>
-          <span class="card-head"><span class="badge badge-bread">bread</span> <span class="card-title">スターチ・リトログラデーション（澱粉の老化）とパンの硬化の科学 ——なぜパンは固くなり、なぜ冷蔵庫は最悪で、なぜ温めると戻るのか</span></span>
-          <span class="card-abstract">パンが固くなるのは「乾く」のではなく<strong>澱粉の再結晶化（retrogradation）</strong>——密閉しても起こる。アミロースの速い再結晶化（不可逆、スライス可能にする）とアミロペクチンの遅い再結晶化（融点 ~50-60°C で可逆、温め直すと一時的に戻る）の二段階。冷蔵庫（~4°C）は再結晶化が最速の最悪ゾーンで、正しい保存は「室温で食べきる or 冷凍」。乳化剤・湯種・マルトジェニックアミラーゼは「結晶化の核生成・成長を遅くする」同じ目的の異なる手段。「化学反応の運命は変えられないが速度は変えられる」。</span>
-        </summary>
-        <div class="domain-body">
-          <div class="domain-tags"><span class="tag">#澱粉</span> <span class="tag">#リトログラデーション</span> <span class="tag">#老化</span> <span class="tag">#ステイリング</span> <span class="tag">#アミロース</span> <span class="tag">#アミロペクチン</span> <span class="tag">#ガラス転移</span> <span class="tag">#保存</span></div>
-<h2>学んだこと</h2>
-<h3>「パンが固くなる」≠「乾く」——staling は水分損失とは別の現象</h3>
-<p>直感的には「パンが固くなる＝水が抜ける」と思いがちだが、これは半分しか正しくない。<strong>密閉袋に入れて水分が逃げないようにしてもパンは固くなる</strong>——水分は系内に保持されたまま、<strong>澱粉分子の再結晶化</strong>によってクラム（中身）の弾性が失われ、ぼそぼそ・ぱさぱさになる。これが <strong>retrogradation（澱粉の老化、回帰）</strong>。staling は (1) クラムの硬化＝主にアミロペクチンの retrogradation、(2) クラストの軟化＝クラムからクラストへの水分移行（パリパリが湿気る）、(3) フレーバーの劣化、の複合現象だが、食感の主因は (1)。</p>
-<h3>焼成中に何が起きているか——ゲル化（gelatinization）の復習</h3>
-<p>生の小麦澱粉は<strong>半結晶性の顆粒</strong>（granule）で、アミロース（直鎖状グルコース重合体、~25%）とアミロペクチン（高度に分岐、~75%）が交互に層をなして詰まっている。焼成中、温度が ~55–70°C に達すると顆粒が吸水して膨潤し、結晶構造が壊れ（<strong>ゲル化／糊化 gelatinization</strong>）、アミロースが顆粒外へ溶け出す（[[2026-04-27_湯種法とアジア式ミルクブレッドのデンプン糊化]] で扱った）。焼き上がり直後のクラムは「膨潤した澱粉顆粒の残骸＋溶出アミロース＋変性グルテンの連続マトリックス」で、柔らかく弾力がある——この状態は<strong>熱力学的に準安定（kinetically trapped）</strong>で、放置すれば結晶状態へ戻ろうとする。それが retrogradation。</p>
-<h3>Retrogradation の二段階：速い（アミロース）と遅い（アミロペクチン）</h3>
-<ol>
-<li><strong>アミロースの再結晶化（速い、数時間以内、焼成直後の冷却中にほぼ完了）</strong>：溶出した直鎖アミロースが二重らせんを組んで素早く部分結晶化し、クラム構造に「初期の腰（set）」を与える。焼き立てパンを切ると崩れるが、数時間冷ますとスライスできるようになるのはこれ。この成分は<strong>不可逆</strong>（温め直しても戻らない）で、融点が ~150°C と高い。</li>
-<li><strong>アミロペクチンの再結晶化（遅い、数日かけて進行）</strong>：分岐の外側短鎖（DP ~15 前後）が膨潤顆粒の内部でゆっくり二重らせん→結晶ドメインを形成。これがクラムの<strong>経時的硬化</strong>の主因。重要なのは<strong>この成分の融点が ~50–60°C と低い</strong>こと——だから古いパンを 60°C 以上に温め直す（オーブン、トースター、電子レンジ）と、アミロペクチン結晶が融け、クラムが一時的にフレッシュに近い柔らかさに戻る（<strong>「リフレッシュ」可逆性</strong>）。ただし冷めると再び（むしろ速く）retrograde するので、温め直しは食べる直前に。</li>
-</ol>
-<h3>なぜ冷蔵庫（4°C 前後）が最悪なのか</h3>
-<p>retrogradation の速度は温度依存で、<strong>0–10°C 付近で最大</strong>になる（一般に再結晶化は「核生成」と「結晶成長」の競合で、過冷却が大きい＝核生成が速いが、低すぎると分子運動が止まる、その中間で最速）。家庭の冷蔵庫（~4°C）はまさにこの「最悪ゾーン」。実験的に<strong>冷蔵したパンは室温放置より数倍速く固くなる</strong>——1 日冷蔵 ≈ 室温 数日分。一方 <strong>−18°C 以下の冷凍</strong>では分子運動が事実上凍結（後述のガラス転移以下）し、retrogradation はほぼ止まる。だから「パンの正しい保存」は (a) 1–2 日で食べきるなら室温・密閉、(b) それ以上なら<strong>スライスして冷凍</strong>、絶対に冷蔵庫に入れない。</p>
-<h3>ガラス転移（glass transition）という鍵概念</h3>
-<p>パンのクラムは「ゴム状（rubbery、柔らかく可動）」と「ガラス状（glassy、硬く分子運動停止）」の状態を持つアモルファス系で、その境界がガラス転移温度 <strong>Tg</strong>。Tg は<strong>水分量に強く依存</strong>（水は可塑剤）——水分 35–40% のクラムでは Tg はおよそ −10〜0°C 付近。だから室温（25°C）ではクラムは Tg より十分上＝ゴム状で、分子が動けるから retrogradation が進行する。冷凍（−18°C）では Tg より下＝ガラス状で運動が凍結し老化が止まる。逆にクラスト（水分 ~5%）は Tg が高く室温でガラス状＝パリパリ、そこにクラムから水が移ってくると Tg が下がりゴム状＝しなしなになる。<strong>「パンの食感の物理」はほぼガラス転移と水分分布の物語</strong>。</p>
-<h3>Retrogradation を遅らせる手段（パン屋の道具箱）</h3>
-<ul>
-<li><strong>油脂・乳化剤</strong>：モノグリセリド（DATEM、SSL、モノステアリン酸グリセリル等の "anti-staling emulsifier"）はアミロースと<strong>包接複合体（amylose–lipid complex, V型結晶）</strong>を作り、アミロースの再結晶化を阻害する。バター・卵黄（レシチン）が多いブリオッシュ（[[2026-05-07_ブリオッシュとリッチドゥの科学]]）が「翌日も柔らかい」のはこれ。</li>
-<li><strong>糊化澱粉のプレ添加（湯種・タンザクン tangzhong）</strong>：[[2026-04-27...デンプン糊化]] で扱った——あらかじめ大量の水を澱粉に抱かせておくと、クラム全体の保水力が上がり、自由水が減って結晶化の核生成が遅れる。アジア系ミルクブレッドが長持ちするのはこの戦略。</li>
-<li><strong>アミラーゼ（とくにマルトジェニック・アミラーゼ／中温性 α-アミラーゼ）</strong>：[[2026-05-04_アミラーゼと糖変換の科学]] で扱った酵素を「生地改良剤」として添加すると、アミロペクチンの<strong>外側の短鎖を切り詰める</strong>——再結晶化に必要な「長さ」を奪うので、長期的な硬化を劇的に抑える。市販食パンが何日も柔らかいのは主にこれ（"anti-staling enzyme"）。サワードウの内在アミラーゼや麦芽（diastatic malt）にも同様の効果が一部ある。</li>
-<li><strong>ペントサン／食物繊維（アラビノキシラン）</strong>：ライ麦パン（[[2026-04-26_ライ麦パンの化学とDetmolder工程]]）が異様に日持ちするのは、ライ麦のペントサンが大量の水を保持し、グルテンが弱い分むしろ澱粉–水系として安定だから。全粒粉のブラン（ふすま）も保水で効くが、ブランの鋭利な粒がグルテンを切るデメリットと相殺。</li>
-<li><strong>糖</strong>：砂糖は水と結合し、澱粉が結晶化に使える自由水を減らす（菓子パンが柔らかい一因）。ただし糖は浸透圧で発酵を抑える（[[2026-05-07...リッチドゥ]]）副作用あり。</li>
-<li><strong>酸（サワードウ）</strong>：適度な酸性は澱粉–グルテン相互作用と糊化挙動を変え、retrogradation をやや遅らせる方向に働く（クラム構造がより緻密になることとも関連）。長期冷蔵発酵（[[2026-05-10_長時間冷蔵発酵リターディングの科学と風味形成]]）由来の酸も間接的に寄与。</li>
-</ul>
-<h2>気づき・洞察</h2>
-<p>「焼き立てのパンの柔らかさは、熱力学的には"借り物"」——澱粉は本来結晶でいたい（低エネルギー）状態で、焼成は無理やり非晶質に追い込む。だから時間が経てば必ず結晶へ「回帰」する。<strong>パン作りの保存技術とは、この不可避な熱力学的傾斜を"動力学的に"先延ばしする工夫の集積</strong>だ。乳化剤も酵素も湯種も冷凍も、すべて「結晶化の核生成・成長を遅くする（kinetic barrier を上げる／分子の可動性を下げる）」という同じ目的の異なる手段。これは [[2026-05-10...冷蔵発酵]] の「酵母を冷やして遅らせ、酵素は動かす」という"反応速度の選択的操作"と完全に同じ哲学——<strong>化学反応の運命は変えられないが、速度は変えられる</strong>。</p>
-<p>もう一つ：「冷蔵庫がパンに最悪」という反直感的事実は、<strong>"低温＝保存に良い" という単純な一般化が破綻する好例</strong>。低温は微生物（カビ）の繁殖は確かに遅らせるが、澱粉の物理的老化はむしろ加速する。だから「カビが生える前に食べきる」なら室温、「長期保存」なら冷凍——「中途半端な冷蔵」は両方の最悪を取る。これは golf の「中途半端なセットアップ」（過酷でも自然でもない）、cs の「中途半端な一貫性レベル」と同型の教訓で、<strong>多目的最適化では"中間"がしばしば全パレート劣位になる</strong>。</p>
-<p>そして最も面白いのは <strong>retrogradation が「悪」一辺倒ではない</strong>こと——「アミロースの速い再結晶化」がなければパンはスライスできないし、コーンフレークやライスクリスピー、レトルト米飯の食感、春雨や葛切りの透明な弾力、片栗粉のとろみが冷めて固まる現象（あんかけが冷えると固まる）はすべて retrogradation の応用。さらに<strong>レジスタントスターチ（難消化性澱粉 RS3）</strong>——retrograde したアミロースは消化酵素が分解しにくく、食物繊維様に働く（冷やご飯・冷えたパスタ・ポテトサラダの「血糖値が上がりにくい」現象）。だから「老化」は「制御すべき劣化」であると同時に「設計できる機能」でもある。</p>
-<h2>他分野との接続</h2>
-<ul>
-<li><strong>解剖学（今日のエントリ・指先の機械受容器）</strong>: 「パンが固くなった」を判定するのは指先の SA-I（メルケル＝弾性）と口腔内機械受容器。staling は触覚・口腔感覚で検知される物性変化。職人が「触っただけで古さが分かる」のは能動的触知覚スキル。</li>
-<li><strong>cs（永続データ構造／物質の状態）/ tech（MoE のメモリ vs compute）</strong>: 「準安定状態を維持するコスト」——焼き立て状態を保つには冷凍（エネルギー）が要る。エントロピー的に有利な状態へ落ちようとするのを抑え込むのは、システムが「秩序」を維持するコストを払い続けるのと同型（ソフトのキャッシュ無効化、エントロピー vs 情報）。</li>
-<li><strong>bread 内・[[2026-05-04_アミラーゼと糖変換の科学]] / [[2026-04-27_湯種法...]]</strong>: ゲル化（gelatinization）と老化（retrogradation）は澱粉物性の「行き」と「帰り」。アミラーゼも湯種も、この両端を制御する手段として再解釈できる——澱粉サイエンスの「三部作」が完成。</li>
-<li><strong>music（ブラームス4番のパッサカリア）/ golf（コースセットアップ）</strong>: 「同じ骨格でも可変パラメータ（水分・温度・添加物 / テンポ・ダイナミクス / グリーンの硬さ）で結果がまるで変わる」——システムの性格は固定部分でなく調律で決まる、という共通原理。</li>
-<li><strong>other（ゲーム理論／多目的最適化）</strong>: 「冷蔵 = 微生物には良いが物性には最悪」は、複数目的のトレードオフで中間解がパレート劣位になる例。</li>
-</ul>
-<h2>次に深掘りしたいこと</h2>
-<ul>
-<li><strong>クラスト⇄クラムの水分動態</strong>：水分活性（aw）勾配によるリディストリビューション、なぜパリパリのクラストは数時間でしなびるか、その物理モデル</li>
-<li><strong>コンプレッサビリティ試験（テクスチャアナライザ）</strong>：staling を定量する方法（圧縮弾性、firmness カーブ）、DSC（示差走査熱量計）での retrogradation エンタルピー測定</li>
-<li><strong>冷凍生地（par-baked / frozen dough）の科学</strong>：冷凍が酵母・グルテン・澱粉に与えるダメージ、急速冷凍 vs 緩慢冷凍、解凍時の品質</li>
-<li><strong>レジスタントスターチ RS1〜RS4 の分類</strong>と、パンの GI（グリセミック指数）を意図的に下げるパン作り（冷却サイクル、全粒、サワードウの組合せ）</li>
-</ul>
-<h2>主要参考ソース</h2>
-<ul>
-<li>Gray &amp; BeMiller, "Bread Staling: Molecular Basis and Control", <em>Comprehensive Reviews in Food Science and Food Safety</em> 2003（staling 機構の決定版レビュー、Tier 1）</li>
-<li>Fennema's <em>Food Chemistry</em>（澱粉のゲル化・retrogradation・ガラス転移の章、Tier 1）</li>
-<li>Hug-Iten, Escher &amp; Conde-Petit, "Staling of bread: role of amylose and amylopectin", <em>Cereal Chemistry</em>（Tier 1）</li>
-<li>Harold McGee, <em>On Food and Cooking</em>（澱粉と老化の平易な解説、Tier 2）</li>
-</ul>
-          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/bread/2026-05-12_スターチ・リトログラデーションとパンの老化の科学.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
-          <button type="button" class="collapse-card">▲ 閉じる</button>
-        </div>
-      </details>
-      <details id="card-cs" class="card card-cs domain-details">
-        <summary>
-          <span class="card-head"><span class="badge badge-cs">cs</span> <span class="card-title">計算可能性理論 ——チューリングマシン・停止問題・Rice の定理が引く「原理的にできないこと」の境界線</span></span>
-          <span class="card-abstract">チューリングマシンの「無限のテープ × 有限の制御」が万能性を生み、「プログラムをデータとして扱える（万能 TM、eval、MoE の推論エンジン）」という強力さの代償として、停止問題（決定不能）と <strong>Rice の定理</strong>（プログラムの意味的性質はすべて決定不能＝完全な静的バグ検出・マルウェア検出・等価性判定は原理的に不可能）という限界が生じる——同じコイン（universality）の表裏。だから工学は「言語を制限して決定可能な部分集合に押し込める」（eBPF verifier、型システム、全関数型言語）。「理論が不可能と言う ⇒ 制限する／近似する／トレードオフを明示的に設計する」。</span>
-        </summary>
-        <div class="domain-body">
-          <div class="domain-tags"><span class="tag">#計算可能性</span> <span class="tag">#決定不能性</span> <span class="tag">#チューリングマシン</span> <span class="tag">#停止問題</span> <span class="tag">#Riceの定理</span> <span class="tag">#帰着</span> <span class="tag">#チャーチ・チューリングのテーゼ</span> <span class="tag">#計算理論</span></div>
-<h2>学んだこと</h2>
-<h3>なぜ「計算とは何か」を厳密に定義する必要があったか</h3>
-<p>1930 年代、ヒルベルトの <strong>Entscheidungsproblem（決定問題）</strong>——「与えられた一階述語論理式が証明可能かを機械的に判定する手続きはあるか？」——に答えるには、「機械的手続き（effective procedure）」を数学的に定義する必要があった。チャーチ（λ計算）、ゲーデル（再帰関数）、チューリング（チューリングマシン）が独立に定式化し、<strong>すべて等価</strong>であることが証明された。これが <strong>チャーチ・チューリングのテーゼ</strong>：「直感的に計算可能 ⟺ チューリングマシンで計算可能」。これは数学的定理ではなく<strong>自然法則的な主張</strong>（直感的概念と形式的概念の同一視）だが、90 年以上反例がなく、量子計算ですら「計算可能なものの範囲」は変えない（変えるのは効率＝計算量だけ）。</p>
-<p>チューリングマシン（TM）の本質的要素は：(1) 無限のテープ（記憶）、(2) 有限の状態（プログラム）、(3) 局所的な書き換え規則。重要なのは <strong>「無限のテープ × 有限の制御」</strong> という非対称——プログラムは有限なのに、扱えるデータは無限。この組合せが「万能性（universality）」を生む。</p>
-<h3>万能チューリングマシン——「プログラム＝データ」の発見</h3>
-<p>チューリングの決定的洞察：<strong>ある TM の記述（遷移規則の表）を文字列として符号化し、それを別の TM の入力テープに置ける</strong>。<strong>万能チューリングマシン U</strong> は、入力として「TM M の符号 ⟨M⟩」と「M への入力 w」を受け取り、M が w 上で振る舞う通りにシミュレートする。U(⟨M⟩, w) = M(w)。</p>
-<p>これが現代の<strong>ストアドプログラム方式（フォン・ノイマン型コンピュータ）の理論的原型</strong>——「プログラムはメモリ上のデータに過ぎず、別のプログラム（OS、インタプリタ、コンパイラ、仮想機械、eval）が読んで実行できる」。Lisp の <code>eval</code>、JVM、QEMU、ブラウザの JS エンジン、そして MoE モデルの重みを読んで走らせる推論エンジン——すべて万能 TM のインスタンス。「コードとデータの区別は便宜的なもので、本質的なものではない」というのが計算理論の出発点であり、同時に多くのセキュリティ脆弱性（コードインジェクション、バッファオーバーフロー）の根源でもある。</p>
-<h3>停止問題（Halting Problem）——対角線論法の本領</h3>
-<p><strong>問</strong>：「TM M と入力 w が与えられたとき、M が w 上で停止するか（無限ループしないか）を判定する TM H は存在するか？」<br>
-<strong>答</strong>：存在しない（決定不能 undecidable）。</p>
-<p>証明（対角線論法）：仮に H(⟨M⟩, w) が「M が w で停止するなら yes、しなければ no」を必ず有限時間で返すとする。すると次の TM D を作れる：</p>
-<pre><code>D(⟨M⟩):
-  if H(⟨M⟩, ⟨M⟩) == yes:   # M が「自分自身の符号」を入力に取って停止するなら
-      loop forever            # わざと無限ループ
-  else:
-      halt                    # 停止
-</code></pre>
-<p>ここで D に「D 自身の符号 ⟨D⟩」を入力として与える：D(⟨D⟩) は？</p>
-<ul>
-<li>もし D(⟨D⟩) が停止するなら、定義により H(⟨D⟩,⟨D⟩)=yes だったはず → だが then 節は loop forever → 停止しない。矛盾。</li>
-<li>もし D(⟨D⟩) が停止しないなら、H(⟨D⟩,⟨D⟩)=no → else 節 → halt → 停止する。矛盾。</li>
-</ul>
-<p>どちらも矛盾。ゆえに H は存在し得ない。<strong>「自己言及＋否定」が古典的パラドックス（嘘つきのパラドックス、ラッセルのパラドックス、カントールの対角線論法）と同じ構造</strong>で、計算という文脈でそれが「決定不能性」として現れる。</p>
-<p>「停止性は決定不能」が意味するのは——<strong>完璧な「無限ループ検出器」「最適化コンパイラの停止保証」「リソース上限の事前判定」は原理的に作れない</strong>。実務では「ほとんどのケースで判定できる近似」（タイムアウト、停止性解析の保守的近似）で凌ぐ。</p>
-<h3>Rice の定理——「意味のあるプログラム解析はすべて決定不能」</h3>
-<p>停止問題の一般化であり、<strong>実務に最も効く一撃</strong>。Rice の定理（1953）：</p>
-<blockquote>
-<p><strong>プログラムが計算する関数（部分関数）についての、自明でない（trivial でない）あらゆる意味的（semantic）性質は決定不能である。</strong></p>
-</blockquote>
-<p>「自明でない」＝「その性質を持つプログラムも持たないプログラムも存在する」。「意味的（extensional）」＝「プログラムの<strong>入出力の振る舞い</strong>だけで決まる性質」（構文的な性質——「ソースが 100 行以下か」「<code>goto</code> を含むか——ではなく）。</p>
-<p>帰結（すべて決定不能）：</p>
-<ul>
-<li>このプログラムは恒等関数を計算するか？</li>
-<li>このプログラムは常に 0 を返すか？</li>
-<li>二つのプログラムは同じ関数を計算するか？（<strong>プログラム等価性判定</strong>——コンパイラ最適化の正しさ検証が原理的に自動化できない理由）</li>
-<li>このプログラムはすべての入力で停止するか？（<strong>全域性 totality</strong>）</li>
-<li>このプログラムはエラー（ゼロ除算、NULL 参照）を起こす入力があるか？（<strong>完全な静的バグ検出は不可能</strong>）</li>
-<li>このコードはマルウェアか（特定の悪性挙動を示すか）？（<strong>完全なウイルス検出は不可能</strong>——シグネチャや振る舞いヒューリスティクスに頼る理由）</li>
-</ul>
-<p>Rice の定理が言っているのは「<strong>プログラムを実行せずに、その"意味"を完全に知ることはできない</strong>」——プログラムの意味は、それを（あらゆる入力で）走らせること以外に確定する方法がない。これが静的解析ツール（型チェッカ、リンタ、定理証明器、抽象解釈）が<strong>必ず</strong>「保守的（soundness のために誤検出を許す）」または「不完全（false negative を許す）」になる根本理由。</p>
-<h3>決定不能性の「強さ」を測る——帰着と次数</h3>
-<p>決定不能問題にも階層がある。<strong>多対一帰着（many-one reduction）</strong> A ≤ₘ B：「A の問題例を B の問題例に変換する計算可能関数があり、答えが一致する」。A ≤ₘ B かつ B が決定可能なら A も決定可能——だから「B は A 以上に難しい」。停止問題は <strong>半決定可能（recursively enumerable, r.e.）</strong>——「停止する」ケースは（実際に走らせれば）有限時間で yes と分かるが、「停止しない」ケースは確認できない。その<strong>補集合（停止しない問題）は r.e. ですらない</strong>。さらに難しい問題（停止問題のオラクルを使っても解けない問題＝「停止問題の停止問題」…）が無限に積み重なり、これが <strong>算術的階層（arithmetical hierarchy）</strong> Σₙ / Πₙ。「∀x ∃y ...」のような論理式の量化子の交替数が、その述語の「計算不能性の度合い」に対応する——ロジックと計算が再び繋がる（[[2026-05-01_Curry_Howard同型と命題型対応]] の延長線上）。</p>
-<h3>ゲーデルとの関係——不完全性は決定不能性の影</h3>
-<p>ゲーデルの第一不完全性定理（「十分強い無矛盾な公理系には、真だが証明できない命題が存在する」）は、計算可能性の言葉で見通しよく言い換えられる：もし「論理式 φ が証明可能か」が決定可能なら、「TM M が停止するか」も決定可能になってしまう（停止は算術の命題として書ける）——だが停止問題は決定不能。ゆえに証明可能性は決定不能（Entscheidungsproblem への否定的回答＝チャーチとチューリングが 1936 に独立に示した）。<strong>「証明できる」⊊「真である」のギャップは、「決定できる」⊊「半決定できる」のギャップの論理版</strong>。</p>
-<h3>「決定不能を回避する」——制限という工学</h3>
-<p>理論が「不可能」と言ったら、工学は「では何を諦めればできるか」を問う。これが現代システムの至る所にある設計判断：</p>
-<ul>
-<li><strong>eBPF の verifier</strong>（[[2026-05-08_eBPFとLinuxカーネル可観測性]]、tech 既出）：任意プログラムの停止性判定は不可能 → だから eBPF は<strong>言語自体を制限</strong>（無制限ループ禁止／bounded loops のみ、命令数上限、有界スタック）して、停止性を<strong>決定可能な部分集合</strong>に押し込めた。「決定不能な問題は、入力を狭めれば決定可能になる」。</li>
-<li><strong>型システム</strong>：[[2026-04-24_Hindley_Milner型推論とlet多相]] の HM 型推論は決定可能、しかし System F（全称型の完全な型推論）は決定不能、依存型の型検査も一般には決定不能 → 言語設計者は「表現力 vs 判定可能性」を綱引きする。</li>
-<li><strong>正規表現と文脈自由文法</strong>：正規言語の包含・等価は決定可能、文脈自由言語の等価性は決定不能 → だから「正規表現の最適化」はできても「任意パーサの等価性チェック」はできない。</li>
-<li><strong>モデル検査</strong>：有限状態に限れば（あるいは抽象化して有限化すれば）性質検証は決定可能 → だからハードウェア検証や有限状態プロトコル検証は機械化できるが、無限状態系では半自動・近似に頼る。</li>
-<li><strong>全関数型言語（Agda, Idris の totality checker）</strong>：「停止しない関数」を書けないように構文を制限（構造的再帰のみ許す）→ チューリング完全性を犠牲にして「すべての関数が停止する」保証を得る。</li>
-</ul>
-<p>つまり <strong>「チューリング完全性」は両刃</strong>——万能だが解析不能。実用システムの多くは「ほぼ万能だが解析可能な部分集合」を慎重に選んでいる。設定ファイル形式が（うっかり）チューリング完全になると「設定の検証ができなくなる」（実話：sendmail 設定、一部の CSS/正規表現は意図せず計算能力が高すぎる）。</p>
-<h2>気づき・洞察</h2>
-<p>計算可能性理論の核は <strong>「自己言及は両刃の剣」</strong> という一点に尽きる。「プログラムをデータとして扱える（万能 TM、eval、メタプログラミング）」という強力さと、「プログラムについての完全な判定はできない（停止問題、Rice）」という限界は、<strong>同じコイン（万能性＝universality）の表裏</strong>。柔軟性のコストとして、自己分析の不可能性を払っている。これは脳が「自分自身を完全に理解できるか」という問いとも響くし、ゲーデル＝エッシャー＝バッハ的な「自己参照ループ」の主題そのもの。</p>
-<p>実務的に最も重要な悟りは——<strong>「完璧な静的解析が存在しないのは、ツールが未熟だからではなく、原理的に不可能だから」</strong>。だから「型チェッカが通ったのにバグがある」「リンタが見逃した」「ウイルス対策をすり抜けられた」は、努力不足ではなく Rice の定理の必然。ゆえに正しい戦略は「完璧を目指す」のではなく「<strong>どの近似（保守的 or 楽観的）を選ぶか、誤検出と見逃しのトレードオフをどう設計するか</strong>」——これは tech の MoE 負荷分散（「最適ルーティングは難しいから学習で近似」）、anatomy の把持力制御（「最適握力は計算できないから安全マージンで近似」）、golf のコースマネジメント（「完璧なショットは無理だから期待値で意思決定」）と完全に同じ思考様式。<strong>「理論が不可能と言う ⇒ 入力を制限する／近似で妥協する／トレードオフを明示的に設計する」——これがシステム工学の最も汎用的なパターン</strong>。</p>
-<p>そしてもう一つ：「無限のテープ × 有限の制御」という非対称が万能性の源、という構造は美しい。有限の DNA（制御）が無限に多様な環境（テープ）に対応する生物、有限のオーケストレーション（指揮者）が無限の音楽的状況に対応する演奏（[[ブラームス4番]]）、有限のルーター（MoE）が無限の入力に対応するモデル——「有限の規則 × 無限の状況」という普遍構造の、最も純粋な数学的表現がチューリングマシンだ。</p>
-<h2>他分野との接続</h2>
-<ul>
-<li><strong>tech（今日のエントリ・MoE）</strong>: ルーティングという組合せ最適化を「学習で近似」するのは、「決定不能／NP困難な問題を実用的近似で凌ぐ」の典型。また「重みを読んで走らせる推論エンジン」は万能 TM のインスタンス。</li>
-<li><strong>cs 内・[[2026-04-26_NP完全性とCook_Levin定理]]</strong>: 決定不能（できない）と NP完全（できるが遅い）は別の壁——計算理論は「解けるか（computability）」と「速く解けるか（complexity）」の二層構造。本エントリは下の層（より根源的な不可能性）。</li>
-<li><strong>cs 内・[[2026-05-01_Curry_Howard同型と命題型対応]] / [[2026-05-04_SSA形式とコンパイラ最適化]]</strong>: 型推論の判定可能性、コンパイラ最適化の正しさ検証——Rice の定理が「どこまで自動化できるか」の上限を引く。SSA も「保守的に近似された」データフロー解析。</li>
-<li><strong>解剖学（今日のエントリ・能動的触知覚）</strong>: 「物の性質は、能動的に探索する（走らせる）以外に確定できない」——プログラムの意味は実行する以外に確定できない、と構造が同じ。観測には介入が要る。</li>
-<li><strong>other（ゲーム理論）</strong>: ナッシュ均衡の計算（一般には PPAD 困難）、無限ゲームの解の存在——ゲーム理論にも「存在するが構成的に求まらない／効率的に求まらない」という計算可能性・計算量の壁がある。</li>
-<li><strong>music（ブラームスの developing variation）/ piano（ポリリズム）</strong>: 「有限の素材（8 小節の主題／2 つのリズム）を無限に変容させる」——有限の規則から無限の多様性を生む、万能 TM と同じ生成原理。</li>
-</ul>
-<h2>次に深掘りしたいこと</h2>
-<ul>
-<li><strong>再帰定理（Kleene's recursion theorem）</strong>：「任意のプログラムは自分自身の符号を取得できる」——quine（自己出力プログラム）やコンピュータウイルスの理論的基盤、不動点定理との関係</li>
-<li><strong>Busy Beaver 関数 Σ(n)</strong>：n 状態 TM が停止する前に書ける最大の 1 の数——計算可能でない（停止問題に帰着）、しかし小さい n では具体値が計算され、BB(5)=47,176,870 が 2024 に確定、BB(6) は天文学的でゲーデル独立の可能性も</li>
-<li><strong>オラクルマシンと相対化</strong>：P vs NP 問題が「相対化する技法では解けない」（Baker–Gill–Solovay）——証明技法の限界そのものを論じるメタ理論</li>
-<li><strong>Chaitin の Ω（停止確率）</strong>：アルゴリズム的にランダムな実数、コルモゴロフ複雑性と決定不能性の交点</li>
-<li><strong>超計算（hypercomputation）</strong>：チャーチ・チューリングのテーゼに「物理的に」反例はあり得るか（無限精度の実数計算、相対論的計算、量子重力…）——ほぼ全て否定的だが境界線の議論として面白い</li>
-</ul>
-<h2>主要参考ソース</h2>
-<ul>
-<li>Sipser, <em>Introduction to the Theory of Computation</em>（決定可能性・帰着・Rice の定理の標準教科書、Tier 1）</li>
-<li>Turing (1936), "On Computable Numbers, with an Application to the Entscheidungsproblem"（原典、Tier 1）</li>
-<li>Rice (1953), "Classes of recursively enumerable sets and their decision problems", <em>Transactions of the AMS</em>（原典、Tier 1）</li>
-<li>Hopcroft, Motwani &amp; Ullman, <em>Introduction to Automata Theory, Languages, and Computation</em>（Tier 1）</li>
-<li>Scott Aaronson, "Why Philosophers Should Care About Computational Complexity" / Busy Beaver の解説（Tier 2、現代的視点）</li>
-</ul>
-          <p class="domain-source"><a href="https://github.com/YamamotoNaoyuki/DailyLearning/blob/main/domains/cs/2026-05-12_計算可能性理論_チューリングマシン_停止問題_Riceの定理.md" target="_blank" rel="noopener">GitHub で raw .md を見る&nbsp;↗</a></p>
           <button type="button" class="collapse-card">▲ 閉じる</button>
         </div>
       </details>
@@ -2041,15 +1823,12 @@ details .detail-content {
     </section>
     <section class="section" id="next-actions">
       <h2 class="section-title">次のアクション</h2>
-      <details class="card card-tech">
-        <summary><span class="badge badge-tech">tech</span> テクノロジー</summary>
-        <div class="detail-content"><ul>
+      <div class="insight"><h3>tech</h3><ul>
 <li><strong>MoE のスケーリング則</strong>——エキスパート数 E と活性数 k の最適比、なぜ fine-grained が効くのか（"MoE scaling laws"）</li>
 <li><strong>Soft MoE / Mixture-of-Depths</strong> との組み合わせ、vision MoE</li>
 <li><strong>per-expert quantization と SSD オフロード推論</strong>——使われないエキスパートを積極的に圧縮する</li>
 <li><strong>upcycling</strong>——dense モデルを後から MoE に分割して継続学習する手法の実態（Mixtral 説の検証）</li>
 </ul></div>
-      </details>
       <details class="card card-music">
         <summary><span class="badge badge-music">music</span> 音楽</summary>
         <div class="detail-content"><ul>
@@ -2086,24 +1865,18 @@ details .detail-content {
 <li>演奏家・職人の S1 可塑性とフォーカル・ジストニア（過剰な可塑性？）の関係</li>
 </ul></div>
       </details>
-      <details class="card card-bread">
-        <summary><span class="badge badge-bread">bread</span> パン</summary>
-        <div class="detail-content"><ul>
+      <div class="insight"><h3>bread</h3><ul>
 <li>クラスト⇄クラムの水分動態（水分活性 aw 勾配によるリディストリビューション）の物理モデル</li>
 <li>テクスチャアナライザによる staling の定量、DSC での retrogradation エンタルピー測定</li>
 <li>冷凍生地（par-baked / frozen dough）の科学——冷凍が酵母・グルテン・澱粉に与えるダメージ、急速 vs 緩慢冷凍</li>
 <li>レジスタントスターチ RS1〜RS4 の分類と、パンの GI を意図的に下げるパン作り（冷却サイクル＋全粒＋サワードウ）</li>
 </ul></div>
-      </details>
-      <details class="card card-cs">
-        <summary><span class="badge badge-cs">cs</span> CS</summary>
-        <div class="detail-content"><ul>
+      <div class="insight"><h3>cs</h3><ul>
 <li><strong>再帰定理（Kleene's recursion theorem）</strong>——「任意のプログラムは自分自身の符号を取得できる」、quine とウイルスの理論的基盤</li>
 <li><strong>Busy Beaver 関数 Σ(n)</strong>——計算可能でないが小さい n では具体値（BB(5)=47,176,870 が 2024 に確定）、BB(6) のゲーデル独立性</li>
 <li>オラクルマシンと相対化——P vs NP が「相対化する技法では解けない」（Baker–Gill–Solovay）</li>
 <li>Chaitin の Ω（停止確率）、コルモゴロフ複雑性と決定不能性の交点</li>
 </ul></div>
-      </details>
       <details class="card card-house-hunting">
         <summary><span class="badge badge-house-hunting">house</span> 家探し</summary>
         <div class="detail-content"><ul>
