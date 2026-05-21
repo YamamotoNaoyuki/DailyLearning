@@ -52,14 +52,13 @@ TOP_LINKS: List[Tuple[str, str]] = [
 ]
 
 # (フォルダ名, バッジ表示名, CSS サフィックス, アクション節用の日本語名)
+# 過去ドメイン（tech / cs / bread / philosophy / sdv）は domains/_archive/ に退避済みのため、現役ローテーション対象外。
+# 過去レポートで使われていた CSS サフィックスは docs/style.css に残してある（既存 HTML の表示を壊さないため）。
 DOMAINS: List[Tuple[str, str, str, str]] = [
-    ("tech", "tech", "tech", "テクノロジー"),
     ("music", "music", "music", "音楽"),
     ("piano", "piano", "piano", "ピアノ"),
     ("golf", "golf", "golf", "ゴルフ"),
     ("anatomy", "anatomy", "anatomy", "解剖学"),
-    ("bread", "bread", "bread", "パン"),
-    ("cs", "cs", "cs", "CS"),
     ("house-hunting", "house", "house-hunting", "家探し"),
     ("deutsch", "deutsch", "deutsch", "ドイツ語"),
     ("other", "other", "other", "その他"),

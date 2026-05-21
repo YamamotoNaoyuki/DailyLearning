@@ -2,3 +2,4 @@
 config/.env
 data/logs/
 data/x/
+.claude/settings.local.json
