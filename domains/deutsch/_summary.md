@@ -1,8 +1,8 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-05-29
-**エントリ数**: 54
-**フレーズ数**: 212
+**最終更新**: 2026-05-30
+**エントリ数**: 55
+**フレーズ数**: 216
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
 
@@ -70,6 +70,7 @@
 - **2026-04-29**: お金と財政（Geld und Finanzen II — pleite, ins Geld gehen, jeden Cent zweimal umdrehen, Haushalt durchforsten）
 
 ## 蓄積された知識
+- **Umzug und Wohnungssuche / 引っ越しと部屋探し（2026-05-30）**: `Wir haben die Wohnung leider doch nicht bekommen — die Konkurrenz war einfach zu groß.`（neutral, 都市部の競争で落選を報告／*zum Zug kommen*=採用される）、`Was zahlt ihr denn warm? — Die Kaltmiete ist okay, aber die Nebenkosten haben's in sich.`（umg., 家賃比較／*es in sich haben*=見かけ以上に手強い）、`Drei Kaltmieten Kaution? Das muss ich erst mal stemmen können.`（umg., 敷金の工面／*stemmen*=重い負担をこなす）、`Sobald der Mietvertrag unterschrieben ist, müssen wir uns ummelden und einen Nachsendeauftrag stellen.`（neutral, 引っ越し手続き）。文法: ①**Kaltmiete/Warmmiete**＝ドイツ賃貸文化の核心二分法（kalt=部屋使用料のみ/warm=Nebenkosten込み）、Nebenkostenは「die zweite Miete第二の家賃」の俗称、大半はHeizkosten=断熱性能[[house-hunting:断熱性能と省エネ基準]]に直結（独のEnergieausweisは日本の省エネ性能表示の先輩格）②**Kaution上限はKaltmiete3か月分**(BGB§551、分割払い権あり)③`sich ummelden/anmelden/abmelden`の3点セット＝引っ越し後**原則2週間以内**に役所で住民登録義務(Bundesmeldegesetz)、Anmeldungにはvom Vermieter発行の**Wohnungsgeberbestätigung**が必要④`sobald`は時の従属接続詞で動詞文末＋`ist unterschrieben`は状態受動(Zustandspassiv)⑤`Nachsendeauftrag`(nach+senden+Auftrag)・`einen Auftrag/Antrag stellen`＝独の手続き文化が生む機能複合名詞。**気づき**——金銭負担を身体メタファーで語る(stemmen=持ち上げる/es in sich haben/happig)、行政手続き文化と長大複合名詞の共進化
 - **Sich beschweren und sich aufregen / 不満・愚痴・苛立ち（2026-05-29）**: `Ich hab von dem ganzen Theater jetzt echt die Schnauze voll.`（umg., ウンザリの最強カード）、`Wenn der nochmal so mit mir redet, platzt mir echt der Kragen — ich bin eh schon auf 180.`（umg., 怒りの爆発前夜）、`Reg dich doch nicht so auf — aber ehrlich, über sowas könnt ich mich tierisch aufregen.`（umg.〜neutral, 友人への共感的愚痴）、`Das darf doch wohl nicht wahr sein! Die haben den Termin einfach storniert — so eine Frechheit!`（umg., 呆れ・憤慨の感嘆）。※5/01 Frust（auf den Keks / Mir reicht's / fertig machen / 丁寧な騒音クレーム）と非重複
 - **die Schnauze/Nase voll haben (von + Dativ)**: 「もうたくさん・うんざり」。対象は *von + 3格*（人にも *von dem*）。段階 *die Nase voll*（中立〜口語）< *die Schnauze voll*（粗・*Maul/Schnauze* の動物→人転用は16世紀から、*Halt die Schnauze!* と同系の粗さ）< ***die Schnauze gestrichen voll***（すりきり一杯＝最上級）。類義 *Das hängt mir zum Hals raus* / *Mir steht das bis hier*（喉元のジェスチャー）/ *Ich kann's nicht mehr hören*
 - **jdm. platzt der Kragen / auf 180 sein**: *jdm. platzt der Kragen* ＝堪忍袋の緒が切れる（*mir/dir* は **Pertinenzdativ**＝所属の与格「私の襟」を3格＋定冠詞で、cf. 5/8痛み *im Rücken*。激昂で首が膨れ襟が破裂する身体感覚）。*auf 180 sein* ＝激怒・カリカリ（**状態**）↔ *auf 180 bringen*（**使役**=激怒させる）。怒り上昇メタファー群 *an die Decke gehen*（天井へ）/ *in die Luft gehen* / *in Rage geraten*（やや文語）/ *aus der Haut fahren* / *der Geduldsfaden reißt* / *ausrasten・ausflippen*（キレる、若者寄り）
