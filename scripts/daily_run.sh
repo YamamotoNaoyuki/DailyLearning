@@ -42,3 +42,19 @@ else
   log "=== /learn でエラー発生（exit code $?）==="
   exit 1
 fi
+
+# 当日エントリのネタ被り監査（実ファイルから台帳を再構築 → 当日衝突をチェック）。
+# 監視目的。重複を検出しても日次実行は失敗させない。
+log "=== ネタ被り監査 ==="
+python3 "$PROJECT_DIR/scripts/build_ledger.py" >> "$LOGFILE" 2>&1 || log "build_ledger スキップ（exit $?）"
+if python3 "$PROJECT_DIR/scripts/audit_ledger.py" --new "$DATE" >> "$LOGFILE" 2>&1; then
+  log "=== 監査: 当日エントリに既習との衝突なし ==="
+else
+  log "=== ⚠ 監査: 当日エントリが既習トピックと衝突（上のログ参照・要確認）==="
+fi
+
+# 週次（月曜）は全期間の重複サマリーもログに残す
+if [ "$(date +%u)" -eq 1 ]; then
+  log "=== 週次フル重複監査 ==="
+  python3 "$PROJECT_DIR/scripts/audit_ledger.py" >> "$LOGFILE" 2>&1 || true
+fi
