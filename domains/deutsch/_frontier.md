@@ -6,7 +6,6 @@
 - ⚠ このドメインはタグの多言語混在で機械監査が効きにくい。**過去の生活シーンと被らないか、台帳のタイトルを必ず目視確認**すること。
 
 ## 待ち行列
-- [ ] ビジネスメールの定型（Sehr geehrte… → Mit freundlichen Grüßen の中間バリエーション、依頼・督促・お詫び・件名）と留守番電話/ボイスメッセージ
 - [ ] ポジティブな感情の口語（喜び・興奮・感謝・感動・誇り）——現状 Frust/怒り側に偏重した裏面
 - [ ] 苦情・交渉のフォーマル書面（Beschwerdebrief、Widerspruch異議申立、Mängelanzeige、Kündigung文面の実テンプレ）
 - [ ] Jugendsprache/ネットスラングの体系（geil/cringe/Digga/sus・絵文字・略語 kA/vllt/hdl）と世代差
@@ -19,6 +18,8 @@
 - [ ] オンライン手続きの実務会話（オンラインバンキング、カスタマーサポートとのチャット、サブスク解約の電話）
 
 - [ ] 数・時刻・日付・電話番号の口語読み上げ（halb drei／Viertel vor／電話番号の2桁読み・序数・分数）
+- [ ] Nominalstil（名詞化文体）の文法体系——どこまで名詞化すると「お役所的で冷たい」と感じられるかの境界
 ## 消化済み（記録用）
 <!-- 採用した軸を日付つきでここへ移す -->
 - [x] 2026-06-03 役所窓口（Bürgeramt/Ausländerbehörde）——Termin・Anmeldung・Aufenthaltstitel更新・Fiktionswirkung
+- [x] 2026-06-04 ビジネスメールと留守番電話（依頼/督促/お詫びの定型・aufgrund+2格の非人称化・auf Wiederhören・Konjunktiv II書面用法）

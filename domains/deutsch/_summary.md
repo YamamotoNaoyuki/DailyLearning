@@ -1,7 +1,7 @@
 # 🇩🇪 ドイツ語 分野サマリー
 
-**最終更新**: 2026-06-03
-**エントリ数**: 59
+**最終更新**: 2026-06-04
+**エントリ数**: 60
 **フレーズ数**: 232
 
 **分野の方針**: telc B1取得済みの学習者が、毎日4つの「教科書的でない、ネイティブが実際に使う」フレーズを学ぶ。テーマは毎回変え、日常会話力の幅を広げる。
@@ -74,6 +74,7 @@
 - **2026-04-29**: お金と財政（Geld und Finanzen II — pleite, ins Geld gehen, jeden Cent zweimal umdrehen, Haushalt durchforsten）
 
 ## 蓄積された知識
+- **Geschäftliche E-Mails und Anrufbeantworter（ビジネスメールと留守番電話）(2026-06-04)**——口語・話し言葉に偏った蓄積に**初のフォーマル書き言葉レジスター**を追加。対面formal（役所窓口[[役所窓口Bürgeramt_Ausländerbehördeの会話]]）に対し書面formal。フレーズ4つ＝①丁寧な依頼「**Ich würde mich freuen, wenn Sie … zukommen lassen könnten**」（主節も従属節もKonjunktiv IIの二重仮定法で押しつけを消す、件名はzu+名詞）②やんわり督促「**Ich wollte mich nur kurz erkundigen, ob … Vielleicht ist sie ja untergegangen**」（過去形wollteで圧を下げ、相手に逃げ道を作る婉曲）③お詫び「**Bitte entschuldigen Sie … Aufgrund eines Missverständnisses ist … liegen geblieben**」（aufgrund+2格で理由を名詞化・非人称化＝言い訳がましさを消す）④留守電「**hier spricht … Ich erreiche Sie leider nicht … auf Wiederhören**」（電話の名乗りhier spricht、erreichenの視点反転、電話専用の別れWiederhören）。**核心洞察**＝独語ビジネス文体の核は**名詞化(Nominalstil)と非人称化による感情の中和**（「私が忘れた」→「行き違いが生じた」、日本語敬語の「〜となっております」と相同）／Konjunktiv IIは口語では任意の角取り、書面では省略不可の依頼標準フォームへ昇格／auf Wiederhören一語に「見る/聞く」を媒体で厳密に分ける独語の感覚モダリティへの几帳面さ[[anatomy:聴覚系の解剖生理]]。**累積フレーズ数+4**
 - **Umzug und Wohnungssuche / 引っ越しと部屋探し（2026-05-30）**: `Wir haben die Wohnung leider doch nicht bekommen — die Konkurrenz war einfach zu groß.`（neutral, 都市部の競争で落選を報告／*zum Zug kommen*=採用される）、`Was zahlt ihr denn warm? — Die Kaltmiete ist okay, aber die Nebenkosten haben's in sich.`（umg., 家賃比較／*es in sich haben*=見かけ以上に手強い）、`Drei Kaltmieten Kaution? Das muss ich erst mal stemmen können.`（umg., 敷金の工面／*stemmen*=重い負担をこなす）、`Sobald der Mietvertrag unterschrieben ist, müssen wir uns ummelden und einen Nachsendeauftrag stellen.`（neutral, 引っ越し手続き）。文法: ①**Kaltmiete/Warmmiete**＝ドイツ賃貸文化の核心二分法（kalt=部屋使用料のみ/warm=Nebenkosten込み）、Nebenkostenは「die zweite Miete第二の家賃」の俗称、大半はHeizkosten=断熱性能[[house-hunting:断熱性能と省エネ基準]]に直結（独のEnergieausweisは日本の省エネ性能表示の先輩格）②**Kaution上限はKaltmiete3か月分**(BGB§551、分割払い権あり)③`sich ummelden/anmelden/abmelden`の3点セット＝引っ越し後**原則2週間以内**に役所で住民登録義務(Bundesmeldegesetz)、Anmeldungにはvom Vermieter発行の**Wohnungsgeberbestätigung**が必要④`sobald`は時の従属接続詞で動詞文末＋`ist unterschrieben`は状態受動(Zustandspassiv)⑤`Nachsendeauftrag`(nach+senden+Auftrag)・`einen Auftrag/Antrag stellen`＝独の手続き文化が生む機能複合名詞。**気づき**——金銭負担を身体メタファーで語る(stemmen=持ち上げる/es in sich haben/happig)、行政手続き文化と長大複合名詞の共進化
 - **Sich beschweren und sich aufregen / 不満・愚痴・苛立ち（2026-05-29）**: `Ich hab von dem ganzen Theater jetzt echt die Schnauze voll.`（umg., ウンザリの最強カード）、`Wenn der nochmal so mit mir redet, platzt mir echt der Kragen — ich bin eh schon auf 180.`（umg., 怒りの爆発前夜）、`Reg dich doch nicht so auf — aber ehrlich, über sowas könnt ich mich tierisch aufregen.`（umg.〜neutral, 友人への共感的愚痴）、`Das darf doch wohl nicht wahr sein! Die haben den Termin einfach storniert — so eine Frechheit!`（umg., 呆れ・憤慨の感嘆）。※5/01 Frust（auf den Keks / Mir reicht's / fertig machen / 丁寧な騒音クレーム）と非重複
 - **die Schnauze/Nase voll haben (von + Dativ)**: 「もうたくさん・うんざり」。対象は *von + 3格*（人にも *von dem*）。段階 *die Nase voll*（中立〜口語）< *die Schnauze voll*（粗・*Maul/Schnauze* の動物→人転用は16世紀から、*Halt die Schnauze!* と同系の粗さ）< ***die Schnauze gestrichen voll***（すりきり一杯＝最上級）。類義 *Das hängt mir zum Hals raus* / *Mir steht das bis hier*（喉元のジェスチャー）/ *Ich kann's nicht mehr hören*
