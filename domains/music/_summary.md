@@ -484,3 +484,13 @@
 - **Schumann 1835年批評**: 《Neue Zeitschrift für Musik》に6回連載、生涯最長の批評。Lisztのピアノ二手編曲（1833-34、S.470）のみを通じて作品を知った——「翻訳（ピアノ版）が原作の歴史的運命を規定する」逆説
 - **標題音楽の蝶番**: Beethoven《田園》（1808、感情表現の控えめな標題）→ Berlioz（明示的物語と人物）→ Liszt交響詩（1854-）→ R. Strauss交響詩群。プログラムは古典規範からの逸脱を許可する「免許状」
 - **Lélio, ou Le retour à la vie**（1831-32作曲、1832年12月9日初演）: 幻想交響曲の続編mélologue。6つの音楽と語りでidée fixeが再登場。両作で《Épisode de la vie d'un artiste》という統一二部作を形成
+
+- **シェンカー理論 vs 新リーマン理論（2026-06-05）——音楽分析の二大パラダイム**: 初の「分析手法そのもの」を扱うメタレベルエントリ。シェンカー＝階層的還元（reductive）、新リーマン＝群論的変換（transformational）の対比軸
+- **シェンカー三層構造（Schichten）**: 前景（Vordergrund）→中景（Mittelgrund）→背景（Hintergrund）。背景に根本構造 Ursatz が現れる。楽曲全体は1つの主和音の時間方向への引き伸ばし（prolongation）に還元される
+- **Ursatz / Urlinie / Bassbrechung**: Urlinie＝主和音構成音からの全音階下行（3̂-2̂-1̂等）、Bassbrechung＝I-V-I。Ursatz は定義上転調を含めない（全音階の檻）→半音階音楽に弱い
+- **Stufe（音度）の革命**: ラモーの basse fondamentale（局所的和音ラベル）から、「ある音度に統べられた区間全体」への転換。和声分析が再帰的入れ子（recursion）になった。prolongation＝簡約規則、Auskomponierung＝composing-out（生成）
+- **生成 vs 還元の方向性**: シェンカー自身は生成的記述（Ursatz→楽譜）だが、実務のSchenkerian analysisは還元的（楽譜→Ursatz）。コンパイラのparsing/生成文法の双対と同型
+- **新リーマンPLR変換**: P(Parallel)=第3音半音、L(Leittonwechsel導音交換)=根音半音、R(Relative)=第5音全音。いずれも2共通音保持の倹約的声部進行（parsimonious voice leading）、自己逆元、文脈的反転（リーマン二元論の継承）
+- **群論的構造**: PLR群 ≅ 位数24の二面体群 D₂₄、24三和音に単純推移的に作用（torsor）。T/I群（移調・反転）とPLR群はS₂₄の中で互いの中心化群＝Lewinian duality（正則表現の左右作用の音楽的実現）
+- **Tonnetz**: 完全5度・長3度・短3度の三軸三角格子。三角形＝三和音、辺共有＝2共通音。12平均律で位相的にトーラスになる。PLを交互→六声循環（hexatonic cycle, 4系で24分割）、RLを交互→八声循環。コーンの maximally smooth cycles＝トーラス上の最短閉測地線
+- **哲学的対比**: シェンカー＝中心（トニック）を持つ階層的・神学的宇宙（一者への還元）／新リーマン＝中心なき対称的平坦空間（全三和音が等価＝推移的作用）。機能的調性はシェンカー、機能崩壊後（ワーグナー以降）は新リーマンが担当
