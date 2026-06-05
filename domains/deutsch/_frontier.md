@@ -7,7 +7,6 @@
 
 ## 待ち行列
 - [ ] 苦情・交渉のフォーマル書面（Beschwerdebrief、Widerspruch異議申立、Mängelanzeige、Kündigung文面の実テンプレ）
-- [ ] Jugendsprache/ネットスラングの体系（geil/cringe/Digga/sus・絵文字・略語 kA/vllt/hdl）と世代差
 - [ ] ドイツ語方言・地域差の俯瞰（バイエルン/シュヴァーベン/ベルリン/北独 moin、gucken vs schauen を超えた体系）
 - [ ] 子育て・家族運営の口語（しつけ・保育園Kita・学校Elternabend・子どもへの語りかけ）
 - [ ] 数・時刻・日付・電話番号の口語読み上げ（halb drei、Viertel vor、2桁ずつ読む電話番号、序数・分数）
@@ -20,8 +19,11 @@
 - [ ] Nominalstil（名詞化文体）の文法体系——どこまで名詞化すると「お役所的で冷たい」と感じられるかの境界
 - [ ] 驚き・落胆・安堵の口語（Oh Mann / Gott sei Dank / na endlich / puh）——感情語彙の残り象限を埋める
 - [ ] 強調語・程度副詞の体系（sehr/total/echt/voll/mega/tierisch/wahnsinnig の使い分けと共起制限）
+- [ ] Jugendsprache の世代交代速度——なぜスラングは2〜3年で「cringe」化するのか（記号の摩耗の速度論）
+- [ ] 略語体系（kA/vllt/hdl/wmds）のチャット文法
 ## 消化済み（記録用）
 <!-- 採用した軸を日付つきでここへ移す -->
+- [x] 2026-06-06 Jugendsprache und Netzslang（Digga/cringe/Aura/das crazy・英語借用のドイツ語屈折/統語への組込み・無動詞構文・in-group marker）
 - [x] 2026-06-03 役所窓口（Bürgeramt/Ausländerbehörde）——Termin・Anmeldung・Aufenthaltstitel更新・Fiktionswirkung
 - [x] 2026-06-04 ビジネスメールと留守番電話（依頼/督促/お詫びの定型・aufgrund+2格の非人称化・auf Wiederhören・Konjunktiv II書面用法）
 - [x] 2026-06-05 ポジティブな感情の口語（Freude/Begeisterung/Dankbarkeit/Rührung/Stolz・縮約 freu' mich・強調語インフレ riesig/total・Wahnsinnの負→正転用・sich freuen auf vs über・stolz drauf・wissen+zu）
