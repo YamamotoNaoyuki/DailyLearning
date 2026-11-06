@@ -86,7 +86,8 @@ EOF
   fi
 
   log "=== レポート HTML 生成 ==="
-  python3 "$PROJECT_DIR/scripts/build_report_html.py" "$DATE" >> "$LOGFILE" 2>&1 || log "build_report_html 失敗（exit $?）"
+  # markdown ライブラリが要るので venv の python を使う（GMK の /usr/bin/python3 には外部パッケージを入れない）
+  "$HOME/.venvs/py/bin/python3" "$PROJECT_DIR/scripts/build_report_html.py" "$DATE" >> "$LOGFILE" 2>&1 || log "build_report_html 失敗（exit $?）"
 
   log "=== Git コミット & プッシュ ==="
   git add "$REPORT_MD" "$PROJECT_DIR/docs" >> "$LOGFILE" 2>&1 || true
