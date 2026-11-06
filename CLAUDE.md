@@ -133,6 +133,14 @@ kage-bunshin/
 
 ---
 
+## 実行環境
+
+- GMK（Ubuntu 24.04）の crontab で毎朝 6:00 に `scripts/daily_run.sh` を実行。今は `RUN_LEARN=0`（X ダイジェストのみ）
+- `build_report_html.py` は `~/.venvs/py/bin/python3` で実行する（markdown が要る。`/usr/bin/python3` には外部パッケージを入れない）
+- ほかのスクリプトは標準ライブラリだけなので `python3` でよい
+
+---
+
 ## Claudeへの重要な指示
 
 1. **エントリ作成時**: 必ず `_summary.md` と `_ledger.jsonl`（`build_ledger.py` で）と `_frontier.md` も更新すること

@@ -15,7 +15,7 @@ build_report_html.py — 日次学習レポートを「自己完結 HTML」に�
 - `docs/index.html` を再生成し、`docs/reports/` に既に存在するレポートのナビ（前日/翌日）も
   整合するよう貼り直す（過去 .md の一括 HTML 化はしない＝既存 .html があるものだけ）。
 
-依存: 標準ライブラリ + `markdown`（`pip install markdown` / 既存環境では導入済み）。
+依存: 標準ライブラリ + `markdown`（`~/.venvs/py` に導入済み。`/usr/bin/python3` には外部パッケージを入れない）。
 """
 from __future__ import annotations
 
@@ -31,7 +31,7 @@ from typing import Any, Dict, List, Optional, Tuple
 try:
     import markdown as _markdown
 except ImportError:  # pragma: no cover
-    sys.exit("エラー: Python の markdown ライブラリが必要です（pip install markdown）。")
+    sys.exit("エラー: Python の markdown ライブラリが必要です（~/.venvs/py/bin/python3 で実行してください）。")
 
 # --- パス定義 ----------------------------------------------------------------
 ROOT = Path(__file__).resolve().parent.parent
