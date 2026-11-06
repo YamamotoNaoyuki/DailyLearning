@@ -7,7 +7,7 @@
 
 set -euo pipefail
 
-export PATH="/Users/nao/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
+export PATH="/Users/nao/.local/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
 
 PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 set -a
@@ -87,15 +87,29 @@ EOF
 
   log "=== レポート HTML 生成 ==="
   # markdown ライブラリが要るので venv の python を使う（GMK の /usr/bin/python3 には外部パッケージを入れない）
-  "$HOME/.venvs/py/bin/python3" "$PROJECT_DIR/scripts/build_report_html.py" "$DATE" >> "$LOGFILE" 2>&1 || log "build_report_html 失敗（exit $?）"
+  FAILED=""
+  if "$HOME/.venvs/py/bin/python3" "$PROJECT_DIR/scripts/build_report_html.py" "$DATE" >> "$LOGFILE" 2>&1; then
+    [ -s "$PROJECT_DIR/docs/reports/${DATE}.html" ] || FAILED="HTML が生成されていない"
+  else
+    FAILED="build_report_html 失敗（exit $?）"
+  fi
 
   log "=== Git コミット & プッシュ ==="
   git add "$REPORT_MD" "$PROJECT_DIR/docs" >> "$LOGFILE" 2>&1 || true
   if git diff --cached --quiet; then
     log "=== コミット対象なし ==="
-  else
-    git commit -m "🐦 X ダイジェスト ${DATE}" >> "$LOGFILE" 2>&1 || true
-    git push >> "$LOGFILE" 2>&1 || log "push 失敗（exit $?）"
-    log "=== 公開完了: https://yamamotonaoyuki.github.io/DailyLearning/reports/${DATE}.html ==="
+  elif ! git commit -m "🐦 X ダイジェスト ${DATE}" >> "$LOGFILE" 2>&1; then
+    FAILED="${FAILED:+$FAILED / }commit 失敗"
   fi
+  # 前回 push できなかったコミットも送れるよう、コミットの有無によらず push する
+  git push >> "$LOGFILE" 2>&1 || FAILED="${FAILED:+$FAILED / }push 失敗"
+
+  if [ -n "$FAILED" ]; then
+    log "=== ❌ 公開失敗: ${FAILED} ==="
+    # 通知の送り方は CMIP の notify.py（httpx が要るので venv の python で呼ぶ）
+    "$HOME/.venvs/py/bin/python3" "$HOME/agents/ClassicalMusicInfoPortal/scripts/notify.py" \
+      "⚠️ DailyLearning 公開失敗 ${DATE}" "${FAILED}" >> "$LOGFILE" 2>&1 || log "通知失敗（exit $?）"
+    exit 1
+  fi
+  log "=== 公開完了: https://yamamotonaoyuki.github.io/DailyLearning/reports/${DATE}.html ==="
 fi
